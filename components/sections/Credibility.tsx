@@ -1,0 +1,95 @@
+'use client';
+
+import React from 'react';
+import { useLocale, useTranslations } from 'next-intl';
+import { Award, BookOpen, Clock, Globe2, UserCheck } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+export default function Credibility() {
+  const t = useTranslations('Credibility');
+  const locale = useLocale();
+  const isRtl = locale === 'ar';
+
+  const differentiators = [
+    {
+      icon: <Award className="text-gold w-5 h-5" />,
+      title: t('diff1Title'),
+      desc: t('diff1Desc'),
+    },
+    {
+      icon: <UserCheck className="text-gold w-5 h-5" />,
+      title: t('diff2Title'),
+      desc: t('diff2Desc'),
+    },
+    {
+      icon: <Globe2 className="text-gold w-5 h-5" />,
+      title: t('diff3Title'),
+      desc: t('diff3Desc'),
+    },
+    {
+      icon: <BookOpen className="text-gold w-5 h-5" />,
+      title: t('diff4Title'),
+      desc: t('diff4Desc'),
+    },
+    {
+      icon: <Clock className="text-gold w-5 h-5" />,
+      title: t('diff5Title'),
+      desc: t('diff5Desc'),
+    },
+  ];
+
+  return (
+    <section className="bg-navy-sapphire py-20 relative z-10 border-b border-gold-muted/15">
+      <div className="max-w-7xl mx-auto px-6 text-center">
+        {/* Section Header */}
+        <h2
+          className={`text-title text-parchment font-bold mb-16 tracking-wide max-w-2xl mx-auto leading-tight ${
+            isRtl ? 'font-amiri' : 'font-cormorant'
+          }`}
+        >
+          {t('title')}
+        </h2>
+
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 xl:gap-6 items-stretch">
+          {differentiators.map((diff, index) => (
+            <motion.div
+              key={index}
+              className="group bg-gradient-to-b from-white/[0.06] to-white/[0.02] backdrop-blur-lg border border-gold-hi/30 rounded-2xl px-2 xl:px-4 py-8 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_45px_rgba(0,0,0,0.45)] hover:shadow-gold-hi/5 hover:border-gold-hi/75 cursor-pointer h-full relative overflow-hidden"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.6, delay: index * 0.08 }}
+            >
+              {/* Decorative top-accent gold line */}
+              <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-gold-muted/30 via-gold-hi to-gold-muted/30 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
+
+              {/* Icon wrapper */}
+              <div className="w-12 h-12 bg-white/5 border border-gold-hi/20 rounded-full flex items-center justify-center mb-6 shadow-md text-gold-hi shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                {diff.icon}
+              </div>
+              
+              {/* Title */}
+              <h3
+                className={`text-xs lg:text-[9px] xl:text-[11px] 2xl:text-xs font-extrabold text-gold-hi mb-4 tracking-wider whitespace-nowrap w-full text-center uppercase ${
+                  isRtl ? 'font-cairo' : 'font-dm'
+                }`}
+              >
+                {diff.title}
+              </h3>
+              
+              {/* Description */}
+              <p
+                className={`text-[11px] xl:text-xs text-parchment/80 leading-relaxed text-center w-full ${
+                  isRtl ? 'font-noto' : 'font-lora'
+                }`}
+              >
+                {diff.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

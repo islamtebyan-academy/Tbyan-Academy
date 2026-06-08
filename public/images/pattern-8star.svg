@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">
+  <style>
+    .star { fill: none; stroke: #B8841A; stroke-width: 0.5; opacity: 0.25; }
+    .line { fill: none; stroke: #B8841A; stroke-width: 0.25; opacity: 0.15; stroke-dasharray: 2 2; }
+  </style>
+  <!-- Connection lines to form a grid -->
+  <line x1="0" y1="40" x2="80" y2="40" class="line" />
+  <line x1="40" y1="0" x2="40" y2="80" class="line" />
+  <line x1="0" y1="0" x2="80" y2="80" class="line" />
+  <line x1="80" y1="0" x2="0" y2="80" class="line" />
+
+  <!-- Center Star -->
+  <g transform="translate(40, 40)">
+    <rect x="-10" y="-10" width="20" height="20" class="star" />
+    <rect x="-10" y="-10" width="20" height="20" class="star" transform="rotate(45)" />
+    <circle cx="0" cy="0" r="3" fill="none" stroke="#B8841A" stroke-width="0.5" opacity="0.3" />
+  </g>
+
+  <!-- Corner Stars (tiled) -->
+  <g transform="translate(0, 0)">
+    <rect x="-5" y="-5" width="10" height="10" class="star" />
+    <rect x="-5" y="-5" width="10" height="10" class="star" transform="rotate(45)" />
+  </g>
+  <g transform="translate(80, 0)">
+    <rect x="-5" y="-5" width="10" height="10" class="star" />
+    <rect x="-5" y="-5" width="10" height="10" class="star" transform="rotate(45)" />
+  </g>
+  <g transform="translate(0, 80)">
+    <rect x="-5" y="-5" width="10" height="10" class="star" />
+    <rect x="-5" y="-5" width="10" height="10" class="star" transform="rotate(45)" />
+  </g>
+  <g transform="translate(80, 80)">
+    <rect x="-5" y="-5" width="10" height="10" class="star" />
+    <rect x="-5" y="-5" width="10" height="10" class="star" transform="rotate(45)" />
+  </g>
+</svg>

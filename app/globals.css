@@ -1,0 +1,243 @@
+@import "tailwindcss";
+
+@theme {
+  --color-midnight: #0d1624;
+  --color-navy: #22314b;
+  --color-navy-deep: #22314b;
+  --color-navy-sapphire: #22314b;
+  --color-navy-pressed: #182234;
+  --color-navy-vetting: #122038;
+  --color-navy-brand: #091521;
+  --color-gold: #B8841A;
+  --color-gold-hi: #D4A843;
+  --color-gold-champagne: #D4A843;
+  --color-gold-muted: #7A5C12;
+  --color-parchment: #F2ECD8;
+  --color-ivory: #FDFAF3;
+  --color-sand: #DDD0B3;
+  --color-taupe: #8C7A68;
+  --color-ink: #1C1C1E;
+  --color-stone: #6B6052;
+  --color-copper: #A0522D;
+
+  --background-image-hero: linear-gradient(135deg, #162742 0%, #22314b 60%, #0d1624 100%);
+  --background-image-hero-gold: linear-gradient(135deg, #162742 0%, #22314b 55%, #B8841A 140%);
+  --background-image-gold-shimmer: linear-gradient(90deg, #7A5C12, #D4A843, #B8841A, #D4A843, #7A5C12);
+  --background-image-overlay: linear-gradient(180deg, rgba(34, 49, 75, 0.85), rgba(13, 22, 36, 0.97));
+  --background-image-parchment-fade: linear-gradient(180deg, #FDFAF3 0%, #F2ECD8 100%);
+  --background-image-card-dark: linear-gradient(145deg, #162742, #22314b);
+
+  --font-cormorant: var(--font-cormorant), Georgia, serif;
+  --font-lora: var(--font-lora), serif;
+  --font-dm: var(--font-dm-sans), system-ui, sans-serif;
+  --font-amiri: var(--font-amiri), serif;
+  --font-noto: var(--font-noto-arabic), serif;
+  --font-cairo: var(--font-cairo), system-ui, sans-serif;
+
+  --animate-gold-shimmer: goldShimmer 3s ease-in-out infinite;
+  --animate-pattern-drift: patternDrift 60s linear infinite;
+  --animate-fade-up: fadeUp 0.6s ease-out forwards;
+  --animate-fade-in: fadeIn 0.4s ease-out forwards;
+
+  --text-hero: clamp(20px, 2vw, 30px);
+  --text-display: clamp(18px, 2vw, 28px);
+  --text-title: clamp(16px, 1.6vw, 24px);
+  --text-heading: clamp(14px, 1.4vw, 18px);
+  --text-body-lg: clamp(14px, 1.6vw, 18px);
+  --text-body: clamp(13px, 1.4vw, 16px);
+  --text-small: clamp(12px, 1.2vw, 14px);
+
+  @keyframes goldShimmer {
+
+    0%,
+    100% {
+      background-position: 0% 50%
+    }
+
+    50% {
+      background-position: 100% 50%
+    }
+  }
+
+  @keyframes patternDrift {
+    from {
+      transform: rotate(0deg) scale(1.05)
+    }
+
+    to {
+      transform: rotate(360deg) scale(1.05)
+    }
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px)
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0)
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0
+    }
+
+    to {
+      opacity: 1
+    }
+  }
+}
+
+:root {
+  /* ── Fluid Type Scale ── */
+  --text-hero: clamp(22px, 2.2vw, 32px);
+  --text-display: clamp(20px, 2vw, 28px);
+  --text-title: clamp(18px, 1.6vw, 24px);
+  --text-heading: clamp(15px, 1.4vw, 18px);
+  --text-body-lg: clamp(15px, 1.6vw, 18px);
+  --text-body: clamp(14px, 1.4vw, 16px);
+  --text-small: clamp(12px, 1.2vw, 14px);
+
+  /* Default Font Bindings for LTR */
+  --font-primary: var(--font-cormorant);
+  --font-body: var(--font-lora);
+  --font-ui: var(--font-dm-sans);
+}
+
+
+/* RTL Font Overrides */
+[dir='rtl'] {
+  --font-primary: var(--font-amiri);
+  --font-body: var(--font-noto-arabic);
+  --font-ui: var(--font-cairo);
+}
+
+body {
+  background-color: #FDFAF3;
+  /* Default ivory fallback */
+  color: #1C1C1E;
+  /* Default ink fallback */
+  font-family: var(--font-body);
+}
+
+/* ── Typography Utility Classes ── */
+.text-hero {
+  font-size: var(--text-hero) !important;
+  font-weight: 700 !important;
+}
+.text-display {
+  font-size: var(--text-display) !important;
+  font-weight: 700 !important;
+}
+.text-title {
+  font-size: var(--text-title) !important;
+  font-weight: 700 !important;
+}
+.text-heading {
+  font-size: var(--text-heading) !important;
+  font-weight: 700 !important;
+}
+.text-body-lg {
+  font-size: var(--text-body-lg) !important;
+}
+.text-body {
+  font-size: var(--text-body) !important;
+}
+.text-small {
+  font-size: var(--text-small) !important;
+}
+
+
+/* ── Gold Shimmer Button ── */
+.btn-gold {
+  background: linear-gradient(90deg, #7A5C12, #D4A843, #B8841A, #D4A843, #7A5C12);
+  background-size: 200% 100%;
+  color: #22314b;
+  font-weight: 700;
+  transition: background-position 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 14px rgba(184, 132, 26, 0.2);
+}
+
+.btn-gold:hover {
+  background-position: 100% 0;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(184, 132, 26, 0.35);
+}
+
+.btn-gold:active {
+  transform: translateY(0);
+}
+
+/* ── Islamic geometric pattern overlay ── */
+.pattern-overlay {
+  position: relative;
+}
+
+.pattern-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/pattern-8star.svg');
+  background-size: 80px 80px;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.pattern-overlay:hover::before {
+  opacity: 0.08;
+}
+
+.dark-pattern-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/pattern-8star.svg');
+  background-size: 80px 80px;
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 1;
+  filter: invert(1);
+}
+
+/* ── Premium Text Shimmer Animation ── */
+@keyframes textShimmer {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.text-shimmer {
+  background: linear-gradient(120deg,
+      #D4A843 30%,
+      #FDFAF3 50%,
+      #D4A843 70%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: background-position 0.5s ease;
+}
+
+/* Shimmer on direct hover OR when the parent group is hovered */
+.text-shimmer:hover,
+.group:hover .text-shimmer {
+  animation: textShimmer 2.5s linear infinite;
+}
+
+/* ── Hardware-Accelerated High-Contrast Crisp Image Rendering ── */
+.rendering-crisp {
+  image-rendering: -webkit-optimize-contrast;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
