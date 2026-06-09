@@ -238,7 +238,7 @@ export default function LatestArticles() {
               <BookOpen size={12} className="text-gold" />
               {activeContent.tag}
             </span>
-            <h2 className={`text-title text-midnight font-bold max-w-3xl mx-auto leading-tight mb-4 ${isRtl ? 'font-amiri font-bold' : 'font-cormorant font-semibold'}`}>
+            <h2 className={`text-title text-midnight font-bold max-w-3xl mx-auto mb-4 ${isRtl ? 'font-amiri font-bold leading-[1.4]' : 'font-cormorant font-semibold leading-tight'}`}>
               {activeContent.title}
             </h2>
             <p className={`text-sm text-[#3A332A] max-w-2xl mx-auto leading-relaxed font-normal description-justify ${isRtl ? 'font-noto' : 'font-lora'}`}>
@@ -289,7 +289,7 @@ export default function LatestArticles() {
                 </div>
 
                 {/* Title */}
-                <h3 className={`text-lg text-midnight font-bold leading-snug mb-3 group-hover:text-gold transition-colors duration-200 ${isRtl ? 'font-amiri font-bold' : 'font-cormorant font-semibold'}`}>
+                <h3 className={`text-lg text-midnight font-bold mb-3 group-hover:text-gold transition-colors duration-200 ${isRtl ? 'font-amiri font-bold leading-[1.4]' : 'font-cormorant font-semibold leading-snug'}`}>
                   <Link href={`#`} className="hover:underline">
                     {article.title}
                   </Link>

@@ -43,8 +43,8 @@ export default function Credibility() {
       <div className="max-w-7xl mx-auto px-6 text-center">
         {/* Section Header */}
         <h2
-          className={`text-title text-parchment font-bold mb-16 tracking-wide max-w-2xl mx-auto leading-tight ${
-            isRtl ? 'font-amiri' : 'font-cormorant'
+          className={`text-title text-parchment font-bold mb-16 tracking-wide max-w-2xl mx-auto ${
+            isRtl ? 'font-amiri leading-[1.4]' : 'font-cormorant leading-tight'
           }`}
         >
           {t('title')}
@@ -90,7 +90,7 @@ export default function Credibility() {
                 
                 {/* Description */}
                 <p
-                  className={`text-xs md:text-sm text-parchment/80 font-normal leading-relaxed w-full description-justify ${
+                  className={`text-xs md:text-sm text-parchment/80 font-normal leading-relaxed w-full description-center ${
                     isRtl ? 'font-noto' : 'font-lora'
                   }`}
                 >

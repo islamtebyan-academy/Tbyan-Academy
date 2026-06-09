@@ -42,7 +42,7 @@ export default function Hero() {
 
             {/* Main Title */}
             <h1
-              className={`group text-hero text-parchment leading-[1.08] mb-6 cursor-default animate-fade-up opacity-0 [animation-delay:150ms] ${isRtl ? 'font-amiri font-bold' : 'font-cormorant font-bold'
+              className={`group text-hero text-parchment mb-6 cursor-default animate-fade-up opacity-0 [animation-delay:150ms] ${isRtl ? 'font-amiri font-bold leading-[1.45]' : 'font-cormorant font-bold leading-[1.08]'
                 }`}
             >
               {isRtl ? (

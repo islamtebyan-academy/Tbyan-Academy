@@ -289,7 +289,7 @@ export default function HowItWorks() {
             <span className={`inline-block text-xs uppercase tracking-[0.2em] text-gold font-bold mb-3 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
               {isRtl ? 'كيف يعمل النظام' : locale === 'fr' ? 'COMMENT ÇA MARCHE' : 'HOW IT WORKS'}
             </span>
-            <h2 className={`text-title text-parchment font-bold max-w-3xl mx-auto leading-tight ${isRtl ? 'font-amiri font-bold' : 'font-cormorant font-semibold'}`}>
+            <h2 className={`text-title text-parchment font-bold max-w-3xl mx-auto ${isRtl ? 'font-amiri font-bold leading-[1.4]' : 'font-cormorant font-semibold leading-tight'}`}>
               {isRtl ? 'ابدأ رحلتك العلمية في ثلاث خطوات بسيطة' : locale === 'fr' ? 'Commencez en Trois Étapes Simples' : 'Start Your Journey in Three Simple Steps'}
             </h2>
           </motion.div>
@@ -335,7 +335,7 @@ export default function HowItWorks() {
               </div>
             </div>
 
-            <h3 className={`text-[clamp(24px,3.5vw,36px)] text-parchment font-bold leading-[1.2] mb-8 ${isRtl ? 'font-amiri font-bold' : 'font-cormorant font-semibold'}`}>
+            <h3 className={`text-[clamp(24px,3.5vw,36px)] text-parchment font-bold mb-8 ${isRtl ? 'font-amiri font-bold leading-[1.4]' : 'font-cormorant font-semibold leading-[1.2]'}`}>
               {activeContent.whyTitle}
             </h3>
 

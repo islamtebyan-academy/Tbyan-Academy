@@ -147,8 +147,8 @@ export default function AboutTeaser() {
             {activeContent.tag}
           </span>
           <h2
-            className={`text-title text-midnight font-bold max-w-3xl mx-auto mb-5 leading-tight ${
-              isRtl ? 'font-amiri font-bold' : 'font-cormorant font-semibold'
+            className={`text-title text-midnight font-bold max-w-3xl mx-auto mb-5 ${
+              isRtl ? 'font-amiri font-bold leading-[1.4]' : 'font-cormorant font-semibold leading-tight'
             }`}
           >
             {activeContent.title}
@@ -194,7 +194,7 @@ export default function AboutTeaser() {
               </div>
 
               <h3 className={`text-heading text-parchment font-bold mb-6 transition-all duration-500 group-hover:-translate-y-0.5 group-hover:text-gold-hi text-center ${
-                isRtl ? 'font-amiri' : 'font-cormorant font-medium'
+                isRtl ? 'font-amiri leading-[1.4]' : 'font-cormorant font-medium'
               }`}>
                 {activeContent.philosophyTitle}
               </h3>
@@ -232,8 +232,8 @@ export default function AboutTeaser() {
                 <Scroll className="w-5 h-5" />
               </div>
               <div className="space-y-2">
-                <h4 className={`text-heading text-midnight font-bold leading-tight ${
-                  isRtl ? 'font-amiri' : 'font-cormorant font-semibold'
+                <h4 className={`text-heading text-midnight font-bold ${
+                  isRtl ? 'font-amiri leading-[1.4]' : 'font-cormorant font-semibold leading-tight'
                 }`}>
                   {activeContent.pillar1Title}
                 </h4>
@@ -254,8 +254,8 @@ export default function AboutTeaser() {
                 <UserCheck className="w-5 h-5" />
               </div>
               <div className="space-y-2">
-                <h4 className={`text-heading text-midnight font-bold leading-tight ${
-                  isRtl ? 'font-amiri' : 'font-cormorant font-semibold'
+                <h4 className={`text-heading text-midnight font-bold ${
+                  isRtl ? 'font-amiri leading-[1.4]' : 'font-cormorant font-semibold leading-tight'
                 }`}>
                   {activeContent.pillar2Title}
                 </h4>
@@ -276,8 +276,8 @@ export default function AboutTeaser() {
                 <GraduationCap className="w-5 h-5" />
               </div>
               <div className="space-y-2">
-                <h4 className={`text-heading text-midnight font-bold leading-tight ${
-                  isRtl ? 'font-amiri' : 'font-cormorant font-semibold'
+                <h4 className={`text-heading text-midnight font-bold ${
+                  isRtl ? 'font-amiri leading-[1.4]' : 'font-cormorant font-semibold leading-tight'
                 }`}>
                   {activeContent.pillar3Title}
                 </h4>

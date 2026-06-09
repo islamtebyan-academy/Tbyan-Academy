@@ -104,7 +104,7 @@ export default function FinalCTA() {
             {/* Title */}
             <motion.h2
               variants={itemVariants}
-              className={`text-title text-parchment font-bold leading-tight mb-6 cursor-default ${isRtl ? 'font-amiri font-bold' : 'font-cormorant font-semibold'
+              className={`text-title text-parchment font-bold mb-6 cursor-default ${isRtl ? 'font-amiri font-bold leading-[1.4]' : 'font-cormorant font-semibold leading-tight'
                 }`}
             >
               {activeContent.title}
