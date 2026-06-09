@@ -325,11 +325,14 @@ export default function HowItWorks() {
           {/* LEFT: Why a Free Trial — 50% width */}
           <motion.div className={`lg:col-span-1 ${isRtl ? 'lg:order-2' : 'lg:order-1'}`} variants={itemVariants}>
             {/* Tag badge */}
-            <div className="inline-flex items-center gap-2.5 bg-parchment border border-gold-muted/20 rounded-full px-4.5 py-2 mb-6 shadow-[0_4px_16px_rgba(0,0,0,0.12)]">
-              <Sparkles className="w-3.5 h-3.5 text-gold-hi animate-pulse shrink-0" />
-              <span className={`text-[10px] uppercase tracking-widest font-bold text-navy leading-none ${isRtl ? 'font-cairo' : 'font-dm'}`}>
-                {activeContent.tag}
-              </span>
+            <div className="flex items-center gap-3 p-4 rounded-2xl bg-parchment border border-gold-muted/20 text-midnight mb-6 relative overflow-hidden shadow-sm">
+              <div className="absolute inset-0 bg-[url('/images/pattern-8star.svg')] bg-[size:30px_30px] opacity-[0.03] pointer-events-none" />
+              <div className="relative z-10 flex items-center gap-2.5">
+                <Sparkles className="w-4 h-4 text-gold-hi animate-pulse shrink-0" />
+                <span className={`text-[10px] md:text-xs uppercase tracking-widest font-bold text-navy leading-normal ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                  {activeContent.tag}
+                </span>
+              </div>
             </div>
 
             <h3 className={`text-[clamp(24px,3.5vw,36px)] text-parchment font-bold leading-[1.2] mb-8 ${isRtl ? 'font-amiri font-bold' : 'font-cormorant font-semibold'}`}>
