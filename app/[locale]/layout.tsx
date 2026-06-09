@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { Cormorant, Lora, DM_Sans, Amiri, Noto_Naskh_Arabic, Cairo } from 'next/font/google';
+import { Cormorant_Garamond, Lora, Plus_Jakarta_Sans, Amiri, Noto_Naskh_Arabic, Cairo } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { locales } from '@/i18n';
@@ -25,23 +25,23 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 // Load English/French fonts
-const cormorant = Cormorant({
+const cormorantGaramond = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['300', '400', '600', '700'],
+  weight: ['300', '400', '500', '600', '700'],
   variable: '--font-cormorant',
   display: 'swap',
 });
 
 const lora = Lora({
   subsets: ['latin'],
-  weight: ['400', '500'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-lora',
   display: 'swap',
 });
 
-const dmSans = DM_Sans({
+const plusJakartaUi = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
+  weight: ['300', '400', '500', '600', '700'],
   variable: '--font-dm-sans',
   display: 'swap',
 });
@@ -90,7 +90,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const direction = isRtl ? 'rtl' : 'ltr';
 
   // Choose the font variable classes to inject
-  const fontClasses = `${cormorant.variable} ${lora.variable} ${dmSans.variable} ${amiri.variable} ${notoArabic.variable} ${cairo.variable}`;
+  const fontClasses = `${cormorantGaramond.variable} ${lora.variable} ${plusJakartaUi.variable} ${amiri.variable} ${notoArabic.variable} ${cairo.variable}`;
 
   return (
     <html lang={locale} dir={direction} className={fontClasses}>

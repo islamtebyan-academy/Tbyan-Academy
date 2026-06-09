@@ -221,7 +221,7 @@ export default function Methodology() {
                     variants={descVariants}
                     whileHover={{ color: '#22314b' }}
                     transition={{ duration: 0.3 }}
-                    className={`text-sm text-stone/90 leading-relaxed cursor-default group-hover:text-midnight/90 transition-colors duration-500 ${
+                    className={`text-base text-[#3A332A]/85 font-normal leading-relaxed cursor-default group-hover:text-midnight/90 transition-colors duration-500 description-justify-start ${
                       isRtl ? 'font-noto' : 'font-lora'
                     }`}
                   >

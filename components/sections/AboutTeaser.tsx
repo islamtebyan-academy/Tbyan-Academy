@@ -154,7 +154,7 @@ export default function AboutTeaser() {
             {activeContent.title}
           </h2>
           <p
-            className={`text-sm md:text-base text-stone max-w-2xl mx-auto leading-relaxed ${
+            className={`text-sm md:text-base text-[#3A332A] max-w-2xl mx-auto leading-relaxed font-normal description-justify ${
               isRtl ? 'font-noto' : 'font-lora'
             }`}
           >
@@ -199,7 +199,7 @@ export default function AboutTeaser() {
                 {activeContent.philosophyTitle}
               </h3>
               
-              <p className={`text-parchment/75 text-sm md:text-base leading-relaxed text-start transition-all duration-500 group-hover:text-parchment ${
+              <p className={`text-parchment/90 text-sm md:text-base leading-relaxed text-start transition-all duration-500 group-hover:text-parchment description-justify-start ${
                 isRtl ? 'font-noto' : 'font-lora'
               }`}>
                 {activeContent.philosophyText}
@@ -237,7 +237,7 @@ export default function AboutTeaser() {
                 }`}>
                   {activeContent.pillar1Title}
                 </h4>
-                <p className={`text-stone/85 text-xs md:text-sm leading-relaxed ${
+                <p className={`text-sm text-[#3A332A]/85 leading-relaxed font-normal description-justify-start ${
                   isRtl ? 'font-noto' : 'font-lora'
                 }`}>
                   {activeContent.pillar1Text}
@@ -259,7 +259,7 @@ export default function AboutTeaser() {
                 }`}>
                   {activeContent.pillar2Title}
                 </h4>
-                <p className={`text-stone/85 text-xs md:text-sm leading-relaxed ${
+                <p className={`text-sm text-[#3A332A]/85 leading-relaxed font-normal description-justify-start ${
                   isRtl ? 'font-noto' : 'font-lora'
                 }`}>
                   {activeContent.pillar2Text}
@@ -281,7 +281,7 @@ export default function AboutTeaser() {
                 }`}>
                   {activeContent.pillar3Title}
                 </h4>
-                <p className={`text-stone/85 text-xs md:text-sm leading-relaxed ${
+                <p className={`text-sm text-[#3A332A]/85 leading-relaxed font-normal description-justify-start ${
                   isRtl ? 'font-noto' : 'font-lora'
                 }`}>
                   {activeContent.pillar3Text}

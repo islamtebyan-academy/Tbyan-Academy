@@ -57,7 +57,7 @@ export default function ProgramsShowcase() {
           {isRtl ? 'مناهج العلوم الإسلامية واللغوية بـسند متصل' : 'Editorial Scholarly Curriculums'}
         </h2>
         <p
-          className={`text-sm text-stone max-w-xl mx-auto mb-16 leading-relaxed ${
+          className={`text-sm text-[#3A332A] max-w-xl mx-auto mb-16 leading-relaxed font-normal description-justify ${
             isRtl ? 'font-noto' : 'font-lora'
           }`}
         >
@@ -102,7 +102,7 @@ export default function ProgramsShowcase() {
 
                 {/* Description */}
                 <p
-                  className={`text-xs text-stone/90 leading-relaxed mb-6 ${
+                  className={`text-sm text-[#3A332A]/85 leading-relaxed mb-6 font-normal description-justify-start ${
                     isRtl ? 'font-noto' : 'font-lora'
                   }`}
                 >
@@ -114,7 +114,7 @@ export default function ProgramsShowcase() {
                   <span className={`block text-[9px] uppercase tracking-wider text-gold-muted font-bold mb-1.5 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                     {isRtl ? 'المقررات والمتون الدراسية' : 'Core Textbooks Studied'}
                   </span>
-                  <p className={`text-[10px] text-stone leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}>
+                  <p className={`text-xs text-[#3A332A]/80 leading-relaxed font-normal description-justify-start ${isRtl ? 'font-noto' : 'font-lora'}`}>
                     {prog.books}
                   </p>
                 </div>

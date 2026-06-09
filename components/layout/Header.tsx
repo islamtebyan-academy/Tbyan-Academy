@@ -165,7 +165,7 @@ export default function Header() {
 
   return (
     <header
-      className="fixed top-4 left-0 right-0 z-50 transition-all duration-300 px-4 md:px-6 w-full"
+      className="fixed top-4 left-0 right-0 z-50 transition-all duration-300 px-4 md:px-6"
     >
       <div
         className={`max-w-7xl mx-auto bg-[#FDFAF3]/85 backdrop-blur-xl border border-gold-muted/20 shadow-[0_8px_32px_rgba(6,13,22,0.06)] flex flex-col transition-all duration-300 ${mobileMenuOpen ? 'rounded-2xl py-5 px-6 gap-6' : 'rounded-full py-2.5 px-6'

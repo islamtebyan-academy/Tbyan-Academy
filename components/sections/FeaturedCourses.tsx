@@ -325,7 +325,7 @@ export default function FeaturedCourses() {
             {activeContent.title}
           </h2>
           <p
-            className={`text-sm text-stone max-w-xl mx-auto leading-relaxed ${
+            className={`text-sm text-[#3A332A] max-w-xl mx-auto leading-relaxed font-normal description-justify ${
               isRtl ? 'font-noto' : 'font-lora'
             }`}
           >
@@ -391,7 +391,7 @@ export default function FeaturedCourses() {
                   </span>
 
                   {/* Description */}
-                  <p className={`text-stone/85 text-xs md:text-sm leading-relaxed mb-6 ${
+                  <p className={`text-sm text-[#3A332A]/85 leading-relaxed mb-6 font-normal description-justify-start ${
                     isRtl ? 'font-noto' : 'font-lora'
                   }`}>
                     {course.desc}

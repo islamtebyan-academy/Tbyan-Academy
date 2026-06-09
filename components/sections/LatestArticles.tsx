@@ -241,7 +241,7 @@ export default function LatestArticles() {
             <h2 className={`text-title text-midnight font-bold max-w-3xl mx-auto leading-tight mb-4 ${isRtl ? 'font-amiri font-bold' : 'font-cormorant font-semibold'}`}>
               {activeContent.title}
             </h2>
-            <p className={`text-sm text-stone/60 max-w-2xl mx-auto leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}>
+            <p className={`text-sm text-[#3A332A] max-w-2xl mx-auto leading-relaxed font-normal description-justify ${isRtl ? 'font-noto' : 'font-lora'}`}>
               {activeContent.desc}
             </p>
           </motion.div>
@@ -296,7 +296,7 @@ export default function LatestArticles() {
                 </h3>
 
                 {/* Excerpt */}
-                <p className={`text-stone/60 text-xs leading-relaxed mb-6 flex-1 ${isRtl ? 'font-noto' : 'font-lora'}`}>
+                <p className={`text-sm text-[#3A332A]/85 leading-relaxed mb-6 flex-1 font-normal description-justify-start ${isRtl ? 'font-noto' : 'font-lora'}`}>
                   {article.excerpt}
                 </p>
 

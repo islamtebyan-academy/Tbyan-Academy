@@ -152,7 +152,7 @@ export default function PricingTeaser() {
             {isRtl ? 'خطط اشتراك مدروسة وقيمة عادلة ومضمونة' : 'Honest Pricing, Academic Value'}
           </h2>
           <p
-            className={`text-sm text-stone max-w-xl mx-auto leading-relaxed ${
+            className={`text-sm text-[#3A332A] max-w-xl mx-auto leading-relaxed font-normal description-justify ${
               isRtl ? 'font-noto' : 'font-lora'
             }`}
           >
@@ -303,7 +303,7 @@ export default function PricingTeaser() {
                       </p>
                     </div>
 
-                    <p className={`text-xs mb-8 leading-relaxed min-h-[48px] ${pkg.featured ? 'text-parchment/70' : 'text-stone'} ${isRtl ? 'font-noto' : 'font-lora'}`}>
+                    <p className={`text-sm mb-8 leading-relaxed min-h-[48px] description-justify-start ${pkg.featured ? 'text-parchment/80' : 'text-[#3A332A]/80 font-normal'} ${isRtl ? 'font-noto' : 'font-lora'}`}>
                       {pkg.desc}
                     </p>
 
@@ -312,7 +312,7 @@ export default function PricingTeaser() {
                       {pkg.features.map((feat, i) => (
                         <li key={i} className="flex items-start gap-3 text-xs leading-normal">
                           <Check size={14} className={`shrink-0 mt-0.5 ${pkg.featured ? 'text-gold-champagne' : 'text-gold'}`} />
-                          <span className={pkg.featured ? 'text-parchment/80' : 'text-stone'}>
+                          <span className={pkg.featured ? 'text-parchment/90' : 'text-[#3A332A]/85 font-normal'}>
                             {feat}
                           </span>
                         </li>
@@ -346,7 +346,7 @@ export default function PricingTeaser() {
               <h4 className={`text-sm font-bold text-midnight mb-2 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                 {t('pausingPolicy')}
               </h4>
-              <p className={`text-xs text-stone leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}>
+              <p className={`text-sm text-[#3A332A]/80 leading-relaxed font-normal ${isRtl ? 'font-noto' : 'font-lora'}`}>
                 {t('pausingPolicyDesc')}
               </p>
             </div>
@@ -359,7 +359,7 @@ export default function PricingTeaser() {
               <h4 className={`text-sm font-bold text-midnight mb-2 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                 {t('makeupPolicy')}
               </h4>
-              <p className={`text-xs text-stone leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}>
+              <p className={`text-sm text-[#3A332A]/80 leading-relaxed font-normal ${isRtl ? 'font-noto' : 'font-lora'}`}>
                 {t('makeupPolicyDesc')}
               </p>
             </div>
@@ -372,7 +372,7 @@ export default function PricingTeaser() {
               <h4 className={`text-sm font-bold text-midnight mb-2 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                 {t('trialRefundPolicy')}
               </h4>
-              <p className={`text-xs text-stone leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}>
+              <p className={`text-sm text-[#3A332A]/80 leading-relaxed font-normal ${isRtl ? 'font-noto' : 'font-lora'}`}>
                 {t('trialRefundPolicyDesc')}
               </p>
             </div>

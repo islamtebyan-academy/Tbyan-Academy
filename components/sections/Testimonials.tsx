@@ -126,7 +126,7 @@ export default function Testimonials() {
             {t('title')}
           </h2>
           <p
-            className={`text-sm text-stone max-w-xl mx-auto leading-relaxed ${
+            className={`text-sm text-[#3A332A] max-w-xl mx-auto leading-relaxed font-normal description-justify ${
               isRtl ? 'font-noto' : 'font-lora'
             }`}
           >
@@ -174,7 +174,7 @@ export default function Testimonials() {
 
                       {/* Quote Text */}
                       <p
-                        className={`text-sm text-ink leading-relaxed mb-6 group-hover:text-midnight transition-colors duration-300 ${
+                        className={`text-sm text-ink leading-relaxed mb-6 group-hover:text-midnight transition-colors duration-300 description-justify-start ${
                           isRtl ? 'font-noto' : 'font-lora italic'
                         }`}
                       >

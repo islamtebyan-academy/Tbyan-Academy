@@ -350,7 +350,7 @@ export default function HowItWorks() {
                   <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center text-gold-hi shrink-0 mt-0.5">
                     {benefit.icon}
                   </div>
-                  <span className={`text-[13px] text-stone/85 leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}>
+                  <span className={`text-sm text-[#3A332A]/85 leading-relaxed font-normal ${isRtl ? 'font-noto' : 'font-lora'}`}>
                     {benefit.text}
                   </span>
                 </motion.div>

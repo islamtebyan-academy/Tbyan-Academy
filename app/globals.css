@@ -28,7 +28,7 @@
   --background-image-card-dark: linear-gradient(145deg, #162742, #22314b);
 
   --font-cormorant: var(--font-cormorant), Georgia, serif;
-  --font-lora: var(--font-lora), serif;
+  --font-lora: var(--font-lora), Georgia, serif;
   --font-dm: var(--font-dm-sans), system-ui, sans-serif;
   --font-amiri: var(--font-amiri), serif;
   --font-noto: var(--font-noto-arabic), serif;
@@ -114,6 +114,11 @@
   --font-primary: var(--font-amiri);
   --font-body: var(--font-noto-arabic);
   --font-ui: var(--font-cairo);
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
@@ -240,4 +245,25 @@ body {
   image-rendering: -webkit-optimize-contrast;
   backface-visibility: hidden;
   transform: translateZ(0);
+}
+
+/* ── Text Justification Classes ── */
+.description-justify {
+  text-align: justify !important;
+  text-justify: inter-word !important;
+  text-align-last: center !important;
+}
+
+.description-justify-start {
+  text-align: justify !important;
+  text-justify: inter-word !important;
+  text-align-last: start !important;
+}
+
+[dir='rtl'] .description-justify {
+  text-justify: auto !important;
+}
+
+[dir='rtl'] .description-justify-start {
+  text-justify: auto !important;
 }

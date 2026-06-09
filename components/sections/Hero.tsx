@@ -139,7 +139,7 @@ export default function Hero() {
               variants={descVariants}
               whileHover={{ opacity: 1, color: '#FDFAF3' }}
               transition={{ duration: 0.3 }}
-              className={`text-sm md:text-base text-parchment/70 leading-relaxed mb-10 max-w-2xl cursor-default ${isRtl ? 'font-noto' : 'font-lora'
+              className={`text-sm md:text-base text-parchment/80 font-normal leading-relaxed mb-10 max-w-2xl cursor-default description-justify-start ${isRtl ? 'font-noto' : 'font-lora'
                 }`}
             >
               {t('description')}

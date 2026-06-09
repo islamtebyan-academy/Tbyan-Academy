@@ -115,7 +115,7 @@ export default function TeachersSpotlight() {
             variants={headerChildVariants}
             whileHover={{ color: '#ffffff' }}
             transition={{ duration: 0.3 }}
-            className={`text-sm text-parchment/65 max-w-xl mx-auto mb-16 leading-relaxed cursor-default ${
+            className={`text-sm text-parchment/80 font-normal max-w-xl mx-auto mb-16 leading-relaxed cursor-default description-justify ${
               isRtl ? 'font-noto' : 'font-lora'
             }`}
           >
@@ -172,25 +172,25 @@ export default function TeachersSpotlight() {
                   {/* Details List */}
                   <div className={`mb-6 text-xs ${isRtl ? 'font-noto' : 'font-lora'}`}>
                     <div className="flex justify-between items-center py-2.5 border-b border-gold-muted/10 last:border-b-0 group-hover:-translate-y-0.5 transition-all duration-300 ease-out">
-                      <span className="text-stone/60 font-medium flex items-center gap-1.5 group-hover:text-stone/85 transition-colors duration-300">
+                      <span className="text-[#3A332A]/70 font-medium flex items-center gap-1.5 group-hover:text-[#3A332A]/90 transition-colors duration-300">
                         <span className="w-1.5 h-1.5 rounded-full bg-gold/40 group-hover:bg-gold-hi group-hover:scale-125 transition-all duration-300" />
                         {t('specialty')}
                       </span>
-                      <span className="text-midnight font-semibold text-end group-hover:text-gold transition-colors duration-300">{teacher.specialty}</span>
+                      <span className="text-midnight font-bold text-end group-hover:text-gold transition-colors duration-300">{teacher.specialty}</span>
                     </div>
                     <div className="flex justify-between items-center py-2.5 border-b border-gold-muted/10 last:border-b-0 group-hover:-translate-y-0.5 transition-all duration-300 ease-out">
-                      <span className="text-stone/60 font-medium flex items-center gap-1.5 group-hover:text-stone/85 transition-colors duration-300">
+                      <span className="text-[#3A332A]/70 font-medium flex items-center gap-1.5 group-hover:text-[#3A332A]/90 transition-colors duration-300">
                         <span className="w-1.5 h-1.5 rounded-full bg-gold/40 group-hover:bg-gold-hi group-hover:scale-125 transition-all duration-300" />
                         {t('degrees')}
                       </span>
-                      <span className="text-midnight font-semibold text-end max-w-[160px] group-hover:text-gold transition-colors duration-300">{teacher.education}</span>
+                      <span className="text-midnight font-bold text-end max-w-[160px] group-hover:text-gold transition-colors duration-300">{teacher.education}</span>
                     </div>
                     <div className="flex justify-between items-center py-2.5 border-b border-gold-muted/10 last:border-b-0 group-hover:-translate-y-0.5 transition-all duration-300 ease-out">
-                      <span className="text-stone/60 font-medium flex items-center gap-1.5 group-hover:text-stone/85 transition-colors duration-300">
+                      <span className="text-[#3A332A]/70 font-medium flex items-center gap-1.5 group-hover:text-[#3A332A]/90 transition-colors duration-300">
                         <span className="w-1.5 h-1.5 rounded-full bg-gold/40 group-hover:bg-gold-hi group-hover:scale-125 transition-all duration-300" />
                         {t('languages')}
                       </span>
-                      <span className="text-midnight font-semibold text-end group-hover:text-gold transition-colors duration-300">{teacher.languages}</span>
+                      <span className="text-midnight font-bold text-end group-hover:text-gold transition-colors duration-300">{teacher.languages}</span>
                     </div>
                   </div>
 
@@ -200,7 +200,7 @@ export default function TeachersSpotlight() {
                       <Award className="w-3.5 h-3.5 text-gold-hi transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12" />
                       {t('ijaza')}
                     </h4>
-                    <ul className={`space-y-2 text-xs text-stone/90 leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}>
+                    <ul className={`space-y-2 text-sm text-[#3A332A]/85 font-normal leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}>
                       {teacher.ijazat.map((ijaza, idx) => (
                         <li key={idx} className="flex items-start gap-2 group-hover:-translate-y-0.5 transition-all duration-300">
                           <span className="text-gold text-[10px] mt-1 select-none transition-transform duration-500 group-hover:rotate-45 group-hover:scale-110">✦</span>
