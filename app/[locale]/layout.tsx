@@ -28,21 +28,21 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-cormorant',
+  variable: '--font-cormorant-next',
   display: 'swap',
 });
 
 const lora = Lora({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-lora',
+  variable: '--font-lora-next',
   display: 'swap',
 });
 
 const plusJakartaUi = Plus_Jakarta_Sans({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-dm-sans',
+  variable: '--font-dm-sans-next',
   display: 'swap',
 });
 
@@ -50,21 +50,21 @@ const plusJakartaUi = Plus_Jakarta_Sans({
 const amiri = Amiri({
   subsets: ['arabic'],
   weight: ['400', '700'],
-  variable: '--font-amiri',
+  variable: '--font-amiri-next',
   display: 'swap',
 });
 
 const notoArabic = Noto_Naskh_Arabic({
   subsets: ['arabic'],
   weight: ['400', '500', '700'],
-  variable: '--font-noto-arabic',
+  variable: '--font-noto-arabic-next',
   display: 'swap',
 });
 
 const cairo = Cairo({
   subsets: ['arabic'],
   weight: ['300', '400', '600'],
-  variable: '--font-cairo',
+  variable: '--font-cairo-next',
   display: 'swap',
 });
 

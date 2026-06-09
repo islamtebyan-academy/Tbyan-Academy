@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 interface ParallaxBackgroundProps {
@@ -16,9 +17,18 @@ export default function ParallaxBackground({ src, className = '' }: ParallaxBack
     <motion.div
       style={{
         y: yBg,
-        backgroundImage: `url('${src}')`,
       }}
-      className={`absolute inset-0 bg-cover bg-center bg-no-repeat pointer-events-none z-0 scale-110 ${className}`}
-    />
+      className={`absolute inset-0 pointer-events-none z-0 scale-110 ${className}`}
+    >
+      <Image
+        src={src}
+        alt="Academy Background"
+        fill
+        priority
+        sizes="100vw"
+        quality={80}
+        className="object-cover object-center"
+      />
+    </motion.div>
   );
 }

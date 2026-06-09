@@ -27,12 +27,12 @@
   --background-image-parchment-fade: linear-gradient(180deg, #FDFAF3 0%, #F2ECD8 100%);
   --background-image-card-dark: linear-gradient(145deg, #162742, #22314b);
 
-  --font-cormorant: var(--font-cormorant), Georgia, serif;
-  --font-lora: var(--font-lora), Georgia, serif;
-  --font-dm: var(--font-dm-sans), system-ui, sans-serif;
-  --font-amiri: var(--font-amiri), serif;
-  --font-noto: var(--font-noto-arabic), serif;
-  --font-cairo: var(--font-cairo), system-ui, sans-serif;
+  --font-cormorant: var(--font-cormorant-next), Georgia, serif;
+  --font-lora: var(--font-lora-next), Georgia, serif;
+  --font-dm: var(--font-dm-sans-next), system-ui, sans-serif;
+  --font-amiri: var(--font-amiri-next), serif;
+  --font-noto: var(--font-noto-arabic-next), serif;
+  --font-cairo: var(--font-cairo-next), system-ui, sans-serif;
 
   --animate-gold-shimmer: goldShimmer 3s ease-in-out infinite;
   --animate-pattern-drift: patternDrift 60s linear infinite;
@@ -105,14 +105,14 @@
   /* Default Font Bindings for LTR */
   --font-primary: var(--font-cormorant);
   --font-body: var(--font-lora);
-  --font-ui: var(--font-dm-sans);
+  --font-ui: var(--font-dm);
 }
 
 
 /* RTL Font Overrides */
 [dir='rtl'] {
   --font-primary: var(--font-amiri);
-  --font-body: var(--font-noto-arabic);
+  --font-body: var(--font-noto);
   --font-ui: var(--font-cairo);
 }
 

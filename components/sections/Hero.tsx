@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
-import { motion, Variants } from 'framer-motion';
 import { Sparkles, Compass } from 'lucide-react';
 import ParallaxBackground from '../ui/ParallaxBackground';
 
@@ -11,70 +10,6 @@ export default function Hero() {
   const t = useTranslations('Hero');
   const locale = useLocale();
   const isRtl = locale === 'ar';
-
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const taglineVariants: Variants = {
-    hidden: { opacity: 0, y: 12 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
-
-  const titleVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: 35,
-      clipPath: 'inset(0% 0% 100% 0%)'
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      clipPath: 'inset(0% 0% 0% 0%)',
-      transition: {
-        duration: 1.1,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
-
-  const descVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.9,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
-
-  const buttonVariants: Variants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
 
   return (
     <section
@@ -96,27 +31,18 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full">
 
           {/* Left Column (Editorial Text Column) */}
-          <motion.div
-            className="lg:col-span-7 flex flex-col text-start"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
+          <div className="lg:col-span-7 flex flex-col text-start">
             {/* Tagline */}
-            <motion.span
-              variants={taglineVariants}
-              whileHover={{ x: isRtl ? -4 : 4 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              className={`inline-block text-xs uppercase tracking-[0.2em] text-gold-champagne font-bold mb-4 cursor-default ${isRtl ? 'font-cairo' : 'font-dm'
+            <span
+              className={`inline-block text-xs uppercase tracking-[0.2em] text-gold-champagne font-bold mb-4 cursor-default transition-transform duration-200 hover:translate-x-1 rtl:hover:-translate-x-1 animate-fade-up ${isRtl ? 'font-cairo' : 'font-dm'
                 }`}
             >
               {t('tagline')}
-            </motion.span>
+            </span>
 
             {/* Main Title */}
-            <motion.h1
-              variants={titleVariants}
-              className={`group text-hero text-parchment leading-[1.08] mb-6 cursor-default ${isRtl ? 'font-amiri font-bold' : 'font-cormorant font-bold'
+            <h1
+              className={`group text-hero text-parchment leading-[1.08] mb-6 cursor-default animate-fade-up opacity-0 [animation-delay:150ms] ${isRtl ? 'font-amiri font-bold' : 'font-cormorant font-bold'
                 }`}
             >
               {isRtl ? (
@@ -132,23 +58,19 @@ export default function Hero() {
                   {t('headlineTextAfter')}
                 </span>
               )}
-            </motion.h1>
+            </h1>
 
             {/* Description */}
-            <motion.p
-              variants={descVariants}
-              whileHover={{ opacity: 1, color: '#FDFAF3' }}
-              transition={{ duration: 0.3 }}
-              className={`text-sm md:text-base text-parchment/80 font-normal leading-relaxed mb-10 max-w-2xl cursor-default description-justify-start ${isRtl ? 'font-noto' : 'font-lora'
+            <p
+              className={`text-sm md:text-base text-parchment/80 font-normal leading-relaxed mb-10 max-w-2xl cursor-default description-justify-start transition-colors duration-300 hover:text-ivory animate-fade-up opacity-0 [animation-delay:300ms] ${isRtl ? 'font-noto' : 'font-lora'
                 }`}
             >
               {t('description')}
-            </motion.p>
+            </p>
 
             {/* Actions buttons */}
-            <motion.div
-              variants={buttonVariants}
-              className={`flex flex-col sm:flex-row gap-4 items-center sm:items-start w-full sm:w-auto ${isRtl ? 'font-cairo' : 'font-dm'
+            <div
+              className={`flex flex-col sm:flex-row gap-4 items-center sm:items-start w-full sm:w-auto animate-fade-up opacity-0 [animation-delay:450ms] ${isRtl ? 'font-cairo' : 'font-dm'
                 }`}
             >
               <Link
@@ -165,8 +87,8 @@ export default function Hero() {
                 <Compass className="w-4 h-4 text-gold-champagne shrink-0" />
                 <span className="whitespace-nowrap">{t('ctaSecondary')}</span>
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Right Column (Spacer for background graphic alignment on desktop) */}
           <div className="lg:col-span-5 hidden lg:block" />

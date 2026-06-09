@@ -38,18 +38,18 @@ async function runTests() {
   console.log('Starting verification tests on http://localhost:3000...');
   
   const tests = [
-    // 1. Root redirect check
-    checkURL('http://localhost:3000/'),
-    // 2. English homepage check
-    checkURL('http://localhost:3000/en', 'Traditional Isnad'),
+    // 1. English homepage check (Root)
+    checkURL('http://localhost:3000/', 'Traditional Isnad'),
+    // 2. English redirect check
+    checkURL('http://localhost:3000/en'),
     // 3. Arabic homepage check
     checkURL('http://localhost:3000/ar', 'رصانة الإسناد'),
     // 4. Programs listing check
-    checkURL('http://localhost:3000/en/programs', 'Quran &amp; Tajweed'),
+    checkURL('http://localhost:3000/programs', 'Quran &amp; Tajweed'),
     // 5. Booking page check
-    checkURL('http://localhost:3000/en/book', 'Free Academic Assessment'),
+    checkURL('http://localhost:3000/book', 'Free Academic Assessment'),
     // 6. Pricing check
-    checkURL('http://localhost:3000/en/pricing', 'Academic Membership Plans'),
+    checkURL('http://localhost:3000/pricing', 'Academic Membership Plans'),
   ];
 
   const results = await Promise.all(tests);
