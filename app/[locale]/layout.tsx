@@ -27,21 +27,21 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 // Load English/French fonts
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['600', '700'],
   variable: '--font-cormorant-next',
   display: 'swap',
 });
 
 const lora = Lora({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '700'],
   variable: '--font-lora-next',
   display: 'swap',
 });
 
 const plusJakartaUi = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '700'],
   variable: '--font-dm-sans-next',
   display: 'swap',
 });
@@ -56,14 +56,14 @@ const amiri = Amiri({
 
 const notoArabic = Noto_Naskh_Arabic({
   subsets: ['arabic'],
-  weight: ['400', '500', '700'],
+  weight: ['400', '700'],
   variable: '--font-noto-arabic-next',
   display: 'swap',
 });
 
 const cairo = Cairo({
   subsets: ['arabic'],
-  weight: ['300', '400', '600'],
+  weight: ['400', '600', '700'],
   variable: '--font-cairo-next',
   display: 'swap',
 });
@@ -89,8 +89,10 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const isRtl = locale === 'ar';
   const direction = isRtl ? 'rtl' : 'ltr';
 
-  // Choose the font variable classes to inject
-  const fontClasses = `${cormorantGaramond.variable} ${lora.variable} ${plusJakartaUi.variable} ${amiri.variable} ${notoArabic.variable} ${cairo.variable}`;
+  // Choose the font variable classes to inject conditionally
+  const fontClasses = isRtl
+    ? `${amiri.variable} ${notoArabic.variable} ${cairo.variable}`
+    : `${cormorantGaramond.variable} ${lora.variable} ${plusJakartaUi.variable}`;
 
   return (
     <html lang={locale} dir={direction} className={fontClasses}>

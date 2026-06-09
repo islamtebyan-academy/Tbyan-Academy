@@ -90,7 +90,7 @@ export default function Credibility() {
                 
                 {/* Description */}
                 <p
-                  className={`text-xs md:text-sm text-parchment/80 font-normal leading-relaxed w-full description-center ${
+                  className={`text-xs md:text-sm text-parchment/85 font-normal leading-relaxed w-full description-justify ${
                     isRtl ? 'font-noto' : 'font-lora'
                   }`}
                 >
