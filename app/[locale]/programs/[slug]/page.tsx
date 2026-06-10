@@ -930,7 +930,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
       <div className="absolute inset-0 bg-[url('/images/pattern-8star.svg')] bg-[size:110px_110px] opacity-[0.015] pointer-events-none" />
 
       {/* ── SECTION 1: PRESTIGIOUS MANUSCRIPT HERO (DARK BLUE) ── */}
-      <section className="relative pt-44 pb-32 bg-[#0B132B] text-white border-b border-gold/20 overflow-hidden">
+      <section className="relative pt-44 pb-32 bg-[#22314b] text-white border-b border-gold/20 overflow-hidden">
         
         {/* Subtle geometric star grid */}
         <div className="absolute inset-0 bg-[url('/images/pattern-8star.svg')] bg-[size:55px_55px] opacity-[0.03] pointer-events-none" />
@@ -1057,7 +1057,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
                     />
                     
                     {/* Dark bottom gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B132B] via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#22314b] via-transparent to-transparent pointer-events-none" />
                     
                     {/* Logo watermark */}
                     <div className="absolute right-4 bottom-4 w-12 h-12 bg-[url('/logo-new.webp')] bg-contain bg-no-repeat opacity-[0.12] filter invert pointer-events-none" />
@@ -1162,7 +1162,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
               </div>
 
               {/* Prestigious Certification Mock-up (Traditional Arched Border) */}
-              <div className="bg-[#0B132B] text-white border border-gold/25 rounded-3xl p-7 relative overflow-hidden shadow-xl group">
+              <div className="bg-[#22314b] text-white border border-gold/25 rounded-3xl p-7 relative overflow-hidden shadow-xl group">
                 <div className="absolute inset-0 bg-[url('/images/pattern-8star.svg')] bg-[size:40px_40px] opacity-[0.02] pointer-events-none" />
                 
                 {/* Certification Badge */}
@@ -1217,7 +1217,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
       </section>
 
       {/* ── SECTION 3: VISUAL TIMELINE ROADMAP (PREMIUM DARK BLOCK) ── */}
-      <section className="py-24 bg-[#091122] text-white relative z-10 border-t border-b border-gold/20 overflow-hidden text-start">
+      <section className="py-24 bg-[#22314b] text-white relative z-10 border-t border-b border-gold/20 overflow-hidden text-start">
         <div className="absolute inset-0 bg-[url('/images/pattern-8star.svg')] bg-[size:65px_65px] opacity-[0.025] pointer-events-none" />
         <div className="absolute -right-40 -top-40 w-96 h-96 bg-gold-hi/5 rounded-full filter blur-[100px] pointer-events-none" />
 
@@ -1249,7 +1249,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
                   <div key={idx} className={`relative flex flex-col md:flex-row items-start ${isEven ? 'md:flex-row-reverse' : ''} gap-8 md:gap-0`}>
                     
                     {/* timeline node badge */}
-                    <div className="absolute top-6 left-6 md:left-1/2 w-9 h-9 rounded-full bg-[#0B132B] border border-gold-hi text-gold-hi flex items-center justify-center -translate-x-1/2 z-20 font-bold font-dm shadow-[0_0_12px_rgba(212,168,67,0.25)] transition-all duration-300 group-hover:scale-110">
+                    <div className="absolute top-6 left-6 md:left-1/2 w-9 h-9 rounded-full bg-[#22314b] border border-gold-hi text-gold-hi flex items-center justify-center -translate-x-1/2 z-20 font-bold font-dm shadow-[0_0_12px_rgba(212,168,67,0.25)] transition-all duration-300 group-hover:scale-110">
                       <span className="text-xs">0{idx + 1}</span>
                     </div>
 
@@ -1359,7 +1359,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
                   </div>
                   <Link
                     href={`/${locale}/programs/${rel.slug}`}
-                    className={`w-full py-3 rounded-xl border border-gold-muted/30 text-gold hover:bg-[#0B132B] hover:text-white hover:border-[#0B132B] transition-all duration-300 text-xs font-bold text-center inline-flex items-center justify-center gap-2 ${isRtl ? 'font-cairo' : 'font-dm'}`}
+                    className={`w-full py-3 rounded-xl border border-gold-muted/30 text-gold hover:bg-[#22314b] hover:text-white hover:border-[#22314b] transition-all duration-300 text-xs font-bold text-center inline-flex items-center justify-center gap-2 ${isRtl ? 'font-cairo' : 'font-dm'}`}
                   >
                     <span>{labels.relatedBtn}</span>
                     {isRtl ? <ArrowLeft size={13} /> : <ArrowRight size={13} />}
@@ -1374,7 +1374,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
       {/* ── SECTION 6: HIGH-FIDELITY CTA CARD (DARK MODE) ── */}
       <section className="py-24 bg-[#FDFAF3] relative z-10 text-center">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="bg-[#0B132B] text-white border border-gold/25 rounded-[2.5rem] p-10 md:p-14 shadow-2xl relative overflow-hidden">
+          <div className="bg-[#22314b] text-white border border-gold/25 rounded-[2.5rem] p-10 md:p-14 shadow-2xl relative overflow-hidden">
             
             {/* Watermarks */}
             <div className="absolute inset-0 bg-[url('/images/pattern-8star.svg')] bg-[size:45px_45px] opacity-[0.015] pointer-events-none" />
