@@ -18,6 +18,11 @@ export default function Footer() {
   const isRtl = locale === 'ar';
 
   const switchLocale = (newLocale: string) => {
+    // Set cookie to synchronize next-intl active locale preference
+    if (typeof document !== 'undefined') {
+      document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+    }
+
     const segments = pathname.split('/');
     const locales = ['en', 'fr', 'ar'];
     const defaultLocale = 'en';
