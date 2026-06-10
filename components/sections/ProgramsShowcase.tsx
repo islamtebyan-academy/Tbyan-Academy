@@ -18,7 +18,7 @@ export default function ProgramsShowcase() {
       arabic: t('quranArabic'),
       desc: t('quranDesc'),
       books: t('quranBooks'),
-      href: `/${locale}/programs/quran`,
+      href: `/${locale}/programs?track=quran`,
     },
     {
       icon: <Book className="w-5 h-5 text-white" />,
@@ -26,7 +26,7 @@ export default function ProgramsShowcase() {
       arabic: t('arabicArabic'),
       desc: t('arabicDesc'),
       books: t('arabicBooks'),
-      href: `/${locale}/programs/arabic`,
+      href: `/${locale}/programs?track=arabic`,
     },
     {
       icon: <FileText className="w-5 h-5 text-white" />,
@@ -34,7 +34,7 @@ export default function ProgramsShowcase() {
       arabic: t('islamicArabic'),
       desc: t('islamicDesc'),
       books: t('islamicBooks'),
-      href: `/${locale}/programs/islamic`,
+      href: `/${locale}/programs?track=islamic`,
     },
   ];
 

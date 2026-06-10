@@ -42,32 +42,32 @@ export default function Header() {
       return [
         {
           category: "القرآن والتجويد",
-          href: `/ar/programs/quran`,
+          href: `/ar/programs?track=quran`,
           description: "حفظ وإتقان كتاب الله بالأسانيد المتصلة",
           items: [
-            { name: "حفظ القرآن الكريم وتثبيته", href: `/ar/programs/quran` },
-            { name: "ضبط المخارج وأحكام التجويد", href: `/ar/programs/quran` },
-            { name: "القراءات المتواترة والإجازات", href: `/ar/programs/quran` }
+            { name: "حفظ القرآن الكريم وتثبيته", href: `/ar/programs?track=quran` },
+            { name: "ضبط المخارج وأحكام التجويد", href: `/ar/programs?track=quran` },
+            { name: "القراءات المتواترة والإجازات", href: `/ar/programs?track=quran` }
           ]
         },
         {
           category: "اللغة العربية",
-          href: `/ar/programs/arabic`,
+          href: `/ar/programs?track=arabic`,
           description: "فهم لغة التنزيل وبناء الملكة اللغوية",
           items: [
-            { name: "التأسيس اللغوي ونور البيان", href: `/ar/programs/arabic` },
-            { name: "قواعد النحو والصرف (الآجرومية)", href: `/ar/programs/arabic` },
-            { name: "البلاغة والآداب الكلاسيكية", href: `/ar/programs/arabic` }
+            { name: "التأسيس اللغوي ونور البيان", href: `/ar/programs?track=arabic` },
+            { name: "قواعد النحو والصرف (الآجرومية)", href: `/ar/programs?track=arabic` },
+            { name: "البلاغة والآداب الكلاسيكية", href: `/ar/programs?track=arabic` }
           ]
         },
         {
           category: "العلوم الشرعية",
-          href: `/ar/programs/islamic`,
+          href: `/ar/programs?track=islamic`,
           description: "تحصيل منهجية متينة في الفقه والعقيدة",
           items: [
-            { name: "الفقه المذهبي (الشافعي، الحنفي، المالكي)", href: `/ar/programs/islamic` },
-            { name: "العقيدة الإسلامية والتوحيد", href: `/ar/programs/islamic` },
-            { name: "الحديث الشريف ومتون السنة", href: `/ar/programs/islamic` }
+            { name: "الفقه المذهبي (الشافعي، الحنفي، المالكي)", href: `/ar/programs?track=islamic` },
+            { name: "العقيدة الإسلامية والتوحيد", href: `/ar/programs?track=islamic` },
+            { name: "الحديث الشريف ومتون السنة", href: `/ar/programs?track=islamic` }
           ]
         }
       ];
@@ -75,32 +75,32 @@ export default function Header() {
       return [
         {
           category: "Coran & Tajwid",
-          href: `/fr/programs/quran`,
+          href: `/fr/programs?track=quran`,
           description: "Mémorisation et récitation avec chaînes de transmission.",
           items: [
-            { name: "Mémorisation & Hifz du Coran", href: `/fr/programs/quran` },
-            { name: "Règles du Tajwid & Makharij", href: `/fr/programs/quran` },
-            { name: "Récitations & Ijazat certifiées", href: `/fr/programs/quran` }
+            { name: "Mémorisation & Hifz du Coran", href: `/fr/programs?track=quran` },
+            { name: "Règles du Tajwid & Makharij", href: `/fr/programs?track=quran` },
+            { name: "Récitations & Ijazat certifiées", href: `/fr/programs?track=quran` }
           ]
         },
         {
           category: "Langue Arabe",
-          href: `/fr/programs/arabic`,
+          href: `/fr/programs?track=arabic`,
           description: "Maîtriser la grammaire et la phonétique classique.",
           items: [
-            { name: "Bases & Récitation Nour Al-Bayan", href: `/fr/programs/arabic` },
-            { name: "Grammaire & Morphologie (Nahw/Sarf)", href: `/fr/programs/arabic` },
-            { name: "Rhétorique & Littérature Classique", href: `/fr/programs/arabic` }
+            { name: "Bases & Récitation Nour Al-Bayan", href: `/fr/programs?track=arabic` },
+            { name: "Grammaire & Morphologie (Nahw/Sarf)", href: `/fr/programs?track=arabic` },
+            { name: "Rhétorique & Littérature Classique", href: `/fr/programs?track=arabic` }
           ]
         },
         {
           category: "Sciences Islamiques",
-          href: `/fr/programs/islamic`,
+          href: `/fr/programs?track=islamic`,
           description: "Jurisprudence, théologie et études de textes sacrés.",
           items: [
-            { name: "Jurisprudence (Fiqh des 4 écoles)", href: `/fr/programs/islamic` },
-            { name: "Théologie Islamique (Aqidah)", href: `/fr/programs/islamic` },
-            { name: "Sciences du Hadith & Exégèse (Tafsir)", href: `/fr/programs/islamic` }
+            { name: "Jurisprudence (Fiqh des 4 écoles)", href: `/fr/programs?track=islamic` },
+            { name: "Théologie Islamique (Aqidah)", href: `/fr/programs?track=islamic` },
+            { name: "Sciences du Hadith & Exégèse (Tafsir)", href: `/fr/programs?track=islamic` }
           ]
         }
       ];
@@ -108,32 +108,32 @@ export default function Header() {
       return [
         {
           category: "Quran & Tajweed",
-          href: `/en/programs/quran`,
+          href: `/en/programs?track=quran`,
           description: "Memorization and perfect recitation with chains of transmission.",
           items: [
-            { name: "Quran Memorization & Hifz", href: `/en/programs/quran` },
-            { name: "Tajweed Rules & Articulation", href: `/en/programs/quran` },
-            { name: "Ten Qira'at & Certified Ijazat", href: `/en/programs/quran` }
+            { name: "Quran Memorization & Hifz", href: `/en/programs?track=quran` },
+            { name: "Tajweed Rules & Articulation", href: `/en/programs?track=quran` },
+            { name: "Ten Qira'at & Certified Ijazat", href: `/en/programs?track=quran` }
           ]
         },
         {
           category: "Classical Arabic",
-          href: `/en/programs/arabic`,
+          href: `/en/programs?track=arabic`,
           description: "Understand the language of the Quran and build linguistics.",
           items: [
-            { name: "Foundations & Nour Al-Bayan", href: `/en/programs/arabic` },
-            { name: "Grammar & Syntax (Nahw & Sarf)", href: `/en/programs/arabic` },
-            { name: "Classical Rhetoric & Literature", href: `/en/programs/arabic` }
+            { name: "Foundations & Nour Al-Bayan", href: `/en/programs?track=arabic` },
+            { name: "Grammar & Syntax (Nahw & Sarf)", href: `/en/programs?track=arabic` },
+            { name: "Classical Rhetoric & Literature", href: `/en/programs?track=arabic` }
           ]
         },
         {
           category: "Islamic Sciences",
-          href: `/en/programs/islamic`,
+          href: `/en/programs?track=islamic`,
           description: "Build a structured foundation in Fiqh, Aqeedah, and texts.",
           items: [
-            { name: "Madhhab Jurisprudence (Fiqh)", href: `/en/programs/islamic` },
-            { name: "Orthodox Islamic Creed (Aqeedah)", href: `/en/programs/islamic` },
-            { name: "Hadith Studies & Prophetic Seerah", href: `/en/programs/islamic` }
+            { name: "Madhhab Jurisprudence (Fiqh)", href: `/en/programs?track=islamic` },
+            { name: "Orthodox Islamic Creed (Aqeedah)", href: `/en/programs?track=islamic` },
+            { name: "Hadith Studies & Prophetic Seerah", href: `/en/programs?track=islamic` }
           ]
         }
       ];

@@ -69,7 +69,7 @@ export default function FeaturedCourses() {
       litText: 'المعلقات',
       litLevel: 'تذوقي',
       
-      btnBook: 'احجز حصة تجريبية مجانية',
+      btnBook: 'عرض تفاصيل المقرر',
       btnAll: 'عرض جميع البرامج الدراسية'
     },
     en: {
@@ -129,7 +129,7 @@ export default function FeaturedCourses() {
       litText: 'Mu’allaqat',
       litLevel: 'Literary',
       
-      btnBook: 'Book a Free Trial Session',
+      btnBook: 'View Course Details',
       btnAll: 'View All Academic Paths'
     },
     fr: {
@@ -189,7 +189,7 @@ export default function FeaturedCourses() {
       litText: 'Mu’allaqat',
       litLevel: 'Littéraire',
       
-      btnBook: 'Réserver un cours d\'essai gratuit',
+      btnBook: 'Voir les détails',
       btnAll: 'Voir tous les parcours'
     }
   };
@@ -204,6 +204,7 @@ export default function FeaturedCourses() {
       tagline: activeContent.quranTag,
       desc: activeContent.quranDesc,
       path: activeContent.quranPath,
+      slug: 'quran-tajweed',
       stats: [
         { label: activeContent.statDuration, value: activeContent.quranDuration },
         { label: activeContent.statText, value: activeContent.quranText },
@@ -217,6 +218,7 @@ export default function FeaturedCourses() {
       tagline: activeContent.fiqhTag,
       desc: activeContent.fiqhDesc,
       path: activeContent.fiqhPath,
+      slug: 'maliki-fiqh',
       stats: [
         { label: activeContent.statDuration, value: activeContent.fiqhDuration },
         { label: activeContent.statText, value: activeContent.fiqhText },
@@ -230,6 +232,7 @@ export default function FeaturedCourses() {
       tagline: activeContent.arabicTag,
       desc: activeContent.arabicDesc,
       path: activeContent.arabicPath,
+      slug: 'arabic-grammar',
       stats: [
         { label: activeContent.statDuration, value: activeContent.arabicDuration },
         { label: activeContent.statText, value: activeContent.arabicText },
@@ -243,6 +246,7 @@ export default function FeaturedCourses() {
       tagline: activeContent.aqidahTag,
       desc: activeContent.aqidahDesc,
       path: activeContent.aqidahPath,
+      slug: 'islamic-creed',
       stats: [
         { label: activeContent.statDuration, value: activeContent.aqidahDuration },
         { label: activeContent.statText, value: activeContent.aqidahText },
@@ -256,6 +260,7 @@ export default function FeaturedCourses() {
       tagline: activeContent.logicTag,
       desc: activeContent.logicDesc,
       path: activeContent.logicPath,
+      slug: 'islamic-logic',
       stats: [
         { label: activeContent.statDuration, value: activeContent.logicDuration },
         { label: activeContent.statText, value: activeContent.logicText },
@@ -269,6 +274,7 @@ export default function FeaturedCourses() {
       tagline: activeContent.litTag,
       desc: activeContent.litDesc,
       path: activeContent.litPath,
+      slug: 'arabic-literature',
       stats: [
         { label: activeContent.statDuration, value: activeContent.litDuration },
         { label: activeContent.statText, value: activeContent.litText },
@@ -420,7 +426,7 @@ export default function FeaturedCourses() {
               {/* Bottom Action Center inside Card */}
               <div className="px-6 md:px-8 pb-8 flex items-center justify-between">
                 <Link
-                  href={`/${locale}/book`}
+                  href={`/${locale}/programs/${course.slug}`}
                   className={`text-[11px] uppercase tracking-widest font-bold text-stone hover:text-gold transition-colors duration-300 inline-flex items-center gap-1.5 ${
                     isRtl ? 'font-cairo' : 'font-dm'
                   }`}
