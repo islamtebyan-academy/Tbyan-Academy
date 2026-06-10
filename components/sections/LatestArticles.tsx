@@ -293,7 +293,7 @@ export default function LatestArticles() {
 
                 {/* Title */}
                 <h3 className={`text-lg text-midnight font-bold mb-3 group-hover:text-gold transition-colors duration-200 ${isRtl ? 'font-amiri font-bold leading-[1.4]' : 'font-cormorant font-semibold leading-snug'}`}>
-                  <Link href={`#`} className="hover:underline">
+                  <Link href={`/${locale}/blog/${article.slug}`} className="hover:underline">
                     {article.title}
                   </Link>
                 </h3>
@@ -306,7 +306,7 @@ export default function LatestArticles() {
                 {/* Read Link */}
                 <div className="pt-4 border-t border-stone/5 mt-auto">
                   <Link
-                    href={`#`}
+                    href={`/${locale}/blog/${article.slug}`}
                     className={`inline-flex items-center gap-1.5 text-navy text-[11px] font-bold uppercase tracking-wider hover:text-gold transition-colors duration-200 group-hover:underline ${isRtl ? 'font-cairo' : 'font-dm'}`}
                   >
                     <span>{activeContent.btnRead}</span>
@@ -327,7 +327,7 @@ export default function LatestArticles() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Link
-              href={`#`}
+              href={`/${locale}/blog`}
               className="btn-gold px-8 py-4 rounded-full text-xs uppercase tracking-wider font-bold inline-flex items-center gap-2.5 shadow-lg shadow-gold/10 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 group"
             >
               <BookOpen size={14} />
