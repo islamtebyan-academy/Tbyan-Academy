@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { 
@@ -189,10 +190,13 @@ export default async function ArticlePage({ params }: PageProps) {
           <div className="lg:col-span-12 max-w-4xl mx-auto w-full -mt-28 mb-10 z-20 relative">
             <div className="bg-white p-3 rounded-[32px] border border-gold-hi/20 shadow-xl shadow-midnight/5">
               <div className="relative aspect-[21/9] w-full rounded-2xl overflow-hidden bg-sand/10">
-                <img 
+                <Image 
                   src={article.image}
                   alt={article.translation.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  priority
+                  sizes="(max-width: 1200px) 100vw, 896px"
+                  className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-midnight/20 via-transparent to-transparent pointer-events-none" />
               </div>
@@ -306,11 +310,12 @@ export default async function ArticlePage({ params }: PageProps) {
                 className="flex flex-col bg-ivory rounded-3xl border border-gold-muted/12 overflow-hidden shadow-sm hover:shadow-md hover:border-gold-hi/25 transition-all duration-300 group"
               >
                 <div className="relative h-44 w-full overflow-hidden bg-sand/5">
-                  <img 
+                  <Image 
                     src={relArt.image}
                     alt={relArt.translation.title}
-                    className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-                    loading="lazy"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                    className="object-cover group-hover:scale-103 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-midnight/10 via-transparent to-transparent pointer-events-none" />
                 </div>

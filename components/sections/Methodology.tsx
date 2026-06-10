@@ -3,6 +3,7 @@
 import React from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { motion, Variants } from 'framer-motion';
+import Image from 'next/image';
 
 export default function Methodology() {
   const t = useTranslations('Method');
@@ -178,11 +179,12 @@ export default function Methodology() {
                   className="w-full lg:w-1/2 border border-gold-muted/15 rounded-2xl overflow-hidden aspect-[4/3] relative shrink-0 shadow-md group-hover:border-gold/45 transition-colors duration-500"
                 >
                   {/* The Image */}
-                  <img
+                  <Image
                     src={p.image}
                     alt={p.title}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-[0.16,1,0.3,1] group-hover:scale-105"
-                    loading="lazy"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-700 ease-[0.16,1,0.3,1] group-hover:scale-105"
                   />
                   
                   {/* Dark gradient vignette for premium overlay */}

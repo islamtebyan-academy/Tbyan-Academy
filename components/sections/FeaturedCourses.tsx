@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import { motion, Variants } from 'framer-motion';
+import Image from 'next/image';
 import { Award, Scale, Languages, Shield, Compass, Feather, ArrowRight, ArrowLeft } from 'lucide-react';
 
 export default function FeaturedCourses() {
@@ -356,11 +357,13 @@ export default function FeaturedCourses() {
               <div>
                 {/* Course Header Image Frame */}
                 <div className="relative h-48 w-full overflow-hidden rounded-t-[1.4rem]">
-                  <img
-                    src={course.image}
-                    alt={course.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none"
-                  />
+                <Image
+                  src={course.image}
+                  alt={course.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none"
+                />
                   <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-midnight/20 to-transparent pointer-events-none" />
                   
                   {/* Badge Overlay */}

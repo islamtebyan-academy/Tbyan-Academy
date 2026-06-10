@@ -23,13 +23,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
   };
 }
-
 // Load English/French fonts
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ['latin'],
   weight: ['600', '700'],
   variable: '--font-cormorant-next',
   display: 'swap',
+  preload: false,
 });
 
 const lora = Lora({
@@ -37,6 +37,7 @@ const lora = Lora({
   weight: ['400', '700'],
   variable: '--font-lora-next',
   display: 'swap',
+  preload: false,
 });
 
 const plusJakartaUi = Plus_Jakarta_Sans({
@@ -44,6 +45,7 @@ const plusJakartaUi = Plus_Jakarta_Sans({
   weight: ['400', '500', '700'],
   variable: '--font-dm-sans-next',
   display: 'swap',
+  preload: false,
 });
 
 // Load Arabic fonts
@@ -52,6 +54,7 @@ const amiri = Amiri({
   weight: ['400', '700'],
   variable: '--font-amiri-next',
   display: 'swap',
+  preload: false,
 });
 
 const notoArabic = Noto_Naskh_Arabic({
@@ -59,6 +62,7 @@ const notoArabic = Noto_Naskh_Arabic({
   weight: ['400', '700'],
   variable: '--font-noto-arabic-next',
   display: 'swap',
+  preload: false,
 });
 
 const cairo = Cairo({
@@ -66,8 +70,8 @@ const cairo = Cairo({
   weight: ['400', '600', '700'],
   variable: '--font-cairo-next',
   display: 'swap',
+  preload: false,
 });
-
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }

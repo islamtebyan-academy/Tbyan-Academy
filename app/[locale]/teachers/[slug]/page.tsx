@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
-import { Award, BookOpen, Clock, Heart, Shield } from 'lucide-react';
+import { Award, BookOpen, Shield } from 'lucide-react';
 
 interface TeacherProfileProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -163,6 +164,12 @@ export default async function TeacherDetailPage({ params }: TeacherProfileProps)
 
   const isRtl = locale === 'ar';
 
+  const teacherImage = slug === 'anas-al-azhari'
+    ? '/images/teacher_anas.png'
+    : slug === 'youssef-al-faransi'
+      ? '/images/teacher_youssef.png'
+      : '/images/teacher_mariam.png';
+
   return (
     <section className="bg-parchment-fade min-h-screen pt-32 pb-24 relative overflow-hidden">
       {/* Star pattern background watermark */}
@@ -187,15 +194,19 @@ export default async function TeacherDetailPage({ params }: TeacherProfileProps)
           
           {/* Left Column (Details Card) */}
           <div className="bg-ivory border border-gold-muted/15 rounded-lg p-8 shadow-md">
-            {/* Calligraphy Initial Icon */}
+            {/* Portrait Photo */}
             <div className="w-24 h-24 mx-auto mb-6 relative flex items-center justify-center text-gold">
               <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
                 <polygon points="50,3 92,25 92,75 50,97 8,75 8,25" fill="none" stroke="currentColor" strokeWidth="1.5" />
               </svg>
-              <div className="w-16 h-16 bg-parchment rounded-full flex items-center justify-center border border-gold-muted/30 shadow-inner z-10">
-                <span className="font-cormorant text-2xl font-bold text-midnight tracking-wider">
-                  {slug.split('-').map(n => n[0].toUpperCase()).join('')}
-                </span>
+              <div className="w-16 h-16 bg-parchment rounded-full overflow-hidden flex items-center justify-center border border-gold-muted/30 shadow-inner z-10">
+                <Image
+                  src={teacherImage}
+                  alt={teacher.name}
+                  width={64}
+                  height={64}
+                  className="object-cover w-full h-full object-center"
+                />
               </div>
             </div>
 

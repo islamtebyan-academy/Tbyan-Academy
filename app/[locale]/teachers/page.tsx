@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { setRequestLocale } from 'next-intl/server';
 
 interface TeachersPageProps {
@@ -19,7 +20,7 @@ export default async function TeachersPage({ params }: TeachersPageProps) {
       specialty: isRtl ? 'التجويد والقراءات العشر المتواترة' : 'Tajweed & 10 Qira\'at',
       education: isRtl ? 'جامعة الأزهر الشريف، القاهرة' : 'Al-Azhar University, Cairo',
       languages: isRtl ? 'العربية، الإنجليزية' : 'Arabic, English',
-      initials: 'AA',
+      image: '/images/teacher_anas.png',
       slug: 'anas-al-azhari',
       bio: isRtl 
         ? 'يحمل إجازات متصلة السند بالقراءات العشر الصغرى والكبرى، ولديه خبرة تزيد عن 12 عاماً في إرشاد وتعليم الطلاب غير الناطقين بالعربية.'
@@ -31,7 +32,7 @@ export default async function TeachersPage({ params }: TeachersPageProps) {
       specialty: isRtl ? 'النحو والصرف والبلاغة القديمة' : 'Arabic Grammar (Nahw & Sarf)',
       education: isRtl ? 'الجامعة الإسلامية بالمدينة المنورة' : 'Islamic University of Madinah',
       languages: isRtl ? 'العربية، الفرنسية' : 'Arabic, French',
-      initials: 'YF',
+      image: '/images/teacher_youssef.png',
       slug: 'youssef-al-faransi',
       bio: isRtl
         ? 'متخصص في شرح أمهات كتب القواعد والنحو العربي مثل الآجرومية وقطر الندى، مكرس جهوده لمساعدة الطلاب الفرانكوفونيين في فهم نصوص الوحي.'
@@ -43,7 +44,7 @@ export default async function TeachersPage({ params }: TeachersPageProps) {
       specialty: isRtl ? 'الفقه، أصول الفقه، العقيدة، والقرآن' : 'Fiqh, Aqeedah, & Quranic Sciences',
       education: isRtl ? 'كلية الدراسات الإسلامية بجامعة الأزهر' : 'Faculty of Islamic Studies, Al-Azhar',
       languages: isRtl ? 'العربية، الإنجليزية، الفرنسية' : 'Arabic, English, French',
-      initials: 'MA',
+      image: '/images/teacher_mariam.png',
       slug: 'mariam-al-ahmad',
       bio: isRtl
         ? 'باحثة ومفتية متخصصة في الفقه المقارن، وحاصلة على إجازة في حفظ القرآن الكريم برواية حفص وشعبة عن عاصم، ولديها خبرة طويلة في تدريس الأخوات والأطفال.'
@@ -77,61 +78,65 @@ export default async function TeachersPage({ params }: TeachersPageProps) {
           {scholars.map((teacher, index) => (
             <div
               key={index}
-              className="bg-ivory border border-gold-muted/15 rounded-lg p-8 shadow-md hover:border-gold/30 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              className="bg-ivory border border-gold-muted/15 rounded-[2rem] overflow-hidden shadow-md hover:border-gold/30 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
             >
               <div>
-                {/* Photo Frame Wrapper */}
-                <div className="w-28 h-28 mx-auto mb-8 relative flex items-center justify-center text-gold">
-                  <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
-                    <polygon points="50,3 92,25 92,75 50,97 8,75 8,25" fill="none" stroke="currentColor" strokeWidth="1" />
-                    <polygon points="50,7 88,28 88,72 50,93 12,72 12,28" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 2" />
-                  </svg>
-                  <div className="w-[74px] h-[74px] bg-parchment rounded-full flex items-center justify-center border border-gold-muted/30 shadow-inner z-10">
-                    <span className="font-cormorant text-2xl font-bold text-midnight tracking-wider">
-                      {teacher.initials}
+                {/* Photo Frame with overlay and text */}
+                <div className="relative h-80 w-full overflow-hidden">
+                  <Image
+                    src={teacher.image}
+                    alt={teacher.name}
+                    fill
+                    className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  />
+                  {/* Deep gradient overlay for text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/40 to-transparent pointer-events-none z-10" />
+
+                  {/* Name & Credentials placed over the image */}
+                  <div className="absolute bottom-6 left-6 right-6 z-20 text-start">
+                    <h2 className={`text-[1.35rem] font-bold text-parchment mb-1 ${isRtl ? 'font-amiri font-bold' : 'font-cormorant font-semibold'}`}>
+                      {teacher.name}
+                    </h2>
+                    <span className={`text-[10px] text-gold-hi uppercase tracking-widest font-semibold block ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                      {teacher.title}
                     </span>
                   </div>
                 </div>
 
-                {/* Name & Credentials */}
-                <div className="text-center mb-6 border-b border-gold-muted/10 pb-5">
-                  <h2 className={`text-heading font-bold text-midnight mb-1 ${isRtl ? 'font-amiri' : 'font-cormorant'}`}>
-                    {teacher.name}
-                  </h2>
-                  <span className={`text-xs text-gold font-medium ${isRtl ? 'font-cairo' : 'font-dm'}`}>
-                    {teacher.title}
-                  </span>
-                </div>
+                {/* Card Text Content with padding */}
+                <div className="p-6 md:p-7">
+                  {/* Short Bio */}
+                  <p className={`text-xs text-stone leading-relaxed mb-5 italic ${isRtl ? 'font-noto' : 'font-lora'}`}>
+                    {teacher.bio}
+                  </p>
 
-                {/* Short Bio */}
-                <p className={`text-xs text-stone leading-relaxed mb-6 italic ${isRtl ? 'font-noto' : 'font-lora'}`}>
-                  {teacher.bio}
-                </p>
-
-                {/* Details List */}
-                <div className={`space-y-3.5 mb-8 text-xs ${isRtl ? 'font-noto' : 'font-lora'}`}>
-                  <div className="flex justify-between">
-                    <span className="text-stone/50">{isRtl ? 'التخصص' : 'Specialty'}</span>
-                    <span className="text-midnight font-medium text-end max-w-[170px]">{teacher.specialty}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-stone/50">{isRtl ? 'الشهادة' : 'Education'}</span>
-                    <span className="text-midnight text-end max-w-[170px]">{teacher.education}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-stone/50">{isRtl ? 'اللغات' : 'Languages'}</span>
-                    <span className="text-midnight">{teacher.languages}</span>
+                  {/* Details List */}
+                  <div className={`space-y-2.5 mb-6 text-xs ${isRtl ? 'font-noto' : 'font-lora'}`}>
+                    <div className="flex justify-between py-1.5 border-b border-gold-muted/10">
+                      <span className="text-stone/60">{isRtl ? 'التخصص' : 'Specialty'}</span>
+                      <span className="text-midnight font-bold text-end max-w-[170px]">{teacher.specialty}</span>
+                    </div>
+                    <div className="flex justify-between py-1.5 border-b border-gold-muted/10">
+                      <span className="text-stone/60">{isRtl ? 'الشهادة' : 'Education'}</span>
+                      <span className="text-midnight font-bold text-end max-w-[170px]">{teacher.education}</span>
+                    </div>
+                    <div className="flex justify-between py-1.5">
+                      <span className="text-stone/60">{isRtl ? 'اللغات' : 'Languages'}</span>
+                      <span className="text-midnight font-bold">{teacher.languages}</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
               {/* Profile Link */}
-              <Link
-                href={`/${locale}/teachers/${teacher.slug}`}
-                className="btn-gold text-center py-3.5 rounded-full text-xs uppercase tracking-wider font-semibold block"
-              >
-                {isRtl ? 'عرض السيرة الذاتية والأوقات' : 'View Profile & Schedule'}
-              </Link>
+              <div className="px-6 pb-6">
+                <Link
+                  href={`/${locale}/teachers/${teacher.slug}`}
+                  className="btn-gold text-center py-3.5 rounded-full text-xs uppercase tracking-wider font-semibold block w-full relative z-10 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-md"
+                >
+                  {isRtl ? 'عرض السيرة الذاتية والأوقات' : 'View Profile & Schedule'}
+                </Link>
+              </div>
             </div>
           ))}
         </div>

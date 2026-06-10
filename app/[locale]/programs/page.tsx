@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useLocale } from 'next-intl';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { 
@@ -1437,10 +1438,12 @@ export default function ProgramsPage() {
                       <div>
                         {/* Course Header Image Frame */}
                         <div className="relative h-48 w-full overflow-hidden rounded-t-[1.4rem]">
-                          <img
+                          <Image
                             src={course.image}
                             alt={course.title}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none"
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-midnight/20 to-transparent pointer-events-none" />
                           
@@ -1526,11 +1529,13 @@ export default function ProgramsPage() {
                         </Link>
 
                         {/* Small branding logo opposite the button */}
-                        <div className="w-10 h-10 flex items-center justify-center select-none pointer-events-none">
-                          <img
+                        <div className="w-10 h-10 flex items-center justify-center select-none pointer-events-none relative">
+                          <Image
                             src="/logo-new.webp"
                             alt="Academy Seal"
-                            className="w-10 h-10 object-contain opacity-80 group-hover:opacity-100 transition-all duration-500"
+                            width={40}
+                            height={40}
+                            className="object-contain opacity-80 group-hover:opacity-100 transition-all duration-500"
                           />
                         </div>
                       </div>

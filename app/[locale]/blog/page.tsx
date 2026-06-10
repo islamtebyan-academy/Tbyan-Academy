@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useLocale } from 'next-intl';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { 
@@ -301,11 +302,12 @@ export default function BlogPage() {
                   >
                     {/* Image frame */}
                     <div className="relative h-56 w-full overflow-hidden bg-[#FDFAF3]">
-                      <img
+                      <Image
                         src={article.image}
                         alt={article.translation.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out animate-fade-in"
-                        loading="lazy"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out animate-fade-in"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-midnight/20 via-transparent to-transparent pointer-events-none" />
                       <span className={`absolute top-4 ${isRtl ? 'right-4' : 'left-4'} bg-white/95 backdrop-blur-sm border border-gold-muted/15 text-navy font-bold text-[9px] uppercase tracking-widest px-3 py-1.5 rounded-full ${isRtl ? 'font-cairo' : 'font-dm'}`}>
