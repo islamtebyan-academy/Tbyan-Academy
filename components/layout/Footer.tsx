@@ -19,13 +19,32 @@ export default function Footer() {
 
   const switchLocale = (newLocale: string) => {
     const segments = pathname.split('/');
-    if (segments.length > 1) {
-      segments[1] = newLocale;
-      const newPath = segments.join('/');
-      router.push(newPath);
+    const locales = ['en', 'fr', 'ar'];
+    const defaultLocale = 'en';
+
+    if (segments.length > 1 && locales.includes(segments[1])) {
+      if (newLocale === defaultLocale) {
+        segments.splice(1, 1);
+      } else {
+        segments[1] = newLocale;
+      }
     } else {
-      router.push(`/${newLocale}`);
+      if (newLocale !== defaultLocale) {
+        segments.splice(1, 0, newLocale);
+      }
     }
+
+    let newPath = segments.join('/') || '/';
+    if (newPath.endsWith('/') && newPath.length > 1) {
+      newPath = newPath.slice(0, -1);
+    }
+
+    const search = typeof window !== 'undefined' ? window.location.search : '';
+    if (search) {
+      newPath = `${newPath}${search}`;
+    }
+
+    router.push(newPath);
   };
 
   return (
