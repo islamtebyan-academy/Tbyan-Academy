@@ -801,6 +801,17 @@ export function generateStaticParams() {
   return params;
 }
 
+const getCourseIcon = (path: string) => {
+  const p = path.toLowerCase();
+  if (p.includes('قرآن') || p.includes('quran')) {
+    return <Award className="w-5 h-5 text-gold-hi" />;
+  } else if (p.includes('عرب') || p.includes('arabic') || p.includes('لغة') || p.includes('لسان') || p.includes('أدب') || p.includes('نحو') || p.includes('صرف') || p.includes('gramm') || p.includes('liter')) {
+    return <Feather className="w-5 h-5 text-gold-hi" />;
+  } else {
+    return <Compass className="w-5 h-5 text-gold-hi" />;
+  }
+};
+
 export default async function CourseDetailPage({ params }: CourseDetailProps) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
@@ -1340,32 +1351,126 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-start">
-              {relatedCourses.map((rel, idx) => (
-                <div 
-                  key={idx}
-                  className="bg-white border border-gold-muted/12 rounded-3xl p-6 shadow-sm hover:border-gold hover:-translate-y-1.5 transition-all duration-500 flex flex-col justify-between group relative overflow-hidden"
-                >
-                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-gold-muted/10 via-gold-hi to-gold-muted/10 opacity-60 group-hover:opacity-100 transition-opacity duration-300 z-10" />
-                  <div>
-                    <span className={`inline-block text-[8px] uppercase tracking-widest font-extrabold text-gold mb-3 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
-                      {rel.data?.path}
-                    </span>
-                    <h3 className={`text-base font-bold text-midnight mb-3 group-hover:text-gold transition-colors duration-300 ${isRtl ? 'font-amiri font-bold' : 'font-cormorant font-semibold'}`}>
-                      {rel.data?.title}
-                    </h3>
-                    <p className={`text-xs text-[#554E45] leading-relaxed mb-6 line-clamp-3 ${isRtl ? 'font-noto' : 'font-lora'}`}>
-                      {rel.data?.tagline}
-                    </p>
-                  </div>
-                  <Link
-                    href={`/${locale}/programs/${rel.slug}`}
-                    className={`w-full py-3 rounded-xl border border-gold-muted/30 text-gold hover:bg-[#22314b] hover:text-white hover:border-[#22314b] transition-all duration-300 text-xs font-bold text-center inline-flex items-center justify-center gap-2 ${isRtl ? 'font-cairo' : 'font-dm'}`}
+              {relatedCourses.map((rel, idx) => {
+                if (!rel.data) return null;
+                const relCourseIcon = getCourseIcon(rel.data.path);
+                return (
+                  <div 
+                    key={idx}
+                    className="bg-gradient-to-br from-white to-[#FDFAF3]/40 border border-gold-muted/15 rounded-3xl p-0 shadow-[0_8px_30px_rgba(139,115,85,0.1)] hover:border-gold hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(139,115,85,0.18)] transition-all duration-500 relative overflow-hidden group flex flex-col justify-between"
                   >
-                    <span>{labels.relatedBtn}</span>
-                    {isRtl ? <ArrowLeft size={13} /> : <ArrowRight size={13} />}
-                  </Link>
-                </div>
-              ))}
+                    {/* Top Accent Gold Bar */}
+                    <div className="absolute top-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-gold-muted/20 via-gold-hi to-gold-muted/20 opacity-70 group-hover:opacity-100 transition-opacity duration-300 z-20" />
+
+                    {/* Watermark in background */}
+                    <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-[url('/images/pattern-8star.svg')] bg-contain bg-no-repeat opacity-[0.015] group-hover:opacity-[0.06] transition-all duration-700 pointer-events-none filter sepia hue-rotate-15 brightness-95" />
+
+                    <div>
+                      {/* Course Header Image Frame */}
+                      <div className="relative h-48 w-full overflow-hidden rounded-t-[1.4rem]">
+                        <Image
+                          src={rel.data.image}
+                          alt={rel.data.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-midnight/70 via-midnight/20 to-transparent pointer-events-none" />
+                        
+                        {/* Badge Overlay */}
+                        <span className="absolute top-4 left-4 rtl:left-auto rtl:right-4 text-[9px] uppercase tracking-wider font-bold px-3 py-1.5 rounded-full border border-gold-muted/30 bg-midnight/80 backdrop-blur-sm text-gold-hi font-dm z-10">
+                          {rel.data.path}
+                        </span>
+                      </div>
+
+                      {/* Card Content wrapper */}
+                      <div className="p-6 md:p-8">
+                        {/* Icon & Title row */}
+                        <div className="flex items-start justify-between gap-4 mb-3">
+                          <h3 className={`text-[1.2rem] text-midnight font-bold leading-snug group-hover:text-gold-hi transition-colors duration-300 ${
+                            isRtl ? 'font-amiri font-bold' : 'font-cormorant font-semibold'
+                          }`}>
+                            {rel.data.title}
+                          </h3>
+                          <div className="p-2 bg-gold-muted/10 rounded-xl border border-gold/15 text-gold-hi transition-colors duration-300">
+                            {relCourseIcon}
+                          </div>
+                        </div>
+
+                        {/* Tagline */}
+                        <span className={`block text-[11px] text-gold/80 font-semibold mb-4 uppercase tracking-wider ${
+                          isRtl ? 'font-cairo' : 'font-dm'
+                        }`}>
+                          {rel.data.tagline}
+                        </span>
+
+                        {/* Description */}
+                        <p className={`text-xs text-[#554E45] leading-relaxed mb-6 line-clamp-3 ${
+                          isRtl ? 'font-noto' : 'font-lora'
+                        }`}>
+                          {rel.data.importance}
+                        </p>
+
+                        {/* Syllabus Stats Metadata Section */}
+                        <div className="grid grid-cols-3 gap-2 py-4 border-t border-b border-gold-muted/15 text-center bg-[#FDFAF3]/30 rounded-xl">
+                          <div className="space-y-1">
+                            <span className="block text-[8px] uppercase tracking-wider text-stone/50 font-bold font-dm">
+                              {labels.duration}
+                            </span>
+                            <span className={`block text-[10px] text-gold font-bold leading-none ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                              {rel.data.duration}
+                            </span>
+                          </div>
+                          <div className="space-y-1">
+                            <span className="block text-[8px] uppercase tracking-wider text-stone/50 font-bold font-dm">
+                              {labels.syllabus}
+                            </span>
+                            <span className={`block text-[10px] text-gold font-bold leading-none truncate px-1 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                              {rel.data.syllabus}
+                            </span>
+                          </div>
+                          <div className="space-y-1">
+                            <span className="block text-[8px] uppercase tracking-wider text-stone/50 font-bold font-dm">
+                              {labels.level}
+                            </span>
+                            <span className={`block text-[10px] text-gold font-bold leading-none ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                              {rel.data.level}
+                            </span>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    {/* Bottom Action Center inside Card */}
+                    <div className="px-6 md:px-8 pb-8 flex items-center justify-between">
+                      <Link
+                        href={`/${locale}/programs/${rel.slug}`}
+                        className={`text-[11px] uppercase tracking-widest font-bold text-stone hover:text-gold transition-colors duration-300 inline-flex items-center gap-1.5 ${
+                          isRtl ? 'font-cairo' : 'font-dm'
+                        }`}
+                      >
+                        <span>{labels.relatedBtn}</span>
+                        {isRtl ? (
+                          <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
+                        ) : (
+                          <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                        )}
+                      </Link>
+
+                      {/* Small branding logo opposite the button */}
+                      <div className="w-12 h-12 flex items-center justify-center select-none pointer-events-none">
+                        <img
+                          src="/logo-new.webp"
+                          alt="Academy Seal"
+                          className="w-12 h-12 object-contain opacity-80 group-hover:opacity-100 transition-all duration-500"
+                        />
+                      </div>
+                    </div>
+
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
