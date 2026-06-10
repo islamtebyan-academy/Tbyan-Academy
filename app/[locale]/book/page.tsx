@@ -108,17 +108,20 @@ export default function BookPage() {
   ];
 
   return (
-    <section className="bg-navy-deep min-h-screen pt-32 pb-24 relative overflow-hidden flex items-center justify-center">
+    <section className="bg-parchment-fade min-h-screen pt-36 pb-24 relative overflow-hidden flex items-center justify-center">
       {/* Background Star pattern watermark */}
-      <div className="absolute inset-0 bg-[url('/images/pattern-8star.svg')] bg-[size:120px_120px] opacity-[0.02] pointer-events-none" />
+      <div className="absolute inset-0 bg-[url('/images/pattern-8star.svg')] bg-[size:100px_100px] opacity-[0.03] pointer-events-none" />
 
       <div className="max-w-3xl w-full px-6 relative z-10">
         {/* Header Title */}
-        <div className="text-center mb-10">
-          <h1 className={`text-title text-parchment font-bold mb-2 ${isRtl ? 'font-amiri' : 'font-cormorant'}`}>
+        <div className="text-center mb-12">
+          <span className={`inline-block text-xs uppercase tracking-[0.25em] text-gold font-bold mb-3 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+            {isRtl ? 'طلب حصة تقييم مجانية' : 'Complimentary Assessment'}
+          </span>
+          <h1 className={`text-display text-midnight font-bold mb-3 ${isRtl ? 'font-amiri' : 'font-cormorant'}`}>
             {t('title')}
           </h1>
-          <p className={`text-xs text-parchment/60 ${isRtl ? 'font-noto' : 'font-lora'}`}>
+          <p className={`text-sm text-stone max-w-xl mx-auto leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}>
             {t('subtitle')}
           </p>
         </div>
@@ -126,7 +129,7 @@ export default function BookPage() {
         {/* Step Indicators */}
         <div className="flex items-center justify-between mb-12 relative">
           {/* Connector bar behind circles */}
-          <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-gold-muted/20 -translate-y-1/2 z-0" />
+          <div className="absolute top-1/2 left-0 right-0 h-[1.5px] bg-gold-muted/15 -translate-y-1/2 z-0" />
           
           {steps.map((s) => {
             const isActive = currentStep === s.number;
@@ -134,11 +137,11 @@ export default function BookPage() {
             
             let circleClass = '';
             if (isActive) {
-              circleClass = 'bg-gold text-navy-deep ring-4 ring-gold/20 font-bold';
+              circleClass = 'bg-midnight text-gold-hi border border-gold ring-4 ring-gold/15 font-bold shadow-md';
             } else if (isCompleted) {
-              circleClass = 'bg-gold/20 border border-gold text-gold-hi font-semibold';
+              circleClass = 'bg-gold text-white border border-gold font-semibold shadow-sm';
             } else {
-              circleClass = 'bg-navy border border-gold-muted/20 text-parchment/30';
+              circleClass = 'bg-white border border-gold-muted/20 text-stone/40 font-semibold';
             }
 
             return (
@@ -146,8 +149,8 @@ export default function BookPage() {
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all duration-300 ${circleClass}`}>
                   {isCompleted ? <Check size={14} /> : s.number}
                 </div>
-                <span className={`hidden sm:block text-[9px] uppercase tracking-wider mt-2.5 font-semibold text-center max-w-[80px] ${
-                  isActive ? 'text-gold' : isCompleted ? 'text-gold-hi' : 'text-parchment/30'
+                <span className={`hidden sm:block text-[9px] uppercase tracking-wider mt-3 font-bold text-center max-w-[85px] ${
+                  isActive ? 'text-gold' : isCompleted ? 'text-midnight/80' : 'text-stone/40'
                 } ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                   {s.title}
                 </span>
@@ -157,7 +160,13 @@ export default function BookPage() {
         </div>
 
         {/* Form Container Card */}
-        <div className="bg-navy rounded-none border border-gold-muted/15 p-8 sm:p-10 shadow-2xl shadow-midnight/50 relative">
+        <div className="bg-white border border-gold-muted/15 rounded-[2rem] p-8 sm:p-12 shadow-[0_30px_70px_rgba(139,115,85,0.12)] relative overflow-hidden">
+          {/* Shimmer top accent bar */}
+          <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-gold-muted/20 via-gold-hi to-gold-muted/20" />
+          
+          {/* Background watermark logo */}
+          <div className="absolute -right-6 -bottom-6 w-32 h-32 bg-[url('/logo-new.webp')] bg-contain bg-no-repeat opacity-[0.015] pointer-events-none z-0" />
+
           <AnimatePresence mode="wait">
             {isSuccess ? (
               /* Success Screen */
@@ -165,21 +174,21 @@ export default function BookPage() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
-                className="text-center py-12 flex flex-col items-center"
+                className="text-center py-12 flex flex-col items-center relative z-10"
               >
                 <div className="w-16 h-16 bg-gold/10 border border-gold rounded-full flex items-center justify-center text-gold mb-6 shadow-inner animate-pulse">
                   <Sparkles size={28} />
                 </div>
-                <h2 className={`text-heading text-gold-hi font-bold mb-4 ${isRtl ? 'font-amiri' : 'font-cormorant'}`}>
+                <h2 className={`text-heading text-midnight font-bold mb-4 ${isRtl ? 'font-amiri font-bold' : 'font-cormorant font-bold'}`}>
                   {t('successTitle')}
                 </h2>
-                <p className={`text-sm text-parchment/70 leading-relaxed max-w-md ${isRtl ? 'font-noto' : 'font-lora'}`}>
+                <p className={`text-sm text-stone leading-relaxed max-w-md ${isRtl ? 'font-noto' : 'font-lora'}`}>
                   {t('successDesc')}
                 </p>
               </motion.div>
             ) : (
               /* Form Steps */
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 relative z-10">
                 
                 {/* STEP 1: Program Selection */}
                 {currentStep === 1 && (
@@ -188,9 +197,9 @@ export default function BookPage() {
                     initial={{ opacity: 0, x: isRtl ? -20 : 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: isRtl ? 20 : -20 }}
-                    className="space-y-6"
+                    className="space-y-6 text-start"
                   >
-                    <h3 className={`text-base font-bold text-gold-hi mb-4 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                    <h3 className={`text-sm font-bold uppercase tracking-wider text-gold mb-4 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                       {t('step1')}
                     </h3>
                     
@@ -203,10 +212,10 @@ export default function BookPage() {
                         <label
                            key={item.id}
                            onClick={() => setValue('program', item.id as any)}
-                           className={`flex items-start gap-4 p-5 rounded-none border cursor-pointer transition-all duration-200 ${
+                           className={`flex items-start gap-4 p-5 rounded-2xl border cursor-pointer transition-all duration-300 ${
                             selectedProgram === item.id
-                              ? 'bg-navy-deep border-gold text-parchment shadow-md shadow-midnight/35'
-                              : 'bg-navy-deep/45 border-gold-muted/15 text-parchment/70 hover:border-gold/30'
+                              ? 'bg-navy border-gold text-parchment shadow-lg shadow-navy/15'
+                              : 'bg-ivory/40 border-gold-muted/15 text-midnight/80 hover:border-gold/30 hover:bg-white'
                           }`}
                         >
                           <input
@@ -218,15 +227,19 @@ export default function BookPage() {
                             className="sr-only"
                           />
                           <div className={`w-4 h-4 rounded-full border flex items-center justify-center mt-1 shrink-0 ${
-                            selectedProgram === item.id ? 'border-gold' : 'border-gold-muted/40'
+                            selectedProgram === item.id ? 'border-gold bg-gold/20' : 'border-gold-muted/30 bg-white'
                           }`}>
-                            {selectedProgram === item.id && <div className="w-2.5 h-2.5 rounded-full bg-gold" />}
+                            {selectedProgram === item.id && <div className="w-2 h-2 rounded-full bg-gold" />}
                           </div>
                           <div>
-                            <p className="font-semibold text-sm text-parchment leading-tight">
+                            <p className={`font-bold text-sm leading-tight transition-colors duration-200 ${
+                              selectedProgram === item.id ? 'text-gold-hi' : 'text-midnight'
+                            }`}>
                               {item.title}
                             </p>
-                            <p className="text-xs text-parchment/40 mt-1.5">
+                            <p className={`text-xs mt-1.5 transition-colors duration-200 ${
+                              selectedProgram === item.id ? 'text-parchment/65' : 'text-stone/60'
+                            }`}>
                               {item.desc}
                             </p>
                           </div>
@@ -243,10 +256,10 @@ export default function BookPage() {
                     initial={{ opacity: 0, x: isRtl ? -20 : 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: isRtl ? 20 : -20 }}
-                    className="space-y-8"
+                    className="space-y-8 text-start"
                   >
                     <div>
-                      <h3 className={`text-base font-bold text-gold-hi mb-4 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                      <h3 className={`text-sm font-bold uppercase tracking-wider text-gold mb-4 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                         {t('frequency')}
                       </h3>
                       <div className="grid grid-cols-3 gap-4">
@@ -258,10 +271,10 @@ export default function BookPage() {
                           <label
                             key={item.id}
                             onClick={() => setValue('frequency', item.id as any)}
-                            className={`p-4 rounded-none border text-center cursor-pointer transition-all duration-200 block text-xs font-semibold ${
+                            className={`p-4 rounded-xl border text-center cursor-pointer transition-all duration-200 block text-xs font-bold ${
                               selectedFrequency === item.id
-                                ? 'bg-navy-deep border-gold text-parchment shadow-md shadow-midnight/35'
-                                : 'bg-navy-deep/45 border-gold-muted/15 text-parchment/60 hover:border-gold/30'
+                                ? 'bg-navy border-gold text-gold-hi shadow-md shadow-navy/10'
+                                : 'bg-ivory/40 border-gold-muted/15 text-stone hover:border-gold/30 hover:bg-white'
                             }`}
                           >
                             <input
@@ -279,7 +292,7 @@ export default function BookPage() {
                     </div>
 
                     <div>
-                      <h3 className={`text-base font-bold text-gold-hi mb-4 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                      <h3 className={`text-sm font-bold uppercase tracking-wider text-gold mb-4 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                         {t('duration')}
                       </h3>
                       <div className="grid grid-cols-3 gap-4">
@@ -291,10 +304,10 @@ export default function BookPage() {
                           <label
                             key={item.id}
                             onClick={() => setValue('duration', item.id as any)}
-                            className={`p-4 rounded-none border text-center cursor-pointer transition-all duration-200 block text-xs font-semibold ${
+                            className={`p-4 rounded-xl border text-center cursor-pointer transition-all duration-200 block text-xs font-bold ${
                               selectedDuration === item.id
-                                ? 'bg-navy-deep border-gold text-parchment shadow-md shadow-midnight/35'
-                                : 'bg-navy-deep/45 border-gold-muted/15 text-parchment/60 hover:border-gold/30'
+                                ? 'bg-navy border-gold text-gold-hi shadow-md shadow-navy/10'
+                                : 'bg-ivory/40 border-gold-muted/15 text-stone hover:border-gold/30 hover:bg-white'
                             }`}
                           >
                             <input
@@ -320,24 +333,24 @@ export default function BookPage() {
                     initial={{ opacity: 0, x: isRtl ? -20 : 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: isRtl ? 20 : -20 }}
-                    className="space-y-6"
+                    className="space-y-6 text-start"
                   >
                     <div>
-                      <label className={`block text-xs font-bold uppercase tracking-wider text-gold-hi mb-2 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                      <label className={`block text-[10px] font-bold uppercase tracking-widest text-stone mb-2.5 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                         {t('timeZone')}
                       </label>
                       <input
                         type="text"
                         {...register('timezone')}
-                        className="w-full bg-navy-deep border border-gold-muted/20 text-parchment p-3.5 rounded-none text-sm focus:outline-none focus:border-gold focus:ring-3 focus:ring-gold/12"
+                        className="w-full bg-ivory/40 border border-gold-muted/20 text-midnight p-3.5 rounded-xl text-sm focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/10 transition-all duration-200 placeholder:text-stone/30"
                       />
                       {errors.timezone && (
-                        <p className="text-red-500 text-xs mt-1">{errors.timezone.message}</p>
+                        <p className="text-red-500 text-xs mt-1.5 font-semibold">{errors.timezone.message}</p>
                       )}
                     </div>
 
                     <div>
-                      <label className={`block text-xs font-bold uppercase tracking-wider text-gold-hi mb-4 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                      <label className={`block text-[10px] font-bold uppercase tracking-widest text-stone mb-4 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                         {t('preferredGender')}
                       </label>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -349,10 +362,10 @@ export default function BookPage() {
                           <label
                             key={item.id}
                             onClick={() => setValue('genderPreference', item.id as any)}
-                            className={`p-4 rounded-none border text-center cursor-pointer transition-all duration-200 block text-xs font-semibold ${
+                            className={`p-4 rounded-xl border text-center cursor-pointer transition-all duration-200 block text-xs font-bold ${
                               selectedGender === item.id
-                                ? 'bg-navy-deep border-gold text-parchment shadow-md shadow-midnight/35'
-                                : 'bg-navy-deep/45 border-gold-muted/15 text-parchment/60 hover:border-gold/30'
+                                ? 'bg-navy border-gold text-gold-hi shadow-md shadow-navy/10'
+                                : 'bg-ivory/40 border-gold-muted/15 text-stone hover:border-gold/30 hover:bg-white'
                             }`}
                           >
                             <input
@@ -378,42 +391,42 @@ export default function BookPage() {
                     initial={{ opacity: 0, x: isRtl ? -20 : 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: isRtl ? 20 : -20 }}
-                    className="space-y-5"
+                    className="space-y-5 text-start"
                   >
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className={`block text-xs font-bold uppercase tracking-wider text-gold-hi mb-2 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                        <label className={`block text-[10px] font-bold uppercase tracking-widest text-stone mb-2.5 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                           {t('studentName')}
                         </label>
                         <input
                           type="text"
                           placeholder="Abdullah Al-Farsi"
                           {...register('studentName')}
-                          className="w-full bg-navy-deep border border-gold-muted/20 text-parchment p-3.5 rounded-none text-sm focus:outline-none focus:border-gold focus:ring-3 focus:ring-gold/12"
+                          className="w-full bg-ivory/40 border border-gold-muted/20 text-midnight p-3.5 rounded-xl text-sm focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/10 transition-all duration-200 placeholder:text-stone/30"
                         />
                         {errors.studentName && (
-                          <p className="text-red-500 text-xs mt-1">{t('validationName')}</p>
+                          <p className="text-red-500 text-xs mt-1.5 font-semibold">{t('validationName')}</p>
                         )}
                       </div>
 
                       <div>
-                        <label className={`block text-xs font-bold uppercase tracking-wider text-gold-hi mb-2 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                        <label className={`block text-[10px] font-bold uppercase tracking-widest text-stone mb-2.5 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                           {t('studentEmail')}
                         </label>
                         <input
                           type="email"
                           placeholder="student@example.com"
                           {...register('studentEmail')}
-                          className="w-full bg-navy-deep border border-gold-muted/20 text-parchment p-3.5 rounded-none text-sm focus:outline-none focus:border-gold focus:ring-3 focus:ring-gold/12"
+                          className="w-full bg-ivory/40 border border-gold-muted/20 text-midnight p-3.5 rounded-xl text-sm focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/10 transition-all duration-200 placeholder:text-stone/30"
                         />
                         {errors.studentEmail && (
-                          <p className="text-red-500 text-xs mt-1">{t('validationEmail')}</p>
+                          <p className="text-red-500 text-xs mt-1.5 font-semibold">{t('validationEmail')}</p>
                         )}
                       </div>
                     </div>
 
                     <div>
-                      <label className={`block text-xs font-bold uppercase tracking-wider text-gold-hi mb-3 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                      <label className={`block text-[10px] font-bold uppercase tracking-widest text-stone mb-3.5 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                         {t('studentAge')}
                       </label>
                       <div className="grid grid-cols-3 gap-4">
@@ -425,10 +438,10 @@ export default function BookPage() {
                           <label
                             key={item.id}
                             onClick={() => setValue('studentAge', item.id as any)}
-                            className={`p-4 rounded-none border text-center cursor-pointer transition-all duration-200 block text-xs font-semibold ${
+                            className={`p-4 rounded-xl border text-center cursor-pointer transition-all duration-200 block text-xs font-bold ${
                               selectedAge === item.id
-                                ? 'bg-navy-deep border-gold text-parchment shadow-md shadow-midnight/35'
-                                : 'bg-navy-deep/45 border-gold-muted/15 text-parchment/60 hover:border-gold/30'
+                                ? 'bg-navy border-gold text-gold-hi shadow-md shadow-navy/10'
+                                : 'bg-ivory/40 border-gold-muted/15 text-stone hover:border-gold/30 hover:bg-white'
                             }`}
                           >
                             <input
@@ -446,17 +459,17 @@ export default function BookPage() {
                     </div>
 
                     <div>
-                      <label className={`block text-xs font-bold uppercase tracking-wider text-gold-hi mb-2 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                      <label className={`block text-[10px] font-bold uppercase tracking-widest text-stone mb-2.5 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                         {t('studentGoals')}
                       </label>
                       <textarea
                         rows={4}
                         placeholder={t('goalsPlaceholder')}
                         {...register('studentGoals')}
-                        className="w-full bg-navy-deep border border-gold-muted/20 text-parchment p-3.5 rounded-none text-sm focus:outline-none focus:border-gold focus:ring-3 focus:ring-gold/12 resize-none"
+                        className="w-full bg-ivory/40 border border-gold-muted/20 text-midnight p-3.5 rounded-xl text-sm focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/10 transition-all duration-200 placeholder:text-stone/30 resize-none"
                       />
                       {errors.studentGoals && (
-                        <p className="text-red-500 text-xs mt-1">{t('validationGoals')}</p>
+                        <p className="text-red-500 text-xs mt-1.5 font-semibold">{t('validationGoals')}</p>
                       )}
                     </div>
                   </motion.div>
@@ -469,39 +482,39 @@ export default function BookPage() {
                     initial={{ opacity: 0, x: isRtl ? -20 : 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: isRtl ? 20 : -20 }}
-                    className="space-y-6"
+                    className="space-y-6 text-start"
                   >
-                    <h3 className={`text-base font-bold text-gold-hi mb-4 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                    <h3 className={`text-sm font-bold uppercase tracking-wider text-gold mb-4 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                       {t('step5')}
                     </h3>
 
                     {/* Summary Board */}
-                    <div className="bg-navy-deep border border-gold-muted/15 rounded-none p-6 space-y-4 text-sm text-parchment/80">
+                    <div className="bg-ivory/50 border border-gold-muted/15 rounded-2xl p-6 space-y-4 text-sm text-midnight/80">
                       <div className="flex justify-between border-b border-gold-muted/10 pb-3">
-                        <span className="text-parchment/40">{t('step1')}</span>
-                        <span className="font-semibold capitalize">{watch('program')}</span>
+                        <span className="text-stone">{t('step1')}</span>
+                        <span className="font-bold capitalize text-midnight">{watch('program')}</span>
                       </div>
                       <div className="flex justify-between border-b border-gold-muted/10 pb-3">
-                        <span className="text-parchment/40">{t('frequency')} & {t('duration')}</span>
-                        <span className="font-semibold">{watch('frequency')} • {watch('duration')}</span>
+                        <span className="text-stone">{t('frequency')} & {t('duration')}</span>
+                        <span className="font-bold text-midnight">{watch('frequency')} • {watch('duration')}</span>
                       </div>
                       <div className="flex justify-between border-b border-gold-muted/10 pb-3">
-                        <span className="text-parchment/40">{t('preferredGender')}</span>
-                        <span className="font-semibold capitalize">{watch('genderPreference')}</span>
+                        <span className="text-stone">{t('preferredGender')}</span>
+                        <span className="font-bold capitalize text-midnight">{watch('genderPreference')}</span>
                       </div>
                       <div className="flex justify-between border-b border-gold-muted/10 pb-3">
-                        <span className="text-parchment/40">{t('studentName')}</span>
-                        <span className="font-semibold">{watch('studentName')}</span>
+                        <span className="text-stone">{t('studentName')}</span>
+                        <span className="font-bold text-midnight">{watch('studentName')}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-parchment/40">{t('studentEmail')}</span>
-                        <span className="font-semibold">{watch('studentEmail')}</span>
+                        <span className="text-stone">{t('studentEmail')}</span>
+                        <span className="font-bold text-midnight">{watch('studentEmail')}</span>
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-none bg-gold/5 border border-gold/10 flex items-start gap-3">
+                    <div className="p-4 rounded-xl bg-gold/5 border border-gold/15 flex items-start gap-3">
                       <Sparkles size={16} className="text-gold mt-0.5 shrink-0" />
-                      <p className="text-[11px] text-gold-hi/80 leading-normal">
+                      <p className="text-[11px] text-[#7A5C12] leading-normal font-semibold">
                         {isRtl 
                           ? 'بمجرد التأكيد، سيتم حجز الجلسة وسيتصل بك منسق الأكاديمية خلال 12 ساعة لتحديد موعد البدء وتزويدك ببيانات المعلم ورابط زووم.'
                           : 'Upon confirmation, your trial session is reserved. A coordinator will email you within 12 hours with your assigned scholar, schedule, and Zoom link.'}
@@ -516,7 +529,7 @@ export default function BookPage() {
                     <button
                       type="button"
                       onClick={handlePrevStep}
-                      className={`flex items-center gap-2 text-xs font-semibold text-parchment/65 hover:text-gold transition-colors duration-200 focus:outline-none cursor-pointer ${
+                      className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-stone hover:text-midnight transition-colors duration-200 focus:outline-none cursor-pointer ${
                         isRtl ? 'flex-row-reverse' : ''
                       }`}
                     >
@@ -531,7 +544,7 @@ export default function BookPage() {
                     <button
                       type="button"
                       onClick={handleNextStep}
-                      className={`btn-gold px-6 py-3 rounded-none text-xs uppercase tracking-wider font-bold cursor-pointer inline-flex items-center gap-2`}
+                      className="btn-gold px-6 py-3 rounded-full text-xs uppercase tracking-wider font-bold cursor-pointer inline-flex items-center gap-2"
                     >
                       <span>{t('btnNext')}</span>
                       {isRtl ? <ArrowLeft size={14} /> : <ArrowRight size={14} />}
@@ -540,7 +553,7 @@ export default function BookPage() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className={`btn-gold px-8 py-3.5 rounded-none text-xs uppercase tracking-wider font-bold cursor-pointer inline-flex items-center gap-2`}
+                      className="btn-gold px-8 py-3.5 rounded-full text-xs uppercase tracking-wider font-bold cursor-pointer inline-flex items-center gap-2"
                     >
                       {isSubmitting ? (
                         <>
