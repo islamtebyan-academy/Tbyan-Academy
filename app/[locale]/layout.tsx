@@ -6,6 +6,7 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { locales } from '@/i18n';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import WhatsAppFloating from '@/components/ui/WhatsAppFloating';
 import '../globals.css';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -105,6 +106,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
           <Header />
           <main className="flex-grow">{children}</main>
           <Footer />
+          <WhatsAppFloating />
         </NextIntlClientProvider>
       </body>
     </html>

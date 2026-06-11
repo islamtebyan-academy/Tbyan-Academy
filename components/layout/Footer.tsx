@@ -65,7 +65,7 @@ export default function Footer() {
           {/* Social Media Links */}
           <div className="flex items-center gap-3">
             <a
-              href="https://facebook.com/islamtebyan"
+              href="https://www.facebook.com/profile.php?id=61590678633766"
               target="_blank"
               rel="noopener noreferrer"
               className="w-8 h-8 rounded-full border border-gold-muted/30 bg-white/5 flex items-center justify-center text-parchment/60 hover:text-gold hover:border-gold hover:bg-white/10 transition-all duration-300"
@@ -77,7 +77,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://youtube.com/c/islamtebyan"
+              href="https://www.youtube.com/@TebianIslam"
               target="_blank"
               rel="noopener noreferrer"
               className="w-8 h-8 rounded-full border border-gold-muted/30 bg-white/5 flex items-center justify-center text-parchment/60 hover:text-gold hover:border-gold hover:bg-white/10 transition-all duration-300"
@@ -89,7 +89,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://instagram.com/islamtebyan"
+              href="https://www.instagram.com/islamtebyan/"
               target="_blank"
               rel="noopener noreferrer"
               className="w-8 h-8 rounded-full border border-gold-muted/30 bg-white/5 flex items-center justify-center text-parchment/60 hover:text-gold hover:border-gold hover:bg-white/10 transition-all duration-300"
@@ -101,27 +101,27 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://x.com/islamtebyan"
+              href="https://www.tiktok.com/@isalm_tebyan/"
               target="_blank"
               rel="noopener noreferrer"
               className="w-8 h-8 rounded-full border border-gold-muted/30 bg-white/5 flex items-center justify-center text-parchment/60 hover:text-gold hover:border-gold hover:bg-white/10 transition-all duration-300"
-              aria-label="X / Twitter"
-              title="X / Twitter"
+              aria-label="TikTok"
+              title="TikTok"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .8.11V9.4a6.27 6.27 0 0 0-3.11.84 6.35 6.35 0 0 0-3.3 5.3 6.35 6.35 0 0 0 10.79 4.9 6.3 6.3 0 0 0 1.96-4.51V8.58a10.81 10.81 0 0 0 6.33 2.01V7.18a7.81 7.81 0 0 1-4.61-2.5z"/>
               </svg>
             </a>
             <a
-              href="https://t.me/islamtebyan"
+              href="https://wa.me/201019281416"
               target="_blank"
               rel="noopener noreferrer"
               className="w-8 h-8 rounded-full border border-gold-muted/30 bg-white/5 flex items-center justify-center text-parchment/60 hover:text-gold hover:border-gold hover:bg-white/10 transition-all duration-300"
-              aria-label="Telegram"
-              title="Telegram"
+              aria-label="WhatsApp"
+              title="WhatsApp"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-1-.65-.35-1 .22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.35-.49.97-.74 3.79-1.65 6.32-2.74 7.59-3.27 3.6-1.5 4.35-1.76 4.84-1.77.11 0 .35.03.5.16.13.12.17.29.18.41 0 .08-.01.27-.02.35z"/>
+                <path d="M12.031 2C6.479 2 2 6.478 2 12.029c0 1.91.536 3.693 1.463 5.23L2 22l4.908-1.428c1.464.843 3.142 1.328 4.937 1.328 5.551 0 10.03-4.478 10.03-10.029C22.062 6.478 17.582 2 12.03 2zm6.604 14.148c-.273.766-1.584 1.393-2.185 1.463-.547.062-1.258.093-2.032-.156-.475-.152-1.077-.384-1.848-.718-3.238-1.4-5.323-4.66-5.485-4.878-.162-.218-1.309-1.745-1.309-3.328 0-1.584.829-2.361 1.127-2.673.3-.312.656-.39.875-.39.219 0 .438.001.625.01.2.01.469-.077.734.56.28.673.969 2.373 1.053 2.54.084.167.141.362.031.583-.11.22-.162.36-.328.553-.167.193-.35.43-.5.58-.168.167-.343.349-.147.684.197.336.877 1.444 1.879 2.336 1.292 1.152 2.378 1.509 2.715 1.677.337.168.536.14.734-.093.2-.234.86-.998 1.09-1.342.23-.343.46-.28.77-.168.312.112 1.977.93 2.321 1.099.343.169.57.252.654.394.084.14.084.812-.19 1.578z"/>
               </svg>
             </a>
           </div>

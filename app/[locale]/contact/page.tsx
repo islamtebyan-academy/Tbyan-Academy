@@ -17,6 +17,7 @@ import {
   ArrowLeft, 
   Copy, 
   Send,
+  MessageCircle,
   Clock,
   ChevronDown,
   GraduationCap,
@@ -120,19 +121,19 @@ const content = {
           title: 'مكتب القبول والتسجيل الجديد',
           desc: 'للطلاب الجدد، حجز حصص التقييم المجانية، استفسارات المقررات واختيار المدرسين.',
           btn: 'تواصل مع القبول',
-          url: 'https://wa.me/447700900077?text=Admissions%20Inquiry',
+          url: 'https://wa.me/201019281416?text=Admissions%20Inquiry',
         },
         {
           title: 'إدارة شؤون الطلاب والمتابعة',
           desc: 'للطلاب الحاليين، تنسيق الجداول الدراسية، حالات تجميد الاشتراكات، وتقارير الحضور.',
           btn: 'تواصل مع شؤون الطلاب',
-          url: 'https://wa.me/447700900077?text=Student%20Affairs%20Inquiry',
+          url: 'https://wa.me/201019281416?text=Student%20Affairs%20Inquiry',
         },
         {
           title: 'الدعم التقني وغرف الفصول',
           desc: 'للمشاكل المتعلقة بروابط زووم، إعدادات الصوت والصورة، أو استخدام المنصة التعليمية.',
           btn: 'تواصل مع الدعم الفني',
-          url: 'https://wa.me/447700900077?text=Technical%20Support',
+          url: 'https://wa.me/201019281416?text=Technical%20Support',
         }
       ]
     },
@@ -166,9 +167,9 @@ const content = {
       whatsapp: {
         title: 'واتساب الأعمال الرسمي',
         subtitle: 'تواصل فوري سريع للمساعدة في حجز التقييم وتعديل الجداول.',
-        value: '+44 7700 900077',
+        value: '+20 101 928 1416',
         btn: 'ابدأ الدردشة الآن',
-        url: 'https://wa.me/447700900077',
+        url: 'https://wa.me/201019281416',
       },
       email: {
         title: 'البريد الإلكتروني للأكاديمية',
@@ -176,12 +177,12 @@ const content = {
         value: 'support@islamtebyan.com',
         btn: 'نسخ البريد الإلكتروني',
       },
-      telegram: {
-        title: 'حساب التنسيق الفوري',
-        subtitle: 'تواصل مباشر مع منسق القبول والاستقبال لمتابعة الاستفسارات.',
-        value: '@TebyanAcademy',
-        btn: 'تواصل عبر تلغرام',
-        url: 'https://t.me/TebyanAcademy',
+      supportWhatsapp: {
+        title: 'دعم المقررات والطلاب',
+        subtitle: 'تواصل مباشر مع قسم المتابعة لتنسيق الحصص والاختبارات.',
+        value: '+20 101 928 1416',
+        btn: 'تواصل مع الدعم الفوري',
+        url: 'https://wa.me/201019281416?text=Support',
       },
       office: {
         title: 'المقر وساعات التواصل',
@@ -249,19 +250,19 @@ const content = {
           title: 'Admissions & New Enrollments',
           desc: 'For new inquiries, booking free diagnostic evaluations, curriculum selections, and pricing questions.',
           btn: 'Contact Admissions',
-          url: 'https://wa.me/447700900077?text=Admissions%20Inquiry',
+          url: 'https://wa.me/201019281416?text=Admissions%20Inquiry',
         },
         {
           title: 'Student Affairs & Support',
           desc: 'For active students, shifting class schedules, subscription freeze requests, and attendance follow-ups.',
           btn: 'Contact Student Affairs',
-          url: 'https://wa.me/447700900077?text=Student%20Affairs%20Inquiry',
+          url: 'https://wa.me/201019281416?text=Student%20Affairs%20Inquiry',
         },
         {
           title: 'Technical Support & Zoom Rooms',
           desc: 'Assistance for classroom Zoom link errors, browser configurations, mic/camera settings, and portal issues.',
           btn: 'Contact Tech Support',
-          url: 'https://wa.me/447700900077?text=Technical%20Support',
+          url: 'https://wa.me/201019281416?text=Technical%20Support',
         }
       ]
     },
@@ -295,9 +296,9 @@ const content = {
       whatsapp: {
         title: 'Official WhatsApp Business',
         subtitle: 'Instant chat support for trial booking, scheduling, and admin help.',
-        value: '+44 7700 900077',
+        value: '+20 101 928 1416',
         btn: 'Start Live Chat',
-        url: 'https://wa.me/447700900077',
+        url: 'https://wa.me/201019281416',
       },
       email: {
         title: 'Official Academy Email',
@@ -305,12 +306,12 @@ const content = {
         value: 'support@islamtebyan.com',
         btn: 'Copy Email Address',
       },
-      telegram: {
-        title: 'Telegram Coordinator',
-        subtitle: 'Direct messaging connection to our academic coordination line.',
-        value: '@TebyanAcademy',
-        btn: 'Chat on Telegram',
-        url: 'https://t.me/TebyanAcademy',
+      supportWhatsapp: {
+        title: 'Academic Support WhatsApp',
+        subtitle: 'Direct support line for scheduling, quizzes, and class assistance.',
+        value: '+20 101 928 1416',
+        btn: 'Chat with Support',
+        url: 'https://wa.me/201019281416?text=Support',
       },
       office: {
         title: 'Office Location & Hours',
@@ -378,19 +379,19 @@ const content = {
           title: 'Admissions & New Enrollments',
           desc: 'For new inquiries, booking free diagnostic evaluations, curriculum selections, and pricing questions.',
           btn: 'Contact Admissions',
-          url: 'https://wa.me/447700900077?text=Admissions%20Inquiry',
+          url: 'https://wa.me/201019281416?text=Admissions%20Inquiry',
         },
         {
           title: 'Student Affairs & Support',
           desc: 'For active students, shifting class schedules, subscription freeze requests, and attendance follow-ups.',
           btn: 'Contact Student Affairs',
-          url: 'https://wa.me/447700900077?text=Student%20Affairs%20Inquiry',
+          url: 'https://wa.me/201019281416?text=Student%20Affairs%20Inquiry',
         },
         {
           title: 'Technical Support & Zoom Rooms',
           desc: 'Assistance for classroom Zoom link errors, browser configurations, mic/camera settings, and portal issues.',
           btn: 'Contact Tech Support',
-          url: 'https://wa.me/447700900077?text=Technical%20Support',
+          url: 'https://wa.me/201019281416?text=Technical%20Support',
         }
       ]
     },
@@ -424,9 +425,9 @@ const content = {
       whatsapp: {
         title: 'Official WhatsApp Business',
         subtitle: 'Instant chat support for trial booking, scheduling, and admin help.',
-        value: '+44 7700 900077',
+        value: '+20 101 928 1416',
         btn: 'Start Live Chat',
-        url: 'https://wa.me/447700900077',
+        url: 'https://wa.me/201019281416',
       },
       email: {
         title: 'Official Academy Email',
@@ -434,12 +435,12 @@ const content = {
         value: 'support@islamtebyan.com',
         btn: 'Copy Email Address',
       },
-      telegram: {
-        title: 'Telegram Coordinator',
-        subtitle: 'Direct messaging connection to our academic coordination line.',
-        value: '@TebyanAcademy',
-        btn: 'Chat on Telegram',
-        url: 'https://t.me/TebyanAcademy',
+      supportWhatsapp: {
+        title: 'Academic Support WhatsApp',
+        subtitle: 'Direct support line for scheduling, quizzes, and class assistance.',
+        value: '+20 101 928 1416',
+        btn: 'Chat with Support',
+        url: 'https://wa.me/201019281416?text=Support',
       },
       office: {
         title: 'Office Location & Hours',
@@ -507,19 +508,19 @@ const content = {
           title: 'Bureau des Admissions & Nouveaux Équivalents',
           desc: 'Pour les nouveaux étudiants, réservations d\'évaluations gratuites, questions sur les cours et tarifs.',
           btn: 'Contacter les Admissions',
-          url: 'https://wa.me/447700900077?text=Admissions%20Inquiry',
+          url: 'https://wa.me/201019281416?text=Admissions%20Inquiry',
         },
         {
           title: 'Affaires Étudiantes & Suivi Académique',
           desc: 'Pour les étudiants actifs, changements d\'horaires, gel d\'abonnements et rapports d\'assiduité.',
           btn: 'Contacter le Suivi',
-          url: 'https://wa.me/447700900077?text=Student%20Affairs%20Inquiry',
+          url: 'https://wa.me/201019281416?text=Student%20Affairs%20Inquiry',
         },
         {
           title: 'Support Technique & Classes Virtuelles',
           desc: 'Assistance pour les erreurs de lien Zoom, configurations audio/vidéo et dysfonctionnements du portail.',
           btn: 'Support Technique',
-          url: 'https://wa.me/447700900077?text=Technical%20Support',
+          url: 'https://wa.me/201019281416?text=Technical%20Support',
         }
       ]
     },
@@ -553,9 +554,9 @@ const content = {
       whatsapp: {
         title: 'WhatsApp Business Officiel',
         subtitle: 'Assistance instantanée pour planifier votre évaluation gratuite et adapter votre emploi du temps.',
-        value: '+44 7700 900077',
+        value: '+20 101 928 1416',
         btn: 'Lancer la Discussion',
-        url: 'https://wa.me/447700900077',
+        url: 'https://wa.me/201019281416',
       },
       email: {
         title: 'Adresse E-mail Officielle',
@@ -563,12 +564,12 @@ const content = {
         value: 'support@islamtebyan.com',
         btn: 'Copier l\'adresse e-mail',
       },
-      telegram: {
-        title: 'Service Telegram',
-        subtitle: 'Liaison directe avec notre secrétaire des admissions sur Telegram.',
-        value: '@TebyanAcademy',
-        btn: 'Ouvrir Telegram',
-        url: 'https://t.me/TebyanAcademy',
+      supportWhatsapp: {
+        title: 'WhatsApp de Support Académique',
+        subtitle: 'Liaison de soutien direct pour les horaires, quiz et suivi des cours.',
+        value: '+20 101 928 1416',
+        btn: 'Contacter le Support',
+        url: 'https://wa.me/201019281416?text=Support',
       },
       office: {
         title: 'Adresse & Horaires de Bureau',
@@ -1042,33 +1043,33 @@ export default function ContactPage() {
                 </a>
               </motion.div>
 
-              {/* Telegram Card */}
+              {/* WhatsApp Support Card */}
               <motion.div 
                 className="bg-white border border-gold-muted/15 rounded-3xl p-6 lg:p-5 shadow-md hover:border-gold/30 transition-all duration-300 flex flex-col justify-between h-full group text-start"
                 variants={fadeInUp}
                 whileHover={{ y: -6, scale: 1.015 }}
               >
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/25 flex items-center justify-center text-sky-600 mb-3 transition-colors duration-300 group-hover:bg-sky-500 group-hover:text-white">
-                    <Send size={16} className="rotate-[320deg] relative -top-0.5" />
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-600 mb-3 transition-colors duration-300 group-hover:bg-emerald-500 group-hover:text-white">
+                    <MessageCircle size={18} />
                   </div>
                   <h3 className={`text-sm font-bold text-midnight mb-1 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
-                    {activeContent.info.telegram.title}
+                    {activeContent.info.supportWhatsapp.title}
                   </h3>
                   <p className={`text-[11px] text-stone/60 mb-2 leading-tight ${isRtl ? 'font-noto' : 'font-lora'}`}>
-                    {activeContent.info.telegram.subtitle}
+                    {activeContent.info.supportWhatsapp.subtitle}
                   </p>
                   <span className="text-xs font-bold text-midnight font-dm select-all block mb-3">
-                    {activeContent.info.telegram.value}
+                    {activeContent.info.supportWhatsapp.value}
                   </span>
                 </div>
                 <a 
-                  href={activeContent.info.telegram.url}
+                  href={activeContent.info.supportWhatsapp.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-full py-2.5 rounded-xl border border-sky-500/30 text-sky-600 hover:bg-sky-500 hover:text-white transition-all duration-300 text-[11px] font-bold text-center inline-flex items-center justify-center gap-1.5 cursor-pointer ${isRtl ? 'font-cairo' : 'font-dm'}`}
+                  className={`w-full py-2.5 rounded-xl border border-emerald-500/30 text-emerald-600 hover:bg-emerald-500 hover:text-white transition-all duration-300 text-[11px] font-bold text-center inline-flex items-center justify-center gap-1.5 cursor-pointer ${isRtl ? 'font-cairo' : 'font-dm'}`}
                 >
-                  <span>{activeContent.info.telegram.btn}</span>
+                  <span>{activeContent.info.supportWhatsapp.btn}</span>
                   {isRtl ? <ArrowLeft size={12} /> : <ArrowRight size={12} />}
                 </a>
               </motion.div>
@@ -1379,7 +1380,7 @@ export default function ContactPage() {
                       <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
                     </svg>
                   ), 
-                  url: 'https://facebook.com/islamtebyan', 
+                  url: 'https://www.facebook.com/profile.php?id=61590678633766', 
                   color: 'hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2]' 
                 },
                 { 
@@ -1389,34 +1390,38 @@ export default function ContactPage() {
                       <path fillRule="evenodd" d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" clipRule="evenodd" />
                     </svg>
                   ), 
-                  url: 'https://youtube.com/c/islamtebyan', 
+                  url: 'https://www.youtube.com/@TebianIslam', 
                   color: 'hover:bg-[#FF0000] hover:text-white hover:border-[#FF0000]' 
                 },
                 { 
-                  name: 'X / Twitter', 
+                  name: 'TikTok', 
                   icon: (
                     <svg className="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .8.11V9.4a6.27 6.27 0 0 0-3.11.84 6.35 6.35 0 0 0-3.3 5.3 6.35 6.35 0 0 0 10.79 4.9 6.3 6.3 0 0 0 1.96-4.51V8.58a10.81 10.81 0 0 0 6.33 2.01V7.18a7.81 7.81 0 0 1-4.61-2.5z"/>
                     </svg>
                   ), 
-                  url: 'https://x.com/islamtebyan', 
+                  url: 'https://www.tiktok.com/@isalm_tebyan/', 
                   color: 'hover:bg-black hover:text-white hover:border-black' 
                 },
                 { 
                   name: 'Instagram', 
                   icon: (
                     <svg className="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.01 3.71.054.937.04 1.612.189 2.186.411a4.87 4.87 0 012.026 2.026c.222.574.372 1.249.412 2.186.04.927.054 1.28.054 3.71 0 2.43-.01 2.784-.054 3.71-.04.937-.189 1.613-.412 2.186a4.87 4.87 0 01-2.026 2.026c-.574.222-1.249.372-2.186.412-.927.04-1.28.054-3.71.054s-2.784-.01-3.71-.054c-.937-.04-1.613-.189-2.186-.412a4.87 4.87 0 01-2.026-2.026c-.222-.574-.372-1.249-.412-2.186-.04-.927-.054-1.28-.054-3.71 0-2.43.01-2.784.054-3.71.04-.937.189-1.613.412-2.186a4.87 4.87 0 012.026-2.026c.574-.222 1.249-.372 2.186-.412.927-.04 1.28-.054 3.71-.054zM12 7a5 5 0 100 10 5 5 0 000-10zm0 8a3 3 0 110-6 3 3 0 010 6zm5.827-8a1 1 0 11-2 0 1 1 0 012 0z" clipRule="evenodd" />
+                      <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.01 3.71.054.937.04 1.612.189 2.186.411a4.87 4.87 0 0 1 2.026 2.026c.222.574.372 1.249.412 2.186.04.927.054 1.28.054 3.71 0 2.43-.01 2.784-.054 3.71-.04.937-.189 1.613-.412 2.186a4.87 4.87 0 0 1-2.026 2.026c-.574.222-1.249.372-2.186.412-.927.04-1.28.054-3.71.054s-2.784-.01-3.71-.054c-.937-.04-1.613-.189-2.186-.412a4.87 4.87 0 0 1-2.026-2.026c-.222-.574-.372-1.249-.412-2.186-.04-.927-.054-1.28-.054-3.71 0-2.43.01-2.784.054-3.71.04-.937.189-1.613.412-2.186a4.87 4.87 0 0 1 2.026-2.026c.574-.222 1.249-.372 2.186-.412.927-.04 1.28-.054 3.71-.054zM12 7a5 5 0 100 10 5 5 0 000-10zm0 8a3 3 0 110-6 3 3 0 010 6zm5.827-8a1 1 0 11-2 0 1 1 0 012 0z" clipRule="evenodd" />
                     </svg>
                   ), 
-                  url: 'https://instagram.com/islamtebyan', 
+                  url: 'https://www.instagram.com/islamtebyan/', 
                   color: 'hover:bg-gradient-to-tr hover:from-[#f9ce3f] hover:via-[#e1306c] hover:to-[#833ab4] hover:text-white hover:border-transparent' 
                 },
                 { 
-                  name: 'Telegram Channel', 
-                  icon: <Send className="w-4 h-4 rotate-[320deg] relative -top-0.5" />, 
-                  url: 'https://t.me/islamtebyan', 
-                  color: 'hover:bg-[#0088cc] hover:text-white hover:border-[#0088cc]' 
+                  name: 'WhatsApp', 
+                  icon: (
+                    <svg className="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M12.031 2C6.479 2 2 6.478 2 12.029c0 1.91.536 3.693 1.463 5.23L2 22l4.908-1.428c1.464.843 3.142 1.328 4.937 1.328 5.551 0 10.03-4.478 10.03-10.029C22.062 6.478 17.582 2 12.03 2zm6.604 14.148c-.273.766-1.584 1.393-2.185 1.463-.547.062-1.258.093-2.032-.156-.475-.152-1.077-.384-1.848-.718-3.238-1.4-5.323-4.66-5.485-4.878-.162-.218-1.309-1.745-1.309-3.328 0-1.584.829-2.361 1.127-2.673.3-.312.656-.39.875-.39.219 0 .438.001.625.01.2.01.469-.077.734.56.28.673.969 2.373 1.053 2.54.084.167.141.362.031.583-.11.22-.162.36-.328.553-.167.193-.35.43-.5.58-.168.167-.343.349-.147.684.197.336.877 1.444 1.879 2.336 1.292 1.152 2.378 1.509 2.715 1.677.337.168.536.14.734-.093.2-.234.86-.998 1.09-1.342.23-.343.46-.28.77-.168.312.112 1.977.93 2.321 1.099.343.169.57.252.654.394.084.14.084.812-.19 1.578z"/>
+                    </svg>
+                  ), 
+                  url: 'https://wa.me/201019281416', 
+                  color: 'hover:bg-[#25D366] hover:text-white hover:border-[#25D366]' 
                 }
               ].map((plat, idx) => (
                 <motion.a
