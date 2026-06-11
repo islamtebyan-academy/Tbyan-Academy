@@ -1090,9 +1090,12 @@ export default function ContactPage() {
                   <p className={`text-[11px] text-stone/60 mb-2 leading-tight ${isRtl ? 'font-noto' : 'font-lora'}`}>
                     {activeContent.info.email.subtitle}
                   </p>
-                  <span className="text-xs font-bold text-midnight font-dm select-all block mb-3 break-all">
+                  <a 
+                    href="mailto:islamtebyan@gmail.com"
+                    className="text-xs font-bold text-midnight hover:text-gold font-dm select-all block mb-3 break-all transition-colors"
+                  >
                     {activeContent.info.email.value}
-                  </span>
+                  </a>
                 </div>
                 <button 
                   onClick={copyEmail}

@@ -172,6 +172,14 @@ export default function Footer() {
                 {t('Navigation.bookTrial')}
               </Link>
             </li>
+            <li className="mt-2 border-t border-gold-muted/10 pt-2 flex flex-col gap-1.5 text-parchment/50">
+              <a href="tel:+201019281416" className="hover:text-gold-champagne transition-colors duration-150 font-dm">
+                +20 101 928 1416
+              </a>
+              <a href="mailto:islamtebyan@gmail.com" className="hover:text-gold-champagne transition-colors duration-150 font-dm break-all">
+                support@islamtebyan.com
+              </a>
+            </li>
           </ul>
         </div>
 
