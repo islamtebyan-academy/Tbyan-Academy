@@ -109,7 +109,7 @@ export async function POST(request: Request) {
     // Notify the admin team
     const adminEmailResponse = await resend.emails.send({
       from: 'System <alerts@islamtebyan.com>',
-      to: 'admin@islamtebyan.com',
+      to: 'islamtebyan@gmail.com',
       subject: `[New Trial Booking] ${validatedData.studentName} (${validatedData.program})`,
       html: `
         <h3>New 1-on-1 Trial Booking Request Received</h3>

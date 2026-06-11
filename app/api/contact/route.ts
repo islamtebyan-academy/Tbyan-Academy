@@ -58,7 +58,7 @@ export async function POST(request: Request) {
     // Notify the admin team
     const adminEmailResponse = await resend.emails.send({
       from: 'System <alerts@islamtebyan.com>',
-      to: 'admin@islamtebyan.com',
+      to: 'islamtebyan@gmail.com',
       subject: `[Contact Form] ${validatedData.subject}`,
       html: `
         <h3>New Contact Inquiry</h3>
