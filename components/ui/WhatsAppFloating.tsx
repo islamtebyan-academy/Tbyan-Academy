@@ -19,9 +19,7 @@ export default function WhatsAppFloating() {
 
   return (
     <div 
-      className={`fixed bottom-6 z-50 flex items-center gap-3 ${
-        isRtl ? 'left-6 flex-row' : 'right-6 flex-row-reverse'
-      }`}
+      className="fixed bottom-6 left-6 z-50 flex items-center gap-3 flex-row-reverse"
     >
       {/* Tooltip Label */}
       <AnimatePresence>
@@ -29,7 +27,7 @@ export default function WhatsAppFloating() {
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          initial={{ opacity: 0, scale: 0.8, x: isRtl ? -10 : 10 }}
+          initial={{ opacity: 0, scale: 0.8, x: -10 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ delay: 1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className={`hidden sm:flex px-4 py-2 bg-[#FDFAF3] text-navy-brand border border-gold-muted/30 shadow-[0_8px_24px_rgba(139,115,85,0.12)] rounded-full text-xs font-bold items-center gap-1.5 hover:border-gold hover:text-gold hover:shadow-[0_12px_32px_rgba(139,115,85,0.18)] transition-all duration-300 ${
