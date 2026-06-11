@@ -18,7 +18,7 @@ export default function WhatsAppFloating() {
   const whatsappUrl = `https://wa.me/${whatsappNumber}`;
 
   return (
-    <div className="fixed bottom-6 left-6 z-50 flex items-center gap-3 flex-row">
+    <div className="fixed bottom-6 left-6 z-50 flex items-center gap-3 flex-row" dir="ltr">
       {/* Floating Button (always on the left edge) */}
       <motion.a
         href={whatsappUrl}
