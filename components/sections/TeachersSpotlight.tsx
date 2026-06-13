@@ -37,40 +37,58 @@ export default function TeachersSpotlight() {
 
   const mockTeachers = [
     {
-      name: isRtl ? 'د. أنس الأزهري' : 'Dr. Anas Al-Azhari',
-      title: isRtl ? 'دكتوراه في القراءات والتجويد' : 'PhD in Quranic Recitations',
-      specialty: isRtl ? 'التجويد والقراءات العشر' : 'Tajweed & Qira\'at',
-      education: isRtl ? 'جامعة الأزهر الشريف' : 'Al-Azhar University',
-      languages: isRtl ? 'العربية، الإنجليزية' : 'Arabic, English',
-      slug: 'anas-al-azhari',
-      ijazat: isRtl 
-        ? ['إجازة بالقراءات العشر المتواترة بموجب الإسناد المتصل', 'إجازة في متن الجزرية وتحفة الأطفال']
-        : ['10 Canonical Qira\'at with connected chains (Isnad)', 'Ijaza in Al-Jazariyyah & Tuhfah texts'],
-      image: '/images/teacher_anas.png',
+      name: locale === 'ar' ? 'أحمد يحيى زكريا' : 'Ahmed Yahya Zakaria',
+      title: locale === 'ar'
+        ? 'معلم القرآن الكريم واللغة العربية لغير الناطقين بها'
+        : locale === 'fr'
+        ? 'Enseignant du Saint Coran et de l\'Arabe'
+        : 'Quranic Recitation & Arabic Instructor',
+      specialty: locale === 'ar' ? 'القرآن والتجويد واللغة العربية' : locale === 'fr' ? 'Coran, Tajwid & Arabe' : 'Quran, Tajweed & Arabic',
+      education: locale === 'ar' ? 'جامعة الأزهر الشريف' : locale === 'fr' ? 'Université d\'Al-Azhar' : 'Al-Azhar University',
+      languages: locale === 'ar' ? 'العربية، الإنجليزية، الفرنسية، التركية' : locale === 'fr' ? 'Arabe, Anglais, Français, Turc' : 'Arabic, English, French, Turkish',
+      slug: 'ahmed-yahya-zakaria',
+      ijazat: locale === 'ar'
+        ? ['إجازة برواية حفص عن عاصم بالسند المتصل', 'إجازة قرآنية من فضيلة الشيخ نبيل علي والشيخ سيد بعبولة']
+        : locale === 'fr'
+        ? ['Ijaza de récital coranique (Hafs) avec Isnad connecté', 'Ijazat des Cheikhs Nabil Ali et Sayyid Babola']
+        : ['Quranic recitation Ijaza (Hafs) with connected Isnad', 'Ijazat from Sheikh Nabil Ali & Sheikh Sayyid Babola'],
+      image: '/images/teacher_ahmed_yahya.png',
     },
     {
-      name: isRtl ? 'الشيخ يوسف الفرنسي' : 'Sheikh Youssef Al-Faransi',
-      title: isRtl ? 'ماجستير في اللغة العربية وآدابها' : 'MA in Classical Arabic Grammar',
-      specialty: isRtl ? 'النحو، الصرف، والبلاغة' : 'Arabic Grammar (Nahw & Sarf)',
-      education: isRtl ? 'الجامعة الإسلامية بالمدينة المنورة' : 'Islamic University of Madinah',
-      languages: isRtl ? 'العربية، الفرنسية' : 'Arabic, French',
-      slug: 'youssef-al-faransi',
-      ijazat: isRtl
-        ? ['إجازة في شرح الآجرومية وقطر الندى', 'سند متصل في تدريس اللغة العربية للناطقين بغيرها']
-        : ['Ijaza in teaching Al-Ajrumiyyah & Qatr al-Nada', 'Certified chain for Arabic instruction to non-natives'],
-      image: '/images/teacher_youssef.png',
+      name: locale === 'ar' ? 'الشيخ محمد بدر عبد المرضي حسين' : 'Sheikh Mohamed Badr Al-Maliki',
+      title: locale === 'ar'
+        ? 'واعظ بالأزهر الشريف ومدرس العلوم الشرعية'
+        : locale === 'fr'
+        ? 'Prédicateur d\'Al-Azhar & Enseignant de Shariah'
+        : 'Al-Azhar Emissary & Shariah Instructor',
+      specialty: locale === 'ar' ? 'التفسير، الفقه المالكي، والمنطق' : locale === 'fr' ? 'Tafsir, Fiqh Malékite & Logique' : 'Tafsir, Maliki Fiqh, & Logic',
+      education: locale === 'ar' ? 'ماجستير جامعة الأزهر الشريف' : locale === 'fr' ? 'Master, Université d\'Al-Azhar' : 'MA, Al-Azhar University',
+      languages: locale === 'ar' ? 'العربية، الإنجليزية' : locale === 'fr' ? 'Arabe, Anglais' : 'Arabic, English',
+      slug: 'mohamed-badr-maliki',
+      ijazat: locale === 'ar'
+        ? ['إجازة بالقراءات المتواترة بسند متصل', 'إجازات في متون النحو والفقه والمنطق والعقيدة']
+        : locale === 'fr'
+        ? ['Isnad au Prophète ﷺ dans plusieurs lectures', 'Ijazas dans les traités de grammaire, Fiqh et logique']
+        : ['Connected Isnad to the Prophet ﷺ in multiple Qira\'at', 'Ijazas in grammar, theology, Maliki Fiqh & logic'],
+      image: '/images/teacher_mohamed_badr.png',
     },
     {
-      name: isRtl ? 'د. مريم الأحمد' : 'Dr. Mariam Al-Ahmad',
-      title: isRtl ? 'دكتوراه في الفقه وأصوله' : 'PhD in Islamic Jurisprudence',
-      specialty: isRtl ? 'الفقه الإسلامي، العقيدة، والقرآن' : 'Fiqh, Aqeedah, & Quran',
-      education: isRtl ? 'جامعة الأزهر الشريف' : 'Al-Azhar University',
-      languages: isRtl ? 'العربية، الإنجليزية، الفرنسية' : 'Arabic, English, French',
-      slug: 'mariam-al-ahmad',
-      ijazat: isRtl
-        ? ['إجازة في الفقه الحنفي والشافعي المقارن', 'سند متصل في الأربعين النووية والموطأ']
-        : ['Ijaza in comparative Hanafi & Shafi\'i Fiqh', 'Sanad in Al-Arba\'in al-Nawawiyyah & Al-Muwatta'],
-      image: '/images/teacher_mariam.png',
+      name: locale === 'ar' ? 'د. حمادة عطية نادي' : 'Dr. Hamada Attia Nady',
+      title: locale === 'ar'
+        ? 'باحث دكتوراه ومطور مناهج بالخط العربي'
+        : locale === 'fr'
+        ? 'Chercheur Doctorant & Concepteur de Programmes'
+        : 'PhD Candidate & Curriculum Developer',
+      specialty: locale === 'ar' ? 'العقيدة والفلسفة، وتطوير المناهج' : locale === 'fr' ? 'Théologie & Pédagogie, Calligraphie' : 'Creed & Pedagogy, Calligraphy',
+      education: locale === 'ar' ? 'جامعة الأزهر الشريف' : locale === 'fr' ? 'Université d\'Al-Azhar' : 'Al-Azhar University',
+      languages: locale === 'ar' ? 'العربية، الإنجليزية' : locale === 'fr' ? 'Arabe, Anglais' : 'Arabic, English',
+      slug: 'hamada-attia-nady',
+      ijazat: locale === 'ar'
+        ? ['تحقيق التراث من معهد المخطوطات والجامع الأزهر', 'شهادة إعداد معلمي العربية لغير الناطقين بها']
+        : locale === 'fr'
+        ? ['Édition de manuscrits de l\'Institut des Manuscrits', 'Enseignement de l\'arabe aux non-arabophones']
+        : ['Manuscript editing certificate from Manuscript Institute', 'Teaching Arabic to non-natives professional license'],
+      image: '/images/teacher_hamada_attia.png',
     },
   ];
 

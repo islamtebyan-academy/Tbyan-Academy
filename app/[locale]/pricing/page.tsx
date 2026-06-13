@@ -67,19 +67,19 @@ export default function PricingPage() {
 
   const prices = {
     '30': {
-      starter: { monthly: 59, quarterly: 159 },
-      optimal: { monthly: 109, quarterly: 294 },
-      intensive: { monthly: 159, quarterly: 429 }
+      starter: { monthly: 10, quarterly: 27 },
+      optimal: { monthly: 20, quarterly: 54 },
+      intensive: { monthly: 30, quarterly: 81 }
     },
     '45': {
-      starter: { monthly: 89, quarterly: 240 },
-      optimal: { monthly: 159, quarterly: 429 },
-      intensive: { monthly: 229, quarterly: 618 }
+      starter: { monthly: 15, quarterly: 40.5 },
+      optimal: { monthly: 30, quarterly: 81 },
+      intensive: { monthly: 45, quarterly: 121.5 }
     },
     '60': {
-      starter: { monthly: 119, quarterly: 321 },
-      optimal: { monthly: 209, quarterly: 564 },
-      intensive: { monthly: 299, quarterly: 807 }
+      starter: { monthly: 20, quarterly: 54 },
+      optimal: { monthly: 40, quarterly: 108 },
+      intensive: { monthly: 60, quarterly: 162 }
     }
   };
 

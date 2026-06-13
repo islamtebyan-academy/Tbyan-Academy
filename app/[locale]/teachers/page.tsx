@@ -7,48 +7,118 @@ interface TeachersPageProps {
   params: Promise<{ locale: string }>;
 }
 
+
+
+const scholarsData: Record<string, Record<string, {
+  name: string;
+  title: string;
+  specialty: string;
+  education: string;
+  languages: string;
+  bio: string;
+}>> = {
+  'ahmed-yahya-zakaria': {
+    ar: {
+      name: 'أحمد يحيى زكريا',
+      title: 'معلم القرآن الكريم واللغة العربية لغير الناطقين بها',
+      specialty: 'تعليم القرآن والتجويد واللغة العربية',
+      education: 'ليسانس أصول الدين من جامعة الأزهر الشريف',
+      languages: 'العربية (اللغة الأم)، الإنجليزية، الفرنسية، التركية',
+      bio: 'معلم قرآن كريم ولغة عربية لغير الناطقين بها، يسعى إلى تقديم تعليم متميز يجمع بين الأصالة والوسائل التعليمية الحديثة. يمتلك خبرة واسعة في التدريس عبر الإنترنت، وأسعى دائمًا إلى تطوير مهارات الطلاب ومساعدتهم على تحقيق أهدافهم اللغوية والدينية في بيئة تعليمية تفاعلية وممتعة.',
+    },
+    en: {
+      name: 'Ahmed Yahya Zakaria',
+      title: 'Instructor of Quranic Recitation & Arabic for Non-Native Speakers',
+      specialty: 'Quran, Tajweed, & Classical Arabic',
+      education: 'Bachelor in Usul al-Din, Al-Azhar University',
+      languages: 'Arabic (Native), English, French, Turkish',
+      bio: 'A dedicated educator specializing in Quranic studies and classical Arabic for non-Arabic speakers. He blends traditional methodology with modern interactive tools to foster deep comprehension. Ahmed holds multiple Ijazas and aims to guide students toward their linguistic and spiritual goals in an engaging, supportive environment.',
+    },
+    fr: {
+      name: 'Ahmed Yahya Zakaria',
+      title: 'Enseignant du Saint Coran et de la Langue Arabe pour les Non-Arabophones',
+      specialty: 'Coran, Tajwid et Arabe Classique',
+      education: 'Licence en Oussoul al-Din, Université d\'Al-Azhar',
+      languages: 'Arabe (Maternelle), Anglais, Français, Turc',
+      bio: 'Enseignant dévoué du Coran et de la langue arabe pour les non-arabophones, Ahmed s\'efforce d\'offrir un enseignement d\'excellence alliant authenticité traditionnelle et outils modernes. Il met à profit son expertise pédagogique pour aider les étudiants à atteindre leurs objectifs linguistiques et spirituels dans un cadre interactif et stimulant.',
+    }
+  },
+  'mohamed-badr-maliki': {
+    ar: {
+      name: 'الشيخ محمد بدر عبد المرضي حسين',
+      title: 'واعظ بالأزهر الشريف ومدرس العلوم الشرعية واللغوية',
+      specialty: 'التفسير وعلوم القرآن، الفقه المالكي، العقيدة، واللغة العربية',
+      education: 'ماجستير في التفسير وعلوم القرآن - كلية أصول الدين، جامعة الأزهر الشريف',
+      languages: 'العربية (اللغة الأم)، الإنجليزية (أساسي)',
+      bio: 'واعظ وباحث أزهري متخصص في التفسير وعلوم القرآن والفقه المالكي. يجمع في تدريسه بين أصالة المنهج الأزهري القائم على حفظ المتون وضبط الشروح، وبين أساليب التقديم الحديثة عبر الإعلام والمواقع الرقمية. يسعى لنشر الفكر الديني الوسطي المعتدل وخدمة طلاب العلم في مشارق الأرض ومغاربها.',
+    },
+    en: {
+      name: 'Sheikh Mohamed Badr Al-Maliki',
+      title: 'Al-Azhar Emissary & Instructor of Islamic Sciences & Arabic',
+      specialty: 'Tafsir, Maliki Fiqh, Ash\'ari Creed, & Logic',
+      education: 'MA in Tafsir & Quranic Sciences, Faculty of Usul al-Din, Al-Azhar University',
+      languages: 'Arabic (Native), English (Basic)',
+      bio: 'A scholarly Al-Azhar preacher and researcher specializing in Quranic exegesis and Maliki jurisprudence. Sheikh Mohamed combines the rigor of the traditional Azhari method—focused on memorization of classical texts and precise textual commentary—with modern media outreach, advocating for moderate Islamic teachings globally.',
+    },
+    fr: {
+      name: 'Cheikh Mohamed Badr Al-Maliki',
+      title: 'Prédicateur d\'Al-Azhar & Enseignant des Sciences Islamiques et de l\'Arabe',
+      specialty: 'Tafsir, Fiqh Malékite, Théologie Ash\'arite et Logique',
+      education: 'Master en Tafsir et Sciences du Coran, Faculté d\'Oussoul al-Din, Université d\'Al-Azhar',
+      languages: 'Arabe (Maternelle), Anglais (Basique)',
+      bio: 'Prédicateur et chercheur d\'Al-Azhar, spécialisé dans l\'exégèse coranique et le droit malékite. Le Cheikh Mohamed allie la rigueur de la méthode traditionnelle d\'Al-Azhar—basée sur l\'apprentissage par cœur des textes de référence et leur explication minutieuse—à une pédagogie active pour transmettre un savoir religieux authentique et modéré.',
+    }
+  },
+  'hamada-attia-nady': {
+    ar: {
+      name: 'د. حمادة عطية نادي',
+      title: 'باحث دكتوراه ومطور المناهج التعليمية والشرعية والخط العربي',
+      specialty: 'العقيدة والفلسفة، الأخلاق، طرق التدريس، والخط العربي',
+      education: 'ماجستير المناهج وطرق التدريس وباحث دكتوراه فلسفة الأخلاق - جامعة الأزهر الشريف',
+      languages: 'العربية (اللغة الأم)، الإنجليزية (جيد)',
+      bio: 'باحث دكتوراه ومطور مناهج تعليمية يجمع بين العلوم الشرعية وعلم المناهج التربوية الحديثة. يتميز بخبرته العميقة في تحقيق المخطوطات والتراث العربي الإسلامي، وتصميم النماذج التعليمية التي تيسر دراسة العلوم الإسلامية واللغة العربية، بالإضافة إلى شغفه بتعليم وتحسين الخط العربي كجزء من الهوية الإسلامية.',
+    },
+    en: {
+      name: 'Dr. Hamada Attia Nady',
+      title: 'Curriculum Developer, Islamic Scholar, & Calligrapher',
+      specialty: 'Aqeedah & Philosophy, Ethics, Pedagogy, and Calligraphy',
+      education: 'PhD Candidate in Moral Philosophy & MA in Curriculum Methods, Al-Azhar University',
+      languages: 'Arabic (Native), English (Good)',
+      bio: 'A doctoral researcher and educational designer who bridges Islamic theology with contemporary curriculum development. Specializing in ethical philosophy, pedagogy, and manuscript editing, he is dedicated to building structured learning paths. Hamada is also an accomplished calligrapher, teaching the classical script as an essential pillar of Islamic art and identity.',
+    },
+    fr: {
+      name: 'Dr. Hamada Attia Nady',
+      title: 'Concepteur de Programmes, Chercheur en Sciences Islamiques & Calligraphe',
+      specialty: 'Aqida & Philosophie, Éthique, Pédagogie et Calligraphie Arabe',
+      education: 'Doctorant en Philosophie Morale & Master en Méthodologies de l\'Enseignement, Université d\'Al-Azhar',
+      languages: 'Arabe (Maternelle), Anglais (Bien)',
+      bio: 'Chercheur et concepteur de programmes, Hamada relie la théologie islamique traditionnelle aux théories modernes de l\'éducation. Spécialisé en philosophie morale et didactique, il élabore des structures d\'apprentissage claires. Il également passionné par la calligraphie arabe, qu\'il enseigne comme un art spirituel et un pilier de l\'identité islamique.',
+    }
+  }
+};
+
 export default async function TeachersPage({ params }: TeachersPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
   const isRtl = locale === 'ar';
+  const activeLocale = (locale === 'ar' || locale === 'en' || locale === 'fr') ? locale : 'en';
 
   const scholars = [
     {
-      name: isRtl ? 'د. أنس الأزهري' : 'Dr. Anas Al-Azhari',
-      title: isRtl ? 'دكتوراه في القراءات والتجويد' : 'PhD in Quranic Recitations',
-      specialty: isRtl ? 'التجويد والقراءات العشر المتواترة' : 'Tajweed & 10 Qira\'at',
-      education: isRtl ? 'جامعة الأزهر الشريف، القاهرة' : 'Al-Azhar University, Cairo',
-      languages: isRtl ? 'العربية، الإنجليزية' : 'Arabic, English',
-      image: '/images/teacher_anas.png',
-      slug: 'anas-al-azhari',
-      bio: isRtl 
-        ? 'يحمل إجازات متصلة السند بالقراءات العشر الصغرى والكبرى، ولديه خبرة تزيد عن 12 عاماً في إرشاد وتعليم الطلاب غير الناطقين بالعربية.'
-        : 'Holds Ijaza in the 10 minor and major recitations of the Quran, with over 12 years of experience teaching non-Arabic speakers globally.',
+      ...scholarsData['ahmed-yahya-zakaria'][activeLocale],
+      image: '/images/teacher_ahmed_yahya.png',
+      slug: 'ahmed-yahya-zakaria',
     },
     {
-      name: isRtl ? 'الشيخ يوسف الفرنسي' : 'Sheikh Youssef Al-Faransi',
-      title: isRtl ? 'ماجستير في النحو واللغويات العربية' : 'MA in Classical Arabic Grammar',
-      specialty: isRtl ? 'النحو والصرف والبلاغة القديمة' : 'Arabic Grammar (Nahw & Sarf)',
-      education: isRtl ? 'الجامعة الإسلامية بالمدينة المنورة' : 'Islamic University of Madinah',
-      languages: isRtl ? 'العربية، الفرنسية' : 'Arabic, French',
-      image: '/images/teacher_youssef.png',
-      slug: 'youssef-al-faransi',
-      bio: isRtl
-        ? 'متخصص في شرح أمهات كتب القواعد والنحو العربي مثل الآجرومية وقطر الندى، مكرس جهوده لمساعدة الطلاب الفرانكوفونيين في فهم نصوص الوحي.'
-        : 'Specializes in explaining classical grammar texts (Al-Ajrumiyyah, Qatr al-Nada) with a mission to help French-speaking students access classical sources.',
+      ...scholarsData['mohamed-badr-maliki'][activeLocale],
+      image: '/images/teacher_mohamed_badr.png',
+      slug: 'mohamed-badr-maliki',
     },
     {
-      name: isRtl ? 'د. مريم الأحمد' : 'Dr. Mariam Al-Ahmad',
-      title: isRtl ? 'دكتوراه في الفقه الإسلامي وأصوله' : 'PhD in Islamic Jurisprudence',
-      specialty: isRtl ? 'الفقه، أصول الفقه، العقيدة، والقرآن' : 'Fiqh, Aqeedah, & Quranic Sciences',
-      education: isRtl ? 'كلية الدراسات الإسلامية بجامعة الأزهر' : 'Faculty of Islamic Studies, Al-Azhar',
-      languages: isRtl ? 'العربية، الإنجليزية، الفرنسية' : 'Arabic, English, French',
-      image: '/images/teacher_mariam.png',
-      slug: 'mariam-al-ahmad',
-      bio: isRtl
-        ? 'باحثة ومفتية متخصصة في الفقه المقارن، وحاصلة على إجازة في حفظ القرآن الكريم برواية حفص وشعبة عن عاصم، ولديها خبرة طويلة في تدريس الأخوات والأطفال.'
-        : 'A senior scholar in comparative jurisprudence and Islamic theology, holding multiple Ijazat in recitation (Hafs & Shu\'bah), with extensive pedagogical experience.',
+      ...scholarsData['hamada-attia-nady'][activeLocale],
+      image: '/images/teacher_hamada_attia.png',
+      slug: 'hamada-attia-nady',
     },
   ];
 
