@@ -267,3 +267,12 @@ body {
 [dir='rtl'] .description-justify-start {
   text-justify: auto !important;
 }
+
+/* ── Scrollbar Hiding Utility ── */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

@@ -372,8 +372,7 @@ export default async function TeacherDetailPage({ params }: TeacherProfileProps)
           {/* Left Sticky Column (Identity Card) */}
           <div>
             <div 
-              className="lg:sticky lg:top-24 bg-ivory border border-gold-muted/20 rounded-[2.5rem] p-8 shadow-[0_20px_50px_rgba(139,115,85,0.08)] relative overflow-hidden group lg:h-[85vh] flex flex-col justify-between overflow-y-auto"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              className="lg:sticky lg:top-24 bg-ivory border border-gold-muted/20 rounded-[2.5rem] p-8 shadow-[0_20px_50px_rgba(139,115,85,0.08)] relative overflow-hidden group lg:h-[85vh] flex flex-col justify-between overflow-y-auto no-scrollbar"
             >
               <div className="absolute top-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-gold-muted/30 via-gold-hi to-gold-muted/30 opacity-80 z-20" />
               
