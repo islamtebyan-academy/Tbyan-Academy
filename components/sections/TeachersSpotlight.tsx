@@ -75,11 +75,11 @@ export default function TeachersSpotlight() {
     {
       name: locale === 'ar' ? 'د. حمادة عطية نادي' : 'Dr. Hamada Attia Nady',
       title: locale === 'ar'
-        ? 'باحث دكتوراه ومطور مناهج بالخط العربي'
+        ? 'باحث دكتوراه في المناهج وطرق التدريس'
         : locale === 'fr'
-        ? 'Chercheur Doctorant & Concepteur de Programmes'
-        : 'PhD Candidate & Curriculum Developer',
-      specialty: locale === 'ar' ? 'العقيدة والفلسفة، وتطوير المناهج' : locale === 'fr' ? 'Théologie & Pédagogie, Calligraphie' : 'Creed & Pedagogy, Calligraphy',
+        ? 'Doctorant en Didactique & Concepteur de Programmes'
+        : 'PhD Researcher in Curriculum & Instruction',
+      specialty: locale === 'ar' ? 'المناهج وطرق التدريس، والخط العربي' : locale === 'fr' ? 'Didactique & Calligraphie Arabe' : 'Curriculum & Instruction, Calligraphy',
       education: locale === 'ar' ? 'جامعة الأزهر الشريف' : locale === 'fr' ? 'Université d\'Al-Azhar' : 'Al-Azhar University',
       languages: locale === 'ar' ? 'العربية، الإنجليزية' : locale === 'fr' ? 'Arabe, Anglais' : 'Arabic, English',
       slug: 'hamada-attia-nady',

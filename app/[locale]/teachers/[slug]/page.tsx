@@ -206,9 +206,9 @@ const teachersData: Record<string, Record<string, any>> = {
   'hamada-attia-nady': {
     ar: {
       name: 'د. حمادة عطية نادي',
-      title: 'باحث دكتوراه ومطور المناهج التعليمية والخط العربي',
-      education: 'ماجستير المناهج وباحث دكتوراه في الفلسفة بجامعة الأزهر',
-      specialty: 'العقيدة والفلسفة، الأخلاق، طرق التدريس، والخط العربي الكلاسيكي',
+      title: 'باحث دكتوراه في المناهج وطرق التدريس ومطور الخط العربي',
+      education: 'باحث دكتوراه في المناهج وطرق التدريس بجامعة الأزهر',
+      specialty: 'المناهج وطرق التدريس، العلوم الشرعية، والخط العربي الكلاسيكي',
       languages: 'العربية (اللغة الأم)، الإنجليزية (جيد)',
       bio: 'باحث دكتوراه ومطور مناهج تعليمية يجمع بين العلوم الشرعية وعلم المناهج التربوية الحديثة. يتميز بخبرته العميقة في تحقيق المخطوطات والتراث العربي الإسلامي، وتصميم النماذج التعليمية التي تيسر دراسة العلوم الإسلامية واللغة العربية، بالإضافة إلى شغفه بتعليم وتحسين الخط العربي كجزء من الهوية الإسلامية.',
       ijazas: [
@@ -216,7 +216,7 @@ const teachersData: Record<string, Record<string, any>> = {
         'شهادة إعداد معلمي اللغة العربية للناطقين بغيرها من الجامع الأزهر الشريف.'
       ],
       qualifications: [
-        'باحث دكتوراه في فلسفة الأخلاق بجامعة الأزهر الشريف.',
+        'باحث دكتوراه في المناهج وطرق التدريس بجامعة الأزهر الشريف.',
         'ماجستير المناهج وطرق التدريس.',
         'الدبلوم الخاص (تمهيدي ماجستير) في الإدارة والتخطيط والمناهج التربوية من معهد البحوث والدراسات العربية.',
         'دبلوم الدراسات العليا في التربية من جامعة الأزهر.',
@@ -240,9 +240,9 @@ const teachersData: Record<string, Record<string, any>> = {
     },
     en: {
       name: 'Dr. Hamada Attia Nady',
-      title: 'Curriculum Developer, Islamic Scholar, & Calligrapher',
-      education: 'PhD Candidate & MA in Pedagogy, Al-Azhar University',
-      specialty: 'Aqeedah & Philosophy, Ethics, Pedagogy, and Arabic Calligraphy',
+      title: 'PhD Researcher in Curriculum & Instruction & Calligrapher',
+      education: 'PhD Candidate in Curriculum & Instruction, Al-Azhar University',
+      specialty: 'Curriculum & Instruction, Shariah Sciences, and Arabic Calligraphy',
       languages: 'Arabic (Native), English (Good)',
       bio: 'A doctoral researcher and educational designer who bridges Islamic theology with contemporary curriculum development. Specializing in ethical philosophy, pedagogy, and manuscript editing, he is dedicated to building structured learning paths. Hamada is also an accomplished calligrapher, teaching the classical script as an essential pillar of Islamic art and identity.',
       ijazas: [
@@ -250,7 +250,7 @@ const teachersData: Record<string, Record<string, any>> = {
         'Professional Training Certificate in Teaching Arabic to Non-Native Speakers, Al-Azhar Mosque.'
       ],
       qualifications: [
-        'PhD Candidate in Moral Philosophy, Al-Azhar University, Cairo.',
+        'PhD Candidate in Curriculum & Instruction, Al-Azhar University, Cairo.',
         'Master’s Degree (MA) in Curriculum and Instruction Methods.',
         'Postgraduate Special Diploma in Educational Administration & Planning, Arab League University.',
         'Postgraduate General Diploma in Education, Al-Azhar University.',
@@ -274,9 +274,9 @@ const teachersData: Record<string, Record<string, any>> = {
     },
     fr: {
       name: 'Dr. Hamada Attia Nady',
-      title: 'Concepteur de Programmes, Chercheur en Shariah & Calligraphe',
-      education: 'Doctorant & Master en Sciences de l\'Éducation, Al-Azhar',
-      specialty: 'Théologie & Philosophie, Éthique, Didactique, et Calligraphie Arabe',
+      title: 'Chercheur Doctorant en Didactique & Calligraphe',
+      education: 'Doctorant en Didactique et Méthodologies de l\'Enseignement, Université d\'Al-Azhar',
+      specialty: 'Didactique, Sciences Islamiques et Calligraphie Arabe',
       languages: 'Arabe (Maternelle), Anglais (Bien)',
       bio: 'Chercheur et concepteur de programmes, Hamada relie la théologie islamique traditionnelle aux théories modernes de l\'éducation. Spécialisé en philosophie morale et didactique, il élabore des structures d\'apprentissage claires. Il également passionné par la calligraphie arabe, qu\'il enseigne comme un art spirituel et un pilier de l\'identité islamique.',
       ijazas: [
@@ -284,7 +284,7 @@ const teachersData: Record<string, Record<string, any>> = {
         'Certificat d\'aptitude à l\'enseignement de l\'arabe langue étrangère de la Mosquée d\'Al-Azhar.'
       ],
       qualifications: [
-        'Doctorant en Philosophie Morale (Éthique), Université d\'Al-Azhar, Le Caire.',
+        'Doctorant en Didactique et Méthodes d\'Enseignement, Université d\'Al-Azhar, Le Caire.',
         'Master en Didactique et Méthodes d\'Enseignement.',
         'Diplôme Spécialisé en Administration Éducative de la Ligue Arabe.',
         'Diplôme Général en Éducation, Université d\'Al-Azhar.',
