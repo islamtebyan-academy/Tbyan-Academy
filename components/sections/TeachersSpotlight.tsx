@@ -37,7 +37,7 @@ export default function TeachersSpotlight() {
 
   const mockTeachers = [
     {
-      name: locale === 'ar' ? 'أحمد يحيى زكريا' : 'Ahmed Yahya Zakaria',
+      name: locale === 'ar' ? 'الشيخ أحمد يحيى زكريا' : locale === 'fr' ? 'Cheikh Ahmed Yahya Zakaria' : 'Sheikh Ahmed Yahya Zakaria',
       title: locale === 'ar'
         ? 'معلم القرآن الكريم واللغة العربية لغير الناطقين بها'
         : locale === 'fr'

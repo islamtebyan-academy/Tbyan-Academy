@@ -19,7 +19,7 @@ const scholarsData: Record<string, Record<string, {
 }>> = {
   'ahmed-yahya-zakaria': {
     ar: {
-      name: 'أحمد يحيى زكريا',
+      name: 'الشيخ أحمد يحيى زكريا',
       title: 'معلم القرآن الكريم واللغة العربية لغير الناطقين بها',
       specialty: 'تعليم القرآن والتجويد واللغة العربية',
       education: 'ليسانس أصول الدين من جامعة الأزهر الشريف',
@@ -27,7 +27,7 @@ const scholarsData: Record<string, Record<string, {
       bio: 'معلم قرآن كريم ولغة عربية لغير الناطقين بها، يسعى إلى تقديم تعليم متميز يجمع بين الأصالة والوسائل التعليمية الحديثة. يمتلك خبرة واسعة في التدريس عبر الإنترنت، وأسعى دائمًا إلى تطوير مهارات الطلاب ومساعدتهم على تحقيق أهدافهم اللغوية والدينية في بيئة تعليمية تفاعلية وممتعة.',
     },
     en: {
-      name: 'Ahmed Yahya Zakaria',
+      name: 'Sheikh Ahmed Yahya Zakaria',
       title: 'Instructor of Quranic Recitation & Arabic for Non-Native Speakers',
       specialty: 'Quran, Tajweed, & Classical Arabic',
       education: 'Bachelor in Usul al-Din, Al-Azhar University',
@@ -35,7 +35,7 @@ const scholarsData: Record<string, Record<string, {
       bio: 'A dedicated educator specializing in Quranic studies and classical Arabic for non-Arabic speakers. He blends traditional methodology with modern interactive tools to foster deep comprehension. Ahmed holds multiple Ijazas and aims to guide students toward their linguistic and spiritual goals in an engaging, supportive environment.',
     },
     fr: {
-      name: 'Ahmed Yahya Zakaria',
+      name: 'Cheikh Ahmed Yahya Zakaria',
       title: 'Enseignant du Saint Coran et de la Langue Arabe pour les Non-Arabophones',
       specialty: 'Coran, Tajwid et Arabe Classique',
       education: 'Licence en Oussoul al-Din, Université d\'Al-Azhar',

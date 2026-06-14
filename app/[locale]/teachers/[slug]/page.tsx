@@ -12,7 +12,7 @@ interface TeacherProfileProps {
 const teachersData: Record<string, Record<string, any>> = {
   'ahmed-yahya-zakaria': {
     ar: {
-      name: 'أحمد يحيى زكريا',
+      name: 'الشيخ أحمد يحيى زكريا',
       title: 'معلم القرآن الكريم واللغة العربية لغير الناطقين بها',
       education: 'ليسانس أصول الدين من جامعة الأزهر الشريف',
       specialty: 'تعليم القرآن، أحكام التجويد، واللغة العربية الفصحى',
@@ -41,7 +41,7 @@ const teachersData: Record<string, Record<string, any>> = {
       ]
     },
     en: {
-      name: 'Ahmed Yahya Zakaria',
+      name: 'Sheikh Ahmed Yahya Zakaria',
       title: 'Instructor of Quranic Recitation & Arabic for Non-Native Speakers',
       education: 'Bachelor in Usul al-Din, Al-Azhar University',
       specialty: 'Quranic Recitation, Tajweed Rules, & Classical Arabic',
@@ -70,7 +70,7 @@ const teachersData: Record<string, Record<string, any>> = {
       ]
     },
     fr: {
-      name: 'Ahmed Yahya Zakaria',
+      name: 'Cheikh Ahmed Yahya Zakaria',
       title: 'Enseignant du Saint Coran et de la Langue Arabe pour les Non-Arabophones',
       education: 'Licence en Oussoul al-Din, Université d\'Al-Azhar',
       specialty: 'Récitation du Coran, Règles de Tajwid & Arabe Classique',
