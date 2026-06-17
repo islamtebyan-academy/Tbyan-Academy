@@ -292,31 +292,31 @@ const COURSES_DATABASE: Record<string, Record<string, CourseDbItem>> = {
         { title: "الأبواب الصرفية الدقيقة والإعلال والإبدال والنسب", desc: "الوقوف على الأبواب الصرفية الكبرى كالتصغير، النسب، الإعلال بالنقل والقلب، والإبدال والوقف." }
       ]
     },
-    'maliki-fiqh': {
-      title: "الفقه المالكي الأكاديمي",
+    'islamic-fiqh': {
+      title: "الفقه الإسلامي الأكاديمي",
       tagline: "التفقه في الدين وتأصيل العبادات والمعاملات",
       path: "مسار العلوم الشرعية",
       image: "/images/course_fiqh.png",
       duration: "48 ساعة دراسية",
       level: "تأسيسي / تأصيلي",
-      syllabus: "ابن عاشر والرسالة",
+      syllabus: "المتون الفقهية المعتمدة",
       importance: "التفقه في الدين ومعرفة الأحكام العملية للعبادات والمعاملات من أوجب الواجبات، لتكون العبادة قائمة على علم صحيح وموافقة للسنة المطهّرة كما نقلها أصحاب المذاهب المعتمدة.",
       whatYouLearn: [
         "أحكام الطهارة والصلاة وشروطها وسننها ونواقضها ومكروهاتها بالتفصيل.",
         "أحكام الزكاة، الصوم وأسراره، والحج ومناسكه وآدابه.",
-        "مبادئ فقه المعاملات والبيوع والأحوال الشخصية والأنكحة في الفقه المالكي.",
-        "تأصيل الفروع الفقهية بالربط بين المتون الكلاسيكية وأدلتها من السنة."
+        "مبادئ فقه المعاملات والبيوع والأحوال الشخصية والأنكحة وفق المذاهب المعتمدة.",
+        "تأصيل الفروع الفقهية بالربط بين المتون الكلاسيكية وأدلتها من السنة المطهّرة."
       ],
       outcomes: [
         { title: "عبادة صحيحة", desc: "أداء العبادات وفق أحكام شرعية دقيقة وصحيحة خالية من الشوائب والشكوك." },
-        { title: "تفقه منهجي", desc: "معرفة تسلسل الأحكام الفقهية وتأصيل المسائل من متن المرشد المعين لابن عاشر." },
+        { title: "تفقه منهجي", desc: "معرفة تسلسل الأحكام الفقهية وتأصيل المسائل من المتون المعتمدة وفق مذهب الطالب." },
         { title: "وعي بالمعاملات", desc: "تطبيق الأحكام الشرعية على البيوع اليومية وتجنب المعاملات الربوية والمحظورة." }
       ],
       relatedSlugs: ["principles-of-fiqh", "islamic-creed", "quranic-sciences-tafsir"],
       studyPlan: [
-        { title: "فقه الطهارة والصلاة وأحكامهما التفصيلية", desc: "أحكام المياه، الوضوء، الغسل، التيمم، وأركان الصلاة وشروطها وسننها وسجود السهو وفق متن ابن عاشر." },
+        { title: "فقه الطهارة والصلاة وأحكامهما التفصيلية", desc: "أحكام المياه، الوضوء، الغسل، التيمم، وأركان الصلاة وشروطها وسننها وسجود السهو وفق المتون المعتمدة." },
         { title: "فقه الصيام والزكاة ومناسك الحج والعمرة", desc: "شروط الصوم ومبطلاته، نصاب الزكاة ومصارفها، وأركان الحج وسننه ومحظورات الإحرام بالتفصيل." },
-        { title: "فقه المعاملات والبيوع والأحكام المالية", desc: "دراسة البيوع المنهي عنها، الربا والصرف، الشراكات، الإجارة والرهن والتبرعات من مقدمة متن الرسالة." },
+        { title: "فقه المعاملات والبيوع والأحكام المالية", desc: "دراسة البيوع المنهي عنها، الربا والصرف، الشراكات، الإجارة والرهن والتبرعات وفق المتون المعتمدة." },
         { title: "فقه النكاح والفرائض والأنكحة المذهبية", desc: "أحكام النكاح وشروطه، والطلاق والعدة، وقواعد توزيع التركات والمواريث الفرضية." }
       ]
     },
@@ -340,12 +340,12 @@ const COURSES_DATABASE: Record<string, Record<string, CourseDbItem>> = {
         { title: "حصانة فكرية", desc: "الحصانة التامة ضد الشبهات العصرية وموجات التشكيك والإلحاد الحديث." },
         { title: "فهم التراث", desc: "قراءة وفهم شروح المتون العقدية الشهيرة مثل جوهرة التوحيد للإمام اللقاني." }
       ],
-      relatedSlugs: ["islamic-logic", "quranic-sciences-tafsir", "maliki-fiqh"],
+      relatedSlugs: ["islamic-logic", "quranic-sciences-tafsir", "islamic-fiqh"],
       studyPlan: [
         { title: "الإلهيات: ما يجب وما يستحيل وما يجوز في حق الله", desc: "دراسة الصفات العشرين الواجبة لله (الصفة النفسية، السلبية، المعاني، المعنوية) وبرهانها العقلي." },
         { title: "النبوات: أحكام الرسل الكرام والرسالة الإلهية والعصمة", desc: "ما يجب في حق الأنبياء من الصدق والأمانة والتبليغ والفطانة، وما يستحيل عليهم وعصمتهم من الصغائر والكبائر." },
         { title: "السمعيات: الغيبيات واليوم الآخر وعوالم الغيب", desc: "الإيمان بسؤال القبر وعذابه، الحشر، النشر، الحوض، الصراط، الميزان، والجنة والنار ونية الرؤية." },
-        { title: "دراسة المذاهب والردود العلمية على الشبهات", desc: "أصول منهج الأشاعرة والماتريدية وتاريخ المذاهب الكلامية، والرد على الفلسفات الإلحادية والمادية المعاصرة." }
+        { title: "دراسة المذاهب والردود العلمية على الشبهات", desc: "أصول منهج أهل السنة والجماعة وتاريخ المذاهب الكلامية، والرد على الفلسفات الإلحادية والمادية المعاصرة." }
       ]
     },
     'islamic-logic': {
@@ -396,7 +396,7 @@ const COURSES_DATABASE: Record<string, Record<string, CourseDbItem>> = {
         { title: "تأصيل رصين", desc: "معرفة ضوابط ومقاصد الشريعة الإسلامية لحماية الفتاوى من التعنت أو التميع." },
         { title: "دراسة المتون", desc: "التعرف على متن الورقات لإمام الحرمين الجويني وتطبيقاته الأصولية." }
       ],
-      relatedSlugs: ["maliki-fiqh", "islamic-logic", "alfiya-ibn-malik"],
+      relatedSlugs: ["islamic-fiqh", "islamic-logic", "alfiya-ibn-malik"],
       studyPlan: [
         { title: "مقدمات أصول الفقه وباب الأحكام الشرعية", desc: "تعريف أصول الفقه، وتفصيل الأحكام التكليفية السبعة والأحكام الوضعية وشروط التكليف الشرعي." },
         { title: "دلالات الألفاظ والأمر والنهي والعموم والخصوص", desc: "دراسة صيغ الأمر والنهي ومقتضياتهما، وألفاظ العموم والخصوص المطلق والمقيد والمجمل والمبين." },
@@ -658,15 +658,15 @@ const COURSES_DATABASE: Record<string, Record<string, CourseDbItem>> = {
         { title: "Advanced Morphology & Poetry completion", desc: "Advanced morphologic conversions, contractions, spelling standards, and poetry review." }
       ]
     },
-    'maliki-fiqh': {
-      title: "Maliki Jurisprudence (Fiqh)",
+    'islamic-fiqh': {
+      title: "Islamic Jurisprudence (Fiqh)",
       tagline: "Systematic Worship & Transaction Rulings",
       path: "Shariah Path",
       image: "/images/course_fiqh.png",
       duration: "48 Study Hours",
       level: "Foundational / Core",
-      syllabus: "Ibn Ashir & Al-Risalah",
-      importance: "Islamic jurisprudence teaches how to perform daily worship and contract transactions in accordance with Shariah. This course studies Maliki law from early texts.",
+      syllabus: "Accredited Manuals",
+      importance: "Islamic jurisprudence teaches how to perform daily worship and contract transactions in accordance with Shariah. This course studies jurisprudence according to the major recognized schools.",
       whatYouLearn: [
         "Purification, prayer, dry ablutions, and rules of congregational worship.",
         "Zakah calculations, fast details, and pilgrimage (Hajj) rites.",
@@ -675,7 +675,7 @@ const COURSES_DATABASE: Record<string, Record<string, CourseDbItem>> = {
       ],
       outcomes: [
         { title: "Correct Worship", desc: "Perform daily duties confidently, free from doubt and incorrect assumptions." },
-        { title: "Traditional Study", desc: "Understand Maliki terms and methods from Ibn Ashir and Al-Risalah." },
+        { title: "Traditional Study", desc: "Understand Shariah terms and methods from accredited manual works." },
         { title: "Safe Contracts", desc: "Avoid interest-bearing and forbidden transactions in business deals." }
       ],
       relatedSlugs: ["principles-of-fiqh", "islamic-creed", "quranic-sciences-tafsir"],
@@ -706,12 +706,12 @@ const COURSES_DATABASE: Record<string, Record<string, CourseDbItem>> = {
         { title: "Intellectual Shield", desc: "Build intellectual protection against modern atheistic philosophies and doubts." },
         { title: "Traditional Roots", desc: "Understand classical books like Jawharat al-Tawhid and its commentaries." }
       ],
-      relatedSlugs: ["islamic-logic", "quranic-sciences-tafsir", "maliki-fiqh"],
+      relatedSlugs: ["islamic-logic", "quranic-sciences-tafsir", "islamic-fiqh"],
       studyPlan: [
         { title: "Divinity Attributes & Rational Proofs (Ilahiyyat)", desc: "Understanding the 20 necessary attributes of Allah and checking rational arguments." },
         { title: "Prophecies & Prophet Attributes (Nubuwwat)", desc: "Analyzing miracles, infallibility of prophets, and answering historical queries." },
         { title: "The Unseen Realities & Eschatology (Sam'iyyat)", desc: "Creed concerning the grave, resurrection, scales, path, intercession, and eternity." },
-        { title: "Comparative Sects & Answering Modern Doubts", desc: "Sunni methodology history, Ash'ari-Maturidi foundations, and handling doubts." }
+        { title: "Comparative Sects & Answering Modern Doubts", desc: "Sunni methodology history, foundations of orthodox creed, and handling doubts." }
       ]
     },
     'islamic-logic': {
@@ -762,7 +762,7 @@ const COURSES_DATABASE: Record<string, Record<string, CourseDbItem>> = {
         { title: "Methodology", desc: "Observe the objectives of Shariah (Maqasid) and how rulings adapt." },
         { title: "Textual Studies", desc: "Read and analyze Imam al-Juwayni's Al-Waraqat in legal theory." }
       ],
-      relatedSlugs: ["maliki-fiqh", "islamic-logic", "alfiya-ibn-malik"],
+      relatedSlugs: ["islamic-fiqh", "islamic-logic", "alfiya-ibn-malik"],
       studyPlan: [
         { title: "Legal Rules & Text Interpretations", desc: "Study of Shariah rulings (Taklifi & Wad'i), capability (Taklif), and Al-Waraqat." },
         { title: "Linguistic Delineations of Commands/Prohibitions", desc: "Analyzing commands, prohibitions, public/private terms, and absolute/qualified words." },
@@ -784,7 +784,7 @@ export function generateStaticParams() {
     'arabic-grammar',
     'arabic-literature',
     'alfiya-ibn-malik',
-    'maliki-fiqh',
+    'islamic-fiqh',
     'islamic-creed',
     'islamic-logic',
     'principles-of-fiqh'

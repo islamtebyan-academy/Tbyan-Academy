@@ -163,7 +163,7 @@ const ACADEMIC_DATABASE: Record<string, Record<string, TrackData>> = {
     islamic: {
       title: 'العلوم الشرعية الإسلامية وأصول الدين',
       subtitle: 'مسار التفقه المنهجي وفق المذاهب الأربعة المعتمدة',
-      desc: 'بناء الوعي الشرعي والمنهجي للطالب المعاصر من خلال دراسة الفقه الإسلامي المذهبي، العقيدة السنية الصافية (الأشعرية والماتريدية)، السيرة النبوية العطرة، وأصول علوم الحديث والتفسير.',
+      desc: 'بناء الوعي الشرعي والمنهجي للطالب المعاصر من خلال دراسة الفقه الإسلامي المذهبي، العقيدة السنية الصافية، السيرة النبوية العطرة، وأصول علوم الحديث والتفسير.',
       levels: [
         { num: '01', title: 'المستوى الأول: فقه العبادات الميسر والعقيدة', desc: 'تصحيح الطهارة، الصلاة، الصيام، الزكاة، والحج وفق مذهب الطالب الفقهي، ودراسة أركان الإيمان وأصول الاعتقاد الصحيحة.' },
         { num: '02', title: 'المستوى الثاني: السيرة النبوية والأخلاق الإسلامية', desc: 'تتبع حياة النبي ﷺ من الولادة إلى الوفاة، وتدارس الشمائل المحمدية وغرس الآداب والأخلاق الإسلامية الرفيعة.' },
@@ -200,7 +200,7 @@ const ACADEMIC_DATABASE: Record<string, Record<string, TrackData>> = {
           iconName: 'ShieldCheck',
           title: 'العقيدة الإسلامية والتوحيد',
           tagline: 'أصول الدين ورسوخ اليقين',
-          desc: 'تأصيل عقيدة أهل السنة والجماعة الأشعرية والماتريدية عبر المتون المعتمدة لبناء حصانة فكرية والرد على الشبهات المعاصرة.',
+          desc: 'تأصيل عقيدة أهل السنة والجماعة عبر المتون المعتمدة لبناء حصانة فكرية والرد على الشبهات المعاصرة.',
           path: 'مسار العلوم الشرعية',
           stats: { duration: '36 ساعة', syllabus: 'الجوهرة والنسفية', level: 'تأصيلي' }
         },
@@ -404,7 +404,7 @@ const ACADEMIC_DATABASE: Record<string, Record<string, TrackData>> = {
           iconName: 'ShieldCheck',
           title: 'Islamic Creed (Aqidah)',
           tagline: 'Theology & Core Convictions',
-          desc: 'Study authentic Sunni creed (Ash\\\'ari and Maturidi schools) via classical texts to build sound conviction and address modern philosophy.',
+          desc: 'Study authentic Sunni creed via classical texts to build sound conviction and address modern philosophy.',
           path: 'Islamic Studies',
           stats: { duration: '36 Hrs', syllabus: 'Jawharah & Nasafiyyah', level: 'Theological' }
         },
@@ -608,7 +608,7 @@ const ACADEMIC_DATABASE: Record<string, Record<string, TrackData>> = {
           iconName: 'ShieldCheck',
           title: 'Dogme Islamique (Aqida)',
           tagline: 'Théologie & Conviction Pure',
-          desc: 'Assimilez la croyance sunnite authentique (écoles ach\\\'arite et matouridite) à travers les textes classiques pour solidifier votre foi.',
+          desc: 'Assimilez la croyance sunnite authentique à travers les textes classiques pour solidifier votre foi.',
           path: 'Sciences Islamiques',
           stats: { duration: '36 h', syllabus: 'Jawharah & Nasafiyyah', level: 'Dogmatique' }
         },

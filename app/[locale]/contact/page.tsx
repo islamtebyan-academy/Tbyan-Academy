@@ -212,7 +212,7 @@ const content = {
       successDesc: 'نشكرك على ثقتك. سيقوم منسق القبول والتسجيل بالتواصل معك عبر الواتساب أو البريد الإلكتروني لتأكيد موعد الجلسة التجريبية وتزويدك ببيانات المعلم ورابط زووم.',
       courses: [
         { value: 'quran', label: 'القرآن الكريم والتجويد' },
-        { value: 'fiqh', label: 'الفقه المالكي' },
+        { value: 'fiqh', label: 'الفقه الإسلامي' },
         { value: 'arabic', label: 'النحو والصرف واللغة العربية' },
         { value: 'aqidah', label: 'العقيدة الإسلامية والتوحيد' },
         { value: 'logic', label: 'علم المنطق والبحث' },
@@ -341,7 +341,7 @@ const content = {
       successDesc: 'Thank you for choosing Tebyan. An academic coordinator will contact you via WhatsApp or email within 12 hours to confirm your free trial date and send your Zoom link.',
       courses: [
         { value: 'quran', label: 'Quran & Tajweed (connected chain)' },
-        { value: 'fiqh', label: 'Maliki Jurisprudence' },
+        { value: 'fiqh', label: 'Islamic Jurisprudence' },
         { value: 'arabic', label: 'Classical Arabic & Grammar' },
         { value: 'aqidah', label: 'Islamic Creed & Aqidah' },
         { value: 'logic', label: 'Islamic Logic (Mantiq)' },
@@ -470,7 +470,7 @@ const content = {
       successDesc: 'Thank you for choosing Tebyan. An academic coordinator will contact you via WhatsApp or email within 12 hours to confirm your free trial date and send your Zoom link.',
       courses: [
         { value: 'quran', label: 'Quran & Tajweed (connected chain)' },
-        { value: 'fiqh', label: 'Maliki Jurisprudence' },
+        { value: 'fiqh', label: 'Islamic Jurisprudence' },
         { value: 'arabic', label: 'Classical Arabic & Grammar' },
         { value: 'aqidah', label: 'Islamic Creed & Aqidah' },
         { value: 'logic', label: 'Islamic Logic (Mantiq)' },
@@ -599,7 +599,7 @@ const content = {
       successDesc: 'Merci pour votre confiance. Un coordinateur académique vous contactera par WhatsApp ou e-mail dans les 12 heures pour planifier votre cours d\'essai gratuit et vous envoyer le lien Zoom.',
       courses: [
         { value: 'quran', label: 'Coran & Règles de Tajweed' },
-        { value: 'fiqh', label: 'Jurisprudence Malikite' },
+        { value: 'fiqh', label: 'Jurisprudence Islamique' },
         { value: 'arabic', label: 'Arabe Classique & Grammaire' },
         { value: 'aqidah', label: 'Théologie & Croyance Islamique (Aqida)' },
         { value: 'logic', label: 'Logique Islamique (Mantiq)' },

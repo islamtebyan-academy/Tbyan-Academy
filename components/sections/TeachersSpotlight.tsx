@@ -55,7 +55,7 @@ export default function TeachersSpotlight() {
       image: '/images/teacher_ahmed_yahya.png',
     },
     {
-      name: locale === 'ar' ? 'الشيخ محمد بدر عبد المرضي حسين' : 'Sheikh Mohamed Badr Al-Maliki',
+      name: locale === 'ar' ? 'الشيخ محمد بدر عبد المرضي حسين' : 'Sheikh Mohamed Badr',
       title: locale === 'ar'
         ? 'واعظ بالأزهر الشريف ومدرس العلوم الشرعية'
         : locale === 'fr'
@@ -64,9 +64,9 @@ export default function TeachersSpotlight() {
       specialty: locale === 'ar' ? 'التفسير، الفقه المالكي، والمنطق' : locale === 'fr' ? 'Tafsir, Fiqh Malékite & Logique' : 'Tafsir, Maliki Fiqh, & Logic',
       education: locale === 'ar' ? 'ماجستير جامعة الأزهر الشريف' : locale === 'fr' ? 'Master, Université d\'Al-Azhar' : 'MA, Al-Azhar University',
       languages: locale === 'ar' ? 'العربية، الإنجليزية' : locale === 'fr' ? 'Arabe, Anglais' : 'Arabic, English',
-      slug: 'mohamed-badr-maliki',
+      slug: 'mohamed-badr',
       ijazat: locale === 'ar'
-        ? ['إجازة بالقراءات المتواترة بسند متصل', 'إجازات في متون النحو والفقه والمنطق والعقيدة']
+        ? ['إجازة بالقرآن الكريم بالقراءات المتواترة بسند متصل', 'إجازات في متون النحو والفقه والمنطق والعقيدة']
         : locale === 'fr'
         ? ['Isnad au Prophète ﷺ dans plusieurs lectures', 'Ijazas dans les traités de grammaire, Fiqh et logique']
         : ['Connected Isnad to the Prophet ﷺ in multiple Qira\'at', 'Ijazas in grammar, theology, Maliki Fiqh & logic'],

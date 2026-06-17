@@ -29,12 +29,12 @@ export default function FeaturedCourses() {
       quranText: 'روايتان',
       quranLevel: 'تأسيسي',
       
-      fiqhTitle: 'الفقه المالكي',
+      fiqhTitle: 'الفقه الإسلامي',
       fiqhTag: 'فقه العبادات والمعاملات',
-      fiqhDesc: 'تفقه في الدين على المذهب المالكي بالتدريج العلمي بدءاً من متن ابن عاشر إلى متن الرسالة لتأصيل المسائل الفقهية وتطبيقها.',
+      fiqhDesc: 'تفقه في الدين على مذهب من المذاهب المعتبرة شرعاً بالتدريج العلمي لتأصيل المسائل الفقهية وتطبيقها.',
       fiqhPath: 'مسار العلوم الشرعية',
       fiqhDuration: '48 ساعة',
-      fiqhText: 'ابن عاشر',
+      fiqhText: 'المتون المعتمدة',
       fiqhLevel: 'تأصيلي',
       
       arabicTitle: 'النحو والصرف',
@@ -47,7 +47,7 @@ export default function FeaturedCourses() {
       
       aqidahTitle: 'العقيدة الإسلامية',
       aqidahTag: 'أصول الدين ورسوخ اليقين',
-      aqidahDesc: 'تأصيل عقيدة أهل السنة والجماعة الأشعرية والماتريدية عبر المتون المعتمدة لبناء حصانة فكرية والرد على الشبهات المعاصرة.',
+      aqidahDesc: 'تأصيل عقيدة أهل السنة والجماعة عبر المتون المعتمدة لبناء حصانة فكرية والرد على الشبهات المعاصرة.',
       aqidahPath: 'مسار العلوم الشرعية',
       aqidahDuration: '36 ساعة',
       aqidahText: 'الجوهرة',
@@ -89,12 +89,12 @@ export default function FeaturedCourses() {
       quranText: '2 Recitations',
       quranLevel: 'Core',
       
-      fiqhTitle: 'Maliki Jurisprudence (Fiqh)',
+      fiqhTitle: 'Islamic Jurisprudence (Fiqh)',
       fiqhTag: 'Worship & Transactions',
-      fiqhDesc: 'Acquire Maliki jurisprudence systematically through primary manuals starting with Matn Ibn Ashir up to Matn Al-Risalah.',
+      fiqhDesc: 'Acquire Islamic jurisprudence systematically according to one of the recognized schools of thought through primary manuals.',
       fiqhPath: 'Islamic Studies Path',
       fiqhDuration: '48 Hrs',
-      fiqhText: 'Ibn Ashir',
+      fiqhText: 'Accredited Manuals',
       fiqhLevel: 'Academic',
       
       arabicTitle: 'Grammar & Morphology',
@@ -107,7 +107,7 @@ export default function FeaturedCourses() {
       
       aqidahTitle: 'Islamic Creed (Aqidah)',
       aqidahTag: 'Theology & Core Convictions',
-      aqidahDesc: 'Study authentic Sunni creed (Ash\'ari and Maturidi schools) via classical texts to build sound conviction and address modern philosophy.',
+      aqidahDesc: 'Study authentic Sunni creed via classical texts to build sound conviction and address modern philosophy.',
       aqidahPath: 'Islamic Studies Path',
       aqidahDuration: '36 Hrs',
       aqidahText: 'Jawharah',
@@ -149,12 +149,12 @@ export default function FeaturedCourses() {
       quranText: '2 Récitations',
       quranLevel: 'Base',
       
-      fiqhTitle: 'Jurisprudence Malikite (Fiqh)',
+      fiqhTitle: 'Jurisprudence Islamique (Fiqh)',
       fiqhTag: 'Pratique & Transactions',
-      fiqhDesc: 'Étudiez les bases de la jurisprudence de l\'école malikite à travers les textes de référence, du Matn Ibn Ashir à la Risalah.',
+      fiqhDesc: 'Étudiez la jurisprudence islamique selon l\'une des écoles reconnues à travers les manuels classiques de référence.',
       fiqhPath: 'Sciences Islamiques',
       fiqhDuration: '48 h',
-      fiqhText: 'Ibn Ashir',
+      fiqhText: 'Manuels Agréés',
       fiqhLevel: 'Académique',
       
       arabicTitle: 'Grammaire & Morphologie',
@@ -167,7 +167,7 @@ export default function FeaturedCourses() {
       
       aqidahTitle: 'Dogme Islamique (Aqida)',
       aqidahTag: 'Théologie & Conviction Pure',
-      aqidahDesc: 'Assimilez la croyance sunnite authentique (écoles ach\'arite et matouridite) à travers les textes classiques pour solidifier votre foi.',
+      aqidahDesc: 'Assimilez la croyance sunnite authentique à travers les textes classiques pour solidifier votre foi.',
       aqidahPath: 'Sciences Islamiques',
       aqidahDuration: '36 h',
       aqidahText: 'Jawharah',
@@ -218,7 +218,7 @@ export default function FeaturedCourses() {
       tagline: activeContent.fiqhTag,
       desc: activeContent.fiqhDesc,
       path: activeContent.fiqhPath,
-      slug: 'maliki-fiqh',
+      slug: 'islamic-fiqh',
       stats: [
         { label: activeContent.statDuration, value: activeContent.fiqhDuration },
         { label: activeContent.statText, value: activeContent.fiqhText },

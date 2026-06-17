@@ -62,7 +62,7 @@ const COURSE_SLUG_MAP: Record<string, string> = {
   'Eloquent Prose & Creative Writing': 'arabic-literature',
 
   // Shariah Arabic
-  'الفقه المالكي وتأصيل الأحكام': 'maliki-fiqh',
+  'الفقه الإسلامي وتأصيل الأحكام': 'islamic-fiqh',
   'العقيدة الإسلامية والتوحيد': 'islamic-creed',
   'أصول الفقه وقواعد الاستنباط الفقهي': 'principles-of-fiqh',
   'مصطلح الحديث وعلوم الأثر الشريف': 'principles-of-fiqh',
@@ -70,7 +70,7 @@ const COURSE_SLUG_MAP: Record<string, string> = {
   'علم المنطق السني وعلم الكلام الأزهري': 'islamic-logic',
 
   // Shariah French
-  'Jurisprudence Malikite (Fiqh)': 'maliki-fiqh',
+  'Jurisprudence Islamique (Fiqh)': 'islamic-fiqh',
   'Dogme Sunnite & Théologie': 'islamic-creed',
   'Principes de Jurisprudence (Usul al-Fiqh)': 'principles-of-fiqh',
   'Sciences & Terminologie du Hadith': 'principles-of-fiqh',
@@ -78,7 +78,7 @@ const COURSE_SLUG_MAP: Record<string, string> = {
   'Théologie & Logique Sunnite': 'islamic-logic',
 
   // Shariah English
-  'Maliki Jurisprudence (Fiqh)': 'maliki-fiqh',
+  'Islamic Jurisprudence (Fiqh)': 'islamic-fiqh',
   'Islamic Creed (Aqidah)': 'islamic-creed',
   'Principles of Jurisprudence (Usul al-Fiqh)': 'principles-of-fiqh',
   'Hadith Sciences & Terminology': 'principles-of-fiqh',
@@ -88,7 +88,7 @@ const COURSE_SLUG_MAP: Record<string, string> = {
   // Youth Arabic
   'القاعدة النورانية وتأسيس اللسان': 'quran-tajweed',
   'مأموريات التجويد وحفظ القرآن للنشء': 'quran-tajweed',
-  'ميكانيكا العبادات والآداب الإسلامية': 'maliki-fiqh',
+  'ميكانيكا العبادات والآداب الإسلامية': 'islamic-fiqh',
   'قصص الأنبياء والتاريخ الإسلامي المبسط': 'quranic-sciences-tafsir',
   'حفظ الأذكار النبوية والأدعية اليومية للطفل': 'quran-tajweed',
   'التربية الأخلاقية والآداب الإسلامية العامة': 'islamic-creed',
@@ -96,7 +96,7 @@ const COURSE_SLUG_MAP: Record<string, string> = {
   // Youth French
   'Qaida Nuraniyyah & Éveil à la Lecture': 'quran-tajweed',
   'Mémorisation du Juz Amma pour Jeunes': 'quran-tajweed',
-  'Ablutions, Prière & Adab Pratique': 'maliki-fiqh',
+  'Ablutions, Prière & Adab Pratique': 'islamic-fiqh',
   'Histoires des Prophètes & Histoires du Coran': 'quranic-sciences-tafsir',
   'Invocations & Adhkar pour le Quotidien': 'quran-tajweed',
   'Éducation Morale & Nobles Vertus': 'islamic-creed',
@@ -104,7 +104,7 @@ const COURSE_SLUG_MAP: Record<string, string> = {
   // Youth English
   'Qaida Nuraniyyah & Reading Basics': 'quran-tajweed',
   'Juz Amma Memorization & Tajweed': 'quran-tajweed',
-  'Salah, Wudu & Practical Daily Adab': 'maliki-fiqh',
+  'Salah, Wudu & Practical Daily Adab': 'islamic-fiqh',
   "Stories of the Prophets & Qur'an Stories": 'quranic-sciences-tafsir',
   "Daily Adhkar & Prophet's Prayers": 'quran-tajweed',
   'Islamic Ethics & Noble Character': 'islamic-creed'
@@ -328,7 +328,7 @@ const ACADEMIC_DATABASE: Record<string, Record<string, TrackData>> = {
     islamic: {
       title: 'العلوم الشرعية الإسلامية وأصول الدين',
       subtitle: 'مسار التفقه المنهجي وفق المذاهب الأربعة المعتمدة',
-      desc: 'بناء الوعي الشرعي والمنهجي للطالب المعاصر من خلال دراسة الفقه الإسلامي المذهبي، العقيدة السنية الصافية (الأشعرية والماتريدية)، السيرة النبوية العطرة، وأصول علوم الحديث والتفسير.',
+      desc: 'بناء الوعي الشرعي والمنهجي للطالب المعاصر من خلال دراسة الفقه الإسلامي المذهبي، العقيدة السنية الصافية، السيرة النبوية العطرة، وأصول علوم الحديث والتفسير.',
       levels: [
         { num: '01', title: 'المستوى الأول: فقه العبادات الميسر والعقيدة', desc: 'تصحيح الطهارة، الصلاة، الصيام، الزكاة، والحج وفق مذهب الطالب الفقهي، ودراسة أركان الإيمان وأصول الاعتقاد الصحيحة.' },
         { num: '02', title: 'المستوى الثاني: السيرة النبوية والأخلاق الإسلامية', desc: 'تتبع حياة النبي ﷺ من الولادة إلى الوفاة، وتدارس الشمائل المحمدية وغرس الآداب والأخلاق الإسلامية الرفيعة.' },
@@ -354,18 +354,18 @@ const ACADEMIC_DATABASE: Record<string, Record<string, TrackData>> = {
         {
           image: '/images/course_fiqh.png',
           iconName: 'Scale',
-          title: 'الفقه المالكي وتأصيل الأحكام',
+          title: 'الفقه الإسلامي وتأصيل الأحكام',
           tagline: 'فقه العبادات والمعاملات',
-          desc: 'تفقه في الدين على المذهب المالكي بالتدريج العلمي بدءاً من متن ابن عاشر إلى متن الرسالة لتأصيل المسائل الفقهية وتطبيقها الفعلي.',
+          desc: 'تفقه في الدين على مذهب من المذاهب المعتبرة شرعاً بالتدريج العلمي لتأصيل المسائل الفقهية وتطبيقها الفعلي.',
           path: 'مسار العلوم الشرعية',
-          stats: { duration: '48 ساعة', syllabus: 'ابن عاشر والرسالة', level: 'تأصيلي' }
+          stats: { duration: '48 ساعة', syllabus: 'المتون المعتمدة', level: 'تأصيلي' }
         },
         {
           image: '/images/course_aqidah.png',
           iconName: 'ShieldCheck',
           title: 'العقيدة الإسلامية والتوحيد',
           tagline: 'أصول الدين ورسوخ اليقين',
-          desc: 'تأصيل عقيدة أهل السنة والجماعة الأشعرية والماتريدية عبر المتون المعتمدة لبناء حصانة فكرية والرد على الشبهات المعاصرة والتحصين العقدي.',
+          desc: 'تأصيل عقيدة أهل السنة والجماعة عبر المتون المعتمدة لبناء حصانة فكرية والرد على الشبهات المعاصرة والتحصين العقدي.',
           path: 'مسار العلوم الشرعية',
           stats: { duration: '36 ساعة', syllabus: 'الجوهرة والنسفية', level: 'تأصيلي' }
         },
@@ -684,18 +684,18 @@ const ACADEMIC_DATABASE: Record<string, Record<string, TrackData>> = {
         {
           image: '/images/course_fiqh.png',
           iconName: 'Scale',
-          title: 'Jurisprudence Malikite (Fiqh)',
+          title: 'Jurisprudence Islamique (Fiqh)',
           tagline: 'Adoration & Transactions',
-          desc: 'Étudiez la jurisprudence malikite pas à pas, du Matn Ibn Ashir à la Risalah d\'Ibn Abi Zayd, pour asseoir vos connaissances pratiques.',
+          desc: 'Étudiez la jurisprudence islamique selon l\'une des écoles reconnues à travers les manuels classiques de référence.',
           path: 'Sciences Islamiques',
-          stats: { duration: '48 h', syllabus: 'Ibn Ashir & La Risalah', level: 'Fondations' }
+          stats: { duration: '48 h', syllabus: 'Manuels Agréés', level: 'Fondations' }
         },
         {
           image: '/images/course_aqidah.png',
           iconName: 'ShieldCheck',
           title: 'Dogme Sunnite & Théologie',
           tagline: 'Croyance & Conviction Ferme',
-          desc: 'Assimilez la théologie sunnite traditionnelle (écoles ach\'arite et matouridite) à travers les textes classiques pour solidifier votre foi.',
+          desc: 'Assimilez la théologie sunnite traditionnelle à travers les textes classiques pour solidifier votre foi.',
           path: 'Sciences Islamiques',
           stats: { duration: '36 h', syllabus: 'Jawharah & An-Nasafiyyah', level: 'Fondations' }
         },
@@ -1014,18 +1014,18 @@ const ACADEMIC_DATABASE: Record<string, Record<string, TrackData>> = {
         {
           image: '/images/course_fiqh.png',
           iconName: 'Scale',
-          title: 'Maliki Jurisprudence (Fiqh)',
+          title: 'Islamic Jurisprudence (Fiqh)',
           tagline: 'Worship & Transactions',
-          desc: 'Acquire Maliki jurisprudence systematically through primary manuals starting with Matn Ibn Ashir up to Matn Al-Risalah.',
+          desc: 'Acquire Islamic jurisprudence systematically according to one of the recognized schools of thought through primary manuals.',
           path: 'Shariah Path',
-          stats: { duration: '48 Hrs', syllabus: 'Ibn Ashir & Al-Risalah', level: 'Academic' }
+          stats: { duration: '48 Hrs', syllabus: 'Accredited Manuals', level: 'Academic' }
         },
         {
           image: '/images/course_aqidah.png',
           iconName: 'ShieldCheck',
           title: 'Islamic Creed (Aqidah)',
           tagline: 'Theology & Core Convictions',
-          desc: 'Study authentic Sunni creed (Ash\'ari and Maturidi schools) via classical texts to build sound conviction and address modern philosophy.',
+          desc: 'Study authentic Sunni creed via classical texts to build sound conviction and address modern philosophy.',
           path: 'Shariah Path',
           stats: { duration: '36 Hrs', syllabus: 'Jawharah & Nasafiyyah', level: 'Theological' }
         },

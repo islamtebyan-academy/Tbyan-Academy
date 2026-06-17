@@ -149,7 +149,7 @@ export default function HowItWorks() {
       btnSubmit: 'تأكيد الحجز',
       courses: [
         { value: 'quran', label: 'القرآن والتجويد' },
-        { value: 'fiqh', label: 'الفقه المالكي' },
+        { value: 'fiqh', label: 'الفقه الإسلامي' },
         { value: 'arabic', label: 'النحو والصرف' },
         { value: 'aqidah', label: 'العقيدة الإسلامية' },
         { value: 'logic', label: 'علم المنطق' },
@@ -192,7 +192,7 @@ export default function HowItWorks() {
       btnSubmit: 'Confirm Booking',
       courses: [
         { value: 'quran', label: 'Quran & Tajweed' },
-        { value: 'fiqh', label: 'Maliki Jurisprudence' },
+        { value: 'fiqh', label: 'Islamic Jurisprudence' },
         { value: 'arabic', label: 'Grammar & Morphology' },
         { value: 'aqidah', label: 'Islamic Creed' },
         { value: 'logic', label: 'Islamic Logic' },
@@ -235,7 +235,7 @@ export default function HowItWorks() {
       btnSubmit: 'Confirmer la Réservation',
       courses: [
         { value: 'quran', label: 'Coran & Tajwid' },
-        { value: 'fiqh', label: 'Jurisprudence Malikite' },
+        { value: 'fiqh', label: 'Jurisprudence Islamique' },
         { value: 'arabic', label: 'Grammaire & Morphologie' },
         { value: 'aqidah', label: 'Dogme Islamique' },
         { value: 'logic', label: 'Logique Islamique' },

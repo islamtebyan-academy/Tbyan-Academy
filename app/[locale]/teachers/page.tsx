@@ -43,27 +43,27 @@ const scholarsData: Record<string, Record<string, {
       bio: 'Enseignant dévoué du Coran et de la langue arabe pour les non-arabophones, Ahmed s\'efforce d\'offrir un enseignement d\'excellence alliant authenticité traditionnelle et outils modernes. Il met à profit son expertise pédagogique pour aider les étudiants à atteindre leurs objectifs linguistiques et spirituels dans un cadre interactif et stimulant.',
     }
   },
-  'mohamed-badr-maliki': {
+  'mohamed-badr': {
     ar: {
       name: 'الشيخ محمد بدر عبد المرضي حسين',
       title: 'واعظ بالأزهر الشريف ومدرس العلوم الشرعية واللغوية',
-      specialty: 'التفسير وعلوم القرآن، الفقه المالكي، العقيدة، واللغة العربية',
+      specialty: 'التفسير وعلوم القرآن، الفقه المالكي، واللغة العربية',
       education: 'ماجستير في التفسير وعلوم القرآن - كلية أصول الدين، جامعة الأزهر الشريف',
       languages: 'العربية (اللغة الأم)، الإنجليزية (أساسي)',
       bio: 'واعظ وباحث أزهري متخصص في التفسير وعلوم القرآن والفقه المالكي. يجمع في تدريسه بين أصالة المنهج الأزهري القائم على حفظ المتون وضبط الشروح، وبين أساليب التقديم الحديثة عبر الإعلام والمواقع الرقمية. يسعى لنشر الفكر الديني الوسطي المعتدل وخدمة طلاب العلم في مشارق الأرض ومغاربها.',
     },
     en: {
-      name: 'Sheikh Mohamed Badr Al-Maliki',
+      name: 'Sheikh Mohamed Badr',
       title: 'Al-Azhar Emissary & Instructor of Islamic Sciences & Arabic',
-      specialty: 'Tafsir, Maliki Fiqh, Ash\'ari Creed, & Logic',
+      specialty: 'Tafsir, Maliki Fiqh, & Logic',
       education: 'MA in Tafsir & Quranic Sciences, Faculty of Usul al-Din, Al-Azhar University',
       languages: 'Arabic (Native), English (Basic)',
       bio: 'A scholarly Al-Azhar preacher and researcher specializing in Quranic exegesis and Maliki jurisprudence. Sheikh Mohamed combines the rigor of the traditional Azhari method—focused on memorization of classical texts and precise textual commentary—with modern media outreach, advocating for moderate Islamic teachings globally.',
     },
     fr: {
-      name: 'Cheikh Mohamed Badr Al-Maliki',
+      name: 'Cheikh Mohamed Badr',
       title: 'Prédicateur d\'Al-Azhar & Enseignant des Sciences Islamiques et de l\'Arabe',
-      specialty: 'Tafsir, Fiqh Malékite, Théologie Ash\'arite et Logique',
+      specialty: 'Tafsir, Fiqh Malékite et Logique',
       education: 'Master en Tafsir et Sciences du Coran, Faculté d\'Oussoul al-Din, Université d\'Al-Azhar',
       languages: 'Arabe (Maternelle), Anglais (Basique)',
       bio: 'Prédicateur et chercheur d\'Al-Azhar, spécialisé dans l\'exégèse coranique et le droit malékite. Le Cheikh Mohamed allie la rigueur de la méthode traditionnelle d\'Al-Azhar—basée sur l\'apprentissage par cœur des textes de référence et leur explication minutieuse—à une pédagogie active pour transmettre un savoir religieux authentique et modéré.',
@@ -111,9 +111,9 @@ export default async function TeachersPage({ params }: TeachersPageProps) {
       slug: 'ahmed-yahya-zakaria',
     },
     {
-      ...scholarsData['mohamed-badr-maliki'][activeLocale],
+      ...scholarsData['mohamed-badr'][activeLocale],
       image: '/images/teacher_mohamed_badr.png',
-      slug: 'mohamed-badr-maliki',
+      slug: 'mohamed-badr',
     },
     {
       ...scholarsData['hamada-attia-nady'][activeLocale],

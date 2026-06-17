@@ -99,17 +99,17 @@ const teachersData: Record<string, Record<string, any>> = {
       ]
     }
   },
-  'mohamed-badr-maliki': {
+  'mohamed-badr': {
     ar: {
       name: 'الشيخ محمد بدر عبد المرضي حسين',
       title: 'واعظ بالأزهر الشريف ومدرس العلوم الشرعية واللغوية',
       education: 'ماجستير التفسير وعلوم القرآن، كلية أصول الدين بجامعة الأزهر',
-      specialty: 'تفسير القرآن الكريم، الفقه المالكي، العقيدة الأشعرية، واللغة العربية',
+      specialty: 'تفسير القرآن الكريم، الفقه المالكي، واللغة العربية',
       languages: 'العربية (اللغة الأم)، الإنجليزية (أساسي)',
       bio: 'واعظ وباحث أزهري متخصص في التفسير وعلوم القرآن والفقه المالكي. يجمع في تدريسه بين أصالة المنهج الأزهري القائم على حفظ المتون وضبط الشروح، وبين أساليب التقديم الحديثة عبر الإعلام والمواقع الرقمية. يسعى لنشر الفكر الديني الوسطي المعتدل وخدمة طلاب العلم في مشارق الأرض ومغاربها.',
       ijazas: [
         'إجازة بالقرآن الكريم بالقراءات المتواترة (ورش عن نافع، حفص عن عاصم، وشعبة عن عاصم) بالسند المتصل إلى رسول الله ﷺ.',
-        'إجازات علمية مسندة في تدريس وقراءة متون النحو والصرف والبلاغة والمنطق والفقه المالكي والعقيدة الأشعرية.'
+        'إجازات علمية مسندة في تدريس وقراءة متون النحو والصرف والبلاغة والمنطق والفقه المالكي والعقيدة.'
       ],
       qualifications: [
         'ماجستير في التفسير وعلوم القرآن - كلية أصول الدين بالقاهرة (عنوان الرسالة: "علم المناسبات وأثره في تفسير المنار للشيخ محمد رشيد رضا - دراسة تطبيقية مقارنة").',
@@ -129,16 +129,16 @@ const teachersData: Record<string, Record<string, any>> = {
       ],
       scholarlyTextTitle: 'أبرز المتون والكتب التي يدرسها الشيخ',
       scholarlyTexts: [
-        'علوم العربية: الآجرومية، الأزهرية، تنقيح الأزهرية، قطر الندى، شذور الذهب، ألفية ابن مالك، لامية الأفعال، شذا العرف، اللؤلؤ المكنون في البلاغة.',
+        'العلوم العربية: الآجرومية، الأزهرية، تنقيح الأزهرية، قطر الندى، شذور الذهب، ألفية ابن مالك، لامية الأفعال، شذا العرف، اللؤلؤ المكنون في البلاغة.',
         'الفقه المالكي: متن الأخضري، العشماوية، العزية، نظم ابن عاشر، الرسالة لابن أبي زيد القيرواني، أقرب المسالك، أسهل المسالك.',
         'العقيدة والمنطق: عقيدة العوام، السنوسية، جوهرة التوحيد، الخريدة البهية، السلم المنورق في المنطق، إيساغوجي.'
       ]
     },
     en: {
-      name: 'Sheikh Mohamed Badr Al-Maliki',
+      name: 'Sheikh Mohamed Badr',
       title: 'Al-Azhar Emissary & Instructor of Islamic Sciences & Arabic',
       education: 'MA in Tafsir, Faculty of Usul al-Din, Al-Azhar University',
-      specialty: 'Tafsir (Exegesis), Maliki Fiqh, Ash\'ari Theology, & Arabic Sciences',
+      specialty: 'Tafsir (Exegesis), Maliki Fiqh, & Arabic Sciences',
       languages: 'Arabic (Native), English (Basic)',
       bio: 'A scholarly Al-Azhar preacher and researcher specializing in Quranic exegesis and Maliki jurisprudence. Sheikh Mohamed combines the rigor of the traditional Azhari method—focused on memorization of classical texts and precise textual commentary—with modern media outreach, advocating for moderate Islamic teachings globally.',
       ijazas: [
@@ -169,10 +169,10 @@ const teachersData: Record<string, Record<string, any>> = {
       ]
     },
     fr: {
-      name: 'Cheikh Mohamed Badr Al-Maliki',
+      name: 'Cheikh Mohamed Badr',
       title: 'Prédicateur d\'Al-Azhar & Enseignant des Sciences Islamiques et de l\'Arabe',
       education: 'Master en Tafsir, Université d\'Al-Azhar, Le Caire',
-      specialty: 'Tafsir (Exégèse), Fiqh Malékite, Théologie Ash\'arite & Logique',
+      specialty: 'Tafsir (Exégèse), Fiqh Malékite & Logique',
       languages: 'Arabe (Maternelle), Anglais (Basique)',
       bio: 'Prédicateur et chercheur d\'Al-Azhar, spécialisé dans l\'exégèse coranique et le droit malékite. Le Cheikh Mohamed allie la rigueur de la méthode traditionnelle d\'Al-Azhar—basée sur l\'apprentissage par cœur des textes de référence et leur explication minutieuse—à une pédagogie active pour transmettre un savoir religieux authentique et modéré.',
       ijazas: [
@@ -310,7 +310,7 @@ const teachersData: Record<string, Record<string, any>> = {
 };
 
 export function generateStaticParams() {
-  const slugs = ['ahmed-yahya-zakaria', 'mohamed-badr-maliki', 'hamada-attia-nady'];
+  const slugs = ['ahmed-yahya-zakaria', 'mohamed-badr', 'hamada-attia-nady'];
   const locales = ['en', 'fr', 'ar'];
   const params: { locale: string; slug: string }[] = [];
 
@@ -337,7 +337,7 @@ export default async function TeacherDetailPage({ params }: TeacherProfileProps)
 
   const teacherImage = slug === 'ahmed-yahya-zakaria'
     ? '/images/teacher_ahmed_yahya.png'
-    : slug === 'mohamed-badr-maliki'
+    : slug === 'mohamed-badr'
       ? '/images/teacher_mohamed_badr.png'
       : '/images/teacher_hamada_attia.png';
 
