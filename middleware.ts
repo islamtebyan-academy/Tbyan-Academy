@@ -14,52 +14,75 @@ const intlMiddleware = createMiddleware({
 });
 
 export async function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
-  
-  // 1. Run next-intl middleware first to handle localization redirects
-  let response = intlMiddleware(request);
+  try {
+    const pathname = request.nextUrl.pathname;
+    
+    // 1. Run next-intl middleware first to handle localization redirects
+    let response = intlMiddleware(request);
 
-  // 2. Setup Supabase client to inspect authentication state
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-          response = NextResponse.next({
-            request,
-          });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
-          );
-        },
-      },
+    // Verify Supabase env vars are present before initializing
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      throw new Error(`Missing Supabase environment variables. URL: ${!!process.env.NEXT_PUBLIC_SUPABASE_URL}, Key: ${!!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`);
     }
-  );
 
-  // This refreshes the session if expired
-  const { data: { user } } = await supabase.auth.getUser();
+    // 2. Setup Supabase client to inspect authentication state
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll();
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+            response = NextResponse.next({
+              request,
+            });
+            cookiesToSet.forEach(({ name, value, options }) =>
+              response.cookies.set(name, value, options)
+            );
+          },
+        },
+      }
+    );
 
-  // 3. Route Protection logic for Admin Dashboard
-  const isAdminRoute = /^\/(?:ar|en|fr)?\/?admin(?:\/|$)/.test(pathname);
-  const isLoginRoute = /^\/(?:ar|en|fr)?\/?admin\/login(?:\/|$)/.test(pathname);
-  const isApiRoute = pathname.startsWith('/api/');
+    // This refreshes the session if expired
+    const { data: { user } } = await supabase.auth.getUser();
 
-  if (isAdminRoute && !isLoginRoute && !isApiRoute) {
-    if (!user) {
-      const match = pathname.match(/^\/(ar|en|fr)/);
-      const locale = match ? match[1] : 'en';
-      const redirectUrl = request.nextUrl.clone();
-      redirectUrl.pathname = `/${locale}/admin/login`;
-      return NextResponse.redirect(redirectUrl);
+    // 3. Route Protection logic for Admin Dashboard
+    const isAdminRoute = /^\/(?:ar|en|fr)?\/?admin(?:\/|$)/.test(pathname);
+    const isLoginRoute = /^\/(?:ar|en|fr)?\/?admin\/login(?:\/|$)/.test(pathname);
+    const isApiRoute = pathname.startsWith('/api/');
+
+    if (isAdminRoute && !isLoginRoute && !isApiRoute) {
+      if (!user) {
+        const match = pathname.match(/^\/(ar|en|fr)/);
+        const locale = match ? match[1] : 'en';
+        const redirectUrl = request.nextUrl.clone();
+        redirectUrl.pathname = `/${locale}/admin/login`;
+        return NextResponse.redirect(redirectUrl);
+      }
     }
+
+    return response;
+  } catch (error: any) {
+    return new NextResponse(
+      JSON.stringify({
+        error: error.message || error,
+        stack: error.stack,
+        diagnostics: {
+          url_exists: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
+          anon_key_exists: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+          vercel_env: process.env.VERCEL_ENV || 'unknown',
+        }
+      }),
+      {
+        status: 500,
+        headers: { 'content-type': 'application/json' }
+      }
+    );
   }
-
-  return response;
 }
 
 export const config = {
