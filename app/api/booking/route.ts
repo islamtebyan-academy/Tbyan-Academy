@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import * as z from 'zod';
+import { createClient } from '@/lib/supabase/server';
 
 const bookingSchema = z.object({
   program: z.enum(['quran', 'arabic', 'islamic']),
@@ -47,6 +48,35 @@ export async function POST(request: Request) {
 
     // Validate with Zod
     const validatedData = bookingSchema.parse(body);
+
+    // Persist booking record inside Supabase database
+    try {
+      const supabase = await createClient();
+      const { error: dbError } = await supabase
+        .from('students')
+        .insert([{
+          full_name: validatedData.studentName,
+          email: validatedData.studentEmail,
+          phone: body.whatsapp || null,
+          country: body.country || null,
+          program: validatedData.program,
+          frequency: validatedData.frequency,
+          duration: validatedData.duration,
+          timezone: validatedData.timezone,
+          gender_preference: validatedData.genderPreference,
+          age_group: validatedData.studentAge,
+          goals: validatedData.studentGoals,
+          status: 'pending',
+          subscription_plan: 'none',
+          subscription_status: 'pending'
+        }]);
+
+      if (dbError) {
+        console.error('Failed to save student booking in Supabase:', dbError.message);
+      }
+    } catch (supabaseError) {
+      console.error('Supabase DB booking entry exception:', supabaseError);
+    }
 
     const apiKey = process.env.RESEND_API_KEY;
 

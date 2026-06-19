@@ -1,0 +1,187 @@
+'use server';
+
+import { revalidatePath } from 'next/cache';
+import { createClient } from '@/lib/supabase/server';
+
+export async function saveCourse(formData: FormData) {
+  const supabase = await createClient();
+
+  // 1. Verify auth
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return { error: 'Unauthorized.' };
+  }
+
+  const courseId = formData.get('courseId') as string;
+  const slug = formData.get('slug') as string;
+  const registrationLink = formData.get('registrationLink') as string;
+  const zoomLink = formData.get('zoomLink') as string;
+  const status = formData.get('status') as string || 'hidden';
+  const locale = formData.get('locale') as string || 'en';
+
+  // Read trilingual values
+  const titleAr = formData.get('titleAr') as string;
+  const titleEn = formData.get('titleEn') as string;
+  const titleFr = formData.get('titleFr') as string;
+
+  const shortDescAr = formData.get('shortDescAr') as string;
+  const shortDescEn = formData.get('shortDescEn') as string;
+  const shortDescFr = formData.get('shortDescFr') as string;
+
+  const fullDescAr = formData.get('fullDescAr') as string;
+  const fullDescEn = formData.get('fullDescEn') as string;
+  const fullDescFr = formData.get('fullDescFr') as string;
+
+  const instructorAr = formData.get('instructorAr') as string;
+  const instructorEn = formData.get('instructorEn') as string;
+  const instructorFr = formData.get('instructorFr') as string;
+
+  const durationAr = formData.get('durationAr') as string;
+  const durationEn = formData.get('durationEn') as string;
+  const durationFr = formData.get('durationFr') as string;
+
+  if (!slug) {
+    return { error: 'Slug is required.' };
+  }
+
+  // Fetch existing course if editing
+  let existingCourse: any = null;
+  if (courseId) {
+    const { data } = await supabase
+      .from('courses')
+      .select('*')
+      .eq('id', courseId)
+      .single();
+    existingCourse = data;
+  }
+
+  // Verify at least one title exists
+  if (!existingCourse && !titleAr && !titleEn && !titleFr) {
+    return { error: 'At least one title translation is required for new courses.' };
+  }
+
+  // Handle Image Upload if any
+  const imageFile = formData.get('imageFile') as File;
+  let imageUrl = formData.get('existingImageUrl') as string || '';
+
+  if (imageFile && imageFile.size > 0) {
+    // 1. Upload to Supabase Storage
+    const fileExt = imageFile.name.split('.').pop();
+    const fileName = `${slug}-${Date.now()}.${fileExt}`;
+    
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from('media')
+      .upload(`courses/${fileName}`, imageFile, {
+        cacheControl: '3600',
+        upsert: true
+      });
+
+    if (uploadError) {
+      return { error: `Image upload failed: ${uploadError.message}` };
+    }
+
+    // Get public URL
+    const { data: { publicUrl } } = supabase.storage
+      .from('media')
+      .getPublicUrl(`courses/${fileName}`);
+
+    imageUrl = publicUrl;
+  }
+
+  // Helper to merge translation fields
+  const mergeLocaleObject = (
+    fieldKey: string, 
+    formValues: { ar: string; en: string; fr: string }
+  ) => {
+    const existing = existingCourse ? existingCourse[fieldKey] : {};
+    const merged = { ...existing };
+    
+    if (formValues.ar !== undefined && formValues.ar !== null && formValues.ar.trim() !== '') {
+      merged.ar = formValues.ar;
+    }
+    if (formValues.en !== undefined && formValues.en !== null && formValues.en.trim() !== '') {
+      merged.en = formValues.en;
+    }
+    if (formValues.fr !== undefined && formValues.fr !== null && formValues.fr.trim() !== '') {
+      merged.fr = formValues.fr;
+    }
+    
+    return merged;
+  };
+
+  // Structure dynamic trilingual payload
+  const payload = {
+    title: mergeLocaleObject('title', { ar: titleAr, en: titleEn, fr: titleFr }),
+    slug,
+    short_description: mergeLocaleObject('short_description', { ar: shortDescAr, en: shortDescEn, fr: shortDescFr }),
+    full_description: mergeLocaleObject('full_description', { ar: fullDescAr, en: fullDescEn, fr: fullDescFr }),
+    image_url: imageUrl,
+    instructor: mergeLocaleObject('instructor', { ar: instructorAr, en: instructorEn, fr: instructorFr }),
+    duration: mergeLocaleObject('duration', { ar: durationAr, en: durationEn, fr: durationFr }),
+    registration_link: registrationLink,
+    zoom_link: zoomLink,
+    status,
+    updated_at: new Date().toISOString()
+  };
+
+  let dbError = null;
+
+  if (courseId) {
+    // Update existing course
+    const { error } = await supabase
+      .from('courses')
+      .update(payload)
+      .eq('id', courseId);
+    dbError = error;
+  } else {
+    // Create new course
+    const { error } = await supabase
+      .from('courses')
+      .insert([payload]);
+    dbError = error;
+  }
+
+  if (dbError) {
+    return { error: dbError.message };
+  }
+
+  revalidatePath(`/${locale}/admin/courses`);
+  revalidatePath(`/${locale}/programs`);
+  revalidatePath(`/${locale}/programs/${slug}`);
+
+  return { success: true };
+}
+
+export async function deleteCourse(courseId: string, locale: string = 'en') {
+  const supabase = await createClient();
+
+  // Verify auth
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return { error: 'Unauthorized.' };
+  }
+
+  // Get slug to revalidate path
+  const { data: course } = await supabase
+    .from('courses')
+    .select('slug')
+    .eq('id', courseId)
+    .single();
+
+  const { error } = await supabase
+    .from('courses')
+    .delete()
+    .eq('id', courseId);
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  revalidatePath(`/${locale}/admin/courses`);
+  revalidatePath(`/${locale}/programs`);
+  if (course?.slug) {
+    revalidatePath(`/${locale}/programs/${course.slug}`);
+  }
+
+  return { success: true };
+}

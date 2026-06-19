@@ -7,7 +7,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import Logo from '../brand/Logo';
 import { Globe } from 'lucide-react';
 
-export default function Footer() {
+export default function Footer({ verseOverride }: { verseOverride?: string }) {
   const t = useTranslations();
   const locale = useLocale();
   const pathname = usePathname();
@@ -59,7 +59,7 @@ export default function Footer() {
         <div className="flex flex-col gap-6 md:col-span-1">
           <Logo variant="horizontal" light={true} />
           <p className={`text-xs leading-relaxed max-w-sm italic ${isRtl ? 'font-noto' : 'font-lora'}`}>
-            {t('Footer.verse')}
+            {verseOverride || t('Footer.verse')}
           </p>
           
           {/* Social Media Links */}

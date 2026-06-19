@@ -4,9 +4,6 @@ import { Cormorant_Garamond, Lora, Plus_Jakarta_Sans, Amiri, Noto_Naskh_Arabic, 
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { locales } from '@/i18n';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import WhatsAppFloating from '@/components/ui/WhatsAppFloating';
 import '../globals.css';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -21,6 +18,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     icons: {
       icon: '/app-icon.webp',
       apple: '/app-icon.webp',
+    },
+    verification: {
+      google: 'gROGakA0rcHUKX5mkUS6r9quBcKzf-iV-ColnrKnB8s',
     },
   };
 }
@@ -103,10 +103,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     <html lang={locale} dir={direction} className={fontClasses}>
       <body className="bg-ivory text-ink min-h-screen flex flex-col justify-between selection:bg-gold/20 selection:text-gold-muted antialiased">
         <NextIntlClientProvider messages={messages}>
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-          <WhatsAppFloating />
+          {children}
         </NextIntlClientProvider>
       </body>
     </html>

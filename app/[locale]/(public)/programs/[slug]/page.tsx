@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
+import { createClient } from '@/lib/supabase/server';
 import { 
   BookOpen, Award, CheckCircle2, ChevronRight, ChevronLeft,
   ArrowRight, ArrowLeft, Users, Calendar, Clock, Star,
@@ -773,8 +774,8 @@ const COURSES_DATABASE: Record<string, Record<string, CourseDbItem>> = {
   }
 };
 
-export function generateStaticParams() {
-  const slugs = [
+export async function generateStaticParams() {
+  const staticSlugs = [
     'quran-tajweed',
     '10-qiraat',
     'shatibiyyah-durrah',
@@ -789,16 +790,36 @@ export function generateStaticParams() {
     'islamic-logic',
     'principles-of-fiqh'
   ];
-  const locales = ['en', 'fr', 'ar'];
-  const params: { locale: string; slug: string }[] = [];
 
-  locales.forEach((locale) => {
-    slugs.forEach((slug) => {
-      params.push({ locale, slug });
+  try {
+    const supabase = await createClient();
+    const { data: courses } = await supabase
+      .from('courses')
+      .select('slug');
+    
+    const dbSlugs = courses?.map(c => c.slug) || [];
+    const allSlugs = Array.from(new Set([...staticSlugs, ...dbSlugs]));
+    const locales = ['en', 'fr', 'ar'];
+    const params: { locale: string; slug: string }[] = [];
+
+    locales.forEach((locale) => {
+      allSlugs.forEach((slug) => {
+        params.push({ locale, slug });
+      });
     });
-  });
 
-  return params;
+    return params;
+  } catch (error) {
+    console.error('Error generating dynamic static params:', error);
+    const locales = ['en', 'fr', 'ar'];
+    const params: { locale: string; slug: string }[] = [];
+    locales.forEach((locale) => {
+      staticSlugs.forEach((slug) => {
+        params.push({ locale, slug });
+      });
+    });
+    return params;
+  }
 }
 
 const getCourseIcon = (path: string) => {
@@ -812,11 +833,82 @@ const getCourseIcon = (path: string) => {
   }
 };
 
+const getTrackFromSlug = (slug: string): string => {
+  if (['quran-tajweed', '10-qiraat', 'shatibiyyah-durrah', 'mushaf-script', 'quranic-sciences-tafsir', 'waqf-ibtida'].includes(slug)) {
+    return 'quran';
+  }
+  if (['arabic-grammar', 'arabic-literature', 'alfiya-ibn-malik', 'arabic-philology', 'arabic-metrics', 'creative-writing'].includes(slug)) {
+    return 'arabic';
+  }
+  if (['islamic-fiqh', 'islamic-creed', 'principles-of-fiqh', 'hadith-sciences', 'seerah', 'islamic-logic'].includes(slug)) {
+    return 'islamic';
+  }
+  return 'kids';
+};
+
+const getTrackTitle = (track: string, locale: string): string => {
+  if (locale === 'ar') {
+    if (track === 'quran') return 'مسار القرآن الكريم';
+    if (track === 'arabic') return 'مسار اللغة العربية';
+    if (track === 'islamic') return 'مسار العلوم الشرعية';
+    return 'مسار النشء والشباب';
+  } else if (locale === 'fr') {
+    if (track === 'quran') return 'Parcours Coran';
+    if (track === 'arabic') return 'Langue Arabe';
+    if (track === 'islamic') return 'Sciences Islamiques';
+    return 'Parcours Jeunesse';
+  } else {
+    if (track === 'quran') return 'Quranic Sciences Path';
+    if (track === 'arabic') return 'Classical Arabic Path';
+    if (track === 'islamic') return 'Shariah Path';
+    return 'Youth Path';
+  }
+};
+
 export default async function CourseDetailPage({ params }: CourseDetailProps) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
-  const course = COURSES_DATABASE[locale]?.[slug] || COURSES_DATABASE.en?.[slug];
+  // 1. Fetch course from Supabase
+  const supabase = await createClient();
+  const { data: dbCourse } = await supabase
+    .from('courses')
+    .select('*')
+    .eq('slug', slug)
+    .single();
+
+  // 2. Fetch static fallback course
+  const staticCourse = COURSES_DATABASE[locale]?.[slug] || COURSES_DATABASE.en?.[slug];
+
+  let course: CourseDbItem | null = null;
+
+  if (staticCourse) {
+    course = {
+      ...staticCourse,
+      title: dbCourse ? (dbCourse.title?.[locale] || dbCourse.title?.en || staticCourse.title) : staticCourse.title,
+      tagline: dbCourse ? (dbCourse.short_description?.[locale] || dbCourse.short_description?.en || staticCourse.tagline) : staticCourse.tagline,
+      image: dbCourse ? (dbCourse.image_url || staticCourse.image) : staticCourse.image,
+      duration: dbCourse ? (dbCourse.duration?.[locale] || dbCourse.duration?.en || staticCourse.duration) : staticCourse.duration,
+      importance: dbCourse ? (dbCourse.full_description?.[locale] || dbCourse.full_description?.en || staticCourse.importance) : staticCourse.importance,
+      syllabus: dbCourse ? (dbCourse.instructor?.[locale] || dbCourse.instructor?.en || staticCourse.syllabus) : staticCourse.syllabus,
+    };
+  } else if (dbCourse) {
+    const track = getTrackFromSlug(dbCourse.slug);
+    course = {
+      title: dbCourse.title?.[locale] || dbCourse.title?.en || '',
+      tagline: dbCourse.short_description?.[locale] || dbCourse.short_description?.en || '',
+      path: getTrackTitle(track, locale),
+      image: dbCourse.image_url || '/images/course_default.png',
+      duration: dbCourse.duration?.[locale] || dbCourse.duration?.en || '',
+      level: locale === 'ar' ? 'تأصيلي' : (locale === 'fr' ? 'Fondations' : 'Core'),
+      syllabus: dbCourse.instructor?.[locale] || dbCourse.instructor?.en || '',
+      importance: dbCourse.full_description?.[locale] || dbCourse.full_description?.en || '',
+      whatYouLearn: [],
+      outcomes: [],
+      relatedSlugs: [],
+      studyPlan: []
+    };
+  }
 
   if (!course) {
     notFound();
@@ -927,7 +1019,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
     }
   ];
 
-  const relatedCourses = course.relatedSlugs
+  const relatedCourses = (course.relatedSlugs || [])
     .map(relSlug => ({
       slug: relSlug,
       data: COURSES_DATABASE[locale]?.[relSlug] || COURSES_DATABASE.en?.[relSlug]
@@ -1116,30 +1208,32 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
               </div>
 
               {/* Curriculum Grid: What you learn */}
-              <div className="space-y-6">
-                <div className="flex items-center gap-3.5 pb-3 border-b border-gold-muted/10">
-                  <BookOpen className="w-5 h-5 text-gold-hi shrink-0" />
-                  <h2 className={`text-sm font-bold uppercase tracking-wider text-midnight ${isRtl ? 'font-cairo' : 'font-dm'}`}>
-                    {labels.learnTitle}
-                  </h2>
+              {course.whatYouLearn && course.whatYouLearn.length > 0 && (
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3.5 pb-3 border-b border-gold-muted/10">
+                    <BookOpen className="w-5 h-5 text-gold-hi shrink-0" />
+                    <h2 className={`text-sm font-bold uppercase tracking-wider text-midnight ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                      {labels.learnTitle}
+                    </h2>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {course.whatYouLearn.map((item, idx) => (
+                      <div 
+                        key={idx} 
+                        className="flex items-start gap-4 p-5 rounded-2xl bg-white border border-gold-muted/10 hover:border-gold/30 hover:bg-white/80 transition-all duration-300 group shadow-sm"
+                      >
+                        <span className="w-7 h-7 rounded-full bg-gold/5 border border-gold-muted/20 flex items-center justify-center text-[10px] text-gold-hi font-extrabold shrink-0 mt-0.5 select-none transition-all duration-300 group-hover:bg-[#0B132B] group-hover:text-gold-champagne group-hover:border-gold-hi">
+                          {idx + 1}
+                        </span>
+                        <span className={`text-xs text-[#3E3831] leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}>
+                          {item}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {course.whatYouLearn.map((item, idx) => (
-                    <div 
-                      key={idx} 
-                      className="flex items-start gap-4 p-5 rounded-2xl bg-white border border-gold-muted/10 hover:border-gold/30 hover:bg-white/80 transition-all duration-300 group shadow-sm"
-                    >
-                      <span className="w-7 h-7 rounded-full bg-gold/5 border border-gold-muted/20 flex items-center justify-center text-[10px] text-gold-hi font-extrabold shrink-0 mt-0.5 select-none transition-all duration-300 group-hover:bg-[#0B132B] group-hover:text-gold-champagne group-hover:border-gold-hi">
-                        {idx + 1}
-                      </span>
-                      <span className={`text-xs text-[#3E3831] leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}>
-                        {item}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              )}
 
             </div>
 
@@ -1147,30 +1241,32 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
             <div className="lg:col-span-5 space-y-8">
               
               {/* Outcomes Panel */}
-              <div className="bg-gradient-to-br from-white to-[#FDFAF3] border border-gold-muted/15 rounded-3xl p-8 shadow-sm">
-                <div className="flex items-center gap-3 pb-3 border-b border-gold-muted/10 mb-6">
-                  <Award className="w-5 h-5 text-gold-hi shrink-0" />
-                  <h2 className={`text-sm font-bold uppercase tracking-wider text-midnight ${isRtl ? 'font-cairo' : 'font-dm'}`}>
-                    {labels.outcomesTitle}
-                  </h2>
+              {course.outcomes && course.outcomes.length > 0 && (
+                <div className="bg-gradient-to-br from-white to-[#FDFAF3] border border-gold-muted/15 rounded-3xl p-8 shadow-sm">
+                  <div className="flex items-center gap-3 pb-3 border-b border-gold-muted/10 mb-6">
+                    <Award className="w-5 h-5 text-gold-hi shrink-0" />
+                    <h2 className={`text-sm font-bold uppercase tracking-wider text-midnight ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                      {labels.outcomesTitle}
+                    </h2>
+                  </div>
+                  
+                  <ul className="space-y-6">
+                    {course.outcomes.map((out, idx) => (
+                      <li key={idx} className="space-y-1.5 group text-start">
+                        <div className="flex items-center gap-2.5">
+                          <span className="p-1 rounded-full bg-gold/10 border border-gold/25 text-gold-hi transition-transform duration-300 group-hover:scale-110">
+                            <Check size={11} className="stroke-[3]" />
+                          </span>
+                          <span className={`text-xs font-bold text-midnight ${isRtl ? 'font-cairo' : 'font-dm'}`}>{out.title}</span>
+                        </div>
+                        <p className={`text-[11px] text-[#554E45] leading-relaxed pl-7 rtl:pl-0 rtl:pr-7 ${isRtl ? 'font-noto' : 'font-lora'}`}>
+                          {out.desc}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                
-                <ul className="space-y-6">
-                  {course.outcomes.map((out, idx) => (
-                    <li key={idx} className="space-y-1.5 group text-start">
-                      <div className="flex items-center gap-2.5">
-                        <span className="p-1 rounded-full bg-gold/10 border border-gold/25 text-gold-hi transition-transform duration-300 group-hover:scale-110">
-                          <Check size={11} className="stroke-[3]" />
-                        </span>
-                        <span className={`text-xs font-bold text-midnight ${isRtl ? 'font-cairo' : 'font-dm'}`}>{out.title}</span>
-                      </div>
-                      <p className={`text-[11px] text-[#554E45] leading-relaxed pl-7 rtl:pl-0 rtl:pr-7 ${isRtl ? 'font-noto' : 'font-lora'}`}>
-                        {out.desc}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              )}
 
               {/* Prestigious Certification Mock-up (Traditional Arched Border) */}
               <div className="bg-[#22314b] text-white border border-gold/25 rounded-3xl p-7 relative overflow-hidden shadow-xl group">
@@ -1228,80 +1324,82 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
       </section>
 
       {/* ── SECTION 3: VISUAL TIMELINE ROADMAP (PREMIUM DARK BLOCK) ── */}
-      <section className="py-24 bg-[#22314b] text-white relative z-10 border-t border-b border-gold/20 overflow-hidden text-start">
-        <div className="absolute inset-0 bg-[url('/images/pattern-8star.svg')] bg-[size:65px_65px] opacity-[0.025] pointer-events-none" />
-        <div className="absolute -right-40 -top-40 w-96 h-96 bg-gold-hi/5 rounded-full filter blur-[100px] pointer-events-none" />
+      {course.studyPlan && course.studyPlan.length > 0 && (
+        <section className="py-24 bg-[#22314b] text-white relative z-10 border-t border-b border-gold/20 overflow-hidden text-start">
+          <div className="absolute inset-0 bg-[url('/images/pattern-8star.svg')] bg-[size:65px_65px] opacity-[0.025] pointer-events-none" />
+          <div className="absolute -right-40 -top-40 w-96 h-96 bg-gold-hi/5 rounded-full filter blur-[100px] pointer-events-none" />
 
-        <div className="max-w-6xl mx-auto px-6 relative z-10">
-          
-          {/* Header */}
-          <div className="text-center mb-20 space-y-3">
-            <span className={`text-xs uppercase tracking-[0.2em] text-gold font-bold block ${isRtl ? 'font-cairo' : 'font-dm'}`}>
-              {labels.milestone}
-            </span>
-            <h2 className={`text-title text-gold-champagne font-bold ${isRtl ? 'font-amiri text-4xl' : 'font-cormorant text-4xl'}`}>
-              {labels.studyPlanTitle}
-            </h2>
-            <p className={`text-xs text-stone/60 max-w-xl mx-auto leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}>
-              {labels.studyPlanDesc}
-            </p>
-          </div>
-
-          {/* Connected Vertical Timeline Layout */}
-          <div className="relative max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto px-6 relative z-10">
             
-            {/* central alignment line */}
-            <div className="absolute top-0 bottom-0 left-6 md:left-1/2 w-[1.5px] bg-gradient-to-b from-gold-hi/10 via-gold/40 to-gold-hi/10 -translate-x-1/2" />
+            {/* Header */}
+            <div className="text-center mb-20 space-y-3">
+              <span className={`text-xs uppercase tracking-[0.2em] text-gold font-bold block ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                {labels.milestone}
+              </span>
+              <h2 className={`text-title text-gold-champagne font-bold ${isRtl ? 'font-amiri text-4xl' : 'font-cormorant text-4xl'}`}>
+                {labels.studyPlanTitle}
+              </h2>
+              <p className={`text-xs text-stone/60 max-w-xl mx-auto leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}>
+                {labels.studyPlanDesc}
+              </p>
+            </div>
 
-            <div className="space-y-12">
-              {course.studyPlan.map((step, idx) => {
-                const isEven = idx % 2 === 0;
-                return (
-                  <div key={idx} className={`relative flex flex-col md:flex-row items-start ${isEven ? 'md:flex-row-reverse' : ''} gap-8 md:gap-0`}>
-                    
-                    {/* timeline node badge */}
-                    <div className="absolute top-6 left-6 md:left-1/2 w-9 h-9 rounded-full bg-[#22314b] border border-gold-hi text-gold-hi flex items-center justify-center -translate-x-1/2 z-20 font-bold font-dm shadow-[0_0_12px_rgba(212,168,67,0.25)] transition-all duration-300 group-hover:scale-110">
-                      <span className="text-xs">0{idx + 1}</span>
-                    </div>
+            {/* Connected Vertical Timeline Layout */}
+            <div className="relative max-w-4xl mx-auto">
+              
+              {/* central alignment line */}
+              <div className="absolute top-0 bottom-0 left-6 md:left-1/2 w-[1.5px] bg-gradient-to-b from-gold-hi/10 via-gold/40 to-gold-hi/10 -translate-x-1/2" />
 
-                    {/* Timeline card container */}
-                    <div className={`w-full md:w-[45%] ${isEven ? 'md:pl-8' : 'md:pr-8'} pl-12 md:pl-0`}>
-                      <div className="bg-white/[0.02] backdrop-blur-md border border-white/[0.06] hover:border-gold-hi/45 rounded-3xl p-6 relative overflow-hidden transition-all duration-300 group hover:shadow-[0_15px_40px_rgba(212,168,67,0.08)]">
-                        
-                        {/* Shimmer top line */}
-                        <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-gold-hi to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-                        
-                        {/* Large fading watermark step number */}
-                        <div className={`absolute -right-4 -bottom-6 text-[80px] font-bold text-gold-hi/[0.01] group-hover:text-gold-hi/[0.035] transition-colors duration-300 pointer-events-none select-none leading-none ${isRtl ? 'font-cairo' : 'font-cormorant'}`}>
-                          0{idx + 1}
-                        </div>
-
-                        <span className={`inline-block text-[9px] uppercase tracking-wider text-gold-hi/80 font-bold mb-2 font-dm`}>
-                          {labels.milestone} 0{idx + 1}
-                        </span>
-                        
-                        <h3 className={`text-sm font-bold text-white mb-2 group-hover:text-gold-champagne transition-colors duration-200 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
-                          {step.title}
-                        </h3>
-                        
-                        <p className={`text-[11px] text-[#A6ADB8] leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}>
-                          {step.desc}
-                        </p>
+              <div className="space-y-12">
+                {course.studyPlan.map((step, idx) => {
+                  const isEven = idx % 2 === 0;
+                  return (
+                    <div key={idx} className={`relative flex flex-col md:flex-row items-start ${isEven ? 'md:flex-row-reverse' : ''} gap-8 md:gap-0`}>
+                      
+                      {/* timeline node badge */}
+                      <div className="absolute top-6 left-6 md:left-1/2 w-9 h-9 rounded-full bg-[#22314b] border border-gold-hi text-gold-hi flex items-center justify-center -translate-x-1/2 z-20 font-bold font-dm shadow-[0_0_12px_rgba(212,168,67,0.25)] transition-all duration-300 group-hover:scale-110">
+                        <span className="text-xs">0{idx + 1}</span>
                       </div>
+
+                      {/* Timeline card container */}
+                      <div className={`w-full md:w-[45%] ${isEven ? 'md:pl-8' : 'md:pr-8'} pl-12 md:pl-0`}>
+                        <div className="bg-white/[0.02] backdrop-blur-md border border-white/[0.06] hover:border-gold-hi/45 rounded-3xl p-6 relative overflow-hidden transition-all duration-300 group hover:shadow-[0_15px_40px_rgba(212,168,67,0.08)]">
+                          
+                          {/* Shimmer top line */}
+                          <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-gold-hi to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                          
+                          {/* Large fading watermark step number */}
+                          <div className={`absolute -right-4 -bottom-6 text-[80px] font-bold text-gold-hi/[0.01] group-hover:text-gold-hi/[0.035] transition-colors duration-300 pointer-events-none select-none leading-none ${isRtl ? 'font-cairo' : 'font-cormorant'}`}>
+                            0{idx + 1}
+                          </div>
+
+                          <span className={`inline-block text-[9px] uppercase tracking-wider text-gold-hi/80 font-bold mb-2 font-dm`}>
+                            {labels.milestone} 0{idx + 1}
+                          </span>
+                          
+                          <h3 className={`text-sm font-bold text-white mb-2 group-hover:text-gold-champagne transition-colors duration-200 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                            {step.title}
+                          </h3>
+                          
+                          <p className={`text-[11px] text-[#A6ADB8] leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}>
+                            {step.desc}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* empty spacer for alignment */}
+                      <div className="hidden md:block w-[45%]" />
+
                     </div>
+                  );
+                })}
+              </div>
 
-                    {/* empty spacer for alignment */}
-                    <div className="hidden md:block w-[45%]" />
-
-                  </div>
-                );
-              })}
             </div>
 
           </div>
-
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── SECTION 4: HOW THE ACADEMY WORKS (TRADITIONAL PEDAGOGY) ── */}
       <section className="py-24 bg-[#FDFAF3] relative z-10 border-b border-gold-muted/12 text-center">

@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
+import { createClient } from '@/lib/supabase/client';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { 
   Award, BookOpen, FileText, CheckCircle2, ChevronDown, 
@@ -135,6 +136,7 @@ interface FAQItem {
 }
 
 interface CourseData {
+  slug?: string;
   image: string;
   iconName: string;
   title: string;
@@ -1188,12 +1190,69 @@ const staggerContainer: Variants = {
   }
 };
 
+const getTrackFromSlug = (slug: string): string => {
+  if (['quran-tajweed', '10-qiraat', 'shatibiyyah-durrah', 'mushaf-script', 'quranic-sciences-tafsir', 'waqf-ibtida'].includes(slug)) {
+    return 'quran';
+  }
+  if (['arabic-grammar', 'arabic-literature', 'alfiya-ibn-malik', 'arabic-philology', 'arabic-metrics', 'creative-writing'].includes(slug)) {
+    return 'arabic';
+  }
+  if (['islamic-fiqh', 'islamic-creed', 'principles-of-fiqh', 'hadith-sciences', 'seerah', 'islamic-logic'].includes(slug)) {
+    return 'islamic';
+  }
+  return 'kids';
+};
+
+const getTrackTitle = (track: string, locale: string): string => {
+  if (locale === 'ar') {
+    if (track === 'quran') return 'مسار القرآن الكريم';
+    if (track === 'arabic') return 'مسار اللغة العربية';
+    if (track === 'islamic') return 'مسار العلوم الشرعية';
+    return 'مسار النشء والشباب';
+  } else if (locale === 'fr') {
+    if (track === 'quran') return 'Parcours Coran';
+    if (track === 'arabic') return 'Langue Arabe';
+    if (track === 'islamic') return 'Sciences Islamiques';
+    return 'Parcours Jeunesse';
+  } else {
+    if (track === 'quran') return 'Quranic Sciences Path';
+    if (track === 'arabic') return 'Classical Arabic Path';
+    if (track === 'islamic') return 'Shariah Path';
+    return 'Youth Path';
+  }
+};
+
 export default function ProgramsPage() {
   const locale = useLocale();
   const isRtl = locale === 'ar';
 
   const [selectedTrack, setSelectedTrack] = useState('quran');
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [dbCourses, setDbCourses] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchCourses() {
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from('courses')
+          .select('*')
+          .eq('status', 'published');
+        
+        if (error) {
+          console.error('Error fetching courses:', error);
+        } else if (data) {
+          setDbCourses(data);
+        }
+      } catch (err) {
+        console.error('Failed to load courses:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchCourses();
+  }, []);
 
   // Set default tab from URL query params (avoids Next.js build-time suspends)
   useEffect(() => {
@@ -1325,8 +1384,74 @@ export default function ProgramsPage() {
   }, [locale]);
 
   const activeTrackData = useMemo(() => {
-    return ACADEMIC_DATABASE[locale]?.[selectedTrack] || ACADEMIC_DATABASE.en[selectedTrack];
-  }, [locale, selectedTrack]);
+    const staticTrack = ACADEMIC_DATABASE[locale]?.[selectedTrack] || ACADEMIC_DATABASE.en[selectedTrack];
+    if (!staticTrack) return null;
+
+    // Filter dbCourses for the active track
+    const trackDbCourses = dbCourses.filter(c => getTrackFromSlug(c.slug) === selectedTrack);
+
+    // Build the merged list of courses
+    const mergedCourses = staticTrack.courses.map(staticCourse => {
+      // Find matching dbCourse
+      const matchingDbCourse = trackDbCourses.find(c => {
+        const mappedSlug = COURSE_SLUG_MAP[staticCourse.title] || '';
+        return c.slug === mappedSlug;
+      });
+
+      const slug = matchingDbCourse?.slug || COURSE_SLUG_MAP[staticCourse.title] || 'quran-tajweed';
+
+      if (matchingDbCourse) {
+        return {
+          ...staticCourse,
+          slug,
+          title: matchingDbCourse.title?.[locale] || matchingDbCourse.title?.en || staticCourse.title,
+          desc: matchingDbCourse.short_description?.[locale] || matchingDbCourse.short_description?.en || staticCourse.desc,
+          image: matchingDbCourse.image_url || staticCourse.image,
+          stats: {
+            ...staticCourse.stats,
+            duration: matchingDbCourse.duration?.[locale] || matchingDbCourse.duration?.en || staticCourse.stats.duration,
+          }
+        };
+      }
+      return {
+        ...staticCourse,
+        slug
+      };
+    });
+
+    // Now find any dbCourses that are NOT in the static list
+    const newDbCourses = trackDbCourses.filter(c => {
+      return !staticTrack.courses.some(staticCourse => {
+        const mappedSlug = COURSE_SLUG_MAP[staticCourse.title] || '';
+        return c.slug === mappedSlug;
+      });
+    });
+
+    // Map new dbCourses to CourseData structure
+    const mappedNewCourses = newDbCourses.map(c => {
+      return {
+        slug: c.slug,
+        image: c.image_url || '/images/course_default.png',
+        iconName: 'BookOpen',
+        title: c.title?.[locale] || c.title?.en || '',
+        tagline: locale === 'ar' ? 'مقرر جديد' : (locale === 'fr' ? 'Nouveau Cours' : 'New Course'),
+        desc: c.short_description?.[locale] || c.short_description?.en || '',
+        path: getTrackTitle(selectedTrack, locale),
+        stats: {
+          duration: c.duration?.[locale] || c.duration?.en || '',
+          syllabus: c.instructor?.[locale] || c.instructor?.en || (isRtl ? 'منهج الأكاديمية' : 'Academy Syllabus'),
+          level: isRtl ? 'تأسيسي' : 'Core'
+        }
+      };
+    });
+
+    return {
+      ...staticTrack,
+      courses: [...mergedCourses, ...mappedNewCourses]
+    };
+  }, [locale, selectedTrack, dbCourses, isRtl]);
+
+  if (!activeTrackData) return null;
 
   return (
     <article className="min-h-screen bg-ivory text-midnight overflow-x-hidden selection:bg-gold-hi/30">
@@ -1612,7 +1737,7 @@ export default function ProgramsPage() {
                       {/* Bottom Action Center inside Card */}
                       <div className="px-6 md:px-8 pb-8 flex items-center justify-between">
                         <Link
-                          href={`/${locale}/programs/${COURSE_SLUG_MAP[course.title] || 'quran-tajweed'}`}
+                          href={`/${locale}/programs/${course.slug || 'quran-tajweed'}`}
                           className={`text-[11px] uppercase tracking-widest font-bold text-stone hover:text-gold transition-colors duration-300 inline-flex items-center gap-1.5 ${
                             isRtl ? 'font-cairo' : 'font-dm'
                           }`}

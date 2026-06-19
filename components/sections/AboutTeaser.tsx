@@ -6,7 +6,7 @@ import { useLocale } from 'next-intl';
 import { motion, Variants } from 'framer-motion';
 import { Scroll, UserCheck, GraduationCap, ArrowRight, ArrowLeft } from 'lucide-react';
 
-export default function AboutTeaser() {
+export default function AboutTeaser({ titleOverride, subtitleOverride }: { titleOverride?: string; subtitleOverride?: string }) {
   const locale = useLocale();
   const isRtl = locale === 'ar';
 
@@ -151,14 +151,14 @@ export default function AboutTeaser() {
               isRtl ? 'font-amiri font-bold leading-[1.4]' : 'font-cormorant font-semibold leading-tight'
             }`}
           >
-            {activeContent.title}
+            {titleOverride || activeContent.title}
           </h2>
           <p
             className={`text-sm md:text-base text-[#3A332A] max-w-2xl mx-auto leading-relaxed font-normal description-justify ${
               isRtl ? 'font-noto' : 'font-lora'
             }`}
           >
-            {activeContent.subtitle}
+            {subtitleOverride || activeContent.subtitle}
           </p>
         </motion.div>
 

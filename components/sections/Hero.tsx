@@ -6,7 +6,15 @@ import { useLocale, useTranslations } from 'next-intl';
 import { Sparkles, Compass } from 'lucide-react';
 import ParallaxBackground from '../ui/ParallaxBackground';
 
-export default function Hero() {
+export default function Hero({ 
+  taglineOverride, 
+  headlineOverride, 
+  descriptionOverride 
+}: { 
+  taglineOverride?: string; 
+  headlineOverride?: string; 
+  descriptionOverride?: string 
+}) {
   const t = useTranslations('Hero');
   const locale = useLocale();
   const isRtl = locale === 'ar';
@@ -37,7 +45,7 @@ export default function Hero() {
               className={`inline-block text-xs uppercase tracking-[0.2em] text-gold-champagne font-bold mb-4 cursor-default transition-transform duration-200 hover:translate-x-1 rtl:hover:-translate-x-1 animate-fade-up ${isRtl ? 'font-cairo' : 'font-dm'
                 }`}
             >
-              {t('tagline')}
+              {taglineOverride || t('tagline')}
             </span>
 
             {/* Main Title */}
@@ -45,7 +53,9 @@ export default function Hero() {
               className={`group text-hero text-parchment mb-6 cursor-default animate-fade-up opacity-0 [animation-delay:150ms] ${isRtl ? 'font-amiri font-bold leading-[1.45]' : 'font-cormorant font-bold leading-[1.08]'
                 }`}
             >
-              {isRtl ? (
+              {headlineOverride ? (
+                <span>{headlineOverride}</span>
+              ) : isRtl ? (
                 <span>
                   {t('headlineTextBefore')}{' '}
                   <span className="text-shimmer font-bold">{t('headlineHighlight')}</span>{' '}
@@ -65,7 +75,7 @@ export default function Hero() {
               className={`text-sm md:text-base text-parchment/80 font-normal leading-relaxed mb-10 max-w-2xl cursor-default description-justify-start transition-colors duration-300 hover:text-ivory animate-fade-up opacity-0 [animation-delay:300ms] ${isRtl ? 'font-noto' : 'font-lora'
                 }`}
             >
-              {t('description')}
+              {descriptionOverride || t('description')}
             </p>
 
             {/* Actions buttons */}

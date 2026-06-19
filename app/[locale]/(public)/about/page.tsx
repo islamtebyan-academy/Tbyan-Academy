@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
-import ParallaxBackground from '../../../components/ui/ParallaxBackground';
+import ParallaxBackground from '@/components/ui/ParallaxBackground';
 import { 
   BookOpen, 
   ShieldCheck, 
