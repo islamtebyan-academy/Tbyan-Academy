@@ -219,7 +219,26 @@ export default function Footer({ verseOverride }: { verseOverride?: string }) {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gold-muted/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+      {/* Google API Integration & Purpose Disclosure */}
+      <div className="max-w-7xl mx-auto px-6 mt-12 pt-6 border-t border-gold-muted/10 text-[10px] text-parchment/40 text-start leading-relaxed">
+        <p className={isRtl ? 'font-noto' : 'font-lora'}>
+          {isRtl ? (
+            <span>
+              <strong>إقرار خدمة Google OAuth:</strong> تستخدم أكاديمية إسلام تبيان ميزة تسجيل الدخول من Google لتأمين حسابات الطلاب والمعلمين وإدارة صلاحيات الدخول إلى لوحة التحكم، بالإضافة إلى تكامل اختياري مع تقويم Google (Google Calendar) لجدولة الحصص الدراسية المباشرة وتنسيق مواعيد الدروس بين الطلاب وأعضاء هيئة التدريس بالأكاديمية.
+            </span>
+          ) : locale === 'fr' ? (
+            <span>
+              <strong>Divulgation Google OAuth:</strong> Islam Tebyan Academy utilise la connexion Google pour authentifier les utilisateurs et gérer l'accès sécurisé aux portails des étudiants et des enseignants. Nous nous intégrons également à Google Calendar pour planifier et coordonner les cours vidéo en direct entre les étudiants et les enseignants.
+            </span>
+          ) : (
+            <span>
+              <strong>Google OAuth Disclosure:</strong> Islam Tebyan Academy utilizes Google Sign-In to authenticate users and manage secure access to the student and teacher dashboards. We also integrate with Google Calendar to schedule and coordinate live video lessons and classes between students and faculty members.
+            </span>
+          )}
+        </p>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 mt-8 pt-8 border-t border-gold-muted/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
         <p className={isRtl ? 'font-cairo' : 'font-dm'}>
           {t('Footer.copyright', { year: currentYear })}
         </p>
