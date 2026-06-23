@@ -52,6 +52,12 @@ const PAGES_CONFIG = [
     icon: Home,
   },
   {
+    id: 'aboutpage',
+    titleAr: 'صفحة من نحن',
+    titleEn: 'About Us Page',
+    icon: FileText,
+  },
+  {
     id: 'global',
     titleAr: 'عناصر الموقع وتذييل الصفحة',
     titleEn: 'Global Website & Footer',
@@ -71,6 +77,15 @@ const HOMEPAGE_SUB_SECTIONS = [
   { id: 'how_it_works', titleAr: 'احجز حصة تجريبية', titleEn: 'Booking & Trial' },
   { id: 'pricing', titleAr: 'باقات الاشتراك', titleEn: 'Pricing Plans' },
   { id: 'final_cta', titleAr: 'شعار نهاية الصفحة', titleEn: 'Final CTA' }
+];
+
+const ABOUTPAGE_SUB_SECTIONS = [
+  { id: 'about_hero', titleAr: 'البانر الرئيسي', titleEn: 'Hero Section' },
+  { id: 'about_philosophy', titleAr: 'فلسفتنا وقصتنا', titleEn: 'Philosophy & Story' },
+  { id: 'about_mission', titleAr: 'رسالتنا وأهدافنا', titleEn: 'Mission & Goals' },
+  { id: 'about_pillars', titleAr: 'ركائز المنهج العلمي', titleEn: 'Methodology Pillars' },
+  { id: 'about_vetting', titleAr: 'معايير فرز المعلمين', titleEn: 'Vetting Process' },
+  { id: 'about_quote', titleAr: 'المقولة المأثورة', titleEn: 'Scholarly Quote' }
 ];
 
 const DEFAULTS_MAP: Record<string, Record<'ar' | 'en' | 'fr', string>> = {
@@ -513,6 +528,248 @@ const DEFAULTS_MAP: Record<string, Record<'ar' | 'en' | 'fr', string>> = {
     ar: arMessages.Footer.verse,
     en: enMessages.Footer.verse,
     fr: frMessages.Footer.verse,
+  },
+
+  // --- ABOUT PAGE HERO ---
+  about_hero_tag: {
+    ar: 'أكاديمية تبيان — الأثر والأصالة الأكاديمية',
+    en: 'Tebyan Academy — Legacy & Academic Authority',
+    fr: 'Académie Tebyan — Autorité Académique et Tradition'
+  },
+  about_hero_title: {
+    ar: 'عن الأكاديمية',
+    en: 'About the Academy',
+    fr: 'À Propos de Nous'
+  },
+  about_hero_subtitle: {
+    ar: 'صرح تعليمي عالمي يربط أصالة الإسناد ووقار التلقي بأحدث مناهج التخصيص والتمكين الفردي',
+    en: 'A world-class scholarly institution preserving direct oral transmission (Talaqqi) alongside modern academic personalization.',
+    fr: 'Une institution scientifique préservant la transmission orale directe (Talaqqi) alliée à une personnalisation pédagogique d\'élite.'
+  },
+  about_hero_verse: {
+    ar: '﴿وَنَزَّلْنَا عَلَيْكَ الْكِتَابَ تِبْيَانًا لِكُلِّ شَيْءٍ﴾',
+    en: '﴿وَنَزَّلْنَا عَلَيْكَ الْكِتَابَ تِبْيَانًا لِكُلِّ شَيْءٍ﴾',
+    fr: '﴿وَنَزَّلْنَا عَلَيْكَ الْكِتَابَ تِبْيَانًا لِكُلِّ شَيْءٍ﴾'
+  },
+  about_hero_verse_source: {
+    ar: 'سورة النحل — الآية 89',
+    en: 'Surah An-Nahl — Verse 89',
+    fr: 'Sourate An-Nahl — Verse 89'
+  },
+
+  // --- ABOUT PAGE PHILOSOPHY & STORY ---
+  about_philosophy_title: {
+    ar: 'فلسفتنا التعليمية والتربوية',
+    en: 'Our Educational Philosophy',
+    fr: 'Notre Philosophie Pédagogique'
+  },
+  about_philosophy_subtitle: {
+    ar: 'المشافهة والسماع كأساس لرسوخ المعرفة وضبط الفهم',
+    en: 'Oral reception as the foundation for sound comprehension',
+    fr: 'La transmission orale comme fondement de la compréhension'
+  },
+  about_philosophy_text: {
+    ar: 'نؤمن في أكاديمية تبيان بأن العلوم الشرعية واللغة العربية والقرآن الكريم إرث مبارك يؤخذ بالتلقي المباشر مشافهة وسماعاً عن أهل العلم المتخصصين الموثوقين، ولا يكتفى فيه بالدراسات النظرية الجافة أو التسجيلات العشوائية. من هنا تنطلق رسالتنا لإعادة إحياء منهجية السند المتصل، بالجمع بين الإتقان المنهجي والمرونة التقنية المعاصرة.',
+    en: 'We believe that traditional Islamic sciences, classical Arabic, and the Quran cannot be truly mastered through static textbooks or pre-recorded videos. Knowledge is a living light passed directly from the chests of verified scholars to the hearts of students. Islam Tebyan was established to preserve this golden chain of transmission (Isnad), blending rigorous scholarly methodology with the accessibility of modern technology.',
+    fr: 'Nous croyons que les sciences islamiques traditionnelles, l\'arabe classique et le Coran ne peuvent être assimilés par de ses simples lectures ou vidéos préenregistrées. La connaissance est une lumière transmise directement de la poitrine de savants certifiés vers le cœur des étudiants. Islam Tebyan a été fondée pour préserver cette chaîne d\'or (Isnad), alliant la rigueur traditionnelle aux technologies modernes.'
+  },
+  about_philosophy_logo_subtitle: {
+    ar: 'منهج الأزهر الشريف الوسطي',
+    en: 'Moderate Al-Azhar Scholastic Path',
+    fr: 'Le juste milieu de la tradition d\'Al-Azhar'
+  },
+  about_story_title: {
+    ar: 'قصتنا ونشأتنا',
+    en: 'Our Story & Foundations',
+    fr: 'Notre Histoire et Origines'
+  },
+  about_story_tag: {
+    ar: 'مسيرتنا العلمية',
+    en: 'OUR JOURNEY',
+    fr: 'NOTRE PARCOURS'
+  },
+  about_story_text1: {
+    ar: 'تأسست أكاديمية تبيان لتكون الجسر المعرفي الأصيل والآمن الواصل بين حواضر العلم الإسلامي العريقة والمسلمين في شتى بقاع الأرض، لا سيما العائلات والمغتربين والناطقين بلغات متعددة. بدأت فكرتنا من استشعار الحاجة لتعليم فردي رصين يحاكي مجالس العلماء التقليدية في مساجد القاهرة وحواضر الشام، ولكن بأسلوب تفاعلي يواكب متطلبات العصر الرقمي.',
+    en: 'Islam Tebyan Academy was founded to bridge the gap between traditional centers of Islamic scholarship and Muslim families globally. Our journey began with a simple observation: while automated apps and pre-recorded videos offered convenience, they lacked the personal feedback, spiritual guidance, and phonetic correction that define classical Islamic pedagogy.',
+    fr: 'L\'Académie Islam Tebyan a été fondée pour relier les centres historiques du savoir islamique traditionnel aux familles musulmanes à travers le monde. Notre parcours a commencé par un constat simple : bien que les applications automatisées offrent de la commodité, elles manquent de la correction phonétique et du mentorat spirituel qui définissent la pédagogie islamique classique.'
+  },
+  about_story_text2: {
+    ar: 'منذ انطلاقنا، ركزنا على التلقي المباشر مشافهة وسماعاً كخيار لا بديل عنه. وتطورت الأكاديمية لتخدم اليوم طلاباً من أكثر من 32 دولة، يجمعهم السعي لتحصيل العلم النافع والقرآن الكريم بسند متصل على يد نخبة من علماء الأزهر الشريف المعتمدين.',
+    en: 'We set out to recreate the classical circles of knowledge (Halaqat) in a virtual environment. Today, Tebyan serves dedicated students across 32 countries, helping them memorize the Quran with verified chains of transmission (Isnad) and study classical sciences directly under vetted Al-Azhar graduates.',
+    fr: 'Nous avons recréé les cercles classiques de savoir (Halaqat) dans un environnement virtuel. Aujourd\'hui, Tebyan accompagne des étudiants dans plus de 32 pays, les aidant à mémoriser le Coran avec des chaînes de transmission certifiées (Isnad) sous la tutelle de diplômés d\'Al-Azhar.'
+  },
+
+  // --- ABOUT PAGE MISSION ---
+  about_mission_title: {
+    ar: 'رسالتنا وأهدافنا الأكاديمية',
+    en: 'Our Mission & Mandate',
+    fr: 'Notre Mission & Engagement'
+  },
+  about_mission_tag: {
+    ar: 'رسالتنا العلمية',
+    en: 'OUR MISSION',
+    fr: 'NOTRE MISSION'
+  },
+  about_mission_intro: {
+    ar: 'نسعى في تبيان لتوفير تعليم إسلامي ولغوي متميز للمسلمين في مختلف أنحاء العالم، يجمع بين الرصانة العلمية العتيقة والتعليم الشخصي الدقيق، لبناء جيل يفهم دينه ولغته فهماً عميقاً قائماً على التلقي الصحيح والأصيل.',
+    en: 'Our mission is to deliver rigorous, personalized, and text-grounded Islamic and Arabic education to global seekers, preserving the sacred chain of oral transmission while utilizing interactive digital spaces to foster deep comprehension.',
+    fr: 'Notre mission is de dispenser un enseignement rigoureux et personnalisé du Coran et des sciences islamiques, en préservant la transmission orale directe tout en tirant parti du numérique pour assurer une assimilation profonde.'
+  },
+  about_mission_point1_title: {
+    ar: 'إحياء منهجية التلقي والأثر',
+    en: 'Reviving Oral Transmission (Talaqqi)',
+    fr: 'Préserver la Transmission Directe'
+  },
+  about_mission_point1_desc: {
+    ar: 'ربط الطالب بالسند المتصل لرسول الله ﷺ وتنمية ملكته العلمية بدراسة المتون وشروحها المعتمدة.',
+    en: 'Connecting students directly to verified chains of transmission (Isnad) back to the Prophet ﷺ.',
+    fr: 'Relier directement l\'étudiant aux chaînes de transmission (Isnad) remontant au Prophète ﷺ.'
+  },
+  about_mission_point2_title: {
+    ar: 'تيسير العلم للناطقين بغير العربية',
+    en: 'Accessible Global Scholarship',
+    fr: 'Rendre le Savoir Accessible'
+  },
+  about_mission_point2_desc: {
+    ar: 'تقديم الشروحات الدقيقة باللغات الإنجليزية والفرنسية لتبسيط الفهم وإزالة الحواجز اللغوية.',
+    en: 'Explaining classical concepts in fluent English and French to eliminate language barriers.',
+    fr: 'Expliquer les notions complexes en français et en anglais pour lever tout obstacle de langue.'
+  },
+  about_mission_point3_title: {
+    ar: 'بناء الشخصية الإسلامية الوسطية',
+    en: 'Cultivating Scholarly Balance',
+    fr: 'Promouvoir le Juste Milieu'
+  },
+  about_mission_point3_desc: {
+    ar: 'ترسيخ قيم الاعتدال والوسطية المستمدة من منهج الأزهر الشريف، بعيداً عن الغلو والتقصير.',
+    en: 'Instilling the balanced, moderate creed of Al-Azhar to build well-rounded Muslim identities.',
+    fr: 'Transmettre la vision modérée d\'Al-Azhar pour former des citoyens musulmans équilibrés.'
+  },
+
+  // --- ABOUT PAGE PILLARS ---
+  about_pillars_tag: {
+    ar: 'ركائز المنهج والتلقي',
+    en: 'METHODOLOGY PILLARS',
+    fr: 'PILIER DE LA MÉTHODOLOGIE'
+  },
+  about_pillars_title: {
+    ar: 'أركان التميز والريادة العلمية',
+    en: 'Pillars of Scholarly Distinction',
+    fr: 'Piliers de Distinction Académique'
+  },
+  about_pillars_subtitle: {
+    ar: 'تقوم الأكاديمية على أربعة أركان أساسية تضمن الحفاظ على أصالة المحتوى وجودة المخرج التعليمي.',
+    en: 'Our academy is built on four core standards that protect the integrity and quality of the educational output.',
+    fr: 'Notre académie repose sur quatre normes fondamentales qui protègent l\'intégrité et la qualité de l\'enseignement.'
+  },
+  about_pillar1_title: {
+    ar: 'إسناد متصل بالسند الشريف',
+    en: 'Authentic Chains (Isnad)',
+    fr: 'Chaîne de Transmission (Isnad)'
+  },
+  about_pillar1_desc: {
+    ar: 'تلقّي القرآن الكريم والعلوم اللغوية والشرعية بسلاسل إسناد متصلة إلى النبي ﷺ والمصنفين الأوائل، تحت إشراف علماء مجازين.',
+    en: 'Study Quran recitation and classical texts with verified chains of transmission (Isnad) tracing back to the Prophet ﷺ and classical compilers.',
+    fr: 'Étudiez le Coran et les textes classiques avec des chaînes de transmission certifiées remontant jusqu\'au Prophète ﷺ.'
+  },
+  about_pillar2_title: {
+    ar: 'التعليم الفردي المباشر',
+    en: 'Private 1-on-1 Reception',
+    fr: 'Cours Individuels Directs'
+  },
+  about_pillar2_desc: {
+    ar: 'تخصيص كامل لوقت الحصة ومتابعة مباشرة دقيقة تناسب وتيرة الطالب ومستواه التعليمي لتحقيق أقصى استيعاب وضبط.',
+    en: 'Dedicated private sessions where the scholar adapts the pace, provides immediate feedback, and prioritizes your learning goals.',
+    fr: 'Des sessions privées où l\'enseignant s\'adapte à votre rythme, corrige chaque détail et personnalise le cursus.'
+  },
+  about_pillar3_title: {
+    ar: 'هيئة تدريس أزهرية معتمدة',
+    en: 'Azhari Scholarly Faculty',
+    fr: 'Faculté d\'Élite d\'Al-Azhar'
+  },
+  about_pillar3_desc: {
+    ar: 'أكاديميون وعلماء خريجو جامعة الأزهر والمؤسسات العريقة، تم اختيارهم بعناية فائقة لضمان الكفاءة العلمية والمهارة التربوية.',
+    en: 'Learn from certified graduates of Al-Azhar University, rigorously screened for scientific depth, pedagogical talent, and character.',
+    fr: 'Apprenez auprès de savants diplômés de l\'Université d\'Al-Azhar, rigoureusement sélectionnés pour leur intégrité et pédagogie.'
+  },
+  about_pillar4_title: {
+    ar: 'التواصل اللغوي التفاعلي',
+    en: 'Academic Multilingualism',
+    fr: 'Bilinguisme Académique'
+  },
+  about_pillar4_desc: {
+    ar: 'علماء متمكنون يتحدثون العربية والإنجليزية والفرنسية بطلاقة، مما يسهل نقل المفاهيم الدقيقة بوضوح تام دون عوائق لغوية.',
+    en: 'Instructors fluent in English, French, and Arabic, allowing jurisprudential and theological terms to be parsed naturally.',
+    fr: 'Des enseignants maîtrisant le français, l\'anglais et l\'arabe pour expliquer les concepts théologiques sans obstacle linguistique.'
+  },
+
+  // --- ABOUT PAGE VETTING ---
+  about_vetting_tag: {
+    ar: 'معايير الجودة والاعتماد',
+    en: 'QUALITY VETTING STANDARDS',
+    fr: 'NORMES DE SÉLECTION'
+  },
+  about_vetting_title: {
+    ar: 'منهجية الفرز والاعتماد الأكاديمي لمعلمينا',
+    en: 'Rigorous Faculty Selection Roadmap',
+    fr: 'Protocole de Recrutement de la Faculté'
+  },
+  about_vetting_subtitle: {
+    ar: 'لحماية العملية التعليمية وضمان موثوقية التحصيل، يمر المتقدم للتدريس في تبيان بأربع مراحل تدقيق صارمة:',
+    en: 'To protect the integrity of your education, we screen our prospective scholars through a four-phase evaluation process:',
+    fr: 'Afin de garantir l\'authenticité de l\'enseignement, nous appliquons un protocole rigoureux de recrutement en 4 étapes :'
+  },
+  about_vetting_step1_title: {
+    ar: 'التحقق الأكاديمي والشهادات',
+    en: 'Academic Verification',
+    fr: 'Vérification Académique'
+  },
+  about_vetting_step1_desc: {
+    ar: 'مراجعة الشهادات العلمية للمتقدم والتأكد من تخرجه من كليات الأزهر الشريف (الشريعة، اللغة العربية، أصول الدين، القراءات).',
+    en: 'We verify the authenticity of the scholar’s degrees from accredited Islamic faculties (Shariah, Arabic Language, Theology, Qira’at).',
+    fr: 'Validation rigoureuse des diplômes universitaires délivrés par Al-Azhar (Charia, Langue Arabe, Théologie, Qira\'at).'
+  },
+  about_vetting_step2_title: {
+    ar: 'اختبار الإجازات والرواية',
+    en: 'Isnad & Recitation Audits',
+    fr: 'Audit de l\'Isnad et Récitation'
+  },
+  about_vetting_step2_desc: {
+    ar: 'تقوم لجنة علمية متخصصة باختبار سند المدرس في الحفظ والتجويد وجودة القراءة، للتأكد من صحة التلقي والإجازات الحاصل عليها.',
+    en: 'Senior reciters audit the candidate’s chain of transmission, phonetic accuracy, and adherence to tajweed standards.',
+    fr: 'Un jury de savants auditionne le candidat sur sa récitation, la précision du Tajwid et la validité de ses Ijazat.'
+  },
+  about_vetting_step3_title: {
+    ar: 'التدقيق اللغوي والثقافي',
+    en: 'Linguistic & Cultural Screening',
+    fr: 'Évaluation Linguistique et Culturelle'
+  },
+  about_vetting_step3_desc: {
+    ar: 'فحص مهارات التواصل باللغة الإنجليزية أو الفرنسية، للتأكد من قدرته على تبسيط المفاهيم المعقدة للمسلمين المغتربين والناطقين بغير العربية.',
+    en: 'We assess secondary language proficiency (English or French) and evaluate capability to address Western cultural contexts.',
+    fr: 'Examen de la maîtrise du français ou de l\'anglais et aptitude à transmettre les sciences islamiques aux publics francophones.'
+  },
+  about_vetting_step4_title: {
+    ar: 'الاختبار العملي والتدريب التربوي',
+    en: 'Simulated Teaching & Pedagogy',
+    fr: 'Cours de Simulation Pratique'
+  },
+  about_vetting_step4_desc: {
+    ar: 'إجراء حصص محاكاة عملية لتقييم المهارات التدريسية والتأكد من توافق أسلوب المعلم مع المنهج التربوي الوسطي للأكاديمية.',
+    en: 'The tutor conducts mock classes under scientific board monitoring to verify instruction quality and adherence to moderate paths.',
+    fr: 'Mise en situation réelle de classe pour évaluer la pédagogie et l\'alignement avec la charte éthique et le juste milieu.'
+  },
+
+  // --- ABOUT PAGE QUOTE ---
+  about_quote_text: {
+    ar: '«إنَّ هَذَا العِلْمَ دِينٌ، فَانْظُرُوا عَمَّنْ تَأْخُذُونَ دِينَكُمْ»',
+    en: '“Indeed, this knowledge is your religion, so look to whom you take your religion from.”',
+    fr: '« Certes, cette science est une religion, regardez donc de qui vous prenez votre religion. »'
+  },
+  about_quote_author: {
+    ar: 'الإمام التابعي محمد بن سيرين — رحمه الله',
+    en: 'Imam Muhammad ibn Sirin (Mercy of Allah upon him)',
+    fr: 'L\'Imam Muhammad ibn Sirin (Qu\'Allah lui fasse miséricorde)'
   }
 };
 
@@ -534,7 +791,13 @@ export default function CmsEditor({ initialSettings, locale, initialMedia = [] }
     how_it_works: 'ar',
     pricing: 'ar',
     final_cta: 'ar',
-    footer: 'ar'
+    footer: 'ar',
+    about_hero: 'ar',
+    about_philosophy: 'ar',
+    about_mission: 'ar',
+    about_pillars: 'ar',
+    about_vetting: 'ar',
+    about_quote: 'ar'
   });
 
   // Track save state per section
@@ -753,6 +1016,40 @@ export default function CmsEditor({ initialSettings, locale, initialMedia = [] }
       );
     } else if (sectionId === 'footer') {
       fieldsToReset.push('footer_verse');
+    } else if (sectionId === 'about_hero') {
+      fieldsToReset.push(
+        'about_hero_tag', 'about_hero_title', 'about_hero_subtitle', 'about_hero_verse', 'about_hero_verse_source'
+      );
+    } else if (sectionId === 'about_philosophy') {
+      fieldsToReset.push(
+        'about_philosophy_title', 'about_philosophy_subtitle', 'about_philosophy_text', 'about_philosophy_logo_subtitle',
+        'about_story_title', 'about_story_tag', 'about_story_text1', 'about_story_text2'
+      );
+    } else if (sectionId === 'about_mission') {
+      fieldsToReset.push(
+        'about_mission_title', 'about_mission_tag', 'about_mission_intro',
+        'about_mission_point1_title', 'about_mission_point1_desc',
+        'about_mission_point2_title', 'about_mission_point2_desc',
+        'about_mission_point3_title', 'about_mission_point3_desc'
+      );
+    } else if (sectionId === 'about_pillars') {
+      fieldsToReset.push(
+        'about_pillars_tag', 'about_pillars_title', 'about_pillars_subtitle',
+        'about_pillar1_title', 'about_pillar1_desc',
+        'about_pillar2_title', 'about_pillar2_desc',
+        'about_pillar3_title', 'about_pillar3_desc',
+        'about_pillar4_title', 'about_pillar4_desc'
+      );
+    } else if (sectionId === 'about_vetting') {
+      fieldsToReset.push(
+        'about_vetting_tag', 'about_vetting_title', 'about_vetting_subtitle',
+        'about_vetting_step1_title', 'about_vetting_step1_desc',
+        'about_vetting_step2_title', 'about_vetting_step2_desc',
+        'about_vetting_step3_title', 'about_vetting_step3_desc',
+        'about_vetting_step4_title', 'about_vetting_step4_desc'
+      );
+    } else if (sectionId === 'about_quote') {
+      fieldsToReset.push('about_quote_text', 'about_quote_author');
     }
 
     setFieldValues(prev => {
@@ -958,6 +1255,8 @@ export default function CmsEditor({ initialSettings, locale, initialMedia = [] }
                   setActiveTab(page.id);
                   if (page.id === 'homepage') {
                     setActiveSubSection('hero');
+                  } else if (page.id === 'aboutpage') {
+                    setActiveSubSection('about_hero');
                   }
                 }}
                 className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-bold font-ui transition-all duration-300 cursor-pointer ${
@@ -3604,6 +3903,1135 @@ export default function CmsEditor({ initialSettings, locale, initialMedia = [] }
                       }`}
                     >
                       {saveStates.final_cta?.loading ? (
+                        <>
+                          <Loader2 size={12} className="animate-spin" />
+                          <span>{isRtl ? 'جاري الحفظ...' : 'Saving...'}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Save size={12} />
+                          <span>{isRtl ? 'حفظ هذا القسم فقط' : 'Save Section'}</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            )}
+          </>
+        )}
+
+        {/* ABOUTPAGE TAB CONTENT */}
+        {activeTab === 'aboutpage' && (
+          <>
+            {/* Sub-tab navigation */}
+            <div className="relative group/tabs flex items-center mb-6 bg-gold-muted/5 border border-gold-muted/10 p-1 rounded-2xl">
+              <button
+                type="button"
+                onClick={() => scrollSubTabs('left')}
+                className="absolute left-2 z-20 bg-[#162742]/90 hover:bg-[#162742] text-white w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover/tabs:opacity-100 transition-opacity duration-300 shadow-md text-[9px] font-bold select-none cursor-pointer"
+                title={isRtl ? 'تمرير لليسار' : 'Scroll Left'}
+              >
+                ◀
+              </button>
+
+              <div 
+                ref={subTabsRef}
+                className="flex-1 flex overflow-x-auto gap-2 p-1.5 cms-editor-subtabs-scrollbar whitespace-nowrap scroll-smooth px-8"
+              >
+                {ABOUTPAGE_SUB_SECTIONS.map((sub) => {
+                  const isSubActive = sub.id === activeSubSection;
+                  return (
+                    <button
+                      key={sub.id}
+                      type="button"
+                      onClick={() => setActiveSubSection(sub.id)}
+                      className={`shrink-0 px-3 py-1.5 text-[9px] font-bold rounded-lg transition-all cursor-pointer font-ui ${
+                        isSubActive 
+                          ? 'bg-gold text-white shadow-sm scale-[1.01]' 
+                          : 'bg-white hover:bg-gold-muted/5 text-stone border border-stone/10 hover:border-gold/25'
+                      }`}
+                    >
+                      {isRtl ? sub.titleAr : sub.titleEn}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => scrollSubTabs('right')}
+                className="absolute right-2 z-20 bg-[#162742]/90 hover:bg-[#162742] text-white w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover/tabs:opacity-100 transition-opacity duration-300 shadow-md text-[9px] font-bold select-none cursor-pointer"
+                title={isRtl ? 'تمرير لليمين' : 'Scroll Right'}
+              >
+                ▶
+              </button>
+            </div>
+
+            {/* ABOUT HERO */}
+            {activeSubSection === 'about_hero' && (
+              <form 
+                onSubmit={(e) => handleSaveSection(e, 'about_hero')}
+                className="bg-white border border-gold-muted/15 rounded-3xl shadow-[0_12px_40px_rgba(139,115,85,0.05)] overflow-hidden transition-all duration-300"
+              >
+                <div className="p-6 border-b border-gold-muted/10 bg-gradient-to-r from-white to-[#FDFAF3]/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-start">
+                  <div>
+                    <h3 className="text-sm font-bold text-midnight font-primary flex items-center gap-2">
+                      <Sparkles size={16} className="text-gold" />
+                      {isRtl ? 'تصميم البانر الرئيسي لصفحة من نحن (Hero Section)' : 'About Hero Section'}
+                    </h3>
+                    <p className="text-stone/60 text-[10px] mt-0.5 font-ui">
+                      {isRtl ? 'تحرير نصوص البانر الرئيسي والآية القرآنية لصفحة من نحن' : 'Edit hero tagline, title, subtitle, Quranic verse and source.'}
+                    </p>
+                  </div>
+
+                  <div className="flex bg-gold-muted/10 p-0.5 rounded-lg border border-gold-muted/10 self-end sm:self-auto">
+                    {(['ar', 'en', 'fr'] as const).map(lang => (
+                      <button
+                        key={lang}
+                        type="button"
+                        onClick={() => setSectionLang(prev => ({ ...prev, about_hero: lang }))}
+                        className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                          sectionLang.about_hero === lang 
+                            ? 'bg-gold text-white shadow-sm' 
+                            : 'text-stone/60 hover:text-midnight'
+                        }`}
+                      >
+                        {lang === 'ar' ? 'العربية' : lang === 'en' ? 'EN' : 'FR'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-6 space-y-4">
+                  <div className="text-[10px] font-bold text-stone/50 uppercase tracking-widest text-start font-ui">
+                    {isRtl ? 'معاينة مباشرة تفاعلية (اضغط على أي نص للتعديل)' : 'Interactive Live Preview (Click any text area to edit)'}
+                  </div>
+                  
+                  <div 
+                    dir={sectionLang.about_hero === 'ar' ? 'rtl' : 'ltr'}
+                    className="relative rounded-2xl overflow-hidden min-h-[480px] flex flex-col justify-center items-center p-8 md:p-12 bg-navy border border-gold-muted/20 shadow-inner text-center space-y-6"
+                  >
+                    <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+                    
+                    <div className="relative z-10 w-full max-w-2xl space-y-6">
+                      {/* Quranic Verse Box */}
+                      <div className="mx-auto max-w-lg p-4 rounded-xl border border-dashed border-gold/30 bg-gold/5 space-y-2 relative group/field">
+                        <span className="absolute -top-2 right-4 px-1.5 py-0.5 bg-gold text-[8px] font-bold text-[#162742] rounded flex items-center gap-1 opacity-0 group-hover/field:opacity-100 focus-within:opacity-100 transition-all shadow-sm font-ui pointer-events-none">
+                          <Pencil size={8} />
+                          <span>{isRtl ? 'الآية القرآنية' : 'Quranic Verse'}</span>
+                        </span>
+                        <input
+                          type="text"
+                          name={`about_hero_verse__${sectionLang.about_hero}`}
+                          value={getVal('about_hero_verse', 'about_hero')}
+                          onChange={(e) => handleFieldChange('about_hero_verse', sectionLang.about_hero, e.target.value)}
+                          placeholder="Quranic verse..."
+                          className="w-full bg-transparent border-none text-gold-hi text-xs md:text-sm font-bold text-center focus:outline-none placeholder-gold/45 font-primary animate-pulse-once"
+                        />
+                        <input
+                          type="text"
+                          name={`about_hero_verse_source__${sectionLang.about_hero}`}
+                          value={getVal('about_hero_verse_source', 'about_hero')}
+                          onChange={(e) => handleFieldChange('about_hero_verse_source', sectionLang.about_hero, e.target.value)}
+                          placeholder="Source (e.g. Surah An-Nahl - 89)..."
+                          className="w-full bg-transparent border-none text-gold-muted text-[10px] text-center focus:outline-none placeholder-gold/30 font-ui"
+                        />
+                      </div>
+
+                      {/* Tagline */}
+                      <div className="relative group/field max-w-md mx-auto">
+                        <span className="absolute -top-2 right-4 px-1.5 py-0.5 bg-gold text-[8px] font-bold text-[#162742] rounded flex items-center gap-1 opacity-0 group-hover/field:opacity-100 focus-within:opacity-100 transition-all shadow-sm font-ui pointer-events-none">
+                          <Pencil size={8} />
+                          <span>{isRtl ? 'الشعار الممهد' : 'Tagline'}</span>
+                        </span>
+                        <input
+                          type="text"
+                          name={`about_hero_tag__${sectionLang.about_hero}`}
+                          value={getVal('about_hero_tag', 'about_hero')}
+                          onChange={(e) => handleFieldChange('about_hero_tag', sectionLang.about_hero, e.target.value)}
+                          placeholder="Tagline..."
+                          className="w-full bg-black/10 hover:bg-black/20 focus:bg-black/30 border border-dashed border-white/10 hover:border-gold/50 focus:border-gold rounded-lg px-3 py-1.5 text-gold text-[10px] md:text-xs font-bold uppercase tracking-wider text-center focus:outline-none font-ui"
+                        />
+                      </div>
+
+                      {/* Headline */}
+                      <div className="relative group/field max-w-xl mx-auto">
+                        <span className="absolute -top-2 right-4 px-1.5 py-0.5 bg-gold text-[8px] font-bold text-[#162742] rounded flex items-center gap-1 opacity-0 group-hover/field:opacity-100 focus-within:opacity-100 transition-all shadow-sm font-ui pointer-events-none">
+                          <Pencil size={8} />
+                          <span>{isRtl ? 'العنوان الرئيسي' : 'Headline'}</span>
+                        </span>
+                        <input
+                          type="text"
+                          name={`about_hero_title__${sectionLang.about_hero}`}
+                          value={getVal('about_hero_title', 'about_hero')}
+                          onChange={(e) => handleFieldChange('about_hero_title', sectionLang.about_hero, e.target.value)}
+                          placeholder="Headline title..."
+                          className="w-full bg-black/10 hover:bg-black/20 focus:bg-black/30 border border-dashed border-white/10 hover:border-gold/50 focus:border-gold rounded-lg px-3 py-2 text-white text-xl md:text-3xl font-bold text-center focus:outline-none font-primary"
+                        />
+                      </div>
+
+                      {/* Subtitle description */}
+                      <div className="relative group/field max-w-2xl mx-auto">
+                        <span className="absolute -top-2 right-4 px-1.5 py-0.5 bg-gold text-[8px] font-bold text-[#162742] rounded flex items-center gap-1 opacity-0 group-hover/field:opacity-100 focus-within:opacity-100 transition-all shadow-sm font-ui pointer-events-none">
+                          <Pencil size={8} />
+                          <span>{isRtl ? 'الوصف الرئيسي' : 'Subtitle Description'}</span>
+                        </span>
+                        <textarea
+                          name={`about_hero_subtitle__${sectionLang.about_hero}`}
+                          value={getVal('about_hero_subtitle', 'about_hero')}
+                          onChange={(e) => handleFieldChange('about_hero_subtitle', sectionLang.about_hero, e.target.value)}
+                          placeholder="Subtitle description..."
+                          rows={3}
+                          className="w-full bg-black/10 hover:bg-black/20 focus:bg-black/30 border border-dashed border-white/10 hover:border-white/30 focus:border-gold rounded-lg px-4 py-2 text-parchment/85 text-xs md:text-sm leading-relaxed text-center focus:outline-none resize-none font-ui"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="px-6 py-4 bg-gradient-to-r from-white to-[#FDFAF3]/30 border-t border-gold-muted/10 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {saveStates.about_hero?.success && (
+                      <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-600 font-bold font-ui">
+                        <CheckCircle2 size={12} className="animate-bounce" />
+                        {isRtl ? 'تم حفظ التعديلات بنجاح' : 'About Hero updated successfully'}
+                      </span>
+                    )}
+                    {saveStates.about_hero?.error && (
+                      <span className="inline-flex items-center gap-1 text-[10px] text-rose-600 font-bold font-ui">
+                        <AlertCircle size={12} />
+                        {isRtl ? `خطأ: ${saveStates.about_hero.error}` : `Error: ${saveStates.about_hero.error}`}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => handleResetSection('about_hero')}
+                      className="px-4 py-2.5 rounded-xl border border-stone/20 hover:border-gold hover:bg-gold/5 text-stone hover:text-gold text-[10px] font-bold uppercase tracking-wider transition-all duration-300 font-ui cursor-pointer"
+                    >
+                      {isRtl ? 'إعادة تعيين' : 'Reset Section'}
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={saveStates.about_hero?.loading}
+                      className={`btn-gold py-2.5 px-5 rounded-xl text-[10px] uppercase tracking-wider font-bold inline-flex items-center gap-2 shadow-md transition-all duration-300 font-ui cursor-pointer ${
+                        saveStates.about_hero?.loading ? 'opacity-70 cursor-not-allowed' : 'hover:scale-[1.02] active:scale-[0.98]'
+                      }`}
+                    >
+                      {saveStates.about_hero?.loading ? (
+                        <>
+                          <Loader2 size={12} className="animate-spin" />
+                          <span>{isRtl ? 'جاري الحفظ...' : 'Saving...'}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Save size={12} />
+                          <span>{isRtl ? 'حفظ هذا القسم فقط' : 'Save Section'}</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            )}
+
+            {/* ABOUT PHILOSOPHY */}
+            {activeSubSection === 'about_philosophy' && (
+              <form 
+                onSubmit={(e) => handleSaveSection(e, 'about_philosophy')}
+                className="bg-white border border-gold-muted/15 rounded-3xl shadow-[0_12px_40px_rgba(139,115,85,0.05)] overflow-hidden transition-all duration-300"
+              >
+                <div className="p-6 border-b border-gold-muted/10 bg-gradient-to-r from-white to-[#FDFAF3]/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-start">
+                  <div>
+                    <h3 className="text-sm font-bold text-midnight font-primary flex items-center gap-2">
+                      <FileText size={16} className="text-gold" />
+                      {isRtl ? 'فلسفتنا وقصتنا (Philosophy & Story)' : 'Philosophy & Story'}
+                    </h3>
+                    <p className="text-stone/60 text-[10px] mt-0.5 font-ui">
+                      {isRtl ? 'تعديل رؤيتنا وقصتنا ومسيرتنا العلمية' : 'Edit philosophy card, story tagline, title and texts.'}
+                    </p>
+                  </div>
+
+                  <div className="flex bg-gold-muted/10 p-0.5 rounded-lg border border-gold-muted/10 self-end sm:self-auto">
+                    {(['ar', 'en', 'fr'] as const).map(lang => (
+                      <button
+                        key={lang}
+                        type="button"
+                        onClick={() => setSectionLang(prev => ({ ...prev, about_philosophy: lang }))}
+                        className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                          sectionLang.about_philosophy === lang 
+                            ? 'bg-gold text-white shadow-sm' 
+                            : 'text-stone/60 hover:text-midnight'
+                        }`}
+                      >
+                        {lang === 'ar' ? 'العربية' : lang === 'en' ? 'EN' : 'FR'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-6 space-y-6 text-start">
+                  <div 
+                    dir={sectionLang.about_philosophy === 'ar' ? 'rtl' : 'ltr'}
+                    className="relative rounded-3xl p-8 md:p-12 bg-[#fcfbfa] border border-gold-muted/15 shadow-inner grid grid-cols-1 lg:grid-cols-12 gap-8 text-stone"
+                  >
+                    {/* Left/Right Philosophy Column (lg:col-span-5) */}
+                    <div className="lg:col-span-5 bg-[#0a1526] text-parchment rounded-2xl p-6 md:p-8 space-y-6 border border-gold/20 shadow-md relative group">
+                      <span className="absolute top-3 right-3 text-[7px] text-gold uppercase tracking-wider font-mono">Philosophy Card</span>
+                      
+                      <div className="space-y-4">
+                        {/* Title */}
+                        <div className="relative group/field">
+                          <input
+                            type="text"
+                            name={`about_philosophy_title__${sectionLang.about_philosophy}`}
+                            value={getVal('about_philosophy_title', 'about_philosophy')}
+                            onChange={(e) => handleFieldChange('about_philosophy_title', sectionLang.about_philosophy, e.target.value)}
+                            placeholder="Philosophy Title..."
+                            className="w-full bg-white/5 border border-dashed border-white/10 hover:border-gold/50 rounded px-2 py-1 text-xs text-white font-bold font-primary"
+                          />
+                        </div>
+
+                        {/* Subtitle */}
+                        <div className="relative group/field">
+                          <input
+                            type="text"
+                            name={`about_philosophy_subtitle__${sectionLang.about_philosophy}`}
+                            value={getVal('about_philosophy_subtitle', 'about_philosophy')}
+                            onChange={(e) => handleFieldChange('about_philosophy_subtitle', sectionLang.about_philosophy, e.target.value)}
+                            placeholder="Philosophy Subtitle..."
+                            className="w-full bg-white/5 border border-dashed border-white/10 hover:border-gold/50 rounded px-2 py-1 text-[10px] text-gold-hi font-bold"
+                          />
+                        </div>
+
+                        {/* Text */}
+                        <div className="relative group/field">
+                          <textarea
+                            name={`about_philosophy_text__${sectionLang.about_philosophy}`}
+                            value={getVal('about_philosophy_text', 'about_philosophy')}
+                            onChange={(e) => handleFieldChange('about_philosophy_text', sectionLang.about_philosophy, e.target.value)}
+                            placeholder="Philosophy description text..."
+                            rows={6}
+                            className="w-full bg-white/5 border border-dashed border-white/10 hover:border-gold/50 rounded p-2.5 text-[10px] text-parchment/80 leading-relaxed resize-none"
+                          />
+                        </div>
+
+                        {/* Logo Subtitle */}
+                        <div className="relative group/field border-t border-white/10 pt-4 flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-full border border-gold/30 bg-gold/10 text-gold flex items-center justify-center font-bold text-xs">أ</div>
+                          <input
+                            type="text"
+                            name={`about_philosophy_logo_subtitle__${sectionLang.about_philosophy}`}
+                            value={getVal('about_philosophy_logo_subtitle', 'about_philosophy')}
+                            onChange={(e) => handleFieldChange('about_philosophy_logo_subtitle', sectionLang.about_philosophy, e.target.value)}
+                            placeholder="Moderation path subtitle..."
+                            className="flex-1 bg-white/5 border border-dashed border-white/10 hover:border-gold/50 rounded px-2 py-0.5 text-[9px] text-parchment/70 focus:outline-none"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right/Left Story Column (lg:col-span-7) */}
+                    <div className="lg:col-span-7 space-y-6 py-2">
+                      {/* Story Tag */}
+                      <div className="relative group/field max-w-[200px]">
+                        <input
+                          type="text"
+                          name={`about_story_tag__${sectionLang.about_philosophy}`}
+                          value={getVal('about_story_tag', 'about_philosophy')}
+                          onChange={(e) => handleFieldChange('about_story_tag', sectionLang.about_philosophy, e.target.value)}
+                          placeholder="Story Tag..."
+                          className="w-full bg-white/80 border border-dashed border-gold-muted/30 rounded px-2 py-0.5 text-[9px] text-gold font-bold uppercase tracking-wider"
+                        />
+                      </div>
+
+                      {/* Story Title */}
+                      <div className="relative group/field">
+                        <input
+                          type="text"
+                          name={`about_story_title__${sectionLang.about_philosophy}`}
+                          value={getVal('about_story_title', 'about_philosophy')}
+                          onChange={(e) => handleFieldChange('about_story_title', sectionLang.about_philosophy, e.target.value)}
+                          placeholder="Story Title..."
+                          className="w-full bg-white/80 border border-dashed border-gold-muted/30 rounded px-2 py-1 text-sm font-bold text-midnight font-primary"
+                        />
+                      </div>
+
+                      {/* Story Text 1 */}
+                      <div className="relative group/field">
+                        <label className="text-[7px] text-stone/40 block mb-0.5 font-bold">Story Paragraph 1</label>
+                        <textarea
+                          name={`about_story_text1__${sectionLang.about_philosophy}`}
+                          value={getVal('about_story_text1', 'about_philosophy')}
+                          onChange={(e) => handleFieldChange('about_story_text1', sectionLang.about_philosophy, e.target.value)}
+                          placeholder="Story paragraph 1..."
+                          rows={4}
+                          className="w-full bg-white/80 border border-dashed border-gold-muted/30 rounded p-2.5 text-[10px] text-stone/85 leading-relaxed resize-none"
+                        />
+                      </div>
+
+                      {/* Story Text 2 */}
+                      <div className="relative group/field">
+                        <label className="text-[7px] text-stone/40 block mb-0.5 font-bold">Story Paragraph 2</label>
+                        <textarea
+                          name={`about_story_text2__${sectionLang.about_philosophy}`}
+                          value={getVal('about_story_text2', 'about_philosophy')}
+                          onChange={(e) => handleFieldChange('about_story_text2', sectionLang.about_philosophy, e.target.value)}
+                          placeholder="Story paragraph 2..."
+                          rows={4}
+                          className="w-full bg-white/80 border border-dashed border-gold-muted/30 rounded p-2.5 text-[10px] text-stone/85 leading-relaxed resize-none"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div className="px-6 py-4 bg-gradient-to-r from-white to-[#FDFAF3]/30 border-t border-gold-muted/10 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {saveStates.about_philosophy?.success && (
+                      <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-600 font-bold font-ui">
+                        <CheckCircle2 size={12} className="animate-bounce" />
+                        {isRtl ? 'تم حفظ التعديلات بنجاح' : 'Philosophy & Story updated successfully'}
+                      </span>
+                    )}
+                    {saveStates.about_philosophy?.error && (
+                      <span className="inline-flex items-center gap-1 text-[10px] text-rose-600 font-bold font-ui">
+                        <AlertCircle size={12} />
+                        {isRtl ? `خطأ: ${saveStates.about_philosophy.error}` : `Error: ${saveStates.about_philosophy.error}`}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => handleResetSection('about_philosophy')}
+                      className="px-4 py-2.5 rounded-xl border border-stone/20 hover:border-gold hover:bg-gold/5 text-stone hover:text-gold text-[10px] font-bold uppercase tracking-wider transition-all duration-300 font-ui cursor-pointer"
+                    >
+                      {isRtl ? 'إعادة تعيين' : 'Reset Section'}
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={saveStates.about_philosophy?.loading}
+                      className={`btn-gold py-2.5 px-5 rounded-xl text-[10px] uppercase tracking-wider font-bold inline-flex items-center gap-2 shadow-md transition-all duration-300 font-ui cursor-pointer ${
+                        saveStates.about_philosophy?.loading ? 'opacity-70 cursor-not-allowed' : 'hover:scale-[1.02] active:scale-[0.98]'
+                      }`}
+                    >
+                      {saveStates.about_philosophy?.loading ? (
+                        <>
+                          <Loader2 size={12} className="animate-spin" />
+                          <span>{isRtl ? 'جاري الحفظ...' : 'Saving...'}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Save size={12} />
+                          <span>{isRtl ? 'حفظ هذا القسم فقط' : 'Save Section'}</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            )}
+
+            {/* ABOUT MISSION */}
+            {activeSubSection === 'about_mission' && (
+              <form 
+                onSubmit={(e) => handleSaveSection(e, 'about_mission')}
+                className="bg-white border border-gold-muted/15 rounded-3xl shadow-[0_12px_40px_rgba(139,115,85,0.05)] overflow-hidden transition-all duration-300"
+              >
+                <div className="p-6 border-b border-gold-muted/10 bg-gradient-to-r from-white to-[#FDFAF3]/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-start">
+                  <div>
+                    <h3 className="text-sm font-bold text-midnight font-primary flex items-center gap-2">
+                      <BookOpen size={16} className="text-gold" />
+                      {isRtl ? 'رسالتنا وأهدافنا الأكاديمية (Mission & Goals)' : 'Mission & Goals'}
+                    </h3>
+                    <p className="text-stone/60 text-[10px] mt-0.5 font-ui">
+                      {isRtl ? 'تعديل شعار ورسالة الأكاديمية والنقاط الثلاث الرئيسية' : 'Edit mission tagline, title, intro text, and 3 strategic cards.'}
+                    </p>
+                  </div>
+
+                  <div className="flex bg-gold-muted/10 p-0.5 rounded-lg border border-gold-muted/10 self-end sm:self-auto">
+                    {(['ar', 'en', 'fr'] as const).map(lang => (
+                      <button
+                        key={lang}
+                        type="button"
+                        onClick={() => setSectionLang(prev => ({ ...prev, about_mission: lang }))}
+                        className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                          sectionLang.about_mission === lang 
+                            ? 'bg-gold text-white shadow-sm' 
+                            : 'text-stone/60 hover:text-midnight'
+                        }`}
+                      >
+                        {lang === 'ar' ? 'العربية' : lang === 'en' ? 'EN' : 'FR'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-6 space-y-6 text-start">
+                  <div 
+                    dir={sectionLang.about_mission === 'ar' ? 'rtl' : 'ltr'}
+                    className="relative rounded-3xl p-8 md:p-12 bg-navy border border-gold-muted/20 text-parchment shadow-inner space-y-8"
+                  >
+                    {/* Tag, Title, Intro Box */}
+                    <div className="max-w-2xl space-y-4">
+                      {/* Tag */}
+                      <div className="relative group/field max-w-[200px]">
+                        <input
+                          type="text"
+                          name={`about_mission_tag__${sectionLang.about_mission}`}
+                          value={getVal('about_mission_tag', 'about_mission')}
+                          onChange={(e) => handleFieldChange('about_mission_tag', sectionLang.about_mission, e.target.value)}
+                          placeholder="Tag Banner..."
+                          className="w-full bg-white/5 border border-dashed border-white/10 hover:border-gold/50 rounded px-2 py-0.5 text-[9px] text-gold font-bold uppercase tracking-wider"
+                        />
+                      </div>
+
+                      {/* Title */}
+                      <div className="relative group/field">
+                        <input
+                          type="text"
+                          name={`about_mission_title__${sectionLang.about_mission}`}
+                          value={getVal('about_mission_title', 'about_mission')}
+                          onChange={(e) => handleFieldChange('about_mission_title', sectionLang.about_mission, e.target.value)}
+                          placeholder="Section Title..."
+                          className="w-full bg-white/5 border border-dashed border-white/10 hover:border-gold/50 rounded px-2 py-1 text-sm font-bold text-white font-primary"
+                        />
+                      </div>
+
+                      {/* Intro */}
+                      <div className="relative group/field">
+                        <textarea
+                          name={`about_mission_intro__${sectionLang.about_mission}`}
+                          value={getVal('about_mission_intro', 'about_mission')}
+                          onChange={(e) => handleFieldChange('about_mission_intro', sectionLang.about_mission, e.target.value)}
+                          placeholder="Introductory paragraph..."
+                          rows={3}
+                          className="w-full bg-white/5 border border-dashed border-white/10 hover:border-white/30 rounded p-2.5 text-[10px] text-parchment/80 leading-relaxed resize-none"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Three Cards Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                      {/* Card 1 */}
+                      <div className="bg-white/5 border border-white/10 rounded-xl p-5 space-y-4 hover:border-gold/45 transition-colors relative group">
+                        <span className="text-gold font-bold text-xs">01</span>
+                        <div className="space-y-3">
+                          <input
+                            type="text"
+                            name={`about_mission_point1_title__${sectionLang.about_mission}`}
+                            value={getVal('about_mission_point1_title', 'about_mission')}
+                            onChange={(e) => handleFieldChange('about_mission_point1_title', sectionLang.about_mission, e.target.value)}
+                            placeholder="Point 1 Title..."
+                            className="w-full bg-transparent border border-dashed border-transparent hover:border-gold/40 rounded px-1 text-[11px] font-bold text-white"
+                          />
+                          <textarea
+                            name={`about_mission_point1_desc__${sectionLang.about_mission}`}
+                            value={getVal('about_mission_point1_desc', 'about_mission')}
+                            onChange={(e) => handleFieldChange('about_mission_point1_desc', sectionLang.about_mission, e.target.value)}
+                            placeholder="Point 1 Description..."
+                            rows={3}
+                            className="w-full bg-transparent border border-dashed border-transparent hover:border-white/30 rounded p-1 text-[9px] text-parchment/70 leading-normal resize-none focus:outline-none"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Card 2 */}
+                      <div className="bg-white/5 border border-white/10 rounded-xl p-5 space-y-4 hover:border-gold/45 transition-colors relative group">
+                        <span className="text-gold font-bold text-xs">02</span>
+                        <div className="space-y-3">
+                          <input
+                            type="text"
+                            name={`about_mission_point2_title__${sectionLang.about_mission}`}
+                            value={getVal('about_mission_point2_title', 'about_mission')}
+                            onChange={(e) => handleFieldChange('about_mission_point2_title', sectionLang.about_mission, e.target.value)}
+                            placeholder="Point 2 Title..."
+                            className="w-full bg-transparent border border-dashed border-transparent hover:border-gold/40 rounded px-1 text-[11px] font-bold text-white"
+                          />
+                          <textarea
+                            name={`about_mission_point2_desc__${sectionLang.about_mission}`}
+                            value={getVal('about_mission_point2_desc', 'about_mission')}
+                            onChange={(e) => handleFieldChange('about_mission_point2_desc', sectionLang.about_mission, e.target.value)}
+                            placeholder="Point 2 Description..."
+                            rows={3}
+                            className="w-full bg-transparent border border-dashed border-transparent hover:border-white/30 rounded p-1 text-[9px] text-parchment/70 leading-normal resize-none focus:outline-none"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Card 3 */}
+                      <div className="bg-white/5 border border-white/10 rounded-xl p-5 space-y-4 hover:border-gold/45 transition-colors relative group">
+                        <span className="text-gold font-bold text-xs">03</span>
+                        <div className="space-y-3">
+                          <input
+                            type="text"
+                            name={`about_mission_point3_title__${sectionLang.about_mission}`}
+                            value={getVal('about_mission_point3_title', 'about_mission')}
+                            onChange={(e) => handleFieldChange('about_mission_point3_title', sectionLang.about_mission, e.target.value)}
+                            placeholder="Point 3 Title..."
+                            className="w-full bg-transparent border border-dashed border-transparent hover:border-gold/40 rounded px-1 text-[11px] font-bold text-white"
+                          />
+                          <textarea
+                            name={`about_mission_point3_desc__${sectionLang.about_mission}`}
+                            value={getVal('about_mission_point3_desc', 'about_mission')}
+                            onChange={(e) => handleFieldChange('about_mission_point3_desc', sectionLang.about_mission, e.target.value)}
+                            placeholder="Point 3 Description..."
+                            rows={3}
+                            className="w-full bg-transparent border border-dashed border-transparent hover:border-white/30 rounded p-1 text-[9px] text-parchment/70 leading-normal resize-none focus:outline-none"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div className="px-6 py-4 bg-gradient-to-r from-white to-[#FDFAF3]/30 border-t border-gold-muted/10 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {saveStates.about_mission?.success && (
+                      <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-600 font-bold font-ui">
+                        <CheckCircle2 size={12} className="animate-bounce" />
+                        {isRtl ? 'تم حفظ التعديلات بنجاح' : 'Mission section updated successfully'}
+                      </span>
+                    )}
+                    {saveStates.about_mission?.error && (
+                      <span className="inline-flex items-center gap-1 text-[10px] text-rose-600 font-bold font-ui">
+                        <AlertCircle size={12} />
+                        {isRtl ? `خطأ: ${saveStates.about_mission.error}` : `Error: ${saveStates.about_mission.error}`}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => handleResetSection('about_mission')}
+                      className="px-4 py-2.5 rounded-xl border border-stone/20 hover:border-gold hover:bg-gold/5 text-stone hover:text-gold text-[10px] font-bold uppercase tracking-wider transition-all duration-300 font-ui cursor-pointer"
+                    >
+                      {isRtl ? 'إعادة تعيين' : 'Reset Section'}
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={saveStates.about_mission?.loading}
+                      className={`btn-gold py-2.5 px-5 rounded-xl text-[10px] uppercase tracking-wider font-bold inline-flex items-center gap-2 shadow-md transition-all duration-300 font-ui cursor-pointer ${
+                        saveStates.about_mission?.loading ? 'opacity-70 cursor-not-allowed' : 'hover:scale-[1.02] active:scale-[0.98]'
+                      }`}
+                    >
+                      {saveStates.about_mission?.loading ? (
+                        <>
+                          <Loader2 size={12} className="animate-spin" />
+                          <span>{isRtl ? 'جاري الحفظ...' : 'Saving...'}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Save size={12} />
+                          <span>{isRtl ? 'حفظ هذا القسم فقط' : 'Save Section'}</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            )}
+
+            {/* ABOUT PILLARS */}
+            {activeSubSection === 'about_pillars' && (
+              <form 
+                onSubmit={(e) => handleSaveSection(e, 'about_pillars')}
+                className="bg-white border border-gold-muted/15 rounded-3xl shadow-[0_12px_40px_rgba(139,115,85,0.05)] overflow-hidden transition-all duration-300"
+              >
+                <div className="p-6 border-b border-gold-muted/10 bg-gradient-to-r from-white to-[#FDFAF3]/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-start">
+                  <div>
+                    <h3 className="text-sm font-bold text-midnight font-primary flex items-center gap-2">
+                      <Award size={16} className="text-gold" />
+                      {isRtl ? 'ركائز المنهج العلمي والتربوي (Methodology Pillars)' : 'Methodology Pillars'}
+                    </h3>
+                    <p className="text-stone/60 text-[10px] mt-0.5 font-ui">
+                      {isRtl ? 'تعديل الركائز الأربعة للمنهج التعليمي' : 'Edit centered headers and the 4 methodology pillars.'}
+                    </p>
+                  </div>
+
+                  <div className="flex bg-gold-muted/10 p-0.5 rounded-lg border border-gold-muted/10 self-end sm:self-auto">
+                    {(['ar', 'en', 'fr'] as const).map(lang => (
+                      <button
+                        key={lang}
+                        type="button"
+                        onClick={() => setSectionLang(prev => ({ ...prev, about_pillars: lang }))}
+                        className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                          sectionLang.about_pillars === lang 
+                            ? 'bg-gold text-white shadow-sm' 
+                            : 'text-stone/60 hover:text-midnight'
+                        }`}
+                      >
+                        {lang === 'ar' ? 'العربية' : lang === 'en' ? 'EN' : 'FR'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-6 space-y-6 text-start">
+                  <div 
+                    dir={sectionLang.about_pillars === 'ar' ? 'rtl' : 'ltr'}
+                    className="relative rounded-3xl p-8 md:p-12 bg-[#faf8f5] border border-gold-muted/15 shadow-inner space-y-10 text-stone"
+                  >
+                    {/* Header */}
+                    <div className="text-center max-w-xl mx-auto space-y-4">
+                      <input
+                        type="text"
+                        name={`about_pillars_tag__${sectionLang.about_pillars}`}
+                        value={getVal('about_pillars_tag', 'about_pillars')}
+                        onChange={(e) => handleFieldChange('about_pillars_tag', sectionLang.about_pillars, e.target.value)}
+                        placeholder="Tag..."
+                        className="w-full text-center bg-white/60 hover:bg-white border border-dashed border-gold-muted/30 rounded px-2 py-0.5 text-gold text-[10px] font-bold focus:outline-none"
+                      />
+                      <input
+                        type="text"
+                        name={`about_pillars_title__${sectionLang.about_pillars}`}
+                        value={getVal('about_pillars_title', 'about_pillars')}
+                        onChange={(e) => handleFieldChange('about_pillars_title', sectionLang.about_pillars, e.target.value)}
+                        placeholder="Title..."
+                        className="w-full text-center bg-white/60 hover:bg-white border border-dashed border-gold-muted/30 rounded px-2.5 py-1.5 text-midnight text-sm font-bold focus:outline-none"
+                      />
+                      <textarea
+                        name={`about_pillars_subtitle__${sectionLang.about_pillars}`}
+                        value={getVal('about_pillars_subtitle', 'about_pillars')}
+                        onChange={(e) => handleFieldChange('about_pillars_subtitle', sectionLang.about_pillars, e.target.value)}
+                        placeholder="Subtitle..."
+                        rows={2}
+                        className="w-full text-center bg-white/60 hover:bg-white border border-dashed border-gold-muted/30 rounded px-2.5 py-1.5 text-stone text-xs focus:outline-none resize-none"
+                      />
+                    </div>
+
+                    {/* Columns Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                      {/* Pillar 1 */}
+                      <div className="bg-white border border-gold-muted/15 rounded-xl p-5 space-y-4 hover:border-gold transition-colors relative group">
+                        <div className="w-8 h-8 rounded-lg bg-gold/10 text-gold flex items-center justify-center shrink-0">
+                          <BookOpen size={16} />
+                        </div>
+                        <div className="space-y-3">
+                          <input
+                            type="text"
+                            name={`about_pillar1_title__${sectionLang.about_pillars}`}
+                            value={getVal('about_pillar1_title', 'about_pillars')}
+                            onChange={(e) => handleFieldChange('about_pillar1_title', sectionLang.about_pillars, e.target.value)}
+                            placeholder="Pillar 1 Title..."
+                            className="w-full bg-stone-50 hover:bg-stone-100/50 border border-dashed border-gold-muted/20 rounded px-2 py-1 text-[10px] font-bold text-midnight focus:outline-none"
+                          />
+                          <textarea
+                            name={`about_pillar1_desc__${sectionLang.about_pillars}`}
+                            value={getVal('about_pillar1_desc', 'about_pillars')}
+                            onChange={(e) => handleFieldChange('about_pillar1_desc', sectionLang.about_pillars, e.target.value)}
+                            placeholder="Pillar 1 Description..."
+                            rows={4}
+                            className="w-full bg-stone-50 hover:bg-stone-100/50 border border-dashed border-gold-muted/20 rounded p-2 text-[9px] text-stone leading-normal resize-none focus:outline-none"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Pillar 2 */}
+                      <div className="bg-white border border-gold-muted/15 rounded-xl p-5 space-y-4 hover:border-gold transition-colors relative group">
+                        <div className="w-8 h-8 rounded-lg bg-gold/10 text-gold flex items-center justify-center shrink-0">
+                          <UserCheck size={16} />
+                        </div>
+                        <div className="space-y-3">
+                          <input
+                            type="text"
+                            name={`about_pillar2_title__${sectionLang.about_pillars}`}
+                            value={getVal('about_pillar2_title', 'about_pillars')}
+                            onChange={(e) => handleFieldChange('about_pillar2_title', sectionLang.about_pillars, e.target.value)}
+                            placeholder="Pillar 2 Title..."
+                            className="w-full bg-stone-50 hover:bg-stone-100/50 border border-dashed border-gold-muted/20 rounded px-2 py-1 text-[10px] font-bold text-midnight focus:outline-none"
+                          />
+                          <textarea
+                            name={`about_pillar2_desc__${sectionLang.about_pillars}`}
+                            value={getVal('about_pillar2_desc', 'about_pillars')}
+                            onChange={(e) => handleFieldChange('about_pillar2_desc', sectionLang.about_pillars, e.target.value)}
+                            placeholder="Pillar 2 Description..."
+                            rows={4}
+                            className="w-full bg-stone-50 hover:bg-stone-100/50 border border-dashed border-gold-muted/20 rounded p-2 text-[9px] text-stone leading-normal resize-none focus:outline-none"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Pillar 3 */}
+                      <div className="bg-white border border-gold-muted/15 rounded-xl p-5 space-y-4 hover:border-gold transition-colors relative group">
+                        <div className="w-8 h-8 rounded-lg bg-gold/10 text-gold flex items-center justify-center shrink-0">
+                          <GraduationCap size={16} />
+                        </div>
+                        <div className="space-y-3">
+                          <input
+                            type="text"
+                            name={`about_pillar3_title__${sectionLang.about_pillars}`}
+                            value={getVal('about_pillar3_title', 'about_pillars')}
+                            onChange={(e) => handleFieldChange('about_pillar3_title', sectionLang.about_pillars, e.target.value)}
+                            placeholder="Pillar 3 Title..."
+                            className="w-full bg-stone-50 hover:bg-stone-100/50 border border-dashed border-gold-muted/20 rounded px-2 py-1 text-[10px] font-bold text-midnight focus:outline-none"
+                          />
+                          <textarea
+                            name={`about_pillar3_desc__${sectionLang.about_pillars}`}
+                            value={getVal('about_pillar3_desc', 'about_pillars')}
+                            onChange={(e) => handleFieldChange('about_pillar3_desc', sectionLang.about_pillars, e.target.value)}
+                            placeholder="Pillar 3 Description..."
+                            rows={4}
+                            className="w-full bg-stone-50 hover:bg-stone-100/50 border border-dashed border-gold-muted/20 rounded p-2 text-[9px] text-stone leading-normal resize-none focus:outline-none"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Pillar 4 */}
+                      <div className="bg-white border border-gold-muted/15 rounded-xl p-5 space-y-4 hover:border-gold transition-colors relative group">
+                        <div className="w-8 h-8 rounded-lg bg-gold/10 text-gold flex items-center justify-center shrink-0">
+                          <Globe2 size={16} />
+                        </div>
+                        <div className="space-y-3">
+                          <input
+                            type="text"
+                            name={`about_pillar4_title__${sectionLang.about_pillars}`}
+                            value={getVal('about_pillar4_title', 'about_pillars')}
+                            onChange={(e) => handleFieldChange('about_pillar4_title', sectionLang.about_pillars, e.target.value)}
+                            placeholder="Pillar 4 Title..."
+                            className="w-full bg-stone-50 hover:bg-stone-100/50 border border-dashed border-gold-muted/20 rounded px-2 py-1 text-[10px] font-bold text-midnight focus:outline-none"
+                          />
+                          <textarea
+                            name={`about_pillar4_desc__${sectionLang.about_pillars}`}
+                            value={getVal('about_pillar4_desc', 'about_pillars')}
+                            onChange={(e) => handleFieldChange('about_pillar4_desc', sectionLang.about_pillars, e.target.value)}
+                            placeholder="Pillar 4 Description..."
+                            rows={4}
+                            className="w-full bg-stone-50 hover:bg-stone-100/50 border border-dashed border-gold-muted/20 rounded p-2 text-[9px] text-stone leading-normal resize-none focus:outline-none"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div className="px-6 py-4 bg-gradient-to-r from-white to-[#FDFAF3]/30 border-t border-gold-muted/10 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {saveStates.about_pillars?.success && (
+                      <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-600 font-bold font-ui">
+                        <CheckCircle2 size={12} className="animate-bounce" />
+                        {isRtl ? 'تم حفظ التعديلات بنجاح' : 'Pillars updated successfully'}
+                      </span>
+                    )}
+                    {saveStates.about_pillars?.error && (
+                      <span className="inline-flex items-center gap-1 text-[10px] text-rose-600 font-bold font-ui">
+                        <AlertCircle size={12} />
+                        {isRtl ? `خطأ: ${saveStates.about_pillars.error}` : `Error: ${saveStates.about_pillars.error}`}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => handleResetSection('about_pillars')}
+                      className="px-4 py-2.5 rounded-xl border border-stone/20 hover:border-gold hover:bg-gold/5 text-stone hover:text-gold text-[10px] font-bold uppercase tracking-wider transition-all duration-300 font-ui cursor-pointer"
+                    >
+                      {isRtl ? 'إعادة تعيين' : 'Reset Section'}
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={saveStates.about_pillars?.loading}
+                      className={`btn-gold py-2.5 px-5 rounded-xl text-[10px] uppercase tracking-wider font-bold inline-flex items-center gap-2 shadow-md transition-all duration-300 font-ui cursor-pointer ${
+                        saveStates.about_pillars?.loading ? 'opacity-70 cursor-not-allowed' : 'hover:scale-[1.02] active:scale-[0.98]'
+                      }`}
+                    >
+                      {saveStates.about_pillars?.loading ? (
+                        <>
+                          <Loader2 size={12} className="animate-spin" />
+                          <span>{isRtl ? 'جاري الحفظ...' : 'Saving...'}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Save size={12} />
+                          <span>{isRtl ? 'حفظ هذا القسم فقط' : 'Save Section'}</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            )}
+
+            {/* ABOUT VETTING */}
+            {activeSubSection === 'about_vetting' && (
+              <form 
+                onSubmit={(e) => handleSaveSection(e, 'about_vetting')}
+                className="bg-white border border-gold-muted/15 rounded-3xl shadow-[0_12px_40px_rgba(139,115,85,0.05)] overflow-hidden transition-all duration-300"
+              >
+                <div className="p-6 border-b border-gold-muted/10 bg-gradient-to-r from-white to-[#FDFAF3]/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-start">
+                  <div>
+                    <h3 className="text-sm font-bold text-midnight font-primary flex items-center gap-2">
+                      <UserCheck size={16} className="text-gold" />
+                      {isRtl ? 'معايير فرز المعلمين (Vetting Process)' : 'Faculty Vetting Process'}
+                    </h3>
+                    <p className="text-stone/60 text-[10px] mt-0.5 font-ui">
+                      {isRtl ? 'تعديل مراحل ومعايير تصفية واعتماد المعلمين' : 'Edit selection roadmap steps, subtitles, and headings.'}
+                    </p>
+                  </div>
+
+                  <div className="flex bg-gold-muted/10 p-0.5 rounded-lg border border-gold-muted/10 self-end sm:self-auto">
+                    {(['ar', 'en', 'fr'] as const).map(lang => (
+                      <button
+                        key={lang}
+                        type="button"
+                        onClick={() => setSectionLang(prev => ({ ...prev, about_vetting: lang }))}
+                        className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                          sectionLang.about_vetting === lang 
+                            ? 'bg-gold text-white shadow-sm' 
+                            : 'text-stone/60 hover:text-midnight'
+                        }`}
+                      >
+                        {lang === 'ar' ? 'العربية' : lang === 'en' ? 'EN' : 'FR'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-6 space-y-6 text-start">
+                  <div 
+                    dir={sectionLang.about_vetting === 'ar' ? 'rtl' : 'ltr'}
+                    className="relative rounded-3xl p-8 md:p-12 bg-[#fdfdfc] border border-gold-muted/15 shadow-inner space-y-10 text-stone"
+                  >
+                    {/* Header */}
+                    <div className="text-center max-w-xl mx-auto space-y-4">
+                      <input
+                        type="text"
+                        name={`about_vetting_tag__${sectionLang.about_vetting}`}
+                        value={getVal('about_vetting_tag', 'about_vetting')}
+                        onChange={(e) => handleFieldChange('about_vetting_tag', sectionLang.about_vetting, e.target.value)}
+                        placeholder="Vetting Tag..."
+                        className="w-full text-center bg-white/60 hover:bg-white border border-dashed border-gold-muted/30 rounded px-2 py-0.5 text-gold text-[10px] font-bold focus:outline-none"
+                      />
+                      <input
+                        type="text"
+                        name={`about_vetting_title__${sectionLang.about_vetting}`}
+                        value={getVal('about_vetting_title', 'about_vetting')}
+                        onChange={(e) => handleFieldChange('about_vetting_title', sectionLang.about_vetting, e.target.value)}
+                        placeholder="Vetting Header Title..."
+                        className="w-full text-center bg-white/60 hover:bg-white border border-dashed border-gold-muted/30 rounded px-2.5 py-1.5 text-midnight text-sm font-bold focus:outline-none"
+                      />
+                      <textarea
+                        name={`about_vetting_subtitle__${sectionLang.about_vetting}`}
+                        value={getVal('about_vetting_subtitle', 'about_vetting')}
+                        onChange={(e) => handleFieldChange('about_vetting_subtitle', sectionLang.about_vetting, e.target.value)}
+                        placeholder="Vetting Header Subtitle..."
+                        rows={2}
+                        className="w-full text-center bg-white/60 hover:bg-white border border-dashed border-gold-muted/30 rounded px-2.5 py-1.5 text-stone text-xs focus:outline-none resize-none"
+                      />
+                    </div>
+
+                    {/* Vetting Steps Roadmap Timeline */}
+                    <div className="space-y-6 pt-2">
+                      {([1, 2, 3, 4] as const).map((stepNum) => (
+                        <div 
+                          key={stepNum}
+                          className="bg-white border border-gold-muted/12 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center gap-6 hover:border-gold/45 transition-colors relative"
+                        >
+                          <div className="w-10 h-10 rounded-full bg-gold text-[#0c1424] font-extrabold flex items-center justify-center shrink-0 select-none text-xs border border-gold-muted/30 shadow-sm">
+                            {stepNum}
+                          </div>
+                          
+                          <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+                            <div className="md:col-span-1 space-y-1">
+                              <label className="text-[7px] text-stone/45 block font-bold font-ui">Step {stepNum} Title</label>
+                              <input
+                                type="text"
+                                name={`about_vetting_step${stepNum}_title__${sectionLang.about_vetting}`}
+                                value={getVal(`about_vetting_step${stepNum}_title`, 'about_vetting')}
+                                onChange={(e) => handleFieldChange(`about_vetting_step${stepNum}_title`, sectionLang.about_vetting, e.target.value)}
+                                placeholder={`Step ${stepNum} Title...`}
+                                className="w-full bg-stone-50 border border-dashed border-gold-muted/20 rounded px-2 py-1 text-[10px] font-bold text-midnight"
+                              />
+                            </div>
+
+                            <div className="md:col-span-2 space-y-1">
+                              <label className="text-[7px] text-stone/45 block font-bold font-ui">Step {stepNum} Details</label>
+                              <textarea
+                                name={`about_vetting_step${stepNum}_desc__${sectionLang.about_vetting}`}
+                                value={getVal(`about_vetting_step${stepNum}_desc`, 'about_vetting')}
+                                onChange={(e) => handleFieldChange(`about_vetting_step${stepNum}_desc`, sectionLang.about_vetting, e.target.value)}
+                                placeholder={`Step ${stepNum} Description...`}
+                                rows={2}
+                                className="w-full bg-stone-50 border border-dashed border-gold-muted/20 rounded p-2 text-[9px] text-stone leading-normal resize-none focus:outline-none"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div className="px-6 py-4 bg-gradient-to-r from-white to-[#FDFAF3]/30 border-t border-gold-muted/10 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {saveStates.about_vetting?.success && (
+                      <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-600 font-bold font-ui">
+                        <CheckCircle2 size={12} className="animate-bounce" />
+                        {isRtl ? 'تم حفظ التعديلات بنجاح' : 'Vetting roadmaps updated successfully'}
+                      </span>
+                    )}
+                    {saveStates.about_vetting?.error && (
+                      <span className="inline-flex items-center gap-1 text-[10px] text-rose-600 font-bold font-ui">
+                        <AlertCircle size={12} />
+                        {isRtl ? `خطأ: ${saveStates.about_vetting.error}` : `Error: ${saveStates.about_vetting.error}`}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => handleResetSection('about_vetting')}
+                      className="px-4 py-2.5 rounded-xl border border-stone/20 hover:border-gold hover:bg-gold/5 text-stone hover:text-gold text-[10px] font-bold uppercase tracking-wider transition-all duration-300 font-ui cursor-pointer"
+                    >
+                      {isRtl ? 'إعادة تعيين' : 'Reset Section'}
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={saveStates.about_vetting?.loading}
+                      className={`btn-gold py-2.5 px-5 rounded-xl text-[10px] uppercase tracking-wider font-bold inline-flex items-center gap-2 shadow-md transition-all duration-300 font-ui cursor-pointer ${
+                        saveStates.about_vetting?.loading ? 'opacity-70 cursor-not-allowed' : 'hover:scale-[1.02] active:scale-[0.98]'
+                      }`}
+                    >
+                      {saveStates.about_vetting?.loading ? (
+                        <>
+                          <Loader2 size={12} className="animate-spin" />
+                          <span>{isRtl ? 'جاري الحفظ...' : 'Saving...'}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Save size={12} />
+                          <span>{isRtl ? 'حفظ هذا القسم فقط' : 'Save Section'}</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            )}
+
+            {/* ABOUT QUOTE */}
+            {activeSubSection === 'about_quote' && (
+              <form 
+                onSubmit={(e) => handleSaveSection(e, 'about_quote')}
+                className="bg-white border border-gold-muted/15 rounded-3xl shadow-[0_12px_40px_rgba(139,115,85,0.05)] overflow-hidden transition-all duration-300"
+              >
+                <div className="p-6 border-b border-gold-muted/10 bg-gradient-to-r from-white to-[#FDFAF3]/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-start">
+                  <div>
+                    <h3 className="text-sm font-bold text-midnight font-primary flex items-center gap-2">
+                      <MessageSquare size={16} className="text-gold" />
+                      {isRtl ? 'المقولة المأثورة (Scholarly Quote)' : 'Scholarly Quote Section'}
+                    </h3>
+                    <p className="text-stone/60 text-[10px] mt-0.5 font-ui">
+                      {isRtl ? 'تعديل المقولة المأثورة للعلماء واسم صاحبها' : 'Edit the highlighted scholarly statement and author.'}
+                    </p>
+                  </div>
+
+                  <div className="flex bg-gold-muted/10 p-0.5 rounded-lg border border-gold-muted/10 self-end sm:self-auto">
+                    {(['ar', 'en', 'fr'] as const).map(lang => (
+                      <button
+                        key={lang}
+                        type="button"
+                        onClick={() => setSectionLang(prev => ({ ...prev, about_quote: lang }))}
+                        className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                          sectionLang.about_quote === lang 
+                            ? 'bg-gold text-white shadow-sm' 
+                            : 'text-stone/60 hover:text-midnight'
+                        }`}
+                      >
+                        {lang === 'ar' ? 'العربية' : lang === 'en' ? 'EN' : 'FR'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-6 space-y-6 text-start">
+                  <div 
+                    dir={sectionLang.about_quote === 'ar' ? 'rtl' : 'ltr'}
+                    className="relative rounded-3xl p-8 md:p-12 bg-[#FAF6EE] border border-gold-muted/18 shadow-inner text-center space-y-6 text-midnight font-primary"
+                  >
+                    <div className="text-gold font-bold text-4xl leading-none select-none opacity-40">”</div>
+                    
+                    <div className="space-y-4 max-w-xl mx-auto">
+                      {/* Quote Text */}
+                      <div className="relative group/field">
+                        <span className="absolute -top-2 right-4 px-1 py-0.5 bg-gold text-[7px] font-bold text-[#FAF6EE] rounded flex items-center gap-1 opacity-0 group-hover/field:opacity-100 focus-within:opacity-100 transition-all pointer-events-none z-10 font-ui font-bold">
+                          <Pencil size={6} />
+                          <span>{isRtl ? 'نص المقولة' : 'Quote Text'}</span>
+                        </span>
+                        <textarea
+                          name={`about_quote_text__${sectionLang.about_quote}`}
+                          value={getVal('about_quote_text', 'about_quote')}
+                          onChange={(e) => handleFieldChange('about_quote_text', sectionLang.about_quote, e.target.value)}
+                          placeholder="Scholarly quote..."
+                          rows={3}
+                          className="w-full bg-white/60 hover:bg-white border border-dashed border-gold-muted/30 rounded p-3 text-center text-sm md:text-base font-bold italic leading-relaxed focus:outline-none"
+                        />
+                      </div>
+
+                      {/* Author */}
+                      <div className="relative group/field max-w-sm mx-auto">
+                        <span className="absolute -top-2 right-4 px-1 py-0.5 bg-gold text-[7px] font-bold text-[#FAF6EE] rounded flex items-center gap-1 opacity-0 group-hover/field:opacity-100 focus-within:opacity-100 transition-all pointer-events-none z-10 font-ui font-bold">
+                          <Pencil size={6} />
+                          <span>{isRtl ? 'صاحب المقولة' : 'Author'}</span>
+                        </span>
+                        <input
+                          type="text"
+                          name={`about_quote_author__${sectionLang.about_quote}`}
+                          value={getVal('about_quote_author', 'about_quote')}
+                          onChange={(e) => handleFieldChange('about_quote_author', sectionLang.about_quote, e.target.value)}
+                          placeholder="Author..."
+                          className="w-full bg-white/60 hover:bg-white border border-dashed border-gold-muted/30 rounded px-2.5 py-1.5 text-center text-xs font-semibold text-stone/85 focus:outline-none"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div className="px-6 py-4 bg-gradient-to-r from-white to-[#FDFAF3]/30 border-t border-gold-muted/10 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {saveStates.about_quote?.success && (
+                      <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-600 font-bold font-ui">
+                        <CheckCircle2 size={12} className="animate-bounce" />
+                        {isRtl ? 'تم حفظ التعديلات بنجاح' : 'Quote updated successfully'}
+                      </span>
+                    )}
+                    {saveStates.about_quote?.error && (
+                      <span className="inline-flex items-center gap-1 text-[10px] text-rose-600 font-bold font-ui">
+                        <AlertCircle size={12} />
+                        {isRtl ? `خطأ: ${saveStates.about_quote.error}` : `Error: ${saveStates.about_quote.error}`}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => handleResetSection('about_quote')}
+                      className="px-4 py-2.5 rounded-xl border border-stone/20 hover:border-gold hover:bg-gold/5 text-stone hover:text-gold text-[10px] font-bold uppercase tracking-wider transition-all duration-300 font-ui cursor-pointer"
+                    >
+                      {isRtl ? 'إعادة تعيين' : 'Reset Section'}
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={saveStates.about_quote?.loading}
+                      className={`btn-gold py-2.5 px-5 rounded-xl text-[10px] uppercase tracking-wider font-bold inline-flex items-center gap-2 shadow-md transition-all duration-300 font-ui cursor-pointer ${
+                        saveStates.about_quote?.loading ? 'opacity-70 cursor-not-allowed' : 'hover:scale-[1.02] active:scale-[0.98]'
+                      }`}
+                    >
+                      {saveStates.about_quote?.loading ? (
                         <>
                           <Loader2 size={12} className="animate-spin" />
                           <span>{isRtl ? 'جاري الحفظ...' : 'Saving...'}</span>
