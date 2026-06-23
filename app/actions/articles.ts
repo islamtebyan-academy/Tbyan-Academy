@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import sharp from 'sharp';
 import { createClient } from '@/lib/supabase/server';
 
 export async function saveArticle(formData: FormData) {
@@ -77,26 +78,39 @@ export async function saveArticle(formData: FormData) {
   let imageUrl = formData.get('existingImageUrl') as string || '';
 
   if (imageFile && imageFile.size > 0) {
-    const fileExt = imageFile.name.split('.').pop();
-    const fileName = `${slug}-${Date.now()}.${fileExt}`;
-    
-    const { data: uploadData, error: uploadError } = await supabase.storage
-      .from('media')
-      .upload(`articles/${fileName}`, imageFile, {
-        cacheControl: '3600',
-        upsert: true
-      });
+    try {
+      // Convert File arrayBuffer to Buffer for sharp processing
+      const arrayBuffer = await imageFile.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      
+      // Convert to WebP and compress to 80% quality
+      const webpBuffer = await sharp(buffer)
+        .webp({ quality: 80 })
+        .toBuffer();
 
-    if (uploadError) {
-      return { error: `Image upload failed: ${uploadError.message}` };
+      const fileName = `${slug}-${Date.now()}.webp`;
+      
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('media')
+        .upload(`articles/${fileName}`, webpBuffer, {
+          contentType: 'image/webp',
+          cacheControl: '3600',
+          upsert: true
+        });
+
+      if (uploadError) {
+        return { error: `Image upload failed: ${uploadError.message}` };
+      }
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('media')
+        .getPublicUrl(`articles/${fileName}`);
+
+      imageUrl = publicUrl;
+    } catch (sharpError: any) {
+      return { error: `Image processing/upload failed: ${sharpError.message}` };
     }
-
-    // Get public URL
-    const { data: { publicUrl } } = supabase.storage
-      .from('media')
-      .getPublicUrl(`articles/${fileName}`);
-
-    imageUrl = publicUrl;
   }
 
   // Parsers
