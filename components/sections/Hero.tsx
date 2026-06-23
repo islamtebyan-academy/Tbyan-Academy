@@ -9,11 +9,33 @@ import ParallaxBackground from '../ui/ParallaxBackground';
 export default function Hero({ 
   taglineOverride, 
   headlineOverride, 
-  descriptionOverride 
+  descriptionOverride,
+  bgImageOverride,
+  ctaPrimaryOverride,
+  ctaSecondaryOverride,
+  stat1ValueOverride,
+  stat1LabelOverride,
+  stat2ValueOverride,
+  stat2LabelOverride,
+  stat3ValueOverride,
+  stat3LabelOverride,
+  stat4ValueOverride,
+  stat4LabelOverride
 }: { 
   taglineOverride?: string; 
   headlineOverride?: string; 
-  descriptionOverride?: string 
+  descriptionOverride?: string;
+  bgImageOverride?: string;
+  ctaPrimaryOverride?: string;
+  ctaSecondaryOverride?: string;
+  stat1ValueOverride?: string;
+  stat1LabelOverride?: string;
+  stat2ValueOverride?: string;
+  stat2LabelOverride?: string;
+  stat3ValueOverride?: string;
+  stat3LabelOverride?: string;
+  stat4ValueOverride?: string;
+  stat4LabelOverride?: string;
 }) {
   const t = useTranslations('Hero');
   const locale = useLocale();
@@ -24,7 +46,7 @@ export default function Hero({
       className="relative min-h-screen pt-32 pb-0 flex flex-col justify-between overflow-hidden"
     >
       {/* Parallax Background */}
-      <ParallaxBackground src="/hero-pc-bg.webp" className="md:bg-[length:100%_100%]" />
+      <ParallaxBackground src={bgImageOverride || "/hero-pc-bg.webp"} className="md:bg-[length:100%_100%]" />
 
       {/* Premium Gradient Overlay for Text Readability */}
       <div
@@ -88,14 +110,14 @@ export default function Hero({
                 className="btn-gold py-4 rounded-full text-xs uppercase tracking-wider font-bold w-full sm:w-auto sm:min-w-[320px] px-6 sm:px-8 text-center inline-flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
               >
                 <Sparkles className="w-4 h-4 text-[#22314b] shrink-0" />
-                <span className="whitespace-nowrap">{t('ctaPrimary')}</span>
+                <span className="whitespace-nowrap">{ctaPrimaryOverride || t('ctaPrimary')}</span>
               </Link>
               <Link
                 href={`/${locale}/method`}
                 className="py-4 rounded-full text-xs uppercase tracking-wider font-bold border border-gold-champagne/55 bg-white/[0.05] backdrop-blur-md text-parchment hover:border-gold-champagne hover:bg-gold-champagne/15 transition-all w-full sm:w-auto sm:min-w-[320px] px-6 sm:px-8 text-center inline-flex items-center justify-center gap-2.5 hover:scale-[1.03] active:scale-[0.97]"
               >
                 <Compass className="w-4 h-4 text-gold-champagne shrink-0" />
-                <span className="whitespace-nowrap">{t('ctaSecondary')}</span>
+                <span className="whitespace-nowrap">{ctaSecondaryOverride || t('ctaSecondary')}</span>
               </Link>
             </div>
           </div>
@@ -111,10 +133,10 @@ export default function Hero({
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { value: '32+', label: t('statStudents') },
-              { value: '40+', label: t('statTeachers') },
-              { value: '25,000+', label: t('statHours') },
-              { value: '4.9/5', label: t('statRating') },
+              { value: stat1ValueOverride || '32+', label: stat1LabelOverride || t('statStudents') },
+              { value: stat2ValueOverride || '40+', label: stat2LabelOverride || t('statTeachers') },
+              { value: stat3ValueOverride || '25,000+', label: stat3LabelOverride || t('statHours') },
+              { value: stat4ValueOverride || '4.9/5', label: stat4LabelOverride || t('statRating') },
             ].map((stat, i) => (
               <div
                 key={i}

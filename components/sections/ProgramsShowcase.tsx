@@ -6,7 +6,39 @@ import { useLocale, useTranslations } from 'next-intl';
 import { Book, Award, FileText, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function ProgramsShowcase() {
+export default function ProgramsShowcase({
+  taglineOverride,
+  titleOverride,
+  subtitleOverride,
+  quranTitleOverride,
+  quranArabicOverride,
+  quranDescOverride,
+  quranBooksOverride,
+  arabicTitleOverride,
+  arabicArabicOverride,
+  arabicDescOverride,
+  arabicBooksOverride,
+  islamicTitleOverride,
+  islamicArabicOverride,
+  islamicDescOverride,
+  islamicBooksOverride
+}: {
+  taglineOverride?: string;
+  titleOverride?: string;
+  subtitleOverride?: string;
+  quranTitleOverride?: string;
+  quranArabicOverride?: string;
+  quranDescOverride?: string;
+  quranBooksOverride?: string;
+  arabicTitleOverride?: string;
+  arabicArabicOverride?: string;
+  arabicDescOverride?: string;
+  arabicBooksOverride?: string;
+  islamicTitleOverride?: string;
+  islamicArabicOverride?: string;
+  islamicDescOverride?: string;
+  islamicBooksOverride?: string;
+}) {
   const t = useTranslations('Programs');
   const locale = useLocale();
   const isRtl = locale === 'ar';
@@ -14,26 +46,26 @@ export default function ProgramsShowcase() {
   const programs = [
     {
       icon: <Award className="w-5 h-5 text-white" />,
-      title: t('quranTitle'),
-      arabic: t('quranArabic'),
-      desc: t('quranDesc'),
-      books: t('quranBooks'),
+      title: quranTitleOverride || t('quranTitle'),
+      arabic: quranArabicOverride || t('quranArabic'),
+      desc: quranDescOverride || t('quranDesc'),
+      books: quranBooksOverride || t('quranBooks'),
       href: `/${locale}/programs?track=quran`,
     },
     {
       icon: <Book className="w-5 h-5 text-white" />,
-      title: t('arabicTitle'),
-      arabic: t('arabicArabic'),
-      desc: t('arabicDesc'),
-      books: t('arabicBooks'),
+      title: arabicTitleOverride || t('arabicTitle'),
+      arabic: arabicArabicOverride || t('arabicArabic'),
+      desc: arabicDescOverride || t('arabicDesc'),
+      books: arabicBooksOverride || t('arabicBooks'),
       href: `/${locale}/programs?track=arabic`,
     },
     {
       icon: <FileText className="w-5 h-5 text-white" />,
-      title: t('islamicTitle'),
-      arabic: t('islamicArabic'),
-      desc: t('islamicDesc'),
-      books: t('islamicBooks'),
+      title: islamicTitleOverride || t('islamicTitle'),
+      arabic: islamicArabicOverride || t('islamicArabic'),
+      desc: islamicDescOverride || t('islamicDesc'),
+      books: islamicBooksOverride || t('islamicBooks'),
       href: `/${locale}/programs?track=islamic`,
     },
   ];
@@ -47,21 +79,21 @@ export default function ProgramsShowcase() {
             isRtl ? 'font-cairo' : 'font-dm'
           }`}
         >
-          {t('title')}
+          {taglineOverride || t('title')}
         </span>
         <h2
           className={`text-title text-midnight font-bold mb-4 ${
             isRtl ? 'font-amiri' : 'font-cormorant'
           }`}
         >
-          {isRtl ? 'مناهج العلوم الإسلامية واللغوية بـسند متصل' : 'Editorial Scholarly Curriculums'}
+          {titleOverride || (isRtl ? 'مناهج العلوم الإسلامية واللغوية بـسند متصل' : 'Editorial Scholarly Curriculums')}
         </h2>
         <p
           className={`text-sm text-[#3A332A] max-w-xl mx-auto mb-16 leading-relaxed font-normal description-justify ${
             isRtl ? 'font-noto' : 'font-lora'
           }`}
         >
-          {t('subtitle')}
+          {subtitleOverride || t('subtitle')}
         </p>
 
         {/* Programs Grid */}

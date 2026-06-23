@@ -175,7 +175,7 @@ export default function Header() {
       newPath = `${newPath}${search}`;
     }
 
-    router.push(newPath);
+    window.location.href = newPath;
   };
 
   const getLanguageLabel = (l: string) => {

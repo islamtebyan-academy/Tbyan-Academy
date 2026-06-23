@@ -280,3 +280,37 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* ── CMS Editor Custom Scrollbar Hiding ── */
+.cms-editor-container textarea,
+.cms-editor-container input,
+.cms-editor-container div {
+  -ms-overflow-style: none;
+  scrollbar-width: none !important;
+}
+.cms-editor-container textarea::-webkit-scrollbar,
+.cms-editor-container input::-webkit-scrollbar,
+.cms-editor-container div::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* ── Custom Scrollbar for Subtabs ── */
+.cms-editor-subtabs-scrollbar {
+  scrollbar-width: auto !important;
+  -ms-overflow-style: auto !important;
+}
+.cms-editor-subtabs-scrollbar::-webkit-scrollbar {
+  display: block !important;
+  height: 6px !important;
+}
+.cms-editor-subtabs-scrollbar::-webkit-scrollbar-track {
+  background: rgba(184, 132, 26, 0.05) !important;
+  border-radius: 10px !important;
+}
+.cms-editor-subtabs-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(184, 132, 26, 0.3) !important;
+  border-radius: 10px !important;
+}
+.cms-editor-subtabs-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(184, 132, 26, 0.5) !important;
+}

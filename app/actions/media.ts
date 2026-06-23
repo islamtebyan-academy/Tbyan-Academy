@@ -40,8 +40,12 @@ export async function uploadMedia(prevState: any, formData: FormData) {
     return { error: `Upload failed: ${uploadError.message}` };
   }
 
+  const { data: { publicUrl } } = supabase.storage
+    .from('media')
+    .getPublicUrl(`uploads/${fileName}`);
+
   revalidatePath(`/${locale}/admin/media`);
-  return { success: true };
+  return { success: true, url: publicUrl };
 }
 
 export async function deleteMedia(filePath: string, locale: string = 'en') {

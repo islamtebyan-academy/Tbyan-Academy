@@ -5,7 +5,31 @@ import { useLocale, useTranslations } from 'next-intl';
 import { motion, Variants } from 'framer-motion';
 import Image from 'next/image';
 
-export default function Methodology() {
+export default function Methodology({
+  titleOverride,
+  subtitleOverride,
+  pillar1TitleOverride,
+  pillar1DescOverride,
+  pillar2TitleOverride,
+  pillar2DescOverride,
+  pillar3TitleOverride,
+  pillar3DescOverride,
+  pillar1ImageOverride,
+  pillar2ImageOverride,
+  pillar3ImageOverride
+}: {
+  titleOverride?: string;
+  subtitleOverride?: string;
+  pillar1TitleOverride?: string;
+  pillar1DescOverride?: string;
+  pillar2TitleOverride?: string;
+  pillar2DescOverride?: string;
+  pillar3TitleOverride?: string;
+  pillar3DescOverride?: string;
+  pillar1ImageOverride?: string;
+  pillar2ImageOverride?: string;
+  pillar3ImageOverride?: string;
+}) {
   const t = useTranslations('Method');
   const locale = useLocale();
   const isRtl = locale === 'ar';
@@ -99,22 +123,22 @@ export default function Methodology() {
 
   const pillars = [
     {
-      title: t('pillar1Title'),
-      desc: t('pillar1Desc'),
+      title: pillar1TitleOverride || t('pillar1Title'),
+      desc: pillar1DescOverride || t('pillar1Desc'),
       arabicSymbol: 'أثر',
-      image: '/images/pillar-manuscript.png',
+      image: pillar1ImageOverride || '/images/pillar-manuscript.png',
     },
     {
-      title: t('pillar2Title'),
-      desc: t('pillar2Desc'),
+      title: pillar2TitleOverride || t('pillar2Title'),
+      desc: pillar2DescOverride || t('pillar2Desc'),
       arabicSymbol: 'فرد',
-      image: '/images/pillar-study.png',
+      image: pillar2ImageOverride || '/images/pillar-study.png',
     },
     {
-      title: t('pillar3Title'),
-      desc: t('pillar3Desc'),
+      title: pillar3TitleOverride || t('pillar3Title'),
+      desc: pillar3DescOverride || t('pillar3Desc'),
       arabicSymbol: 'فهم',
-      image: '/images/pillar-astrolabe.png',
+      image: pillar3ImageOverride || '/images/pillar-astrolabe.png',
     },
   ];
 
@@ -144,7 +168,7 @@ export default function Methodology() {
               isRtl ? 'font-cairo' : 'font-dm'
             }`}
           >
-            {t('title')}
+            {titleOverride || t('title')}
           </motion.span>
           <motion.h2
             variants={headerChildVariants}
@@ -154,7 +178,7 @@ export default function Methodology() {
               isRtl ? 'font-amiri font-bold' : 'font-cormorant font-semibold'
             }`}
           >
-            {t('subtitle')}
+            {subtitleOverride || t('subtitle')}
           </motion.h2>
         </motion.div>
 

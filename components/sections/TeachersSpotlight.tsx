@@ -7,7 +7,65 @@ import { useLocale, useTranslations } from 'next-intl';
 import { motion, Variants } from 'framer-motion';
 import { Award } from 'lucide-react';
 
-export default function TeachersSpotlight() {
+export default function TeachersSpotlight({
+  tagOverride,
+  titleOverride,
+  subtitleOverride,
+  viewAllOverride,
+  teacher1Name,
+  teacher1Title,
+  teacher1Specialty,
+  teacher1Education,
+  teacher1Languages,
+  teacher1Ijazah1,
+  teacher1Ijazah2,
+  teacher1Image,
+  teacher2Name,
+  teacher2Title,
+  teacher2Specialty,
+  teacher2Education,
+  teacher2Languages,
+  teacher2Ijazah1,
+  teacher2Ijazah2,
+  teacher2Image,
+  teacher3Name,
+  teacher3Title,
+  teacher3Specialty,
+  teacher3Education,
+  teacher3Languages,
+  teacher3Ijazah1,
+  teacher3Ijazah2,
+  teacher3Image,
+}: {
+  tagOverride?: string;
+  titleOverride?: string;
+  subtitleOverride?: string;
+  viewAllOverride?: string;
+  teacher1Name?: string;
+  teacher1Title?: string;
+  teacher1Specialty?: string;
+  teacher1Education?: string;
+  teacher1Languages?: string;
+  teacher1Ijazah1?: string;
+  teacher1Ijazah2?: string;
+  teacher1Image?: string;
+  teacher2Name?: string;
+  teacher2Title?: string;
+  teacher2Specialty?: string;
+  teacher2Education?: string;
+  teacher2Languages?: string;
+  teacher2Ijazah1?: string;
+  teacher2Ijazah2?: string;
+  teacher2Image?: string;
+  teacher3Name?: string;
+  teacher3Title?: string;
+  teacher3Specialty?: string;
+  teacher3Education?: string;
+  teacher3Languages?: string;
+  teacher3Ijazah1?: string;
+  teacher3Ijazah2?: string;
+  teacher3Image?: string;
+}) {
   const t = useTranslations('Teachers');
   const locale = useLocale();
   const isRtl = locale === 'ar';
@@ -37,58 +95,55 @@ export default function TeachersSpotlight() {
 
   const mockTeachers = [
     {
-      name: locale === 'ar' ? 'الشيخ أحمد يحيى زكريا' : locale === 'fr' ? 'Cheikh Ahmed Yahya Zakaria' : 'Sheikh Ahmed Yahya Zakaria',
-      title: locale === 'ar'
+      name: teacher1Name || (locale === 'ar' ? 'الشيخ أحمد يحيى زكريا' : locale === 'fr' ? 'Cheikh Ahmed Yahya Zakaria' : 'Sheikh Ahmed Yahya Zakaria'),
+      title: teacher1Title || (locale === 'ar'
         ? 'معلم القرآن الكريم واللغة العربية لغير الناطقين بها'
         : locale === 'fr'
         ? 'Enseignant du Saint Coran et de l\'Arabe'
-        : 'Quranic Recitation & Arabic Instructor',
-      specialty: locale === 'ar' ? 'القرآن والتجويد واللغة العربية' : locale === 'fr' ? 'Coran, Tajwid & Arabe' : 'Quran, Tajweed & Arabic',
-      education: locale === 'ar' ? 'جامعة الأزهر الشريف' : locale === 'fr' ? 'Université d\'Al-Azhar' : 'Al-Azhar University',
-      languages: locale === 'ar' ? 'العربية، الإنجليزية، الفرنسية، التركية' : locale === 'fr' ? 'Arabe, Anglais, Français, Turc' : 'Arabic, English, French, Turkish',
+        : 'Quranic Recitation & Arabic Instructor'),
+      specialty: teacher1Specialty || (locale === 'ar' ? 'القرآن والتجويد واللغة العربية' : locale === 'fr' ? 'Coran, Tajwid & Arabe' : 'Quran, Tajweed & Arabic'),
+      education: teacher1Education || (locale === 'ar' ? 'جامعة الأزهر الشريف' : locale === 'fr' ? 'Université d\'Al-Azhar' : 'Al-Azhar University'),
+      languages: teacher1Languages || (locale === 'ar' ? 'العربية، الإنجليزية، الفرنسية، التركية' : locale === 'fr' ? 'Arabe, Anglais, Français, Turc' : 'Arabic, English, French, Turkish'),
       slug: 'ahmed-yahya-zakaria',
-      ijazat: locale === 'ar'
-        ? ['إجازة برواية حفص عن عاصم بالسند المتصل', 'إجازة قرآنية من فضيلة الشيخ نبيل علي والشيخ سيد بعبولة']
-        : locale === 'fr'
-        ? ['Ijaza de récital coranique (Hafs) avec Isnad connecté', 'Ijazat des Cheikhs Nabil Ali et Sayyid Babola']
-        : ['Quranic recitation Ijaza (Hafs) with connected Isnad', 'Ijazat from Sheikh Nabil Ali & Sheikh Sayyid Babola'],
-      image: '/images/teacher_ahmed_yahya.png',
+      ijazat: [
+        teacher1Ijazah1 || (locale === 'ar' ? 'إجازة برواية حفص عن عاصم بالسند المتصل' : locale === 'fr' ? 'Ijaza de récital coranique (Hafs) avec Isnad connecté' : 'Quranic recitation Ijaza (Hafs) with connected Isnad'),
+        teacher1Ijazah2 || (locale === 'ar' ? 'إجازة قرآنية من كبار علماء الأزهر الشريف' : locale === 'fr' ? 'Ijazat de savants renommés d\'Al-Azhar' : 'Ijazat from senior Al-Azhar scholars')
+      ],
+      image: teacher1Image || '/images/teacher_ahmed_yahya.png',
     },
     {
-      name: locale === 'ar' ? 'الشيخ محمد بدر عبد المرضي حسين' : 'Sheikh Mohamed Badr',
-      title: locale === 'ar'
+      name: teacher2Name || (locale === 'ar' ? 'الشيخ محمد بدر عبد المرضي حسين' : 'Sheikh Mohamed Badr'),
+      title: teacher2Title || (locale === 'ar'
         ? 'واعظ بالأزهر الشريف ومدرس العلوم الشرعية'
         : locale === 'fr'
         ? 'Prédicateur d\'Al-Azhar & Enseignant de Shariah'
-        : 'Al-Azhar Emissary & Shariah Instructor',
-      specialty: locale === 'ar' ? 'التفسير، الفقه المالكي، والمنطق' : locale === 'fr' ? 'Tafsir, Fiqh Malékite & Logique' : 'Tafsir, Maliki Fiqh, & Logic',
-      education: locale === 'ar' ? 'ماجستير جامعة الأزهر الشريف' : locale === 'fr' ? 'Master, Université d\'Al-Azhar' : 'MA, Al-Azhar University',
-      languages: locale === 'ar' ? 'العربية، الإنجليزية' : locale === 'fr' ? 'Arabe, Anglais' : 'Arabic, English',
+        : 'Al-Azhar Emissary & Shariah Instructor'),
+      specialty: teacher2Specialty || (locale === 'ar' ? 'التفسير، الفقه المالكي، والمنطق' : locale === 'fr' ? 'Tafsir, Fiqh Malékite & Logique' : 'Tafsir, Maliki Fiqh, & Logic'),
+      education: teacher2Education || (locale === 'ar' ? 'ماجستير جامعة الأزهر الشريف' : locale === 'fr' ? 'Master, Université d\'Al-Azhar' : 'MA, Al-Azhar University'),
+      languages: teacher2Languages || (locale === 'ar' ? 'العربية، الإنجليزية' : locale === 'fr' ? 'Arabe, Anglais' : 'Arabic, English'),
       slug: 'mohamed-badr',
-      ijazat: locale === 'ar'
-        ? ['إجازة بالقرآن الكريم بالقراءات المتواترة بسند متصل', 'إجازات في متون النحو والفقه والمنطق والعقيدة']
-        : locale === 'fr'
-        ? ['Isnad au Prophète ﷺ dans plusieurs lectures', 'Ijazas dans les traités de grammaire, Fiqh et logique']
-        : ['Connected Isnad to the Prophet ﷺ in multiple Qira\'at', 'Ijazas in grammar, theology, Maliki Fiqh & logic'],
-      image: '/images/teacher_mohamed_badr.png',
+      ijazat: [
+        teacher2Ijazah1 || (locale === 'ar' ? 'إجازة بالقرآن الكريم بالقراءات المتواترة بسند متصل' : locale === 'fr' ? 'Isnad au Prophète ﷺ dans plusieurs lectures' : 'Connected Isnad to the Prophet ﷺ in multiple Qira\'at'),
+        teacher2Ijazah2 || (locale === 'ar' ? 'إجازات في متون النحو والفقه والمنطق والعقيدة' : locale === 'fr' ? 'Ijazas dans les traités de grammaire, Fiqh et logique' : 'Ijazas in grammar, theology, Maliki Fiqh & logic')
+      ],
+      image: teacher2Image || '/images/teacher_mohamed_badr.png',
     },
     {
-      name: locale === 'ar' ? 'د. حمادة عطية نادي' : 'Dr. Hamada Attia Nady',
-      title: locale === 'ar'
+      name: teacher3Name || (locale === 'ar' ? 'د. حمادة عطية نادي' : 'Dr. Hamada Attia Nady'),
+      title: teacher3Title || (locale === 'ar'
         ? 'باحث دكتوراه في المناهج وطرق التدريس'
         : locale === 'fr'
         ? 'Doctorant en Didactique & Concepteur de Programmes'
-        : 'PhD Researcher in Curriculum & Instruction',
-      specialty: locale === 'ar' ? 'المناهج وطرق التدريس، والخط العربي' : locale === 'fr' ? 'Didactique & Calligraphie Arabe' : 'Curriculum & Instruction, Calligraphy',
-      education: locale === 'ar' ? 'جامعة الأزهر الشريف' : locale === 'fr' ? 'Université d\'Al-Azhar' : 'Al-Azhar University',
-      languages: locale === 'ar' ? 'العربية، الإنجليزية' : locale === 'fr' ? 'Arabe, Anglais' : 'Arabic, English',
+        : 'PhD Researcher in Curriculum & Instruction'),
+      specialty: teacher3Specialty || (locale === 'ar' ? 'المناهج وطرق التدريس، والخط العربي' : locale === 'fr' ? 'Didactique & Calligraphie Arabe' : 'Curriculum & Instruction, Calligraphy'),
+      education: teacher3Education || (locale === 'ar' ? 'جامعة الأزهر الشريف' : locale === 'fr' ? 'Université d\'Al-Azhar' : 'Al-Azhar University'),
+      languages: teacher3Languages || (locale === 'ar' ? 'العربية، الإنجليزية' : locale === 'fr' ? 'Arabe, Anglais' : 'Arabic, English'),
       slug: 'hamada-attia-nady',
-      ijazat: locale === 'ar'
-        ? ['تحقيق التراث من معهد المخطوطات والجامع الأزهر', 'شهادة إعداد معلمي العربية لغير الناطقين بها']
-        : locale === 'fr'
-        ? ['Édition de manuscrits de l\'Institut des Manuscrits', 'Enseignement de l\'arabe aux non-arabophones']
-        : ['Manuscript editing certificate from Manuscript Institute', 'Teaching Arabic to non-natives professional license'],
-      image: '/images/teacher_hamada_attia.png',
+      ijazat: [
+        teacher3Ijazah1 || (locale === 'ar' ? 'تحقيق التراث من معهد المخطوطات والجامع الأزهر' : locale === 'fr' ? 'Édition de manuscrits de l\'Institut des Manuscrits' : 'Manuscript editing certificate from Manuscript Institute'),
+        teacher3Ijazah2 || (locale === 'ar' ? 'شهادة إعداد معلمي العربية لغير الناطقين بها' : locale === 'fr' ? 'Enseignement de l\'arabe aux non-arabophones' : 'Teaching Arabic to non-natives professional license')
+      ],
+      image: teacher3Image || '/images/teacher_hamada_attia.png',
     },
   ];
 
@@ -118,7 +173,7 @@ export default function TeachersSpotlight() {
               isRtl ? 'font-cairo' : 'font-dm'
             }`}
           >
-            {t('spotlight')}
+            {tagOverride || t('spotlight')}
           </motion.span>
           <motion.h2
             variants={headerChildVariants}
@@ -128,7 +183,7 @@ export default function TeachersSpotlight() {
               isRtl ? 'font-amiri font-bold' : 'font-cormorant font-semibold'
             }`}
           >
-            {t('title')}
+            {titleOverride || t('title')}
           </motion.h2>
           <motion.p
             variants={headerChildVariants}
@@ -138,7 +193,7 @@ export default function TeachersSpotlight() {
               isRtl ? 'font-noto' : 'font-lora'
             }`}
           >
-            {t('subtitle')}
+            {subtitleOverride || t('subtitle')}
           </motion.p>
         </motion.div>
 
@@ -251,7 +306,7 @@ export default function TeachersSpotlight() {
               isRtl ? 'font-cairo' : 'font-dm'
             }`}
           >
-            {t('viewAll')}
+            {viewAllOverride || t('viewAll')}
           </Link>
         </div>
       </div>

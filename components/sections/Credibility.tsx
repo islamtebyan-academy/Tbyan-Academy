@@ -5,7 +5,31 @@ import { useLocale, useTranslations } from 'next-intl';
 import { Award, BookOpen, Clock, Globe2, UserCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function Credibility() {
+export default function Credibility({
+  titleOverride,
+  diff1TitleOverride,
+  diff1DescOverride,
+  diff2TitleOverride,
+  diff2DescOverride,
+  diff3TitleOverride,
+  diff3DescOverride,
+  diff4TitleOverride,
+  diff4DescOverride,
+  diff5TitleOverride,
+  diff5DescOverride
+}: {
+  titleOverride?: string;
+  diff1TitleOverride?: string;
+  diff1DescOverride?: string;
+  diff2TitleOverride?: string;
+  diff2DescOverride?: string;
+  diff3TitleOverride?: string;
+  diff3DescOverride?: string;
+  diff4TitleOverride?: string;
+  diff4DescOverride?: string;
+  diff5TitleOverride?: string;
+  diff5DescOverride?: string;
+}) {
   const t = useTranslations('Credibility');
   const locale = useLocale();
   const isRtl = locale === 'ar';
@@ -13,28 +37,28 @@ export default function Credibility() {
   const differentiators = [
     {
       icon: <Award className="text-gold w-5 h-5" />,
-      title: t('diff1Title'),
-      desc: t('diff1Desc'),
+      title: diff1TitleOverride || t('diff1Title'),
+      desc: diff1DescOverride || t('diff1Desc'),
     },
     {
       icon: <UserCheck className="text-gold w-5 h-5" />,
-      title: t('diff2Title'),
-      desc: t('diff2Desc'),
+      title: diff2TitleOverride || t('diff2Title'),
+      desc: diff2DescOverride || t('diff2Desc'),
     },
     {
       icon: <Globe2 className="text-gold w-5 h-5" />,
-      title: t('diff3Title'),
-      desc: t('diff3Desc'),
+      title: diff3TitleOverride || t('diff3Title'),
+      desc: diff3DescOverride || t('diff3Desc'),
     },
     {
       icon: <BookOpen className="text-gold w-5 h-5" />,
-      title: t('diff4Title'),
-      desc: t('diff4Desc'),
+      title: diff4TitleOverride || t('diff4Title'),
+      desc: diff4DescOverride || t('diff4Desc'),
     },
     {
       icon: <Clock className="text-gold w-5 h-5" />,
-      title: t('diff5Title'),
-      desc: t('diff5Desc'),
+      title: diff5TitleOverride || t('diff5Title'),
+      desc: diff5DescOverride || t('diff5Desc'),
     },
   ];
 
@@ -47,7 +71,7 @@ export default function Credibility() {
             isRtl ? 'font-amiri leading-[1.4]' : 'font-cormorant leading-tight'
           }`}
         >
-          {t('title')}
+          {titleOverride || t('title')}
         </h2>
 
         {/* Cards Grid */}

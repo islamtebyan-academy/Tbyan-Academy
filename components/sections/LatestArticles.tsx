@@ -7,7 +7,41 @@ import { motion, Variants } from 'framer-motion';
 import Image from 'next/image';
 import { Calendar, Clock, ArrowRight, ArrowLeft, BookOpen } from 'lucide-react';
 
-export default function LatestArticles() {
+export default function LatestArticles({
+  tagOverride,
+  titleOverride,
+  subtitleOverride,
+  btnViewAllOverride,
+  article1Tag,
+  article1Title,
+  article1Desc,
+  article1Author,
+  article1Date,
+  article1Image,
+  article2Tag,
+  article2Title,
+  article2Desc,
+  article2Author,
+  article2Date,
+  article2Image,
+}: {
+  tagOverride?: string;
+  titleOverride?: string;
+  subtitleOverride?: string;
+  btnViewAllOverride?: string;
+  article1Tag?: string;
+  article1Title?: string;
+  article1Desc?: string;
+  article1Author?: string;
+  article1Date?: string;
+  article1Image?: string;
+  article2Tag?: string;
+  article2Title?: string;
+  article2Desc?: string;
+  article2Author?: string;
+  article2Date?: string;
+  article2Image?: string;
+}) {
   const locale = useLocale();
   const isRtl = locale === 'ar';
 
@@ -208,6 +242,28 @@ export default function LatestArticles() {
 
   const activeContent = content[locale as keyof typeof content] || content.en;
 
+  const articlesToRender = [...activeContent.articles];
+  if (articlesToRender[0]) {
+    articlesToRender[0] = {
+      ...articlesToRender[0],
+      category: article1Tag || articlesToRender[0].category,
+      title: article1Title || articlesToRender[0].title,
+      excerpt: article1Desc || articlesToRender[0].excerpt,
+      date: article1Date || articlesToRender[0].date,
+      image: article1Image || articlesToRender[0].image,
+    };
+  }
+  if (articlesToRender[1]) {
+    articlesToRender[1] = {
+      ...articlesToRender[1],
+      category: article2Tag || articlesToRender[1].category,
+      title: article2Title || articlesToRender[1].title,
+      excerpt: article2Desc || articlesToRender[1].excerpt,
+      date: article2Date || articlesToRender[1].date,
+      image: article2Image || articlesToRender[1].image,
+    };
+  }
+
   const containerVariants: Variants = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.1 } }
@@ -237,13 +293,13 @@ export default function LatestArticles() {
           >
             <span className={`inline-flex items-center gap-2 bg-navy/5 border border-navy/8 rounded-full px-4.5 py-1.5 mb-4 text-[10px] uppercase tracking-widest font-bold text-navy ${isRtl ? 'font-cairo' : 'font-dm'}`}>
               <BookOpen size={12} className="text-gold" />
-              {activeContent.tag}
+              {tagOverride || activeContent.tag}
             </span>
             <h2 className={`text-title text-midnight font-bold max-w-3xl mx-auto mb-4 ${isRtl ? 'font-amiri font-bold leading-[1.4]' : 'font-cormorant font-semibold leading-tight'}`}>
-              {activeContent.title}
+              {titleOverride || activeContent.title}
             </h2>
             <p className={`text-sm text-[#3A332A] max-w-2xl mx-auto leading-relaxed font-normal description-justify ${isRtl ? 'font-noto' : 'font-lora'}`}>
-              {activeContent.desc}
+              {subtitleOverride || activeContent.desc}
             </p>
           </motion.div>
         </div>
@@ -256,7 +312,7 @@ export default function LatestArticles() {
           viewport={{ once: true, margin: '-40px' }}
           variants={containerVariants}
         >
-          {activeContent.articles.map((article, idx) => (
+          {articlesToRender.map((article, idx) => (
             <motion.article
               key={article.slug}
               className="flex flex-col bg-white rounded-3xl border border-gold-muted/10 overflow-hidden shadow-[0_12px_40px_rgba(139,115,85,0.04)] hover:shadow-[0_20px_50px_rgba(139,115,85,0.09)] hover:border-gold-muted/20 group transition-all duration-300"
@@ -331,7 +387,7 @@ export default function LatestArticles() {
               className="btn-gold px-8 py-4 rounded-full text-xs uppercase tracking-wider font-bold inline-flex items-center gap-2.5 shadow-lg shadow-gold/10 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 group"
             >
               <BookOpen size={14} />
-              <span>{activeContent.btnAll}</span>
+              <span>{btnViewAllOverride || activeContent.btnAll}</span>
               <span className={`transition-transform duration-300 ${isRtl ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`}>
                 {isRtl ? <ArrowLeft size={14} /> : <ArrowRight size={14} />}
               </span>

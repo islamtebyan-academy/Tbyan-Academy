@@ -6,7 +6,73 @@ import { useLocale, useTranslations } from 'next-intl';
 import { Check, Calendar, RotateCcw, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function PricingTeaser() {
+interface PricingTeaserProps {
+  titleOverride?: string;
+  subtitleOverride?: string;
+  trialRefundPolicyTitleOverride?: string;
+  trialRefundPolicyDescOverride?: string;
+  pricingPlan1Name?: string;
+  pricingPlan1Desc?: string;
+  pricingPlan1Feat1?: string;
+  pricingPlan1Feat2?: string;
+  pricingPlan1Feat3?: string;
+  pricingPlan1Feat4?: string;
+  pricingPlan1Price30?: string;
+  pricingPlan1Price45?: string;
+  pricingPlan1Price60?: string;
+  pricingPlan2Name?: string;
+  pricingPlan2Desc?: string;
+  pricingPlan2Feat1?: string;
+  pricingPlan2Feat2?: string;
+  pricingPlan2Feat3?: string;
+  pricingPlan2Feat4?: string;
+  pricingPlan2Price30?: string;
+  pricingPlan2Price45?: string;
+  pricingPlan2Price60?: string;
+  pricingPlan3Name?: string;
+  pricingPlan3Desc?: string;
+  pricingPlan3Feat1?: string;
+  pricingPlan3Feat2?: string;
+  pricingPlan3Feat3?: string;
+  pricingPlan3Feat4?: string;
+  pricingPlan3Price30?: string;
+  pricingPlan3Price45?: string;
+  pricingPlan3Price60?: string;
+}
+
+export default function PricingTeaser({
+  titleOverride,
+  subtitleOverride,
+  trialRefundPolicyTitleOverride,
+  trialRefundPolicyDescOverride,
+  pricingPlan1Name,
+  pricingPlan1Desc,
+  pricingPlan1Feat1,
+  pricingPlan1Feat2,
+  pricingPlan1Feat3,
+  pricingPlan1Feat4,
+  pricingPlan1Price30,
+  pricingPlan1Price45,
+  pricingPlan1Price60,
+  pricingPlan2Name,
+  pricingPlan2Desc,
+  pricingPlan2Feat1,
+  pricingPlan2Feat2,
+  pricingPlan2Feat3,
+  pricingPlan2Feat4,
+  pricingPlan2Price30,
+  pricingPlan2Price45,
+  pricingPlan2Price60,
+  pricingPlan3Name,
+  pricingPlan3Desc,
+  pricingPlan3Feat1,
+  pricingPlan3Feat2,
+  pricingPlan3Feat3,
+  pricingPlan3Feat4,
+  pricingPlan3Price30,
+  pricingPlan3Price45,
+  pricingPlan3Price60,
+}: PricingTeaserProps) {
   const t = useTranslations('Pricing');
   const locale = useLocale();
   const isRtl = locale === 'ar';
@@ -76,58 +142,81 @@ export default function PricingTeaser() {
   const packages = [
     {
       id: 'starter' as const,
-      name: t('starterName'),
-      desc: t('starterDesc'),
+      name: pricingPlan1Name || t('starterName'),
+      desc: pricingPlan1Desc || t('starterDesc'),
       frequency: isRtl ? 'حصة واحدة أسبوعياً' : '1 session per week',
-      features: isRtl
-        ? ['4 حصص خاصة شهرياً', 'معلم أزهري مجاز متصل السند', 'تعديل مرن ومستمر للمواعيد', 'دعم فني وتنسيق كامل للأوقات']
-        : ['4 private sessions / month', 'Certified Azhari tutor', 'Flexible reschedule policy', 'Full coordinator support'],
+      features: [
+        pricingPlan1Feat1 || (isRtl ? 'حصة تفاعلية' : 'Interactive lesson'),
+        pricingPlan1Feat2 || (isRtl ? 'تقييم شامل لمهارات النطق والتلاوة' : 'Evaluation of recitation skills'),
+        pricingPlan1Feat3 || (isRtl ? 'تقرير تحديد مستوى وخطة مقترحة' : 'Level report & proposed study plan'),
+        pricingPlan1Feat4 || (isRtl ? 'دعم فني وتنسيق كامل للأوقات' : 'Full coordinator support'),
+      ].filter(Boolean),
       featured: false,
     },
     {
       id: 'optimal' as const,
-      name: t('optimalName'),
-      desc: t('optimalDesc'),
+      name: pricingPlan2Name || t('optimalName'),
+      desc: pricingPlan2Desc || t('optimalDesc'),
       frequency: isRtl ? 'حصتان أسبوعياً' : '2 sessions per week',
-      features: isRtl
-        ? ['8 حصص خاصة شهرياً', 'معلم أزهري مجاز متصل السند', 'تعديل مرن ومستمر للمواعيد', 'دعم فني وتنسيق كامل للأوقات', 'أولوية اختيار وتثبيت الأوقات المفضلة']
-        : ['8 private sessions / month', 'Certified Azhari tutor', 'Flexible reschedule policy', 'Full coordinator support', 'Priority schedule selection'],
+      features: [
+        pricingPlan2Feat1 || (isRtl ? 'دروس خاصة فردية (1:1) بالكامل' : 'Strictly 1-on-1 private lessons'),
+        pricingPlan2Feat2 || (isRtl ? 'نخبة من شيوخ وعلماء الأزهر الشريف' : 'Al-Azhar University certified scholars'),
+        pricingPlan2Feat3 || (isRtl ? 'متابعة وتقارير دورية للتقدم' : 'Regular progress reports and logs'),
+        pricingPlan2Feat4 || (isRtl ? 'إمكانية تجميد أو تعديل المواعيد' : 'Flexible booking and adjustments'),
+      ].filter(Boolean),
       featured: true,
     },
     {
       id: 'intensive' as const,
-      name: t('intensiveName'),
-      desc: t('intensiveDesc'),
+      name: pricingPlan3Name || t('intensiveName'),
+      desc: pricingPlan3Desc || t('intensiveDesc'),
       frequency: isRtl ? '3 حصص أسبوعياً' : '3 sessions per week',
-      features: isRtl
-        ? ['12 حصة خاصة شهرياً', 'معلم أزهري مجاز متصل السند', 'تعديل مرن ومستمر للمواعيد', 'دعم فني وتنسيق كامل للأوقات', 'أولوية اختيار وتثبيت الأوقات المفضلة', 'تقارير أداء ومتابعة شهرية مفصلة من المعلم']
-        : ['12 private sessions / month', 'Certified Azhari tutor', 'Flexible reschedule policy', 'Full coordinator support', 'Priority schedule selection', 'Detailed monthly progress reports'],
+      features: [
+        pricingPlan3Feat1 || (isRtl ? 'إعداد شامل لنيل الإجازة بالسند المتصل للنبي ﷺ' : 'Rigorous preparation for connected Isnad'),
+        pricingPlan3Feat2 || (isRtl ? 'متابعة وتسميع يومي مكثف' : 'Intensive daily recitation monitoring'),
+        pricingPlan3Feat3 || (isRtl ? 'اختبارات نظرية وعلمية دورية' : 'Periodic theoretical & practical exams'),
+        pricingPlan3Feat4 || (isRtl ? 'أولوية قصوى لتنسيق المواعيد' : 'Highest priority scheduling coordination'),
+      ].filter(Boolean),
       featured: false,
     },
   ];
 
   const getPackagePrice = (pkgId: 'starter' | 'optimal' | 'intensive') => {
-    const pkgPrices = prices[classDuration][pkgId];
     const sessionsPerMonth = pkgId === 'starter' ? 4 : pkgId === 'optimal' ? 8 : 12;
     
+    // Look up monthly price override from settings props
+    let priceSetting: string | undefined;
+    if (pkgId === 'starter') {
+      priceSetting = classDuration === '30' ? pricingPlan1Price30 : classDuration === '45' ? pricingPlan1Price45 : pricingPlan1Price60;
+    } else if (pkgId === 'optimal') {
+      priceSetting = classDuration === '30' ? pricingPlan2Price30 : classDuration === '45' ? pricingPlan2Price45 : pricingPlan2Price60;
+    } else {
+      priceSetting = classDuration === '30' ? pricingPlan3Price30 : classDuration === '45' ? pricingPlan3Price45 : pricingPlan3Price60;
+    }
+
+    const staticMonthly = prices[classDuration][pkgId].monthly;
+    const baseMonthlyPrice = priceSetting ? parseFloat(priceSetting.replace(/[^0-9.]/g, '')) : staticMonthly;
+    const isNumeric = !isNaN(baseMonthlyPrice) && baseMonthlyPrice > 0;
+
+    const finalMonthlyPrice = isNumeric ? baseMonthlyPrice : staticMonthly;
+    const finalQuarterlyPrice = finalMonthlyPrice * 3 * 0.9;
+
     if (billingCycle === 'monthly') {
-      const amount = pkgPrices.monthly;
-      const rate = (amount / sessionsPerMonth).toFixed(2);
+      const rate = (finalMonthlyPrice / sessionsPerMonth).toFixed(2);
       return {
-        amount: `$${amount}`,
-        perSession: `$${rate}`,
+        amount: `$${finalMonthlyPrice.toFixed(0)}`,
+        perSession: `$${rate}/${l.perSessionUnit}`,
         savings: null
       };
     } else {
-      const amount = pkgPrices.quarterly;
-      const rate = (amount / (sessionsPerMonth * 3)).toFixed(2);
-      const perMonthEquiv = (amount / 3).toFixed(1);
-      const originalQuarterly = pkgPrices.monthly * 3;
-      const savings = originalQuarterly - amount;
+      const rate = (finalQuarterlyPrice / (sessionsPerMonth * 3)).toFixed(2);
+      const perMonthEquiv = (finalQuarterlyPrice / 3).toFixed(0);
+      const originalQuarterly = finalMonthlyPrice * 3;
+      const savings = originalQuarterly - finalQuarterlyPrice;
       return {
-        amount: `$${amount}`,
-        perSession: `$${rate}`,
-        savings: `${l.equivalent} $${perMonthEquiv}/${l.perMonth} (${l.save} $${savings})`
+        amount: `$${finalQuarterlyPrice.toFixed(0)}`,
+        perSession: `$${rate}/${l.perSessionUnit}`,
+        savings: `${l.equivalent} $${perMonthEquiv}/${l.perMonth} (${l.save} $${savings.toFixed(0)})`
       };
     }
   };
@@ -142,14 +231,14 @@ export default function PricingTeaser() {
               isRtl ? 'font-cairo' : 'font-dm'
             }`}
           >
-            {t('title')}
+            {titleOverride || t('title')}
           </span>
           <h2
             className={`text-title text-midnight font-bold max-w-2xl mx-auto mb-4 ${
               isRtl ? 'font-amiri' : 'font-cormorant'
             }`}
           >
-            {isRtl ? 'خطط اشتراك مدروسة وقيمة عادلة ومضمونة' : 'Honest Pricing, Academic Value'}
+            {subtitleOverride || (isRtl ? 'خطط اشتراك مدروسة وقيمة عادلة ومضمونة' : 'Honest Pricing, Academic Value')}
           </h2>
           <p
             className={`text-sm text-[#3A332A] max-w-xl mx-auto leading-relaxed font-normal description-justify ${
@@ -370,10 +459,10 @@ export default function PricingTeaser() {
             <ShieldCheck className="text-gold w-6 h-6 shrink-0 mt-0.5" />
             <div>
               <h4 className={`text-sm font-bold text-midnight mb-2 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
-                {t('trialRefundPolicy')}
+                {trialRefundPolicyTitleOverride || t('trialRefundPolicy')}
               </h4>
               <p className={`text-sm text-[#3A332A]/80 leading-relaxed font-normal ${isRtl ? 'font-noto' : 'font-lora'}`}>
-                {t('trialRefundPolicyDesc')}
+                {trialRefundPolicyDescOverride || t('trialRefundPolicyDesc')}
               </p>
             </div>
           </div>

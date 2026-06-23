@@ -6,7 +6,29 @@ import { useLocale } from 'next-intl';
 import { motion, Variants } from 'framer-motion';
 import { Scroll, UserCheck, GraduationCap, ArrowRight, ArrowLeft } from 'lucide-react';
 
-export default function AboutTeaser({ titleOverride, subtitleOverride }: { titleOverride?: string; subtitleOverride?: string }) {
+export default function AboutTeaser({ 
+  titleOverride, 
+  subtitleOverride,
+  buttonOverride,
+  tagOverride,
+  philosophyTitleOverride,
+  philosophyTextOverride,
+  pillar1TitleOverride,
+  pillar1TextOverride,
+  pillar2TitleOverride,
+  pillar2TextOverride
+}: { 
+  titleOverride?: string; 
+  subtitleOverride?: string;
+  buttonOverride?: string;
+  tagOverride?: string;
+  philosophyTitleOverride?: string;
+  philosophyTextOverride?: string;
+  pillar1TitleOverride?: string;
+  pillar1TextOverride?: string;
+  pillar2TitleOverride?: string;
+  pillar2TextOverride?: string;
+}) {
   const locale = useLocale();
   const isRtl = locale === 'ar';
 
@@ -144,7 +166,7 @@ export default function AboutTeaser({ titleOverride, subtitleOverride }: { title
               isRtl ? 'font-cairo' : 'font-dm'
             }`}
           >
-            {activeContent.tag}
+            {tagOverride || activeContent.tag}
           </span>
           <h2
             className={`text-title text-midnight font-bold max-w-3xl mx-auto mb-5 ${
@@ -196,13 +218,13 @@ export default function AboutTeaser({ titleOverride, subtitleOverride }: { title
               <h3 className={`text-heading text-parchment font-bold mb-6 transition-all duration-500 group-hover:-translate-y-0.5 group-hover:text-gold-hi text-center ${
                 isRtl ? 'font-amiri leading-[1.4]' : 'font-cormorant font-medium'
               }`}>
-                {activeContent.philosophyTitle}
+                {philosophyTitleOverride || activeContent.philosophyTitle}
               </h3>
               
               <p className={`text-parchment/90 text-sm md:text-base leading-relaxed text-start transition-all duration-500 group-hover:text-parchment description-justify-start ${
                 isRtl ? 'font-noto' : 'font-lora'
               }`}>
-                {activeContent.philosophyText}
+                {philosophyTextOverride || activeContent.philosophyText}
               </p>
             </div>
 
@@ -235,12 +257,12 @@ export default function AboutTeaser({ titleOverride, subtitleOverride }: { title
                 <h4 className={`text-heading text-midnight font-bold ${
                   isRtl ? 'font-amiri leading-[1.4]' : 'font-cormorant font-semibold leading-tight'
                 }`}>
-                  {activeContent.pillar1Title}
+                  {pillar1TitleOverride || activeContent.pillar1Title}
                 </h4>
                 <p className={`text-sm text-[#3A332A]/85 leading-relaxed font-normal description-justify-start ${
                   isRtl ? 'font-noto' : 'font-lora'
                 }`}>
-                  {activeContent.pillar1Text}
+                  {pillar1TextOverride || activeContent.pillar1Text}
                 </p>
               </div>
             </motion.div>
@@ -257,12 +279,12 @@ export default function AboutTeaser({ titleOverride, subtitleOverride }: { title
                 <h4 className={`text-heading text-midnight font-bold ${
                   isRtl ? 'font-amiri leading-[1.4]' : 'font-cormorant font-semibold leading-tight'
                 }`}>
-                  {activeContent.pillar2Title}
+                  {pillar2TitleOverride || activeContent.pillar2Title}
                 </h4>
                 <p className={`text-sm text-[#3A332A]/85 leading-relaxed font-normal description-justify-start ${
                   isRtl ? 'font-noto' : 'font-lora'
                 }`}>
-                  {activeContent.pillar2Text}
+                  {pillar2TextOverride || activeContent.pillar2Text}
                 </p>
               </div>
             </motion.div>
@@ -304,7 +326,7 @@ export default function AboutTeaser({ titleOverride, subtitleOverride }: { title
             href={`/${locale}/about`}
             className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-gold hover:text-gold-hi transition-colors duration-300 group"
           >
-            <span>{activeContent.btnText}</span>
+            <span>{buttonOverride || activeContent.btnText}</span>
             {isRtl ? (
               <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1.5" />
             ) : (

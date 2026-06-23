@@ -19,8 +19,6 @@ export async function saveSettings(formData: FormData) {
     (k) => !k.startsWith('$') && k !== 'locale'
   );
 
-  const updates = [];
-
   // Group fields by setting key. Fields are named like: "keyName__locale" (e.g. "hero_tagline__ar")
   const groupedData: Record<string, Record<string, string>> = {};
 
@@ -30,8 +28,36 @@ export async function saveSettings(formData: FormData) {
       if (!groupedData[keyName]) {
         groupedData[keyName] = {};
       }
-      const val = formData.get(field) as string;
-      if (val !== undefined && val !== null && val.trim() !== '') {
+      
+      const val = formData.get(field);
+      
+      if (val instanceof File) {
+        if (val.size > 0 && val.type.startsWith('image/')) {
+          // Generate unique filename
+          const cleanName = val.name.replace(/[^a-zA-Z0-9.]/g, '_');
+          const fileName = `${Date.now()}_${cleanName}`;
+
+          // Upload to storage
+          const { error: uploadError } = await supabase.storage
+            .from('media')
+            .upload(`uploads/${fileName}`, val, {
+              cacheControl: '3600',
+              upsert: true
+            });
+
+          if (uploadError) {
+            console.error("Upload error inside settings save:", uploadError);
+            return { error: `Failed to upload image: ${uploadError.message}` };
+          }
+
+          // Get public URL
+          const { data: { publicUrl } } = supabase.storage
+            .from('media')
+            .getPublicUrl(`uploads/${fileName}`);
+
+          groupedData[keyName][lang] = publicUrl;
+        }
+      } else if (val !== undefined && val !== null && val.trim() !== '') {
         groupedData[keyName][lang] = val;
       }
     }

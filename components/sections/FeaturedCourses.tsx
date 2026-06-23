@@ -7,7 +7,53 @@ import { motion, Variants } from 'framer-motion';
 import Image from 'next/image';
 import { Award, Scale, Languages, Shield, Compass, Feather, ArrowRight, ArrowLeft } from 'lucide-react';
 
-export default function FeaturedCourses() {
+export default function FeaturedCourses({
+  tagOverride,
+  titleOverride,
+  descOverride,
+  btnAllOverride,
+  course1Title,
+  course1Tag,
+  course1Desc,
+  course1Duration,
+  course1Level,
+  course1Syllabus,
+  course2Title,
+  course2Tag,
+  course2Desc,
+  course2Duration,
+  course2Level,
+  course2Syllabus,
+  course3Title,
+  course3Tag,
+  course3Desc,
+  course3Duration,
+  course3Level,
+  course3Syllabus,
+}: {
+  tagOverride?: string;
+  titleOverride?: string;
+  descOverride?: string;
+  btnAllOverride?: string;
+  course1Title?: string;
+  course1Tag?: string;
+  course1Desc?: string;
+  course1Duration?: string;
+  course1Level?: string;
+  course1Syllabus?: string;
+  course2Title?: string;
+  course2Tag?: string;
+  course2Desc?: string;
+  course2Duration?: string;
+  course2Level?: string;
+  course2Syllabus?: string;
+  course3Title?: string;
+  course3Tag?: string;
+  course3Desc?: string;
+  course3Duration?: string;
+  course3Level?: string;
+  course3Syllabus?: string;
+}) {
   const locale = useLocale();
   const isRtl = locale === 'ar';
 
@@ -200,43 +246,43 @@ export default function FeaturedCourses() {
     {
       image: '/images/course_quran.png',
       icon: <Award className="w-5 h-5 text-gold-hi" />,
-      title: activeContent.quranTitle,
-      tagline: activeContent.quranTag,
-      desc: activeContent.quranDesc,
+      title: course1Title || activeContent.quranTitle,
+      tagline: course1Tag || activeContent.quranTag,
+      desc: course1Desc || activeContent.quranDesc,
       path: activeContent.quranPath,
       slug: 'quran-tajweed',
       stats: [
-        { label: activeContent.statDuration, value: activeContent.quranDuration },
-        { label: activeContent.statText, value: activeContent.quranText },
-        { label: activeContent.statLevel, value: activeContent.quranLevel }
+        { label: activeContent.statDuration, value: course1Duration || activeContent.quranDuration },
+        { label: activeContent.statText, value: course1Syllabus || activeContent.quranText },
+        { label: activeContent.statLevel, value: course1Level || activeContent.quranLevel }
       ]
     },
     {
       image: '/images/course_fiqh.png',
       icon: <Scale className="w-5 h-5 text-gold-hi" />,
-      title: activeContent.fiqhTitle,
-      tagline: activeContent.fiqhTag,
-      desc: activeContent.fiqhDesc,
+      title: course2Title || activeContent.fiqhTitle,
+      tagline: course2Tag || activeContent.fiqhTag,
+      desc: course2Desc || activeContent.fiqhDesc,
       path: activeContent.fiqhPath,
       slug: 'islamic-fiqh',
       stats: [
-        { label: activeContent.statDuration, value: activeContent.fiqhDuration },
-        { label: activeContent.statText, value: activeContent.fiqhText },
-        { label: activeContent.statLevel, value: activeContent.fiqhLevel }
+        { label: activeContent.statDuration, value: course2Duration || activeContent.fiqhDuration },
+        { label: activeContent.statText, value: course2Syllabus || activeContent.fiqhText },
+        { label: activeContent.statLevel, value: course2Level || activeContent.fiqhLevel }
       ]
     },
     {
       image: '/images/course_arabic.png',
       icon: <Languages className="w-5 h-5 text-gold-hi" />,
-      title: activeContent.arabicTitle,
-      tagline: activeContent.arabicTag,
-      desc: activeContent.arabicDesc,
+      title: course3Title || activeContent.arabicTitle,
+      tagline: course3Tag || activeContent.arabicTag,
+      desc: course3Desc || activeContent.arabicDesc,
       path: activeContent.arabicPath,
       slug: 'arabic-grammar',
       stats: [
-        { label: activeContent.statDuration, value: activeContent.arabicDuration },
-        { label: activeContent.statText, value: activeContent.arabicText },
-        { label: activeContent.statLevel, value: activeContent.arabicLevel }
+        { label: activeContent.statDuration, value: course3Duration || activeContent.arabicDuration },
+        { label: activeContent.statText, value: course3Syllabus || activeContent.arabicText },
+        { label: activeContent.statLevel, value: course3Level || activeContent.arabicLevel }
       ]
     },
     {
@@ -322,21 +368,21 @@ export default function FeaturedCourses() {
               isRtl ? 'font-cairo' : 'font-dm'
             }`}
           >
-            {activeContent.tag}
+            {tagOverride || activeContent.tag}
           </span>
           <h2
             className={`text-title text-midnight font-bold max-w-3xl mx-auto mb-4 ${
               isRtl ? 'font-amiri font-bold' : 'font-cormorant font-semibold'
             }`}
           >
-            {activeContent.title}
+            {titleOverride || activeContent.title}
           </h2>
           <p
             className={`text-sm text-[#3A332A] max-w-xl mx-auto leading-relaxed font-normal description-justify ${
               isRtl ? 'font-noto' : 'font-lora'
             }`}
           >
-            {activeContent.desc}
+            {descOverride || activeContent.desc}
           </p>
         </div>
 
@@ -459,7 +505,7 @@ export default function FeaturedCourses() {
             href={`/${locale}/programs`}
             className="btn-gold px-8 py-4 rounded-full text-xs uppercase tracking-wider font-bold inline-flex items-center gap-2.5 shadow-lg shadow-gold/10 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
           >
-            <span>{activeContent.btnAll}</span>
+            <span>{btnAllOverride || activeContent.btnAll}</span>
             <span className={`transition-transform duration-300 ${isRtl ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`}>
               {isRtl ? '←' : '→'}
             </span>

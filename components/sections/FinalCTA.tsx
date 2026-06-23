@@ -6,7 +6,19 @@ import { useLocale } from 'next-intl';
 import { motion, Variants } from 'framer-motion';
 import { BookOpen, MessageSquare } from 'lucide-react';
 
-export default function FinalCTA() {
+export default function FinalCTA({
+  tagOverride,
+  titleOverride,
+  descOverride,
+  btnCoursesOverride,
+  btnContactOverride
+}: {
+  tagOverride?: string;
+  titleOverride?: string;
+  descOverride?: string;
+  btnCoursesOverride?: string;
+  btnContactOverride?: string;
+}) {
   const locale = useLocale();
   const isRtl = locale === 'ar';
 
@@ -98,7 +110,7 @@ export default function FinalCTA() {
               className={`inline-block text-xs uppercase tracking-[0.2em] text-gold-hi font-bold mb-4 cursor-default ${isRtl ? 'font-cairo' : 'font-dm'
                 }`}
             >
-              {activeContent.tag}
+              {tagOverride || activeContent.tag}
             </motion.span>
 
             {/* Title */}
@@ -107,7 +119,7 @@ export default function FinalCTA() {
               className={`text-title text-parchment font-bold mb-6 cursor-default ${isRtl ? 'font-amiri font-bold leading-[1.4]' : 'font-cormorant font-semibold leading-tight'
                 }`}
             >
-              {activeContent.title}
+              {titleOverride || activeContent.title}
             </motion.h2>
 
             {/* Description */}
@@ -116,7 +128,7 @@ export default function FinalCTA() {
               className={`text-sm md:text-base text-parchment/70 leading-relaxed mb-10 cursor-default ${isRtl ? 'font-noto' : 'font-lora'
                 }`}
             >
-              {activeContent.desc}
+              {descOverride || activeContent.desc}
             </motion.p>
 
             {/* Premium Two-Button Action Center */}
@@ -130,7 +142,7 @@ export default function FinalCTA() {
                 className="btn-gold w-full sm:w-auto px-5 py-3.5 sm:px-8 sm:py-4.5 rounded-full text-[10px] sm:text-xs uppercase tracking-wider font-bold inline-flex items-center justify-center gap-2 sm:gap-2.5 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 shadow-lg shadow-gold/15 group/btn1"
               >
                 <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-current" />
-                <span>{activeContent.btnCourses}</span>
+                <span>{btnCoursesOverride || activeContent.btnCourses}</span>
                 <span className={`transition-transform duration-300 ${isRtl ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`}>
                   {isRtl ? '←' : '→'}
                 </span>
@@ -142,7 +154,7 @@ export default function FinalCTA() {
                 className="w-full sm:w-auto px-5 py-3.5 sm:px-8 sm:py-4.5 rounded-full text-[10px] sm:text-xs uppercase tracking-wider font-bold inline-flex items-center justify-center gap-2 sm:gap-2.5 border border-gold/45 text-gold-hi bg-white/[0.03] hover:bg-gold/10 hover:border-gold-hi hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 backdrop-blur-sm group/btn2"
               >
                 <MessageSquare className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold-hi transition-transform duration-300 group-hover/btn2:scale-110" />
-                <span>{activeContent.btnContact}</span>
+                <span>{btnContactOverride || activeContent.btnContact}</span>
               </Link>
             </motion.div>
           </div>

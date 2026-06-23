@@ -49,7 +49,7 @@ export default function Footer({ verseOverride }: { verseOverride?: string }) {
       newPath = `${newPath}${search}`;
     }
 
-    router.push(newPath);
+    window.location.href = newPath;
   };
 
   return (

@@ -64,7 +64,19 @@ function detectCountry() {
   }
 }
 
-export default function HowItWorks() {
+export default function HowItWorks({
+  tagOverride,
+  whyTitleOverride,
+  formTitleOverride,
+  formSubtitleOverride,
+  btnSubmitOverride
+}: {
+  tagOverride?: string;
+  whyTitleOverride?: string;
+  formTitleOverride?: string;
+  formSubtitleOverride?: string;
+  btnSubmitOverride?: string;
+}) {
   const locale = useLocale();
   const isRtl = locale === 'ar';
 
@@ -330,13 +342,13 @@ export default function HowItWorks() {
               <div className="relative z-10 flex items-center gap-2.5">
                 <Sparkles className="w-4 h-4 text-gold-hi animate-pulse shrink-0" />
                 <span className={`text-[10px] md:text-xs uppercase tracking-widest font-bold text-navy leading-normal ${isRtl ? 'font-cairo' : 'font-dm'}`}>
-                  {activeContent.tag}
+                  {tagOverride || activeContent.tag}
                 </span>
               </div>
             </div>
 
             <h3 className={`text-[clamp(24px,3.5vw,36px)] text-parchment font-bold mb-8 ${isRtl ? 'font-amiri font-bold leading-[1.4]' : 'font-cormorant font-semibold leading-[1.2]'}`}>
-              {activeContent.whyTitle}
+              {whyTitleOverride || activeContent.whyTitle}
             </h3>
 
             {/* Benefits list — premium cards */}
@@ -405,10 +417,10 @@ export default function HowItWorks() {
               ) : (
                 <>
                   <h3 className={`text-lg text-midnight font-bold mb-0.5 ${isRtl ? 'font-amiri font-bold' : 'font-cormorant font-semibold'}`}>
-                    {activeContent.formTitle}
+                    {formTitleOverride || activeContent.formTitle}
                   </h3>
                   <p className={`text-[11px] text-stone/50 mb-6 ${isRtl ? 'font-noto' : 'font-lora'}`}>
-                    {activeContent.formSubtitle}
+                    {formSubtitleOverride || activeContent.formSubtitle}
                   </p>
 
                   <form onSubmit={handleSubmit} className="space-y-3.5">
@@ -541,7 +553,7 @@ export default function HowItWorks() {
                         </>
                       ) : (
                         <>
-                          <span>{activeContent.btnSubmit}</span>
+                          <span>{btnSubmitOverride || activeContent.btnSubmit}</span>
                           {isRtl ? <ArrowLeft className="w-3.5 h-3.5" /> : <ArrowRight className="w-3.5 h-3.5" />}
                         </>
                       )}
