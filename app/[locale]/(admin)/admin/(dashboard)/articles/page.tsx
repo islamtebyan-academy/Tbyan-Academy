@@ -176,11 +176,11 @@ export default async function ArticlesPage({ params, searchParams }: ArticlesPag
               <div className="p-4 border-t border-gold/10 flex items-center justify-between gap-3 relative z-10">
                 <Link
                   href={`/${locale}/admin/articles?id=${article.id}&tab=general`}
-                  title={isRtl ? 'تعديل الإعدادات العامة' : 'Edit General Settings'}
+                  title={isRtl ? 'تعديل المقال' : 'Edit Article'}
                   className="flex-1 inline-flex items-center justify-center gap-1 py-2 px-2.5 rounded-lg text-[10px] font-bold bg-gold/5 hover:bg-gold text-gold hover:text-midnight border border-gold/20 hover:border-gold transition-all duration-300 shadow-sm font-ui"
                 >
                   <Edit3 size={11} />
-                  <span>{isRtl ? 'تعديل الإعدادات' : 'Settings'}</span>
+                  <span>{isRtl ? 'تعديل المقال' : 'Edit Article'}</span>
                 </Link>
 
                 <Link
