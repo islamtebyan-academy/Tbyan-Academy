@@ -141,7 +141,7 @@ export default function CourseEditModal({ selectedCourse, isNew, locale, initial
         )}
 
         {/* Form Wrap */}
-        <form onSubmit={handleSubmit} className="flex-grow flex flex-col min-h-0 relative z-10">
+        <form onSubmit={handleSubmit} encType="multipart/form-data" className="flex-grow flex flex-col min-h-0 relative z-10">
           {selectedCourse && <input type="hidden" name="courseId" value={selectedCourse.id} />}
           <input type="hidden" name="locale" value={locale} />
           {selectedCourse?.image_url && <input type="hidden" name="existingImageUrl" value={selectedCourse.image_url} />}

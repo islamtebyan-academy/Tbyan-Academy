@@ -144,7 +144,7 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
         )}
 
         {/* Form Wrap */}
-        <form onSubmit={handleSubmit} className="flex-grow flex flex-col min-h-0 relative z-10">
+        <form onSubmit={handleSubmit} encType="multipart/form-data" className="flex-grow flex flex-col min-h-0 relative z-10">
           {selectedArticle && <input type="hidden" name="articleId" value={selectedArticle.id} />}
           <input type="hidden" name="locale" value={locale} />
           {selectedArticle?.image_url && <input type="hidden" name="existingImageUrl" value={selectedArticle.image_url} />}
