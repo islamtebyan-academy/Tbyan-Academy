@@ -2,14 +2,13 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { setRequestLocale } from 'next-intl/server';
+import { createClient } from '@/lib/supabase/server';
 
 interface TeachersPageProps {
   params: Promise<{ locale: string }>;
 }
 
-
-
-const scholarsData: Record<string, Record<string, {
+const scholarsDataFallback: Record<string, Record<string, {
   name: string;
   title: string;
   specialty: string;
@@ -23,7 +22,7 @@ const scholarsData: Record<string, Record<string, {
       title: 'معلم القرآن الكريم واللغة العربية لغير الناطقين بها',
       specialty: 'تعليم القرآن والتجويد واللغة العربية',
       education: 'ليسانس أصول الدين من جامعة الأزهر الشريف',
-      languages: 'العربية (اللغة الأم)، الإنجليزية، الفرنسية، التركية',
+      languages: 'العربية، الإنجليزية، الفرنسية، التركية',
       bio: 'معلم قرآن كريم ولغة عربية لغير الناطقين بها، يسعى إلى تقديم تعليم متميز يجمع بين الأصالة والوسائل التعليمية الحديثة. يمتلك خبرة واسعة في التدريس عبر الإنترنت، وأسعى دائمًا إلى تطوير مهارات الطلاب ومساعدتهم على تحقيق أهدافهم اللغوية والدينية في بيئة تعليمية تفاعلية وممتعة.',
     },
     en: {
@@ -31,7 +30,7 @@ const scholarsData: Record<string, Record<string, {
       title: 'Instructor of Quranic Recitation & Arabic for Non-Native Speakers',
       specialty: 'Quran, Tajweed, & Classical Arabic',
       education: 'Bachelor in Usul al-Din, Al-Azhar University',
-      languages: 'Arabic (Native), English, French, Turkish',
+      languages: 'Arabic, English, French, Turkish',
       bio: 'A dedicated educator specializing in Quranic studies and classical Arabic for non-Arabic speakers. He blends traditional methodology with modern interactive tools to foster deep comprehension. Ahmed holds multiple Ijazas and aims to guide students toward their linguistic and spiritual goals in an engaging, supportive environment.',
     },
     fr: {
@@ -39,7 +38,7 @@ const scholarsData: Record<string, Record<string, {
       title: 'Enseignant du Saint Coran et de la Langue Arabe pour les Non-Arabophones',
       specialty: 'Coran, Tajwid et Arabe Classique',
       education: 'Licence en Oussoul al-Din, Université d\'Al-Azhar',
-      languages: 'Arabe (Maternelle), Anglais, Français, Turc',
+      languages: 'Arabe, Anglais, Français, Turc',
       bio: 'Enseignant dévoué du Coran et de la langue arabe pour les non-arabophones, Ahmed s\'efforce d\'offrir un enseignement d\'excellence alliant authenticité traditionnelle et outils modernes. Il met à profit son expertise pédagogique pour aider les étudiants à atteindre leurs objectifs linguistiques et spirituels dans un cadre interactif et stimulant.',
     }
   },
@@ -49,7 +48,7 @@ const scholarsData: Record<string, Record<string, {
       title: 'واعظ بالأزهر الشريف ومدرس العلوم الشرعية واللغوية',
       specialty: 'التفسير وعلوم القرآن، الفقه المالكي، واللغة العربية',
       education: 'ماجستير في التفسير وعلوم القرآن - كلية أصول الدين، جامعة الأزهر الشريف',
-      languages: 'العربية (اللغة الأم)، الإنجليزية (أساسي)',
+      languages: 'العربية، الإنجليزية',
       bio: 'واعظ وباحث أزهري متخصص في التفسير وعلوم القرآن والفقه المالكي. يجمع في تدريسه بين أصالة المنهج الأزهري القائم على حفظ المتون وضبط الشروح، وبين أساليب التقديم الحديثة عبر الإعلام والمواقع الرقمية. يسعى لنشر الفكر الديني الوسطي المعتدل وخدمة طلاب العلم في مشارق الأرض ومغاربها.',
     },
     en: {
@@ -57,7 +56,7 @@ const scholarsData: Record<string, Record<string, {
       title: 'Al-Azhar Emissary & Instructor of Islamic Sciences & Arabic',
       specialty: 'Tafsir, Maliki Fiqh, & Logic',
       education: 'MA in Tafsir & Quranic Sciences, Faculty of Usul al-Din, Al-Azhar University',
-      languages: 'Arabic (Native), English (Basic)',
+      languages: 'Arabic, English',
       bio: 'A scholarly Al-Azhar preacher and researcher specializing in Quranic exegesis and Maliki jurisprudence. Sheikh Mohamed combines the rigor of the traditional Azhari method—focused on memorization of classical texts and precise textual commentary—with modern media outreach, advocating for moderate Islamic teachings globally.',
     },
     fr: {
@@ -65,7 +64,7 @@ const scholarsData: Record<string, Record<string, {
       title: 'Prédicateur d\'Al-Azhar & Enseignant des Sciences Islamiques et de l\'Arabe',
       specialty: 'Tafsir, Fiqh Malékite et Logique',
       education: 'Master en Tafsir et Sciences du Coran, Faculté d\'Oussoul al-Din, Université d\'Al-Azhar',
-      languages: 'Arabe (Maternelle), Anglais (Basique)',
+      languages: 'Arabe, Anglais',
       bio: 'Prédicateur et chercheur d\'Al-Azhar, spécialisé dans l\'exégèse coranique et le droit malékite. Le Cheikh Mohamed allie la rigueur de la méthode traditionnelle d\'Al-Azhar—basée sur l\'apprentissage par cœur des textes de référence et leur explication minutieuse—à une pédagogie active pour transmettre un savoir religieux authentique et modéré.',
     }
   },
@@ -75,7 +74,7 @@ const scholarsData: Record<string, Record<string, {
       title: 'باحث دكتوراه في المناهج وطرق التدريس',
       specialty: 'المناهج وطرق التدريس، العلوم الشرعية، والخط العربي',
       education: 'باحث دكتوراه في المناهج وطرق التدريس - جامعة الأزهر الشريف',
-      languages: 'العربية (اللغة الأم)، الإنجليزية (جيد)',
+      languages: 'العربية، الإنجليزية',
       bio: 'باحث دكتوراه ومطور مناهج تعليمية يجمع بين العلوم الشرعية وعلم المناهج التربوية الحديثة. يتميز بخبرته العميقة في تحقيق المخطوطات والتراث العربي الإسلامي، وتصميم النماذج التعليمية التي تيسر دراسة العلوم الإسلامية واللغة العربية، بالإضافة إلى شغفه بتعليم وتحسين الخط العربي كجزء من الهوية الإسلامية.',
     },
     en: {
@@ -83,7 +82,7 @@ const scholarsData: Record<string, Record<string, {
       title: 'PhD Researcher in Curriculum & Instruction & Calligrapher',
       specialty: 'Curriculum & Instruction, Islamic Sciences, and Calligraphy',
       education: 'PhD Candidate in Curriculum & Instruction, Al-Azhar University',
-      languages: 'Arabic (Native), English (Good)',
+      languages: 'Arabic, English',
       bio: 'A doctoral researcher and educational designer who bridges Islamic theology with contemporary curriculum development. Specializing in ethical philosophy, pedagogy, and manuscript editing, he is dedicated to building structured learning paths. Hamada is also an accomplished calligrapher, teaching the classical script as an essential pillar of Islamic art and identity.',
     },
     fr: {
@@ -91,7 +90,7 @@ const scholarsData: Record<string, Record<string, {
       title: 'Chercheur Doctorant en Didactique et Concepteur de Programmes',
       specialty: 'Didactique, Sciences Islamiques et Calligraphie',
       education: 'Doctorant en Didactique et Méthodologies de l\'Enseignement, Université d\'Al-Azhar',
-      languages: 'Arabe (Maternelle), Anglais (Bien)',
+      languages: 'Arabe, Anglais',
       bio: 'Chercheur et concepteur de programmes, Hamada relie la théologie islamique traditionnelle aux théories modernes de l\'éducation. Spécialisé en philosophie morale et didactique, il élabore des structures d\'apprentissage claires. Il également passionné par la calligraphie arabe, qu\'il enseigne comme un art spirituel et un pilier de l\'identité islamique.',
     }
   }
@@ -104,22 +103,58 @@ export default async function TeachersPage({ params }: TeachersPageProps) {
   const isRtl = locale === 'ar';
   const activeLocale = (locale === 'ar' || locale === 'en' || locale === 'fr') ? locale : 'en';
 
+  // Fetch settings from Supabase
+  const settings: Record<string, any> = {};
+  try {
+    const supabase = await createClient();
+    const { data: dbSettings } = await supabase
+      .from('settings')
+      .select('*');
+
+    if (dbSettings) {
+      dbSettings.forEach((s) => {
+        settings[s.key] = s.value;
+      });
+    }
+  } catch (error) {
+    console.error('Error fetching settings for teachers listing page:', error);
+  }
+
+  const getVal = (key: string, defaultVal: string) => {
+    return settings[key]?.[activeLocale] || settings[key]?.[activeLocale.toLowerCase()] || defaultVal;
+  };
+
   const scholars = [
     {
-      ...scholarsData['ahmed-yahya-zakaria'][activeLocale],
-      image: '/images/teacher_ahmed_yahya.png',
       slug: 'ahmed-yahya-zakaria',
+      name: getVal('teacher1_name', scholarsDataFallback['ahmed-yahya-zakaria'][activeLocale].name),
+      title: getVal('teacher1_title', scholarsDataFallback['ahmed-yahya-zakaria'][activeLocale].title),
+      specialty: getVal('teacher1_specialty', scholarsDataFallback['ahmed-yahya-zakaria'][activeLocale].specialty),
+      education: getVal('teacher1_education', scholarsDataFallback['ahmed-yahya-zakaria'][activeLocale].education),
+      languages: getVal('teacher1_languages', scholarsDataFallback['ahmed-yahya-zakaria'][activeLocale].languages),
+      bio: getVal('teacher1_bio', scholarsDataFallback['ahmed-yahya-zakaria'][activeLocale].bio),
+      image: getVal('teacher1_image', '/images/teacher_ahmed_yahya.png')
     },
     {
-      ...scholarsData['mohamed-badr'][activeLocale],
-      image: '/images/teacher_mohamed_badr.png',
       slug: 'mohamed-badr',
+      name: getVal('teacher2_name', scholarsDataFallback['mohamed-badr'][activeLocale].name),
+      title: getVal('teacher2_title', scholarsDataFallback['mohamed-badr'][activeLocale].title),
+      specialty: getVal('teacher2_specialty', scholarsDataFallback['mohamed-badr'][activeLocale].specialty),
+      education: getVal('teacher2_education', scholarsDataFallback['mohamed-badr'][activeLocale].education),
+      languages: getVal('teacher2_languages', scholarsDataFallback['mohamed-badr'][activeLocale].languages),
+      bio: getVal('teacher2_bio', scholarsDataFallback['mohamed-badr'][activeLocale].bio),
+      image: getVal('teacher2_image', '/images/teacher_mohamed_badr.png')
     },
     {
-      ...scholarsData['hamada-attia-nady'][activeLocale],
-      image: '/images/teacher_hamada_attia.png',
       slug: 'hamada-attia-nady',
-    },
+      name: getVal('teacher3_name', scholarsDataFallback['hamada-attia-nady'][activeLocale].name),
+      title: getVal('teacher3_title', scholarsDataFallback['hamada-attia-nady'][activeLocale].title),
+      specialty: getVal('teacher3_specialty', scholarsDataFallback['hamada-attia-nady'][activeLocale].specialty),
+      education: getVal('teacher3_education', scholarsDataFallback['hamada-attia-nady'][activeLocale].education),
+      languages: getVal('teacher3_languages', scholarsDataFallback['hamada-attia-nady'][activeLocale].languages),
+      bio: getVal('teacher3_bio', scholarsDataFallback['hamada-attia-nady'][activeLocale].bio),
+      image: getVal('teacher3_image', '/images/teacher_hamada_attia.png')
+    }
   ];
 
   return (

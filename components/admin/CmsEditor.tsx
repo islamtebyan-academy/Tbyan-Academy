@@ -29,6 +29,7 @@ import {
   Video,
   Rocket,
   GraduationCap,
+  Briefcase,
   Trash2,
   Plus
 } from 'lucide-react';
@@ -56,6 +57,12 @@ const PAGES_CONFIG = [
     titleAr: 'صفحة من نحن',
     titleEn: 'About Us Page',
     icon: FileText,
+  },
+  {
+    id: 'teacherspage',
+    titleAr: 'هيئة التدريس',
+    titleEn: 'Academic Faculty Page',
+    icon: GraduationCap,
   },
   {
     id: 'global',
@@ -86,6 +93,12 @@ const ABOUTPAGE_SUB_SECTIONS = [
   { id: 'about_pillars', titleAr: 'ركائز المنهج العلمي', titleEn: 'Methodology Pillars' },
   { id: 'about_vetting', titleAr: 'معايير فرز المعلمين', titleEn: 'Vetting Process' },
   { id: 'about_quote', titleAr: 'المقولة المأثورة', titleEn: 'Scholarly Quote' }
+];
+
+const TEACHERSPAGE_SUB_SECTIONS = [
+  { id: 'teacher_ahmed-yahya-zakaria', titleAr: 'الشيخ أحمد يحيى زكريا', titleEn: 'Sheikh Ahmed Yahya' },
+  { id: 'teacher_mohamed-badr', titleAr: 'الشيخ محمد بدر عبد المرضي', titleEn: 'Sheikh Mohamed Badr' },
+  { id: 'teacher_hamada-attia-nady', titleAr: 'د. حمادة عطية نادي', titleEn: 'Dr. Hamada Attia' }
 ];
 
 const DEFAULTS_MAP: Record<string, Record<'ar' | 'en' | 'fr', string>> = {
@@ -382,6 +395,107 @@ const DEFAULTS_MAP: Record<string, Record<'ar' | 'en' | 'fr', string>> = {
     ar: '/images/teacher_hamada_attia.png',
     en: '/images/teacher_hamada_attia.png',
     fr: '/images/teacher_hamada_attia.png'
+  },
+
+  // Detailed profiles for Teacher 1 (Ahmed Yahya)
+  teacher1_bio: {
+    ar: 'معلم قرآن كريم ولغة عربية لغير الناطقين بها، يسعى إلى تقديم تعليم متميز يجمع بين الأصالة والوسائل التعليمية الحديثة. يمتلك خبرة واسعة في التدريس والتعليم عبر الإنترنت، ويعمل بشغف لتطوير مهارات الطلاب ومساعدتهم على تحقيق أهدافهم اللغوية والدينية في بيئة تعليمية تفاعلية وممتعة.',
+    en: 'A dedicated educator specializing in Quranic studies and classical Arabic for non-Arabic speakers. He blends traditional methodology with modern interactive tools to foster deep comprehension. Ahmed holds multiple Ijazas and aims to guide students toward their linguistic and spiritual goals in an engaging, supportive environment.',
+    fr: 'Enseignant dévoué du Coran et de la langue arabe pour les non-arabophones, Ahmed s\'efforce d\'offrir un enseignement d\'excellence alliant authenticité traditionnelle et outils modernes. Il met à profit son expertise pédagogique pour aider les étudiants à atteindre leurs objectifs linguistiques et spirituels dans un cadre interactif et stimulant.'
+  },
+  teacher1_ijazas: {
+    ar: 'إجازة برواية حفص عن عاصم بالسند المتصل من فضيلة الشيخ نبيل محمد علي.\nإجازة قرآنية معتمدة من فضيلة الشيخ سيد بعبولة.',
+    en: 'Verified Quranic Recitation Ijaza (Hafs \'an \'Asim) with connected Isnad from Sheikh Nabil Muhammad Ali.\nQuranic Recitation Ijaza from Sheikh Sayyid Babola.',
+    fr: 'Ijaza de récitation coranique (Hafs \'an \'Asim) avec Isnad connecté du Cheikh Nabil Muhammad Ali.\nIjaza coranique validée par le Cheikh Sayyid Babola.'
+  },
+  teacher1_qualifications: {
+    ar: 'ليسانس من كلية أصول الدين - جامعة الأزهر الشريف بالقاهرة.\nدورات متخصصة في طرق تعليم اللغة العربية لغير الناطقين بها.\nدورات تدريبية متقدمة في مجالات التعليم الإلكتروني وإدارة الصفوف الافتراضية.',
+    en: 'Bachelor\'s Degree in Usul al-Din (Fundamentals of Religion) from Al-Azhar University, Cairo.\nSpecialized qualifications in Arabic as a Second Language (ASL) instruction.\nCertified online education and virtual learning environments management trainer.',
+    fr: 'Licence de la Faculté d\'Oussoul al-Din (Fondements de la Religion), Université d\'Al-Azhar, Le Caire.\nFormations spécialisées dans les méthodes d\'enseignement de l\'arabe langue étrangère.\nCertifications en administration de classes virtuelles et pédagogie interactive en ligne.'
+  },
+  teacher1_experiences: {
+    ar: 'خبرة عملية تزيد عن خمس سنوات في تدريس اللغة العربية والقرآن الكريم والدراسات الإسلامية عبر الإنترنت.\nتدريب وتوجيه الطلاب من مختلف الأعمار والجنسيات والخلفيات الثقافية.\nإعداد وتطوير مناهج مخصصة للطلاب الناطقين بغير العربية لتسهيل الفهم والتحصيل.\nتبسيط أحكام التجويد للطلاب وتطبيقها العملي أثناء التلاوة بأساليب شيقة.',
+    en: 'Over 5 years of online teaching experience in Arabic, Quranic sciences, and Islamic studies.\nMentored students of various age groups and nationalities, crafting customized lesson plans.\nDeveloped tailored curricula for non-Arabic speakers to facilitate smooth language acquisition.\nTaught Tajweed rules through interactive, practical, and highly simplified methodologies.',
+    fr: 'Plus de 5 ans d\'enseignement en ligne de l\'arabe classique, du Coran et des sciences de la Shariah.\nAccompagnement d\'élèves de divers âges et nationalités avec des programmes personnalisés.\nDéveloppement de supports pédagogiques simplifiés pour les apprenants non-arabophones.\nEnseignement des règles de Tajwid par des méthodes actives et interactives.'
+  },
+  teacher1_skills: {
+    ar: 'تصميم الخطط والبرامج التعليمية الفردية\nإدارة الفصول الافتراضية بمهارة عبر Zoom وGoogle Meet\nاستخدام برامج Microsoft Office والوسائط التفاعلية في التعليم\nالتواصل التربوي الفعال مع الطلاب وأولياء الأمور',
+    en: 'Custom Curriculum Engineering & Progress Tracking\nInteractive Classroom Management (Zoom, Google Meet)\nEducational Content Design & Microsoft Office Applications\nEffective Parent-Student Pedagogical Communication',
+    fr: 'Conception de programmes académiques personnalisés\nMaîtrise des classes numériques (Zoom, Google Meet)\nCréation de supports éducatifs multimédias\nCommunication interculturelle efficace avec les élèves et parents'
+  },
+
+  // Detailed profiles for Teacher 2 (Mohamed Badr)
+  teacher2_bio: {
+    ar: 'واعظ وباحث أزهري متخصص في التفسير وعلوم القرآن والفقه المالكي. يجمع في تدريسه بين أصالة المنهج الأزهري القائم على حفظ المتون وضبط الشروح، وبين أساليب التقديم الحديثة عبر الإعلام والمواقع الرقمية. يسعى لنشر الفكر الديني الوسطي المعتدل وخدمة طلاب العلم في مشارق الأرض ومغاربها.',
+    en: 'A scholarly Al-Azhar preacher and researcher specializing in Quranic exegesis and Maliki jurisprudence. Sheikh Mohamed combines the rigor of the traditional Azhari method—focused on memorization of classical texts and precise textual commentary—with modern media outreach, advocating for moderate Islamic teachings globally.',
+    fr: 'Prédicateur et chercheur d\'Al-Azhar, spécialisé dans l\'exégèse coranique et le droit malékite. Le Cheikh Mohamed allie la rigueur de la méthode traditionnelle d\'Al-Azhar—basée sur l\'apprentissage par cœur des textes de référence et leur explication minutieuse—à une pédagogie active pour transmettre un savoir religieux authentique et modéré.'
+  },
+  teacher2_ijazas: {
+    ar: 'إجازة بالقرآن الكريم بالقراءات المتواترة (ورش عن نافع، حفص عن عاصم، وشعبة عن عاصم) بالسند المتصل إلى رسول الله ﷺ.\nإجازات علمية مسندة في تدريس وقراءة متون النحو والصرف والبلاغة والمنطق والفقه المالكي والعقيدة.',
+    en: 'Connected chain (Isnad) to the Prophet ﷺ in multiple Qira\'at (Warsh \'an Nafi\', Hafs \'an \'Asim, Shu\'bah \'an \'Asim).\nVerified scholarly Ijazat to transmit and teach major classical texts in Arabic grammar, rhetoric, logic, theology, and law.',
+    fr: 'Chaîne de transmission (Isnad) remontant au Prophète ﷺ dans les lectures de Warsh, Hafs et Shu\'bah.\nIjazas d\'enseignement dans les traités majeurs de grammaire arabe, rhétorique, logique, jurisprudence malékite et Aqida.'
+  },
+  teacher2_qualifications: {
+    ar: 'ماجستير في التفسير وعلوم القرآن - كلية أصول الدين بالقاهرة (عنوان الرسالة: "علم المناسبات وأثره في تفسير المنار للشيخ محمد رشيد رضا - دراسة تطبيقية مقارنة").\nليسانس أصول الدين من جامعة الأزهر الشريف.',
+    en: 'Master’s Degree (MA) in Tafsir & Quranic Sciences, Faculty of Usul al-Din, Al-Azhar University, Cairo (Thesis: "The Science of Occasions & Its Impact on Al-Manar Tafsir").\nBachelor\'s Degree in Usul al-Din from Al-Azhar University.',
+    fr: 'Master en Tafsir et Sciences du Coran, Université d\'Al-Azhar, Le Caire (Mémoire sur "L\'impact de la science des occasions dans le Tafsir Al-Manar").\nLicence en Oussoul al-Din de l\'Université d\'Al-Azhar.'
+  },
+  teacher2_experiences: {
+    ar: 'مدرس للغة العربية والفقه المالكي والمنطق بالجامع الأزهر الشريف وأروقته العلمية.\nواعظ رسمي بالأزهر الشريف ووزارة الأوقاف لنشر الوعي الديني والمنهج الوسطي المعتدل.\nلقاءات تلفزيونية متعددة (منها برنامج "جوهر الإسلام" على قناة الناس).\nتأسيس وإدارة قناة يوتيوب "محمد بدر المالكي" لتدريس أمهات الكتب والشروحات العلمية لطلاب العلم عالمياً.',
+    en: 'Instructor of Arabic grammar, Maliki jurisprudence, and logic at the Grand Al-Azhar Mosque circles.\nOfficial Al-Azhar preacher promoting moderate and balanced Islamic guidance.\nFeatured guest on national television programs (Al-Nas TV) discussing contemporary Islamic affairs.\nFounder of "Mohamed Badr Al-Maliki" YouTube channel, delivering free classical video lectures globally.',
+    fr: 'Enseignant de grammaire arabe, droit malékite et logique dans les cercles d\'études de la Mosquée d\'Al-Azhar.\nPrédicateur officiel d\'Al-Azhar pour la diffusion d\'un discours religieux équilibré.\nIntervenant télévisé sur des chaînes éducatives (notamment la chaîne Al-Nas).\nFondateur de la chaîne YouTube académique "Mohamed Badr Al-Maliki" pour l\'enseignement du patrimoine islamique.'
+  },
+  teacher2_skills: {
+    ar: 'تحفيظ القرآن الكريم وتجويده بالقراءات المتواترة بالرواية والسند\nتدريس الفقه المالكي وأصوله للطلاب المبتدئين والمتقدمين\nتدريس النحو والصرف والبلاغة القديمة والمنطق والعقيدة\nإعداد وتقديم المحتوى الإعلامي والدعوي المرئي الهادف',
+    en: 'Teaching Quranic memorization and Tajweed in canonical Qira\'at\nTraditional instruction of Maliki jurisprudence from primary to advanced texts\nTeaching classical Arabic linguistics, logic (Mantiq), and theology (Aqidah)\nContent production and broadcasting for television and digital media',
+    fr: 'Récitation coranique et enseignement du Tajwid selon plusieurs Qira\'at\nEnseignement progressif du droit malékite, du niveau débutant à avancé\nExplication des traités arabes classiques, de logique et de théologie\nProduction de contenus éducatifs audiovisuels pour les médias'
+  },
+  teacher2_scholarlyTextTitle: {
+    ar: 'أبرز المتون والكتب التي يدرسها الشيخ',
+    en: 'Key Classical Manuals & Treatises Taught',
+    fr: 'Principaux Traités Classiques Enseignés'
+  },
+  teacher2_scholarlyTexts: {
+    ar: 'العلوم العربية: الآجرومية، الأزهرية، تنقيح الأزهرية، قطر الندى، شذور الذهب، ألفية ابن مالك، لامية الأفعال، شذا العرف، اللؤلؤ المكنون في البلاغة.\nالفقه المالكي: متن الأخضري، العشماوية، العزية، نظم ابن عاشر، الرسالة لابن أبي زيد القيرواني، أقرب المسالك، أسهل المسالك.\nالعقيدة والمنطق: عقيدة العوام، السنوسية، جوهرة التوحيد، الخريدة البهية، السلم المنورق في المنطق، إيساغوجي.',
+    en: 'Arabic Grammar & Linguistics: Al-Ajrumiyyah, Al-Azhariyyah, Qatr al-Nada, Alfiyyah Ibn Malik, Lamiyat al-Af\'al, Shadha al-\'Arf.\nMaliki Fiqh (Law): Al-Akhdari, Al-Ashmawiya, Al-\'Iziyyah, Matn Ibn Ashir, Al-Risalah of Ibn Abi Zayd, Aqrab al-Masalik.\nTheology & Logic: Aqidat al-\'Awwam, Al-Sanusiyyah, Jawharat al-Tawhid, Al-Sullam al-Munawraq in Logic, Isagoge.',
+    fr: 'Grammaire et Linguistique: Al-Ajroumiyyah, Qatr al-Nada, Alfiyyah Ibn Malik, Lamiyat al-Af\'al, Shadha al-\'Arf.\nDroit Malékite: Matn Al-Akhdari, Al-Ashmawiya, Al-Risalah d\'Ibn Abi Zayd, Aqrab al-Masalik.\nThéologie & Logique: Aqidat al-\'Awwam, Al-Sanusiyyah, Jawharat al-Tawhid, Al-Sullam al-Munawraq, Isagoge.'
+  },
+
+  // Detailed profiles for Teacher 3 (Hamada Attia)
+  teacher3_bio: {
+    ar: 'باحث دكتوراه ومطور مناهج تعليمية يجمع بين العلوم الشرعية وعلم المناهج التربوية الحديثة. يتميز بخبرته العميقة في تحقيق المخطوطات والتراث العربي الإسلامي، وتصميم النماذج التعليمية التي تيسر دراسة العلوم الإسلامية واللغة العربية، بالإضافة إلى شغفه بتعليم وتحسين الخط العربي كجزء من الهوية الإسلامية.',
+    en: 'A doctoral researcher and educational designer who bridges Islamic theology with contemporary curriculum development. Specializing in ethical philosophy, pedagogy, and manuscript editing, he is dedicated to building structured learning paths. Hamada is also an accomplished calligrapher, teaching the classical script as an essential pillar of Islamic art and identity.',
+    fr: 'Chercheur et concepteur de programmes, Hamada relie la théologie islamique traditionnelle aux théories modernes de l\'éducation. Spécialisé en philosophie morale et didactique, il élabore des structures d\'apprentissage claires. Il également passionné par la calligraphie arabe, qu\'il enseigne comme un art spirituel et un pilier de l\'identité islamique.'
+  },
+  teacher3_ijazas: {
+    ar: 'دورة وتأهيل متقدم في تحقيق التراث العربي بمعهد المخطوطات العربية التابع لجامعة الدول العربية والجامع الأزهر.\nشهادة إعداد معلمي اللغة العربية للناطقين بغيرها من الجامع الأزهر الشريف.',
+    en: 'Manuscript Editing & Heritage Preservation credentials from the Institute of Arabic Manuscripts and Al-Azhar Grand Mosque.\nProfessional Training Certificate in Teaching Arabic to Non-Native Speakers, Al-Azhar Mosque.',
+    fr: 'Certifications en Édition de Manuscrits délivrées par l\'Institut des Manuscrits Arabes et la Grande Mosquée d\'Al-Azhar.\nCertificat d\'aptitude à l\'enseignement de l\'arabe langue étrangère de la Mosquée d\'Al-Azhar.'
+  },
+  teacher3_qualifications: {
+    ar: 'باحث دكتوراه في المناهج وطرق التدريس بجامعة الأزهر الشريف.\nماجستير المناهج وطرق التدريس.\nالدبلوم الخاص (تمهيدي ماجستير) في الإدارة والتخطيط والمناهج التربوية من معهد البحوث الدراسات العربية.\nدبلوم الدراسات العليا في التربية من جامعة الأزهر.\nليسانس أصول الدين (تخصص عقيدة وفلسفة) من جامعة الأزهر الشريف.\nدبلوم الخط العربي والزخرفة الإسلامية.',
+    en: 'PhD Candidate in Curriculum & Instruction, Al-Azhar University, Cairo.\nMaster’s Degree (MA) in Curriculum and Instruction Methods.\nPostgraduate Special Diploma in Educational Administration & Planning, Arab League University.\nPostgraduate General Diploma in Education, Al-Azhar University.\nBachelor\'s Degree in Usul al-Din (Creed & Philosophy), Al-Azhar University.\nDiploma in Arabic Calligraphy & Islamic Ornamentation.',
+    fr: 'Doctorant en Didactique et Méthodes d\'Enseignement, Université d\'Al-Azhar, Le Caire.\nMaster en Didactique et Méthodes d\'Enseignement.\nDiplôme Spécialisé en Administration Éducative de la Ligue Arabe.\nDiplôme Général en Éducation, Université d\'Al-Azhar.\nLicence en Oussoul al-Din (Théologie & Philosophie), Université d\'Al-Azhar.\nDiplôme d\'État de Calligraphie Arabe et d\'Ornementation Islamique.'
+  },
+  teacher3_experiences: {
+    ar: 'تحقيق التراث العربي والإشراف العلمي على طبع المخطوطات بعدة دور نشر معتمدة.\nمدرس المواد الشرعية واللغة العربية وقواعد الخط العربي.\nتطوير وتصميم ونمذجة المناهج والخطط الأكاديمية بمؤسسات شرعية تعليمية رائدة.\nباحث شرعي متخصص في إعداد المحتوى الأكاديمي وصياغة المعايير التربوية.',
+    en: 'Active manuscript editor and scholarly reviewer for several Islamic publishing houses.\nInstructor of Islamic law, Arabic linguistics, and classical Arabic calligraphy.\nSenior curriculum developer, designing educational frameworks and modeling systems for modern Islamic schools.\nAcademic researcher in Shariah education standards and pedagogy.',
+    fr: 'Éditeur de manuscrits et chercheur auprès de maisons d\'édition arabes réputées.\nEnseignant de théologie islamique, de langue arabe et de calligraphie d\'art.\nConcepteur de programmes scolaires et modélisateur de parcours d\'apprentissage pour les écoles islamiques.\nChercheur académique en théologie appliquée et éducation morale.'
+  },
+  teacher3_skills: {
+    ar: 'تطوير وتصميم ونمذجة المناهج الدراسية الشرعية واللغوية\nتحقيق المخطوطات الإسلامية وضبط النصوص التراثية\nتعليم الخط العربي بكافة أنواعه (النسخ، الرقعة، الديواني، الثلث)\nتطبيق نظريات التربية ومناهج التدريس الحديثة',
+    en: 'Pedagogical Design & Modern Curriculum Modeling\nScholarly Manuscript Editing (Tahqiq) & Heritage Analysis\nClassical Arabic Calligraphy Instruction (Naskh, Ruq\'ah, Thuluth, Diwani)\nImplementation of Educational Theories & Interactive Learning Methods',
+    fr: 'Ingénierie pédagogique et élaboration de programmes éducatifs\nÉdition critique de manuscrits islamiques (Tahqiq) et recherche scientifique\nEnseignement de la calligraphie classique (Naskh, Ruq\'ah, Diwani, Thuluth)\nApplication des théories contemporaines de l\'éducation'
+  },
+  teacher3_specialSectionTitle: {
+    ar: 'نشاط تحقيق التراث والخط العربي',
+    en: 'Heritage Editing & Calligraphy Practice',
+    fr: 'Édition du Patrimoine & Calligraphie Artistique'
+  },
+  teacher3_specialSectionText: {
+    ar: 'يقوم الدكتور حمادة بدمج الفن الإسلامي بالبحث الأكاديمي، حيث يُدرس جماليات الخط العربي كأحد أركان الهوية الإسلامية واللغوية، بجانب عمله الدقيق في إحياء التراث المخطوط وتحقيقه علمياً لإخراجه لطلاب العلم بأعلى درجات الضبط والتحقيق.',
+    en: 'Dr. Hamada integrates Islamic art with academic research. He teaches classical Arabic calligraphy as a vital component of Islamic cultural identity and works on reviving classical manuscripts, ensuring they are edited with the highest academic standards before publication.',
+    fr: 'Le Dr Hamada associe la recherche académique à l\'expression artistique. Il enseigne la calligraphie comme un art sacré et une manifestation de l\'identité linguistique, tout en consacrant ses travaux à la préservation et à l\'édition de manuscrits anciens.'
   },
 
   // Testimonials defaults
@@ -797,7 +911,10 @@ export default function CmsEditor({ initialSettings, locale, initialMedia = [] }
     about_mission: 'ar',
     about_pillars: 'ar',
     about_vetting: 'ar',
-    about_quote: 'ar'
+    about_quote: 'ar',
+    'teacher_ahmed-yahya-zakaria': 'ar',
+    'teacher_mohamed-badr': 'ar',
+    'teacher_hamada-attia-nady': 'ar'
   });
 
   // Track save state per section
@@ -953,6 +1070,21 @@ export default function CmsEditor({ initialSettings, locale, initialMedia = [] }
         'teacher1_name', 'teacher1_title', 'teacher1_specialty', 'teacher1_education', 'teacher1_languages', 'teacher1_ijazah1', 'teacher1_ijazah2', 'teacher1_image',
         'teacher2_name', 'teacher2_title', 'teacher2_specialty', 'teacher2_education', 'teacher2_languages', 'teacher2_ijazah1', 'teacher2_ijazah2', 'teacher2_image',
         'teacher3_name', 'teacher3_title', 'teacher3_specialty', 'teacher3_education', 'teacher3_languages', 'teacher3_ijazah1', 'teacher3_ijazah2', 'teacher3_image'
+      );
+    } else if (sectionId === 'teacher_ahmed-yahya-zakaria') {
+      fieldsToReset.push(
+        'teacher1_name', 'teacher1_title', 'teacher1_specialty', 'teacher1_education', 'teacher1_languages', 'teacher1_ijazah1', 'teacher1_ijazah2', 'teacher1_image',
+        'teacher1_bio', 'teacher1_ijazas', 'teacher1_qualifications', 'teacher1_experiences', 'teacher1_skills'
+      );
+    } else if (sectionId === 'teacher_mohamed-badr') {
+      fieldsToReset.push(
+        'teacher2_name', 'teacher2_title', 'teacher2_specialty', 'teacher2_education', 'teacher2_languages', 'teacher2_ijazah1', 'teacher2_ijazah2', 'teacher2_image',
+        'teacher2_bio', 'teacher2_ijazas', 'teacher2_qualifications', 'teacher2_experiences', 'teacher2_skills', 'teacher2_scholarlyTextTitle', 'teacher2_scholarlyTexts'
+      );
+    } else if (sectionId === 'teacher_hamada-attia-nady') {
+      fieldsToReset.push(
+        'teacher3_name', 'teacher3_title', 'teacher3_specialty', 'teacher3_education', 'teacher3_languages', 'teacher3_ijazah1', 'teacher3_ijazah2', 'teacher3_image',
+        'teacher3_bio', 'teacher3_ijazas', 'teacher3_qualifications', 'teacher3_experiences', 'teacher3_skills', 'teacher3_specialSectionTitle', 'teacher3_specialSectionText'
       );
     } else if (sectionId === 'testimonials') {
       fieldsToReset.push('testimonials_tag', 'testimonials_title', 'testimonials_subtitle');
@@ -1257,6 +1389,8 @@ export default function CmsEditor({ initialSettings, locale, initialMedia = [] }
                     setActiveSubSection('hero');
                   } else if (page.id === 'aboutpage') {
                     setActiveSubSection('about_hero');
+                  } else if (page.id === 'teacherspage') {
+                    setActiveSubSection('teacher_ahmed-yahya-zakaria');
                   }
                 }}
                 className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-bold font-ui transition-all duration-300 cursor-pointer ${
@@ -5047,6 +5181,420 @@ export default function CmsEditor({ initialSettings, locale, initialMedia = [] }
                 </div>
               </form>
             )}
+          </>
+        )}
+
+        {/* TEACHERSPAGE TAB CONTENT */}
+        {activeTab === 'teacherspage' && (
+          <>
+            {/* Sub-tab navigation */}
+            <div className="relative group/tabs flex items-center mb-6 bg-gold-muted/5 border border-gold-muted/10 p-1 rounded-2xl">
+              <button
+                type="button"
+                onClick={() => scrollSubTabs('left')}
+                className="absolute left-2 z-20 bg-[#162742]/90 hover:bg-[#162742] text-white w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover/tabs:opacity-100 transition-opacity duration-300 shadow-md text-[9px] font-bold select-none cursor-pointer"
+                title={isRtl ? 'تمرير لليسار' : 'Scroll Left'}
+              >
+                ◀
+              </button>
+
+              <div 
+                ref={subTabsRef}
+                className="flex-1 flex overflow-x-auto gap-2 p-1.5 cms-editor-subtabs-scrollbar whitespace-nowrap scroll-smooth px-8"
+              >
+                {TEACHERSPAGE_SUB_SECTIONS.map((sub) => {
+                  const isSubActive = sub.id === activeSubSection;
+                  return (
+                    <button
+                      key={sub.id}
+                      type="button"
+                      onClick={() => setActiveSubSection(sub.id)}
+                      className={`shrink-0 px-3 py-1.5 text-[9px] font-bold rounded-lg transition-all cursor-pointer font-ui ${
+                        isSubActive 
+                          ? 'bg-gold text-white shadow-sm scale-[1.01]' 
+                          : 'bg-white hover:bg-gold-muted/5 text-stone border border-stone/10 hover:border-gold/25'
+                      }`}
+                    >
+                      {isRtl ? sub.titleAr : sub.titleEn}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => scrollSubTabs('right')}
+                className="absolute right-2 z-20 bg-[#162742]/90 hover:bg-[#162742] text-white w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover/tabs:opacity-100 transition-opacity duration-300 shadow-md text-[9px] font-bold select-none cursor-pointer"
+                title={isRtl ? 'تمرير لليمين' : 'Scroll Right'}
+              >
+                ▶
+              </button>
+            </div>
+
+            {/* Visual Mockup Editor Forms */}
+            {(() => {
+              const teacherIdx = activeSubSection === 'teacher_ahmed-yahya-zakaria' ? 1 
+                               : activeSubSection === 'teacher_mohamed-badr' ? 2 
+                               : activeSubSection === 'teacher_hamada-attia-nady' ? 3 
+                               : null;
+
+              if (!teacherIdx) return null;
+
+              return (
+                <form 
+                  onSubmit={(e) => handleSaveSection(e, activeSubSection)}
+                  className="bg-white border border-gold-muted/15 rounded-3xl shadow-[0_12px_40px_rgba(139,115,85,0.05)] overflow-hidden transition-all duration-300"
+                >
+                  {/* Header & Language Toggle */}
+                  <div className="p-6 border-b border-gold-muted/10 bg-gradient-to-r from-white to-[#FDFAF3]/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-start">
+                    <div>
+                      <h3 className="text-sm font-bold text-midnight font-primary flex items-center gap-2">
+                        <GraduationCap size={16} className="text-gold" />
+                        {isRtl ? `تعديل السيرة الذاتية - ${activeSubSection === 'teacher_ahmed-yahya-zakaria' ? 'الشيخ أحمد يحيى' : activeSubSection === 'teacher_mohamed-badr' ? 'الشيخ محمد بدر' : 'د. حمادة عطية'}` : `Edit Teacher Profile - ${activeSubSection === 'teacher_ahmed-yahya-zakaria' ? 'Sheikh Ahmed Yahya' : activeSubSection === 'teacher_mohamed-badr' ? 'Sheikh Mohamed Badr' : 'Dr. Hamada Attia'}`}
+                      </h3>
+                      <p className="text-stone/60 text-[10px] mt-0.5 font-ui">
+                        {isRtl ? 'تحرير بيانات ومحتوى صفحة السيرة الذاتية للمعلم ومعاينتها بشكل حي' : 'Edit teacher details, credentials, and page content with interactive preview.'}
+                      </p>
+                    </div>
+
+                    <div className="flex bg-gold-muted/10 p-0.5 rounded-lg border border-gold-muted/10 self-end sm:self-auto">
+                      {(['ar', 'en', 'fr'] as const).map(lang => (
+                        <button
+                          key={lang}
+                          type="button"
+                          onClick={() => setSectionLang(prev => ({ ...prev, [activeSubSection]: lang }))}
+                          className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                            sectionLang[activeSubSection] === lang 
+                              ? 'bg-gold text-white shadow-sm' 
+                              : 'text-stone/60 hover:text-midnight'
+                          }`}
+                        >
+                          {lang === 'ar' ? 'العربية' : lang === 'en' ? 'EN' : 'FR'}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Visual Preview Shell */}
+                  <div className="p-6 space-y-4">
+                    <div className="text-[10px] font-bold text-stone/50 uppercase tracking-widest text-start font-ui">
+                      {isRtl ? 'معاينة مباشرة تفاعلية (اضغط على أي حقل للتعديل)' : 'Interactive Live Preview (Click any text area to edit)'}
+                    </div>
+
+                    <div 
+                      dir={sectionLang[activeSubSection] === 'ar' ? 'rtl' : 'ltr'}
+                      className="relative rounded-2xl overflow-hidden p-8 md:p-10 bg-navy border border-gold-muted/20 shadow-inner text-start"
+                    >
+                      <div className="absolute inset-0 bg-[url('/images/pattern-8star.svg')] bg-[size:100px_100px] opacity-[0.02] pointer-events-none" />
+
+                      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        
+                        {/* Identity column replica */}
+                        <div className="bg-ivory border border-gold-muted/20 rounded-[2rem] p-6 shadow-md text-midnight flex flex-col justify-between space-y-6">
+                          <div className="space-y-4">
+                            
+                            {/* Photo picker */}
+                            <div className="relative h-48 w-[calc(100%+2.5rem)] mx-[-1.25rem] mt-[-1.25rem] rounded-t-[2rem] overflow-hidden border-b border-gold-muted/20 group flex flex-col justify-center items-center bg-stone-100">
+                              {getVal(`teacher${teacherIdx}_image`, activeSubSection) ? (
+                                <img
+                                  src={getVal(`teacher${teacherIdx}_image`, activeSubSection)}
+                                  alt="Teacher profile"
+                                  className="w-full h-full object-cover object-top"
+                                />
+                              ) : (
+                                <ImageIcon size={28} className="text-stone-400" />
+                              )}
+                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <button
+                                  type="button"
+                                  onClick={() => openImageSelector(`teacher${teacherIdx}_image`, activeSubSection)}
+                                  className="px-3.5 py-2 bg-gold hover:bg-gold-hi text-midnight font-bold text-[9px] rounded-lg transition-all shadow-md cursor-pointer"
+                                >
+                                  {isRtl ? 'تحميل صورة المعلم' : 'Upload Teacher Image'}
+                                </button>
+                              </div>
+                              <input
+                                type="hidden"
+                                name={`teacher${teacherIdx}_image__${sectionLang[activeSubSection]}`}
+                                value={getVal(`teacher${teacherIdx}_image`, activeSubSection)}
+                              />
+                            </div>
+
+                            {/* Name & Title */}
+                            <div className="text-center pb-4 border-b border-gold-muted/10 space-y-2">
+                              <div className="relative group/field">
+                                <span className="absolute -top-2 right-4 px-1 py-0.5 bg-gold text-[6px] font-bold text-[#162742] rounded opacity-0 group-hover/field:opacity-100 transition-opacity duration-200 pointer-events-none z-10 font-ui">
+                                  {isRtl ? 'الاسم' : 'Name'}
+                                </span>
+                                <input
+                                  type="text"
+                                  name={`teacher${teacherIdx}_name__${sectionLang[activeSubSection]}`}
+                                  value={getVal(`teacher${teacherIdx}_name`, activeSubSection)}
+                                  onChange={(e) => handleFieldChange(`teacher${teacherIdx}_name`, sectionLang[activeSubSection], e.target.value)}
+                                  placeholder="Name..."
+                                  className="w-full text-center bg-transparent border border-dashed border-transparent hover:border-gold/50 rounded font-bold text-sm text-midnight focus:outline-none"
+                                />
+                              </div>
+                              <div className="relative group/field">
+                                <span className="absolute -top-2 right-4 px-1 py-0.5 bg-gold text-[6px] font-bold text-[#162742] rounded opacity-0 group-hover/field:opacity-100 transition-opacity duration-200 pointer-events-none z-10 font-ui">
+                                  {isRtl ? 'اللقب الأكاديمي' : 'Title'}
+                                </span>
+                                <input
+                                  type="text"
+                                  name={`teacher${teacherIdx}_title__${sectionLang[activeSubSection]}`}
+                                  value={getVal(`teacher${teacherIdx}_title`, activeSubSection)}
+                                  onChange={(e) => handleFieldChange(`teacher${teacherIdx}_title`, sectionLang[activeSubSection], e.target.value)}
+                                  placeholder="Title..."
+                                  className="w-full text-center bg-transparent border border-dashed border-transparent hover:border-gold/50 rounded text-[9px] text-gold-hi uppercase tracking-widest font-semibold focus:outline-none"
+                                />
+                              </div>
+                            </div>
+
+                            {/* Info Fields */}
+                            <div className="space-y-4 text-[10px]">
+                              {/* Education */}
+                              <div className="relative group/field space-y-0.5 border border-dashed border-stone/10 hover:border-gold/30 rounded-lg p-2 bg-gold/[0.01]">
+                                <span className="text-stone/50 block text-[8px] font-bold">{isRtl ? 'المؤهل والدراسة' : 'Education'}</span>
+                                <input
+                                  type="text"
+                                  name={`teacher${teacherIdx}_education__${sectionLang[activeSubSection]}`}
+                                  value={getVal(`teacher${teacherIdx}_education`, activeSubSection)}
+                                  onChange={(e) => handleFieldChange(`teacher${teacherIdx}_education`, sectionLang[activeSubSection], e.target.value)}
+                                  placeholder="Education..."
+                                  className="w-full bg-transparent border-none text-midnight font-bold focus:outline-none"
+                                />
+                              </div>
+                              {/* Specialty */}
+                              <div className="relative group/field space-y-0.5 border border-dashed border-stone/10 hover:border-gold/30 rounded-lg p-2 bg-gold/[0.01]">
+                                <span className="text-stone/50 block text-[8px] font-bold">{isRtl ? 'التخصص الدقيق' : 'Specialty'}</span>
+                                <input
+                                  type="text"
+                                  name={`teacher${teacherIdx}_specialty__${sectionLang[activeSubSection]}`}
+                                  value={getVal(`teacher${teacherIdx}_specialty`, activeSubSection)}
+                                  onChange={(e) => handleFieldChange(`teacher${teacherIdx}_specialty`, sectionLang[activeSubSection], e.target.value)}
+                                  placeholder="Specialty..."
+                                  className="w-full bg-transparent border-none text-midnight font-bold focus:outline-none"
+                                />
+                              </div>
+                              {/* Languages */}
+                              <div className="relative group/field space-y-0.5 border border-dashed border-stone/10 hover:border-gold/30 rounded-lg p-2 bg-gold/[0.01]">
+                                <span className="text-stone/50 block text-[8px] font-bold">{isRtl ? 'لغات التدريس والتدريب' : 'Languages'}</span>
+                                <input
+                                  type="text"
+                                  name={`teacher${teacherIdx}_languages__${sectionLang[activeSubSection]}`}
+                                  value={getVal(`teacher${teacherIdx}_languages`, activeSubSection)}
+                                  onChange={(e) => handleFieldChange(`teacher${teacherIdx}_languages`, sectionLang[activeSubSection], e.target.value)}
+                                  placeholder="Languages..."
+                                  className="w-full bg-transparent border-none text-midnight font-bold focus:outline-none"
+                                />
+                              </div>
+                            </div>
+
+                          </div>
+
+                          <span className="text-[10px] bg-gold text-[#22314b] font-bold text-center block py-3 rounded-full cursor-not-allowed uppercase tracking-wider">
+                            {isRtl ? 'طلب حصة تجريبية مع المعلم' : 'Book Assessment Session'}
+                          </span>
+                        </div>
+
+                        {/* Resume details column */}
+                        <div className="lg:col-span-2 space-y-6">
+                          
+                          {/* Bio */}
+                          <div className="bg-ivory border border-gold-muted/20 rounded-[2rem] p-6 text-midnight space-y-2 relative group/field">
+                            <h5 className="text-xs font-bold text-midnight border-b border-gold-muted/10 pb-2 flex items-center gap-2">
+                              <BookOpen size={14} className="text-gold" />
+                              {isRtl ? 'السيرة الأكاديمية والمهنية' : 'Academic Biography'}
+                            </h5>
+                            <textarea
+                              name={`teacher${teacherIdx}_bio__${sectionLang[activeSubSection]}`}
+                              value={getVal(`teacher${teacherIdx}_bio`, activeSubSection)}
+                              onChange={(e) => handleFieldChange(`teacher${teacherIdx}_bio`, sectionLang[activeSubSection], e.target.value)}
+                              placeholder="Biography narrative..."
+                              rows={4}
+                              className="w-full bg-transparent border border-dashed border-transparent hover:border-gold/50 focus:border-gold rounded p-1 text-[10px] text-stone leading-relaxed resize-none focus:outline-none font-ui font-normal"
+                            />
+                          </div>
+
+                          {/* Qualifications */}
+                          <div className="bg-ivory border border-gold-muted/20 rounded-[2rem] p-6 text-midnight space-y-2 relative group/field">
+                            <span className="absolute top-2 right-4 text-[7px] text-stone/45 font-bold uppercase tracking-wider">{isRtl ? 'كل سطر يمثل مؤهل' : 'One item per line'}</span>
+                            <h5 className="text-xs font-bold text-midnight border-b border-gold-muted/10 pb-2 flex items-center gap-2">
+                              <GraduationCap size={14} className="text-gold" />
+                              {isRtl ? 'المؤهلات العلمية والدراسة' : 'Academic Qualifications'}
+                            </h5>
+                            <textarea
+                              name={`teacher${teacherIdx}_qualifications__${sectionLang[activeSubSection]}`}
+                              value={getVal(`teacher${teacherIdx}_qualifications`, activeSubSection)}
+                              onChange={(e) => handleFieldChange(`teacher${teacherIdx}_qualifications`, sectionLang[activeSubSection], e.target.value)}
+                              placeholder="Qualifications (one per line)..."
+                              rows={4}
+                              className="w-full bg-transparent border border-dashed border-transparent hover:border-gold/50 focus:border-gold rounded p-1 text-[10px] text-stone leading-relaxed resize-none focus:outline-none font-ui font-normal"
+                            />
+                          </div>
+
+                          {/* Ijazas */}
+                          <div className="bg-ivory border border-gold-muted/20 rounded-[2rem] p-6 text-midnight space-y-2 relative group/field">
+                            <span className="absolute top-2 right-4 text-[7px] text-stone/45 font-bold uppercase tracking-wider">{isRtl ? 'كل سطر يمثل إجازة' : 'One item per line'}</span>
+                            <h5 className="text-xs font-bold text-midnight border-b border-gold-muted/10 pb-2 flex items-center gap-2">
+                              <Award size={14} className="text-gold" />
+                              {isRtl ? 'الإجازات والأسانيد المعتمدة' : 'Certifications & Ijazat'}
+                            </h5>
+                            <textarea
+                              name={`teacher${teacherIdx}_ijazas__${sectionLang[activeSubSection]}`}
+                              value={getVal(`teacher${teacherIdx}_ijazas`, activeSubSection)}
+                              onChange={(e) => handleFieldChange(`teacher${teacherIdx}_ijazas`, sectionLang[activeSubSection], e.target.value)}
+                              placeholder="Ijazas (one per line)..."
+                              rows={4}
+                              className="w-full bg-transparent border border-dashed border-transparent hover:border-gold/50 focus:border-gold rounded p-1 text-[10px] text-stone leading-relaxed resize-none focus:outline-none font-ui font-normal"
+                            />
+                          </div>
+
+                          {/* Experiences */}
+                          <div className="bg-ivory border border-gold-muted/20 rounded-[2rem] p-6 text-midnight space-y-2 relative group/field">
+                            <span className="absolute top-2 right-4 text-[7px] text-stone/45 font-bold uppercase tracking-wider">{isRtl ? 'كل سطر يمثل خبرة' : 'One item per line'}</span>
+                            <h5 className="text-xs font-bold text-midnight border-b border-gold-muted/10 pb-2 flex items-center gap-2">
+                              <Briefcase size={14} className="text-gold" />
+                              {isRtl ? 'الخبرات العلمية والعملية' : 'Professional Experience'}
+                            </h5>
+                            <textarea
+                              name={`teacher${teacherIdx}_experiences__${sectionLang[activeSubSection]}`}
+                              value={getVal(`teacher${teacherIdx}_experiences`, activeSubSection)}
+                              onChange={(e) => handleFieldChange(`teacher${teacherIdx}_experiences`, sectionLang[activeSubSection], e.target.value)}
+                              placeholder="Experiences (one per line)..."
+                              rows={4}
+                              className="w-full bg-transparent border border-dashed border-transparent hover:border-gold/50 focus:border-gold rounded p-1 text-[10px] text-stone leading-relaxed resize-none focus:outline-none font-ui font-normal"
+                            />
+                          </div>
+
+                          {/* Skills */}
+                          <div className="bg-ivory border border-gold-muted/20 rounded-[2rem] p-6 text-midnight space-y-2 relative group/field">
+                            <span className="absolute top-2 right-4 text-[7px] text-stone/45 font-bold uppercase tracking-wider">{isRtl ? 'كل سطر يمثل مهارة' : 'One item per line'}</span>
+                            <h5 className="text-xs font-bold text-midnight border-b border-gold-muted/10 pb-2 flex items-center gap-2">
+                              <Sparkles size={14} className="text-gold" />
+                              {isRtl ? 'المهارات والقدرات التربوية' : 'Core Pedagogical Skills'}
+                            </h5>
+                            <textarea
+                              name={`teacher${teacherIdx}_skills__${sectionLang[activeSubSection]}`}
+                              value={getVal(`teacher${teacherIdx}_skills`, activeSubSection)}
+                              onChange={(e) => handleFieldChange(`teacher${teacherIdx}_skills`, sectionLang[activeSubSection], e.target.value)}
+                              placeholder="Skills (one per line)..."
+                              rows={4}
+                              className="w-full bg-transparent border border-dashed border-transparent hover:border-gold/50 focus:border-gold rounded p-1 text-[10px] text-stone leading-relaxed resize-none focus:outline-none font-ui font-normal"
+                            />
+                          </div>
+
+                          {/* Scholarly Textbooks list (Only for Teacher 2) */}
+                          {teacherIdx === 2 && (
+                            <div className="bg-ivory border border-gold-muted/20 rounded-[2rem] p-6 text-midnight space-y-4 relative">
+                              <div className="space-y-1 relative group/field">
+                                <span className="text-stone/40 block text-[8px] font-bold">Scholarly Section Title</span>
+                                <input
+                                  type="text"
+                                  name={`teacher2_scholarlyTextTitle__${sectionLang[activeSubSection]}`}
+                                  value={getVal('teacher2_scholarlyTextTitle', activeSubSection)}
+                                  onChange={(e) => handleFieldChange('teacher2_scholarlyTextTitle', sectionLang[activeSubSection], e.target.value)}
+                                  placeholder="Scholarly Texts Title..."
+                                  className="w-full bg-transparent border border-dashed border-transparent hover:border-gold/50 focus:border-gold rounded font-bold text-[11px] text-midnight focus:outline-none"
+                                />
+                              </div>
+                              <div className="relative group/field space-y-1">
+                                <span className="text-stone/40 block text-[8px] font-bold">Scholarly Textbooks List (one per line)</span>
+                                <textarea
+                                  name={`teacher2_scholarlyTexts__${sectionLang[activeSubSection]}`}
+                                  value={getVal('teacher2_scholarlyTexts', activeSubSection)}
+                                  onChange={(e) => handleFieldChange('teacher2_scholarlyTexts', sectionLang[activeSubSection], e.target.value)}
+                                  placeholder="Scholarly manual books list..."
+                                  rows={5}
+                                  className="w-full bg-transparent border border-dashed border-transparent hover:border-gold/50 focus:border-gold rounded p-1 text-[10px] text-stone leading-relaxed resize-none focus:outline-none font-ui font-normal"
+                                />
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Special Heritage Section (Only for Teacher 3) */}
+                          {teacherIdx === 3 && (
+                            <div className="bg-ivory border border-gold-muted/20 rounded-[2rem] p-6 text-midnight space-y-4 relative">
+                              <div className="space-y-1 relative group/field">
+                                <span className="text-stone/40 block text-[8px] font-bold">Heritage Section Title</span>
+                                <input
+                                  type="text"
+                                  name={`teacher3_specialSectionTitle__${sectionLang[activeSubSection]}`}
+                                  value={getVal('teacher3_specialSectionTitle', activeSubSection)}
+                                  onChange={(e) => handleFieldChange('teacher3_specialSectionTitle', sectionLang[activeSubSection], e.target.value)}
+                                  placeholder="Heritage Section Title..."
+                                  className="w-full bg-transparent border border-dashed border-transparent hover:border-gold/50 focus:border-gold rounded font-bold text-[11px] text-midnight focus:outline-none"
+                                />
+                              </div>
+                              <div className="relative group/field space-y-1">
+                                <span className="text-stone/40 block text-[8px] font-bold">Heritage Section Text</span>
+                                <textarea
+                                  name={`teacher3_specialSectionText__${sectionLang[activeSubSection]}`}
+                                  value={getVal('teacher3_specialSectionText', activeSubSection)}
+                                  onChange={(e) => handleFieldChange('teacher3_specialSectionText', sectionLang[activeSubSection], e.target.value)}
+                                  placeholder="Heritage calligraphy details..."
+                                  rows={5}
+                                  className="w-full bg-transparent border border-dashed border-transparent hover:border-gold/50 focus:border-gold rounded p-1 text-[10px] text-stone leading-relaxed resize-none focus:outline-none font-ui font-normal"
+                                />
+                              </div>
+                            </div>
+                          )}
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Actions footer */}
+                  <div className="px-6 py-4 bg-gradient-to-r from-white to-[#FDFAF3]/30 border-t border-gold-muted/10 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      {saveStates[activeSubSection]?.success && (
+                        <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-600 font-bold font-ui">
+                          <CheckCircle2 size={12} className="animate-bounce" />
+                          {isRtl ? 'تم حفظ التعديلات بنجاح' : 'Teacher profile updated successfully'}
+                        </span>
+                      )}
+                      {saveStates[activeSubSection]?.error && (
+                        <span className="inline-flex items-center gap-1 text-[10px] text-rose-600 font-bold font-ui">
+                          <AlertCircle size={12} />
+                          {isRtl ? `خطأ: ${saveStates[activeSubSection].error}` : `Error: ${saveStates[activeSubSection].error}`}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => handleResetSection(activeSubSection)}
+                        className="px-4 py-2.5 rounded-xl border border-stone/20 hover:border-gold hover:bg-gold/5 text-stone hover:text-gold text-[10px] font-bold uppercase tracking-wider transition-all duration-300 font-ui cursor-pointer"
+                      >
+                        {isRtl ? 'إعادة تعيين' : 'Reset Profile'}
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={saveStates[activeSubSection]?.loading}
+                        className={`btn-gold py-2.5 px-5 rounded-xl text-[10px] uppercase tracking-wider font-bold inline-flex items-center gap-2 shadow-md transition-all duration-300 font-ui cursor-pointer ${
+                          saveStates[activeSubSection]?.loading ? 'opacity-70 cursor-not-allowed' : 'hover:scale-[1.02] active:scale-[0.98]'
+                        }`}
+                      >
+                        {saveStates[activeSubSection]?.loading ? (
+                          <>
+                            <Loader2 size={12} className="animate-spin" />
+                            <span>{isRtl ? 'جاري الحفظ...' : 'Saving...'}</span>
+                          </>
+                        ) : (
+                          <>
+                            <Save size={12} />
+                            <span>{isRtl ? 'حفظ هذا المعلم فقط' : 'Save Profile'}</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              );
+            })()}
           </>
         )}
 

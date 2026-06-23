@@ -93,6 +93,9 @@ export async function saveSettings(formData: FormData) {
   // Revalidate public layouts/pages
   revalidatePath(`/${locale}`);
   revalidatePath(`/${locale}/about`);
+  revalidatePath(`/${locale}/teachers`);
+  revalidatePath(`/${locale}/teachers/[slug]`);
   
   return { success: true };
 }
+
