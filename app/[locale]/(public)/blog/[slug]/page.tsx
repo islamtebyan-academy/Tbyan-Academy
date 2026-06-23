@@ -7,6 +7,7 @@ import {
   Calendar, Clock, GraduationCap, ArrowLeft, ArrowRight, BookOpen, Sparkles, Bookmark
 } from 'lucide-react';
 import { locales } from '@/i18n';
+import { createClient } from '@/lib/supabase/server';
 import { Article, ARTICLES_DATA, BASE_ARTICLES } from '../data';
 
 interface PageProps {
@@ -22,29 +23,91 @@ export async function generateStaticParams() {
   );
 }
 
+const getCategoryLabel = (key: string, locale: string) => {
+  const categories: Record<string, Record<string, string>> = {
+    ar: {
+      quran: 'علوم القرآن',
+      fiqh: 'أصول الفقه',
+      arabic: 'اللسانيات العربية',
+      aqidah: 'العقيدة والتوحيد',
+      logic: 'المنطق والبحث',
+      literature: 'الأدب والبلاغة',
+      history: 'التاريخ الإسلامي',
+      kids: 'تربية الأطفال'
+    },
+    en: {
+      quran: 'Quranic Sciences',
+      fiqh: 'Jurisprudence (Fiqh)',
+      arabic: 'Arabic Linguistics',
+      aqidah: 'Islamic Creed',
+      logic: 'Islamic Logic',
+      literature: 'Rhetoric & Literature',
+      history: 'Islamic History',
+      kids: 'Islamic Parenting'
+    },
+    fr: {
+      quran: 'Sciences du Coran',
+      fiqh: 'Jurisprudence (Fiqh)',
+      arabic: 'Linguistique Arabe',
+      aqidah: 'Creed & Théologie',
+      logic: 'Logique Islamique',
+      literature: 'Rhétorique & Littérature',
+      history: 'Histoire Islamique',
+      kids: 'Éducation des Enfants'
+    }
+  };
+  return categories[locale]?.[key] || categories.en[key] || key;
+};
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const articleTrans = ARTICLES_DATA[locale]?.[slug] || ARTICLES_DATA.en?.[slug];
   
-  if (!articleTrans) {
+  let title = '';
+  let excerpt = '';
+
+  try {
+    const supabase = await createClient();
+    const { data: dbArticle } = await supabase
+      .from('articles')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+
+    if (dbArticle) {
+      title = dbArticle.title?.[locale] || dbArticle.title?.en || '';
+      excerpt = dbArticle.excerpt?.[locale] || dbArticle.excerpt?.en || '';
+    }
+  } catch (err) {
+    console.error('Metadata DB fetch failed, using static fallback:', err);
+  }
+
+  if (!title) {
+    const articleTrans = ARTICLES_DATA[locale]?.[slug] || ARTICLES_DATA.en?.[slug];
+    if (articleTrans) {
+      title = articleTrans.title;
+      excerpt = articleTrans.excerpt;
+    }
+  }
+
+  if (!title) {
     return {
       title: 'Article Not Found — Islam Tebyan Academy',
     };
   }
 
   return {
-    title: `${articleTrans.title} — Islam Tebyan Academy`,
-    description: articleTrans.excerpt,
+    title: `${title} — Islam Tebyan Academy`,
+    description: excerpt,
     openGraph: {
-      title: `${articleTrans.title} — Islam Tebyan Academy`,
-      description: articleTrans.excerpt,
+      title: `${title} — Islam Tebyan Academy`,
+      description: excerpt,
       type: 'article',
       images: [
         {
           url: `/images/article_${slug.replace(/-/g, '_')}.png`,
           width: 1200,
           height: 630,
-          alt: articleTrans.title,
+          alt: title,
         }
       ],
     }
@@ -93,33 +156,106 @@ export default async function ArticlePage({ params }: PageProps) {
   
   const labels = labelsMap[locale as keyof typeof labelsMap] || labelsMap.en;
   
-  // Find article metadata
+  // 1. Fetch from Supabase first
+  const supabase = await createClient();
+  let dbArticle = null;
+  try {
+    const { data } = await supabase
+      .from('articles')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+    dbArticle = data;
+  } catch (err) {
+    console.error('Error fetching article from database:', err);
+  }
+
+  // 2. Fallback to static
+  let article: Article | null = null;
   const baseArticle = BASE_ARTICLES.find(art => art.slug === slug);
   const articleTrans = ARTICLES_DATA[locale]?.[slug] || ARTICLES_DATA.en?.[slug];
 
-  if (!baseArticle || !articleTrans) {
+  if (dbArticle) {
+    article = {
+      slug: dbArticle.slug,
+      categoryKey: dbArticle.category_key,
+      image: dbArticle.image_url || '/images/article_default.png',
+      date: dbArticle.date,
+      readTime: dbArticle.read_time,
+      translation: {
+        category: getCategoryLabel(dbArticle.category_key, locale),
+        title: dbArticle.title?.[locale] || dbArticle.title?.en || '',
+        excerpt: dbArticle.excerpt?.[locale] || dbArticle.excerpt?.en || '',
+        ctaMessage: dbArticle.cta_message?.[locale] || dbArticle.cta_message?.en || '',
+        bookingTopic: dbArticle.booking_topic || 'general',
+        content: {
+          intro: dbArticle.content?.[locale]?.intro || '',
+          sections: dbArticle.content?.[locale]?.sections || [],
+          conclusion: dbArticle.content?.[locale]?.conclusion || '',
+          references: dbArticle.content?.[locale]?.references || []
+        }
+      }
+    };
+  } else if (baseArticle && articleTrans) {
+    article = {
+      ...baseArticle,
+      translation: articleTrans
+    };
+  }
+
+  if (!article) {
     notFound();
   }
 
-  const article: Article = {
-    ...baseArticle,
-    translation: articleTrans
-  };
-
   // Find related articles (same category or others, excluding current)
-  const relatedList = BASE_ARTICLES
-    .filter(art => art.slug !== slug)
-    .sort((a, b) => {
-      // Prioritize same categoryKey
-      if (a.categoryKey === article.categoryKey && b.categoryKey !== article.categoryKey) return -1;
-      if (b.categoryKey === article.categoryKey && a.categoryKey !== article.categoryKey) return 1;
-      return 0;
-    })
-    .slice(0, 3)
-    .map(art => ({
+  let allArticles: Article[] = [];
+  try {
+    const { data: dbArticles } = await supabase
+      .from('articles')
+      .select('*')
+      .eq('status', 'published');
+
+    if (dbArticles && dbArticles.length > 0) {
+      allArticles = dbArticles.map((item: any) => ({
+        slug: item.slug,
+        categoryKey: item.category_key,
+        image: item.image_url || '/images/article_default.png',
+        date: item.date,
+        readTime: item.read_time,
+        translation: {
+          category: getCategoryLabel(item.category_key, locale),
+          title: item.title?.[locale] || item.title?.en || '',
+          excerpt: item.excerpt?.[locale] || item.excerpt?.en || '',
+          ctaMessage: item.cta_message?.[locale] || item.cta_message?.en || '',
+          bookingTopic: item.booking_topic || 'general',
+          content: {
+            intro: item.content?.[locale]?.intro || '',
+            sections: item.content?.[locale]?.sections || [],
+            conclusion: item.content?.[locale]?.conclusion || '',
+            references: item.content?.[locale]?.references || []
+          }
+        }
+      }));
+    }
+  } catch (err) {
+    console.error('Error fetching dynamic articles for related list:', err);
+  }
+
+  if (allArticles.length === 0) {
+    allArticles = BASE_ARTICLES.map(art => ({
       ...art,
       translation: ARTICLES_DATA[locale]?.[art.slug] || ARTICLES_DATA.en?.[art.slug]
     }));
+  }
+
+  const relatedList = allArticles
+    .filter(art => art.slug !== slug)
+    .sort((a, b) => {
+      if (a.categoryKey === article!.categoryKey && b.categoryKey !== article!.categoryKey) return -1;
+      if (b.categoryKey === article!.categoryKey && a.categoryKey !== article!.categoryKey) return 1;
+      return 0;
+    })
+    .slice(0, 3);
 
   return (
     <div className="min-h-screen bg-ivory text-midnight selection:bg-gold-hi/30">

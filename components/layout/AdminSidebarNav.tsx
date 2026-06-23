@@ -10,6 +10,7 @@ import {
   FileText, 
   Image as ImageIcon, 
   ShieldAlert,
+  Newspaper,
   LucideIcon
 } from 'lucide-react';
 
@@ -43,6 +44,11 @@ export default function AdminSidebarNav({ locale, isRtl, isSuperAdmin }: AdminSi
       label: isRtl ? 'إدارة الكورسات' : 'Course Catalog',
       href: `/${locale}/admin/courses`,
       icon: BookOpen,
+    },
+    {
+      label: isRtl ? 'إدارة المقالات والأبحاث' : 'Articles & Research',
+      href: `/${locale}/admin/articles`,
+      icon: Newspaper,
     },
     {
       label: isRtl ? 'إدارة المحتوى (CMS)' : 'Content Manager',

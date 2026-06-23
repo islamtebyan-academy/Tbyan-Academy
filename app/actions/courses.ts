@@ -40,6 +40,19 @@ export async function saveCourse(formData: FormData) {
   const durationEn = formData.get('durationEn') as string;
   const durationFr = formData.get('durationFr') as string;
 
+  // Read dynamic single page content values
+  const whatYouLearnAr = formData.get('whatYouLearnAr') as string;
+  const whatYouLearnEn = formData.get('whatYouLearnEn') as string;
+  const whatYouLearnFr = formData.get('whatYouLearnFr') as string;
+
+  const outcomesAr = formData.get('outcomesAr') as string;
+  const outcomesEn = formData.get('outcomesEn') as string;
+  const outcomesFr = formData.get('outcomesFr') as string;
+
+  const studyPlanAr = formData.get('studyPlanAr') as string;
+  const studyPlanEn = formData.get('studyPlanEn') as string;
+  const studyPlanFr = formData.get('studyPlanFr') as string;
+
   if (!slug) {
     return { error: 'Slug is required.' };
   }
@@ -88,6 +101,28 @@ export async function saveCourse(formData: FormData) {
     imageUrl = publicUrl;
   }
 
+  // Helpers to parse lists
+  const parseLineItems = (text: string) => {
+    if (!text) return [];
+    return text
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line.length > 0);
+  };
+
+  const parseKeyValueItems = (text: string) => {
+    if (!text) return [];
+    return text
+      .split('\n')
+      .map(line => {
+        const parts = line.split('|');
+        const title = parts[0]?.trim() || '';
+        const desc = parts[1]?.trim() || '';
+        return { title, desc };
+      })
+      .filter(item => item.title.length > 0);
+  };
+
   // Helper to merge translation fields
   const mergeLocaleObject = (
     fieldKey: string, 
@@ -109,6 +144,26 @@ export async function saveCourse(formData: FormData) {
     return merged;
   };
 
+  const mergeJsonLocaleObject = (
+    fieldKey: string,
+    formValues: { ar: any; en: any; fr: any }
+  ) => {
+    const existing = existingCourse ? existingCourse[fieldKey] : {};
+    const merged = { ...existing };
+    
+    if (formValues.ar !== undefined && formValues.ar !== null) {
+      merged.ar = formValues.ar;
+    }
+    if (formValues.en !== undefined && formValues.en !== null) {
+      merged.en = formValues.en;
+    }
+    if (formValues.fr !== undefined && formValues.fr !== null) {
+      merged.fr = formValues.fr;
+    }
+    
+    return merged;
+  };
+
   // Structure dynamic trilingual payload
   const payload = {
     title: mergeLocaleObject('title', { ar: titleAr, en: titleEn, fr: titleFr }),
@@ -121,6 +176,21 @@ export async function saveCourse(formData: FormData) {
     registration_link: registrationLink,
     zoom_link: zoomLink,
     status,
+    what_you_learn: mergeJsonLocaleObject('what_you_learn', {
+      ar: whatYouLearnAr !== undefined && whatYouLearnAr !== null ? parseLineItems(whatYouLearnAr) : undefined,
+      en: whatYouLearnEn !== undefined && whatYouLearnEn !== null ? parseLineItems(whatYouLearnEn) : undefined,
+      fr: whatYouLearnFr !== undefined && whatYouLearnFr !== null ? parseLineItems(whatYouLearnFr) : undefined
+    }),
+    outcomes: mergeJsonLocaleObject('outcomes', {
+      ar: outcomesAr !== undefined && outcomesAr !== null ? parseKeyValueItems(outcomesAr) : undefined,
+      en: outcomesEn !== undefined && outcomesEn !== null ? parseKeyValueItems(outcomesEn) : undefined,
+      fr: outcomesFr !== undefined && outcomesFr !== null ? parseKeyValueItems(outcomesFr) : undefined
+    }),
+    study_plan: mergeJsonLocaleObject('study_plan', {
+      ar: studyPlanAr !== undefined && studyPlanAr !== null ? parseKeyValueItems(studyPlanAr) : undefined,
+      en: studyPlanEn !== undefined && studyPlanEn !== null ? parseKeyValueItems(studyPlanEn) : undefined,
+      fr: studyPlanFr !== undefined && studyPlanFr !== null ? parseKeyValueItems(studyPlanFr) : undefined
+    }),
     updated_at: new Date().toISOString()
   };
 

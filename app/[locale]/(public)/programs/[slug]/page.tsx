@@ -883,6 +883,10 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
   let course: CourseDbItem | null = null;
 
   if (staticCourse) {
+    const dbWhatYouLearn = dbCourse?.what_you_learn?.[locale] || dbCourse?.what_you_learn?.en;
+    const dbOutcomes = dbCourse?.outcomes?.[locale] || dbCourse?.outcomes?.en;
+    const dbStudyPlan = dbCourse?.study_plan?.[locale] || dbCourse?.study_plan?.en;
+
     course = {
       ...staticCourse,
       title: dbCourse ? (dbCourse.title?.[locale] || dbCourse.title?.en || staticCourse.title) : staticCourse.title,
@@ -891,9 +895,16 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
       duration: dbCourse ? (dbCourse.duration?.[locale] || dbCourse.duration?.en || staticCourse.duration) : staticCourse.duration,
       importance: dbCourse ? (dbCourse.full_description?.[locale] || dbCourse.full_description?.en || staticCourse.importance) : staticCourse.importance,
       syllabus: dbCourse ? (dbCourse.instructor?.[locale] || dbCourse.instructor?.en || staticCourse.syllabus) : staticCourse.syllabus,
+      whatYouLearn: (dbWhatYouLearn && dbWhatYouLearn.length > 0) ? dbWhatYouLearn : staticCourse.whatYouLearn,
+      outcomes: (dbOutcomes && dbOutcomes.length > 0) ? dbOutcomes : staticCourse.outcomes,
+      studyPlan: (dbStudyPlan && dbStudyPlan.length > 0) ? dbStudyPlan : staticCourse.studyPlan,
     };
   } else if (dbCourse) {
     const track = getTrackFromSlug(dbCourse.slug);
+    const dbWhatYouLearn = dbCourse.what_you_learn?.[locale] || dbCourse.what_you_learn?.en || [];
+    const dbOutcomes = dbCourse.outcomes?.[locale] || dbCourse.outcomes?.en || [];
+    const dbStudyPlan = dbCourse.study_plan?.[locale] || dbCourse.study_plan?.en || [];
+
     course = {
       title: dbCourse.title?.[locale] || dbCourse.title?.en || '',
       tagline: dbCourse.short_description?.[locale] || dbCourse.short_description?.en || '',
@@ -903,10 +914,10 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
       level: locale === 'ar' ? 'تأصيلي' : (locale === 'fr' ? 'Fondations' : 'Core'),
       syllabus: dbCourse.instructor?.[locale] || dbCourse.instructor?.en || '',
       importance: dbCourse.full_description?.[locale] || dbCourse.full_description?.en || '',
-      whatYouLearn: [],
-      outcomes: [],
+      whatYouLearn: dbWhatYouLearn,
+      outcomes: dbOutcomes,
       relatedSlugs: [],
-      studyPlan: []
+      studyPlan: dbStudyPlan
     };
   }
 

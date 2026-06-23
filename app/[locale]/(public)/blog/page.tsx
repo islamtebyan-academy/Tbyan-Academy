@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
@@ -9,6 +9,7 @@ import {
   Search, X, Calendar, Clock, Bookmark, ArrowLeft, ArrowRight
 } from 'lucide-react';
 import ParallaxBackground from '@/components/ui/ParallaxBackground';
+import { createClient } from '@/lib/supabase/client';
 import { Article, ARTICLES_DATA, BASE_ARTICLES } from './data';
 
 const fadeInUp: Variants = {
@@ -34,6 +35,7 @@ export default function BlogPage() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [dbArticles, setDbArticles] = useState<Article[]>([]);
 
   // Localization labels
   const labels = useMemo(() => {
@@ -115,8 +117,56 @@ export default function BlogPage() {
     }
   }, [locale]);
 
+  // Fetch articles from Supabase with static fallback
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from('articles')
+          .select('*')
+          .eq('status', 'published')
+          .order('date', { ascending: false });
+
+        if (!error && data && data.length > 0) {
+          const mapped: Article[] = data.map((item: any) => {
+            const categoriesObj = labels.categories as Record<string, string>;
+            const catLabel = categoriesObj[item.category_key] || item.category_key;
+            return {
+              slug: item.slug,
+              categoryKey: item.category_key,
+              image: item.image_url,
+              date: item.date,
+              readTime: item.read_time,
+              translation: {
+                category: catLabel,
+                title: item.title?.[locale] || item.title?.en || '',
+                excerpt: item.excerpt?.[locale] || item.excerpt?.en || '',
+                ctaMessage: item.cta_message?.[locale] || item.cta_message?.en || '',
+                bookingTopic: item.booking_topic || 'general',
+                content: {
+                  intro: item.content?.[locale]?.intro || '',
+                  sections: item.content?.[locale]?.sections || [],
+                  conclusion: item.content?.[locale]?.conclusion || '',
+                  references: item.content?.[locale]?.references || []
+                }
+              }
+            };
+          });
+          setDbArticles(mapped);
+        }
+      } catch (err) {
+        console.error('Failed to load articles from database, using static fallback:', err);
+      }
+    };
+    fetchArticles();
+  }, [locale, labels]);
+
   // Combine static configuration and local translations
   const articles: Article[] = useMemo(() => {
+    if (dbArticles && dbArticles.length > 0) {
+      return dbArticles;
+    }
     return BASE_ARTICLES.map(art => {
       const trans = ARTICLES_DATA[locale]?.[art.slug] || ARTICLES_DATA.en[art.slug];
       return {
@@ -124,7 +174,7 @@ export default function BlogPage() {
         translation: trans
       };
     });
-  }, [locale]);
+  }, [locale, dbArticles]);
 
   // Handle Search & Filter logic
   const filteredArticles = useMemo(() => {

@@ -1,0 +1,635 @@
+'use client';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { 
+  X, 
+  Settings, 
+  FileText, 
+  Globe, 
+  Check, 
+  HelpCircle 
+} from 'lucide-react';
+import { saveArticle } from '@/app/actions/articles';
+
+interface ArticleEditModalProps {
+  selectedArticle: any;
+  isNew: boolean;
+  locale: string;
+  initialTab?: 'general' | 'content';
+}
+
+export default function ArticleEditModal({ selectedArticle, isNew, locale, initialTab }: ArticleEditModalProps) {
+  const router = useRouter();
+  const isRtl = locale === 'ar';
+  const [activeTab, setActiveTab] = useState<'general' | 'content'>(initialTab || 'general');
+  const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
+
+  // Helper to convert DB content back to textarea strings
+  const getSectionsString = (lang: string) => {
+    if (!selectedArticle?.content?.[lang]?.sections) return '';
+    const sections = selectedArticle.content[lang].sections;
+    if (Array.isArray(sections)) {
+      return sections.map((sec: any) => {
+        const subtitle = sec.subtitle || '';
+        const body = sec.body || '';
+        const quote = sec.quote || '';
+        return `${subtitle} | ${body} ${quote ? `| ${quote}` : ''}`;
+      }).join('\n');
+    }
+    return '';
+  };
+
+  const getReferencesString = (lang: string) => {
+    if (!selectedArticle?.content?.[lang]?.references) return '';
+    const refs = selectedArticle.content[lang].references;
+    if (Array.isArray(refs)) {
+      return refs.join('\n');
+    }
+    return '';
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setPending(true);
+    setError(null);
+
+    const formData = new FormData(event.currentTarget);
+    try {
+      const result = await saveArticle(formData);
+      if (result?.error) {
+        setError(result.error);
+      } else {
+        router.push(`/${locale}/admin/articles`);
+        router.refresh();
+      }
+    } catch (err: any) {
+      setError(err?.message || 'Something went wrong');
+    } finally {
+      setPending(false);
+    }
+  };
+
+  return (
+    <div className={`fixed top-0 bottom-0 z-30 flex items-center justify-center p-5 bg-[#0d1624]/75 backdrop-blur-md animate-fade-in ${
+      isRtl 
+        ? 'right-0 md:right-68 lg:right-76 left-0' 
+        : 'left-0 md:left-68 lg:left-76 right-0'
+    }`}>
+      {/* Backdrop dismiss */}
+      <Link 
+        href={`/${locale}/admin/articles`}
+        className="absolute inset-0 cursor-default"
+      />
+
+      {/* Modal Panel taking full remaining screen space with padding */}
+      <div className="w-full h-full bg-gradient-to-b from-white to-[#FDFAF3] border border-gold-muted/20 rounded-[2rem] shadow-2xl relative flex flex-col text-start overflow-hidden animate-fade-up pattern-overlay">
+        {/* Top Accent Gold Bar */}
+        <div className="absolute top-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-gold-muted/20 via-gold-hi to-gold-muted/20 opacity-80 z-20" />
+
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 md:p-8 border-b border-gold/15 bg-white relative z-10 shrink-0">
+          <div>
+            <h3 className="text-xl font-bold text-midnight font-primary">
+              {isNew ? (isRtl ? 'إضافة مقال جديد للمدونة' : 'Create New Blog Post') : (isRtl ? 'تعديل بيانات المقال' : 'Edit Blog Post')}
+            </h3>
+            <p className="text-[10px] text-gold uppercase tracking-widest font-bold font-mono mt-0.5">
+              {isNew ? (isRtl ? 'أبحاث ومقالات جديدة' : 'Knowledge Article') : `ID: ${selectedArticle.id.substring(0, 8)}...`}
+            </p>
+          </div>
+          <Link
+            href={`/${locale}/admin/articles`}
+            className="w-9 h-9 rounded-full bg-gold/5 border border-gold/20 hover:bg-gold/10 flex items-center justify-center text-stone hover:text-midnight transition-colors"
+          >
+            <X size={16} />
+          </Link>
+        </div>
+
+        {/* Tab Bar Navigation */}
+        <div className="flex border-b border-gold/10 bg-[#FDFAF3]/50 px-6 shrink-0 relative z-10">
+          <button
+            type="button"
+            onClick={() => setActiveTab('general')}
+            className={`flex items-center gap-2 py-4 px-4 text-xs font-bold font-ui transition-all border-b-2 -mb-[1px] ${
+              activeTab === 'general'
+                ? 'border-gold text-gold-hi'
+                : 'border-transparent text-stone/60 hover:text-midnight'
+            }`}
+          >
+            <Settings size={14} />
+            <span>{isRtl ? 'البيانات العامة للمقال' : 'General Details'}</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('content')}
+            className={`flex items-center gap-2 py-4 px-4 text-xs font-bold font-ui transition-all border-b-2 -mb-[1px] ${
+              activeTab === 'content'
+                ? 'border-gold text-gold-hi'
+                : 'border-transparent text-stone/60 hover:text-midnight'
+            }`}
+          >
+            <FileText size={14} />
+            <span>{isRtl ? 'محتوى المقال والأبحاث' : 'Article Body Content'}</span>
+          </button>
+        </div>
+
+        {/* Error Notification */}
+        {error && (
+          <div className="mx-8 mt-4 p-4 bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-xl relative z-10 shrink-0 font-ui flex items-center justify-between">
+            <span>{error}</span>
+            <button onClick={() => setError(null)} className="text-rose-400 hover:text-rose-600 font-bold">✕</button>
+          </div>
+        )}
+
+        {/* Form Wrap */}
+        <form onSubmit={handleSubmit} className="flex-grow flex flex-col min-h-0 relative z-10">
+          {selectedArticle && <input type="hidden" name="articleId" value={selectedArticle.id} />}
+          <input type="hidden" name="locale" value={locale} />
+          {selectedArticle?.image_url && <input type="hidden" name="existingImageUrl" value={selectedArticle.image_url} />}
+
+          {/* Form Body (Scrollable & Scrollbar-free) */}
+          <div className="flex-grow overflow-y-auto no-scrollbar p-6 md:p-8 space-y-6">
+            
+            {/* --- TAB A: General Settings --- */}
+            <div className={activeTab === 'general' ? 'space-y-6' : 'hidden'}>
+              
+              {/* Slug, Category, Date, Read Time, Booking Topic, Status */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div className="space-y-2">
+                  <label className="block text-[10px] font-bold uppercase tracking-widest text-stone/60 font-ui">
+                    {isRtl ? 'رابط المقال (Slug) *' : 'Article URL Slug *'}
+                  </label>
+                  <input
+                    type="text"
+                    name="slug"
+                    required
+                    placeholder="e.g. history-of-recitations"
+                    defaultValue={selectedArticle?.slug || ''}
+                    className="w-full bg-white border border-gold-hi/25 text-midnight py-3 px-4 rounded-xl text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all font-ui placeholder:text-stone/30"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="block text-[10px] font-bold uppercase tracking-widest text-stone/60 font-ui">
+                    {isRtl ? 'التصنيف العلمي (Category Key) *' : 'Academic Category Key *'}
+                  </label>
+                  <input
+                    type="text"
+                    name="categoryKey"
+                    required
+                    placeholder="e.g. quran, fiqh, arabic, logic"
+                    defaultValue={selectedArticle?.category_key || ''}
+                    className="w-full bg-white border border-gold-hi/25 text-midnight py-3 px-4 rounded-xl text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all font-ui placeholder:text-stone/30"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="status-select" className="block text-[10px] font-bold uppercase tracking-widest text-stone/60 font-ui">
+                    {isRtl ? 'حالة النشر' : 'Publication Status'}
+                  </label>
+                  <select
+                    id="status-select"
+                    name="status"
+                    title={isRtl ? 'حالة النشر' : 'Publication Status'}
+                    defaultValue={selectedArticle?.status || 'published'}
+                    className="w-full bg-white border border-gold-hi/25 text-midnight py-3.5 px-4 rounded-xl text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all font-ui cursor-pointer"
+                  >
+                    <option value="published">{isRtl ? 'منشور (يظهر للجميع)' : 'Published'}</option>
+                    <option value="draft">{isRtl ? 'مسودة (مخفي)' : 'Hidden (Draft)'}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div className="space-y-2">
+                  <label className="block text-[10px] font-bold uppercase tracking-widest text-stone/60 font-ui">
+                    {isRtl ? 'تاريخ النشر' : 'Publication Date'}
+                  </label>
+                  <input
+                    type="text"
+                    name="date"
+                    placeholder="e.g. 28 May 2026"
+                    defaultValue={selectedArticle?.date || new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                    className="w-full bg-white border border-gold-hi/25 text-midnight py-3 px-4 rounded-xl text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all font-ui placeholder:text-stone/30"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="block text-[10px] font-bold uppercase tracking-widest text-stone/60 font-ui">
+                    {isRtl ? 'وقت القراءة (بالدقائق)' : 'Read Time (Minutes)'}
+                  </label>
+                  <input
+                    type="number"
+                    name="readTime"
+                    placeholder="e.g. 8"
+                    defaultValue={selectedArticle?.read_time || 5}
+                    className="w-full bg-white border border-gold-hi/25 text-midnight py-3 px-4 rounded-xl text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all font-ui placeholder:text-stone/30"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="booking-topic-select" className="block text-[10px] font-bold uppercase tracking-widest text-stone/60 font-ui">
+                    {isRtl ? 'موضوع الحجز المرتبط (Booking Topic)' : 'Connected Booking Topic'}
+                  </label>
+                  <select
+                    id="booking-topic-select"
+                    name="bookingTopic"
+                    title={isRtl ? 'موضوع الحجز المرتبط (Booking Topic)' : 'Connected Booking Topic'}
+                    defaultValue={selectedArticle?.booking_topic || 'general'}
+                    className="w-full bg-white border border-gold-hi/25 text-midnight py-3.5 px-4 rounded-xl text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all font-ui cursor-pointer"
+                  >
+                    <option value="quran">{isRtl ? 'قرآن كريم وتجويد' : 'Quran & Tajweed'}</option>
+                    <option value="fiqh">{isRtl ? 'علوم فقهية وشرعية' : 'Shariah & Jurisprudence'}</option>
+                    <option value="arabic">{isRtl ? 'لغة عربية ونحو' : 'Arabic & Grammar'}</option>
+                    <option value="aqidah">{isRtl ? 'عقيدة وتوحيد' : 'Islamic Creed'}</option>
+                    <option value="logic">{isRtl ? 'منطق وفلسفة' : 'Logic & Theology'}</option>
+                    <option value="literature">{isRtl ? 'بلاغة وأدب' : 'Rhetoric & Literature'}</option>
+                    <option value="history">{isRtl ? 'تاريخ إسلامي' : 'Islamic History'}</option>
+                    <option value="parenting">{isRtl ? 'تربية واستشارات' : 'Parenting'}</option>
+                    <option value="general">{isRtl ? 'عام' : 'General Inquiry'}</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Trilingual Titles */}
+              <div className="space-y-3">
+                <span className="block text-[10px] font-bold uppercase tracking-widest text-gold font-ui">
+                  {isRtl ? 'عنوان المقال باللغات الثلاث *' : 'Article Titles (Trilingual) *'}
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">Arabic *</span>
+                    <input
+                      type="text"
+                      name="titleAr"
+                      required
+                      placeholder="تاريخ القراءات القرآنية"
+                      defaultValue={selectedArticle?.title?.ar || ''}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui placeholder:text-stone/30"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">English *</span>
+                    <input
+                      type="text"
+                      name="titleEn"
+                      required
+                      placeholder="History of Quranic Recitations"
+                      defaultValue={selectedArticle?.title?.en || ''}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui placeholder:text-stone/30"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">French *</span>
+                    <input
+                      type="text"
+                      name="titleFr"
+                      required
+                      placeholder="L'Histoire des Récitations Coraniques"
+                      defaultValue={selectedArticle?.title?.fr || ''}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui placeholder:text-stone/30"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Trilingual Excerpts */}
+              <div className="space-y-3">
+                <span className="block text-[10px] font-bold uppercase tracking-widest text-gold font-ui">
+                  {isRtl ? 'الوصف المختصر باللغات الثلاث (المعاينة بالصفحة الرئيسية)' : 'Excerpts (Trilingual)'}
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">Arabic</span>
+                    <textarea
+                      name="excerptAr"
+                      rows={3}
+                      placeholder="وصف مختصر للمقال يظهر بالمدونة الرئيسية..."
+                      defaultValue={selectedArticle?.excerpt?.ar || ''}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui placeholder:text-stone/30 resize-none"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">English</span>
+                    <textarea
+                      name="excerptEn"
+                      rows={3}
+                      placeholder="Short excerpt showing in main blog listing..."
+                      defaultValue={selectedArticle?.excerpt?.en || ''}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui placeholder:text-stone/30 resize-none"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">French</span>
+                    <textarea
+                      name="excerptFr"
+                      rows={3}
+                      placeholder="Résumé court affiché dans le catalogue..."
+                      defaultValue={selectedArticle?.excerpt?.fr || ''}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui placeholder:text-stone/30 resize-none"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Thumbnail Image Upload */}
+              <div className="space-y-2">
+                <label htmlFor="article-image-file" className="block text-[10px] font-bold uppercase tracking-widest text-stone/60 font-ui">
+                  {isRtl ? 'صورة غلاف المقال' : 'Cover Image / Illustration'}
+                </label>
+                <div className="flex items-center gap-4 bg-[#FDFAF3]/30 p-4 border border-gold/10 rounded-2xl">
+                  {selectedArticle?.image_url && (
+                    <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-gold/20 shadow-inner bg-white">
+                      <img src={selectedArticle.image_url} alt="Cover" className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                  <div className="flex-grow space-y-1">
+                    <input
+                      type="file"
+                      id="article-image-file"
+                      name="imageFile"
+                      accept="image/*"
+                      title={isRtl ? 'صورة غلاف المقال' : 'Cover Image / Illustration'}
+                      className="w-full text-xs text-stone/65 file:bg-gold/15 file:hover:bg-gold/20 file:border-none file:text-gold-hi file:px-3 file:py-1.5 file:rounded-lg file:mr-3 file:font-semibold file:cursor-pointer focus:outline-none font-ui"
+                    />
+                    <span className="block text-[9px] text-stone/40 font-ui">
+                      {isRtl ? 'يفضل مقاس 1200x800 بكسل' : 'Recommended resolution: 1200x800px'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Trilingual CTA messages */}
+              <div className="space-y-3">
+                <span className="block text-[10px] font-bold uppercase tracking-widest text-gold font-ui">
+                  {isRtl ? 'رسالة التسجيل الخاصة بالمقال (CTA Message)' : 'CTA Direct Booking Message (Trilingual)'}
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">Arabic</span>
+                    <input
+                      type="text"
+                      name="ctaAr"
+                      placeholder="ابدأ رحلة ضبط تلاوتك الآن بالسند المتصل..."
+                      defaultValue={selectedArticle?.cta_message?.ar || ''}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui placeholder:text-stone/30"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">English</span>
+                    <input
+                      type="text"
+                      name="ctaEn"
+                      placeholder="Begin your journey of perfect recitation..."
+                      defaultValue={selectedArticle?.cta_message?.en || ''}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui placeholder:text-stone/30"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">French</span>
+                    <input
+                      type="text"
+                      name="ctaFr"
+                      placeholder="Commencez votre voyage d'étude du Coran..."
+                      defaultValue={selectedArticle?.cta_message?.fr || ''}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui placeholder:text-stone/30"
+                    />
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            {/* --- TAB B: Article Content --- */}
+            <div className={activeTab === 'content' ? 'space-y-6' : 'hidden'}>
+              
+              {/* Guidelines */}
+              <div className="bg-[#FDFAF3] border border-gold-hi/20 rounded-2xl p-4 text-xs leading-relaxed text-[#3A332A] font-ui space-y-2 text-start">
+                <div className="font-bold text-gold-hi flex items-center gap-1.5">
+                  <HelpCircle size={14} />
+                  <span>{isRtl ? 'كيفية تنسيق محتوى المقالات والبحوث' : 'Article Body Content Guidelines'}</span>
+                </div>
+                <p>
+                  {isRtl 
+                    ? '1. المقدمة والخاتمة: اكتب فقرة تقديمية شاملة وفقرة تلخيصية ختامية.'
+                    : '1. Introduction & Conclusion: Enter a comprehensive introductory paragraph and a concluding summary.'}
+                </p>
+                <p>
+                  {isRtl 
+                    ? '2. فقرات المقال الوسطى (Sections): اكتبها بصيغة "العنوان الجانبي | محتوى الفقرة | اقتباس كلامي اختيارياً" (كل فقرة في سطر منفصل يفصل بين أجزائها الرمز |).' 
+                    : '2. Middle Sections: Enter them in the format "Subtitle | Body Paragraph Text | Optional Quote Text" (write one section per line, separated by |).'}
+                </p>
+                <p>
+                  {isRtl 
+                    ? '3. المصادر والمراجع: اكتب كل مصدر أو مرجع في سطر منفصل.' 
+                    : '3. References: Enter each book or source document on a separate line.'}
+                </p>
+                <div className="font-mono bg-white border border-gold/10 p-2 rounded-lg text-[10px] text-stone/75 select-all">
+                  {isRtl ? 'الأحرف السبعة والقراءات العشر | يكثر الخلط بين المفهومين... | «إن هذا العلم دين...» — الإمام سيرين' : 'Reconciling Reason & Revelation | The theological methodology rests on... | "Intellect establishes..." — Al-Ash\'ari'}
+                </div>
+              </div>
+
+              {/* Trilingual Intros */}
+              <div className="space-y-3">
+                <span className="block text-[10px] font-bold uppercase tracking-widest text-gold font-ui">
+                  {isRtl ? 'مقدمة المقال (Introduction)' : 'Article Introduction (Trilingual)'}
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">Arabic</span>
+                    <textarea
+                      name="introAr"
+                      rows={3}
+                      placeholder="إن القرآن الكريم نزل بلسان عربي مبين..."
+                      defaultValue={selectedArticle?.content?.ar?.intro || ''}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">English</span>
+                    <textarea
+                      name="introEn"
+                      rows={3}
+                      placeholder="The Holy Quran was revealed in a clear Arabic tongue..."
+                      defaultValue={selectedArticle?.content?.en?.intro || ''}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">French</span>
+                    <textarea
+                      name="introFr"
+                      rows={3}
+                      placeholder="Le Saint Coran a été révélé dans une langue arabe claire..."
+                      defaultValue={selectedArticle?.content?.fr?.intro || ''}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Trilingual Sections */}
+              <div className="space-y-3">
+                <span className="block text-[10px] font-bold uppercase tracking-widest text-gold font-ui">
+                  {isRtl ? 'فقرات المقال الرئيسية (العنوان الجانبي | المحتوى | اقتباس)' : 'Main Paragraph Sections (Subtitle | Body | Quote)'}
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">Arabic</span>
+                    <textarea
+                      name="sectionsAr"
+                      rows={8}
+                      placeholder="العنوان الأول | تفاصيل الفقرة الأولى | الاقتباس الأول"
+                      defaultValue={getSectionsString('ar')}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">English</span>
+                    <textarea
+                      name="sectionsEn"
+                      rows={8}
+                      placeholder="Subtitle 1 | Body paragraph 1 | Quote 1"
+                      defaultValue={getSectionsString('en')}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">French</span>
+                    <textarea
+                      name="sectionsFr"
+                      rows={8}
+                      placeholder="Sous-titre 1 | Paragraphe 1 | Citation 1"
+                      defaultValue={getSectionsString('fr')}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Trilingual Conclusions */}
+              <div className="space-y-3">
+                <span className="block text-[10px] font-bold uppercase tracking-widest text-gold font-ui">
+                  {isRtl ? 'خاتمة المقال (Conclusion)' : 'Article Conclusion (Trilingual)'}
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">Arabic</span>
+                    <textarea
+                      name="conclusionAr"
+                      rows={3}
+                      placeholder="يبقى علم القراءات شاهداً حياً..."
+                      defaultValue={selectedArticle?.content?.ar?.conclusion || ''}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">English</span>
+                    <textarea
+                      name="conclusionEn"
+                      rows={3}
+                      placeholder="Sunni theology remains the cornerstone..."
+                      defaultValue={selectedArticle?.content?.en?.conclusion || ''}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">French</span>
+                    <textarea
+                      name="conclusionFr"
+                      rows={3}
+                      placeholder="La méthodologie orthodoxe reste le pilier..."
+                      defaultValue={selectedArticle?.content?.fr?.conclusion || ''}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Trilingual References */}
+              <div className="space-y-3">
+                <span className="block text-[10px] font-bold uppercase tracking-widest text-gold font-ui">
+                  {isRtl ? 'المصادر والمراجع (مصدر في كل سطر)' : 'Scholarly References (One per line)'}
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">Arabic</span>
+                    <textarea
+                      name="referencesAr"
+                      rows={4}
+                      placeholder="ابن الجزري، النشر في القراءات العشر.\nالسيوطي، الإتقان..."
+                      defaultValue={getReferencesString('ar')}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">English</span>
+                    <textarea
+                      name="referencesEn"
+                      rows={4}
+                      placeholder="Ibn al-Jazari, Al-Nashr...\nAl-Suyuti, Al-Itqan..."
+                      defaultValue={getReferencesString('en')}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">French</span>
+                    <textarea
+                      name="referencesFr"
+                      rows={4}
+                      placeholder="Al-Tabari, Tarikh al-Rusul...\nAl-Suyuti, Al-Itqan..."
+                      defaultValue={getReferencesString('fr')}
+                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                    />
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* Footer Actions */}
+          <div className="p-6 border-t border-gold/15 bg-[#FDFAF3]/30 shrink-0 relative z-10 flex flex-col sm:flex-row gap-3 justify-between items-stretch sm:items-center">
+            <div className="flex flex-col sm:flex-row gap-3 flex-grow sm:flex-grow-0">
+              <button
+                type="submit"
+                disabled={pending}
+                className="bg-gold hover:bg-gold-hi text-midnight font-bold py-3.5 px-7 rounded-xl text-xs transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 cursor-pointer text-center font-ui shadow-md shadow-gold/10 inline-flex items-center justify-center gap-2"
+              >
+                {pending ? (
+                  <span>{isRtl ? 'جاري الحفظ...' : 'Saving...'}</span>
+                ) : (
+                  <>
+                    <Check size={14} />
+                    <span>{isRtl ? 'حفظ ونشر المقال' : 'Save & Publish Post'}</span>
+                  </>
+                )}
+              </button>
+
+              {!isNew && selectedArticle && (
+                <a
+                  href={`/${locale}/blog/${selectedArticle.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-3.5 bg-navy text-white hover:bg-[#182234] border border-[#1e2e46] rounded-xl text-xs font-semibold text-center transition-all font-ui inline-flex items-center justify-center gap-2 hover:scale-[1.01]"
+                >
+                  <Globe size={13} />
+                  <span>{isRtl ? 'معاينة المقال الحي' : 'Preview Live Post'}</span>
+                </a>
+              )}
+            </div>
+            <Link
+              href={`/${locale}/admin/articles`}
+              className="px-6 py-3.5 bg-gold-muted/5 hover:bg-gold-muted/10 text-stone border border-gold-muted/15 rounded-xl text-xs font-semibold text-center transition-colors font-ui"
+            >
+              {isRtl ? 'إلغاء' : 'Cancel'}
+            </Link>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
