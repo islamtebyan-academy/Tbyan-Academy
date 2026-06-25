@@ -453,11 +453,17 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
                   <span className="text-stone font-ui">{source.name}</span>
                   <span className="text-midnight font-mono">{source.count}</span>
                 </div>
-                <div className="w-full h-1.5 rounded-full bg-gold-muted/5 overflow-hidden">
-                  <div 
-                    className="h-full rounded-full bg-gradient-to-r from-[#A08850] to-gold transition-all duration-1000"
-                    style={{ width: `${(source.count / maxSource) * 100}%` }}
-                  />
+                <div className="w-full h-1.5 bg-gold-muted/5 rounded-full overflow-hidden">
+                  <svg className="w-full h-full" viewBox="0 0 100 6" preserveAspectRatio="none">
+                    <rect 
+                      x="0" 
+                      y="0" 
+                      width={(source.count / maxSource) * 100} 
+                      height="6" 
+                      fill="#B8841A"
+                      rx="3"
+                    />
+                  </svg>
                 </div>
               </div>
             ))}
@@ -479,11 +485,17 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
                   <span className="text-stone font-ui font-mono truncate max-w-[180px] direction-ltr block">{page.name}</span>
                   <span className="text-midnight font-mono">{page.count}</span>
                 </div>
-                <div className="w-full h-1.5 rounded-full bg-gold-muted/5 overflow-hidden">
-                  <div 
-                    className="h-full rounded-full bg-gradient-to-r from-[#A08850] to-[#C0A870] transition-all duration-1000"
-                    style={{ width: `${(page.count / maxPage) * 100}%` }}
-                  />
+                <div className="w-full h-1.5 bg-gold-muted/5 rounded-full overflow-hidden">
+                  <svg className="w-full h-full" viewBox="0 0 100 6" preserveAspectRatio="none">
+                    <rect 
+                      x="0" 
+                      y="0" 
+                      width={(page.count / maxPage) * 100} 
+                      height="6" 
+                      fill="#A08850"
+                      rx="3"
+                    />
+                  </svg>
                 </div>
               </div>
             ))}
@@ -505,11 +517,17 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
                   <span className="text-stone font-ui">{country.name}</span>
                   <span className="text-midnight font-mono">{country.count}</span>
                 </div>
-                <div className="w-full h-1.5 rounded-full bg-gold-muted/5 overflow-hidden">
-                  <div 
-                    className="h-full rounded-full bg-gradient-to-r from-copper to-gold-hi transition-all duration-1000"
-                    style={{ width: `${(country.count / maxCountry) * 100}%` }}
-                  />
+                <div className="w-full h-1.5 bg-gold-muted/5 rounded-full overflow-hidden">
+                  <svg className="w-full h-full" viewBox="0 0 100 6" preserveAspectRatio="none">
+                    <rect 
+                      x="0" 
+                      y="0" 
+                      width={(country.count / maxCountry) * 100} 
+                      height="6" 
+                      fill="#8B7355"
+                      rx="3"
+                    />
+                  </svg>
                 </div>
               </div>
             ))}
