@@ -168,7 +168,7 @@ export async function GET() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        dateRanges: [{ startDate: '1dayAgo', endDate: 'today' }],
+        dateRanges: [{ startDate: 'yesterday', endDate: 'today' }],
         dimensions: [{ name: 'hour' }],
         metrics: [{ name: 'activeUsers' }],
         orderBys: [{ dimension: { dimensionName: 'hour' }, desc: false }]
