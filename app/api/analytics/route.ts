@@ -212,7 +212,11 @@ export async function GET() {
     ]);
 
     if (!dailyRes.ok || !weeklyRes.ok || !monthlyRes.ok) {
-      throw new Error('Google Analytics API returned error response');
+      const errTexts = [];
+      if (!dailyRes.ok) errTexts.push(`Daily: ${await dailyRes.text()}`);
+      if (!weeklyRes.ok) errTexts.push(`Weekly: ${await weeklyRes.text()}`);
+      if (!monthlyRes.ok) errTexts.push(`Monthly: ${await monthlyRes.text()}`);
+      throw new Error(`Google Analytics API returned error: ${errTexts.join(' | ')}`);
     }
 
     const [dailyData, weeklyData, monthlyData] = await Promise.all([
