@@ -11,6 +11,7 @@ import {
   Info
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
+import MediaUploadForm from '@/components/admin/MediaUploadForm';
 
 interface MediaPageProps {
   params: Promise<{ locale: string }>;
@@ -116,43 +117,7 @@ export default async function MediaPage({ params }: MediaPageProps) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         
         {/* Upload form Panel */}
-        <div className="bg-gradient-to-br from-white to-[#FDFAF3]/40 border border-gold-muted/15 p-6 rounded-2xl space-y-4 shadow-[0_8px_30px_rgba(139,115,85,0.05)] pattern-overlay">
-          <h3 className="font-semibold text-midnight text-sm flex items-center gap-2 font-primary border-b border-gold-muted/15 pb-3">
-            <Upload size={16} className="text-gold" />
-            <span>{isRtl ? 'رفع صورة جديدة' : 'Upload New Media'}</span>
-          </h3>
-
-          <form action={async (formData) => {
-            'use server';
-            const { uploadMedia } = require('@/app/actions/media');
-            await uploadMedia(null, formData);
-          }} className="space-y-4 font-ui">
-            <input type="hidden" name="locale" value={locale} />
-            
-            <div className="border border-dashed border-gold-muted/20 hover:border-gold/30 rounded-2xl p-8 flex flex-col items-center justify-center text-center transition-colors bg-white">
-              <ImageIcon size={36} className="text-gold mb-3 animate-pulse" />
-              <label htmlFor="mediaFile" className="sr-only">
-                {isRtl ? 'اختر ملف الصورة' : 'Choose image file'}
-              </label>
-              <input
-                type="file"
-                id="mediaFile"
-                name="mediaFile"
-                accept="image/*"
-                required
-                title={isRtl ? 'اختر ملف الصورة' : 'Choose image file'}
-                className="w-full text-center text-stone text-xs file:bg-gold/10 file:border-none file:text-gold file:px-3 file:py-1.5 file:rounded-lg file:mr-3 focus:outline-none file:cursor-pointer"
-              />
-            </div>
-            
-            <button
-              type="submit"
-              className="btn-gold w-full text-midnight font-bold py-3 px-4 rounded-xl text-xs transition-colors cursor-pointer text-center shadow-md shadow-gold/10"
-            >
-              {isRtl ? 'رفع الصورة إلى المكتبة' : 'Upload Image'}
-            </button>
-          </form>
-        </div>
+        <MediaUploadForm locale={locale} isRtl={isRtl} />
 
         {/* Media grid View */}
         <div className="lg:col-span-2 space-y-6">

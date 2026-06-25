@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { 
@@ -9,7 +9,8 @@ import {
   FileText, 
   Globe, 
   Check, 
-  HelpCircle 
+  HelpCircle,
+  Loader2
 } from 'lucide-react';
 import { saveArticle } from '@/app/actions/articles';
 
@@ -27,12 +28,16 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [previewUrl, setPreviewUrl] = React.useState<string | null>(selectedArticle?.image_url || null);
+  const [imageSelected, setImageSelected] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [closedLocally, setClosedLocally] = useState(false);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
       setPreviewUrl(url);
+      setImageSelected(true);
     }
   };
 
@@ -61,6 +66,35 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
     return '';
   };
 
+  // Setup animated progress steps during save
+  useEffect(() => {
+    if (!pending) {
+      setCurrentStep(0);
+      return;
+    }
+
+    if (imageSelected) {
+      // Step 0: Optimize (duration: 1.2s)
+      // Step 1: Upload (duration: 2.0s)
+      // Step 2: Save database
+      const t1 = setTimeout(() => {
+        setCurrentStep(1);
+      }, 1200);
+
+      const t2 = setTimeout(() => {
+        setCurrentStep(2);
+      }, 3200);
+
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+      };
+    } else {
+      // No image, start directly at step 0 (Save database)
+      setCurrentStep(0);
+    }
+  }, [pending, imageSelected]);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setPending(true);
@@ -71,16 +105,20 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
       const result = await saveArticle(formData);
       if (result?.error) {
         setError(result.error);
+        setPending(false);
       } else {
+        // Success: hide instantly locally for premium feedback feel
+        setClosedLocally(true);
         router.push(`/${locale}/admin/articles`);
         router.refresh();
       }
     } catch (err: any) {
       setError(err?.message || 'Something went wrong');
-    } finally {
       setPending(false);
     }
   };
+
+  if (closedLocally) return null;
 
   return (
     <div className={`fixed top-0 bottom-0 z-30 flex items-center justify-center p-5 bg-[#0d1624]/75 backdrop-blur-md animate-fade-in ${
@@ -351,8 +389,15 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
                 </label>
                 <div className="flex items-center gap-4 bg-[#FDFAF3]/30 p-4 border border-gold/10 rounded-2xl">
                   {previewUrl && (
-                    <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-gold/20 shadow-inner bg-white">
+                    <div className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-gold/20 shadow-inner bg-white">
                       <img src={previewUrl} alt="Cover" className="w-full h-full object-cover" />
+                      {imageSelected && (
+                        <div className="absolute inset-0 bg-gold/10 flex items-center justify-center backdrop-blur-[0.5px]">
+                          <span className="bg-gold text-midnight text-[8px] font-bold px-1.5 py-0.5 rounded shadow-sm">
+                            {isRtl ? 'جديدة' : 'New'}
+                          </span>
+                        </div>
+                      )}
                     </div>
                   )}
                   <div className="flex-grow space-y-1">
@@ -365,8 +410,11 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
                       title={isRtl ? 'صورة غلاف المقال' : 'Cover Image / Illustration'}
                       className="w-full text-xs text-stone/65 file:bg-gold/15 file:hover:bg-gold/20 file:border-none file:text-gold-hi file:px-3 file:py-1.5 file:rounded-lg file:mr-3 file:font-semibold file:cursor-pointer focus:outline-none font-ui"
                     />
-                    <span className="block text-[9px] text-stone/40 font-ui">
-                      {isRtl ? 'يفضل مقاس 1200x800 بكسل' : 'Recommended resolution: 1200x800px'}
+                    <span className="block text-[9px] text-stone/45 font-ui">
+                      {imageSelected 
+                        ? (isRtl ? 'تم اختيار الصورة وجاهزة للحفظ والرفع تلقائياً' : 'Image selected and ready for upload.')
+                        : (isRtl ? 'يفضل مقاس 1200x800 بكسل' : 'Recommended resolution: 1200x800px')
+                      }
                     </span>
                   </div>
                 </div>
@@ -641,6 +689,86 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
             </Link>
           </div>
         </form>
+
+        {/* Premium Step-by-Step Loading Overlay */}
+        {pending && (
+          <div className="absolute inset-0 z-50 flex flex-col items-center justify-center p-6 bg-[#0d1624]/90 backdrop-blur-md animate-fade-in font-ui text-center">
+            <div className="max-w-xs w-full space-y-6">
+              <Loader2 className="animate-spin text-gold w-12 h-12 mx-auto" />
+              
+              <div className="space-y-1">
+                <h4 className="text-sm font-bold text-white uppercase tracking-wider font-primary">
+                  {isRtl ? 'جاري حفظ البيانات وتحديث الموقع' : 'Saving Changes & Updating Post'}
+                </h4>
+                <p className="text-[10px] text-gold uppercase font-mono tracking-widest">
+                  {isRtl ? 'منصة تعليم التبيان' : 'Tebyan Academy Cms'}
+                </p>
+              </div>
+
+              {/* Step Indicators */}
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 text-start space-y-3">
+                {imageSelected ? (
+                  <>
+                    {/* Step 1: Optimize */}
+                    <div className="flex items-center gap-2 text-xs">
+                      <div className={`w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-bold ${
+                        currentStep > 0 
+                          ? 'bg-gold text-midnight' 
+                          : currentStep === 0 
+                            ? 'bg-gold/20 text-gold animate-pulse border border-gold/40' 
+                            : 'bg-white/10 text-white/40'
+                      }`}>
+                        {currentStep > 0 ? '✓' : '1'}
+                      </div>
+                      <span className={currentStep === 0 ? 'text-gold font-semibold' : currentStep > 0 ? 'text-white/60' : 'text-white/40'}>
+                        {isRtl ? 'جاري معالجة وتحسين الصورة...' : 'Compressing & optimizing image...'}
+                      </span>
+                    </div>
+
+                    {/* Step 2: Upload */}
+                    <div className="flex items-center gap-2 text-xs">
+                      <div className={`w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-bold ${
+                        currentStep > 1 
+                          ? 'bg-gold text-midnight' 
+                          : currentStep === 1 
+                            ? 'bg-gold/20 text-gold animate-pulse border border-gold/40' 
+                            : 'bg-white/10 text-white/40'
+                      }`}>
+                        {currentStep > 1 ? '✓' : '2'}
+                      </div>
+                      <span className={currentStep === 1 ? 'text-gold font-semibold' : currentStep > 1 ? 'text-white/60' : 'text-white/40'}>
+                        {isRtl ? 'جاري رفع غلاف المقال إلى التخزين السحابي...' : 'Uploading image to cloud storage...'}
+                      </span>
+                    </div>
+
+                    {/* Step 3: Database Save */}
+                    <div className="flex items-center gap-2 text-xs">
+                      <div className={`w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-bold ${
+                        currentStep === 2 
+                          ? 'bg-gold/20 text-gold animate-pulse border border-gold/40' 
+                          : 'bg-white/10 text-white/40'
+                      }`}>
+                        {currentStep === 2 ? '●' : '3'}
+                      </div>
+                      <span className={currentStep === 2 ? 'text-gold font-semibold' : 'text-white/40'}>
+                        {isRtl ? 'جاري حفظ التعديلات ونشر المقال...' : 'Saving database records...'}
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex items-center gap-2 text-xs">
+                    <div className="w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-bold bg-gold/20 text-gold animate-pulse border border-gold/40">
+                      ●
+                    </div>
+                    <span className="text-gold font-semibold">
+                      {isRtl ? 'جاري حفظ التعديلات ونشر المقال...' : 'Saving database records...'}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
