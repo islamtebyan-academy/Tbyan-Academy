@@ -240,7 +240,7 @@ export default async function DashboardHomePage({ params }: DashboardHomeProps) 
             </p>
           </div>
           <Link
-            href={`/${locale}/admin/students`}
+            href={`/${locale}/portal/students`}
             className="inline-flex items-center gap-1.5 text-xs text-gold hover:text-gold-hi font-bold transition-colors font-ui"
           >
             <span>{isRtl ? 'عرض كافة الاشتراكات' : 'View all records'}</span>
@@ -289,7 +289,7 @@ export default async function DashboardHomePage({ params }: DashboardHomeProps) 
                     </td>
                     <td className="py-4 text-end pl-4">
                       <Link
-                        href={`/${locale}/admin/students?id=${student.id}`}
+                        href={`/${locale}/portal/students?id=${student.id}`}
                         className="inline-flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-bold bg-gold/5 hover:bg-gold text-gold hover:text-midnight border border-gold/20 hover:border-gold transition-all duration-300 shadow-sm font-ui"
                       >
                         <span>{isRtl ? 'إدارة الاشتراك' : 'Manage'}</span>

@@ -104,7 +104,7 @@ export default function CourseEditModal({ selectedCourse, isNew, locale, initial
       } else {
         // Success: hide instantly locally for premium feedback feel
         setClosedLocally(true);
-        router.push(`/${locale}/admin/courses`);
+        router.push(`/${locale}/portal/courses`);
         router.refresh();
       }
     } catch (err: any) {
@@ -123,7 +123,7 @@ export default function CourseEditModal({ selectedCourse, isNew, locale, initial
     }`}>
       {/* Backdrop dismiss */}
       <Link 
-        href={`/${locale}/admin/courses`}
+        href={`/${locale}/portal/courses`}
         className="absolute inset-0 cursor-default"
       />
 
@@ -143,7 +143,7 @@ export default function CourseEditModal({ selectedCourse, isNew, locale, initial
             </p>
           </div>
           <Link
-            href={`/${locale}/admin/courses`}
+            href={`/${locale}/portal/courses`}
             className="w-9 h-9 rounded-full bg-gold/5 border border-gold/20 hover:bg-gold/10 flex items-center justify-center text-stone hover:text-midnight transition-colors"
           >
             <X size={16} />
@@ -658,7 +658,7 @@ export default function CourseEditModal({ selectedCourse, isNew, locale, initial
               )}
             </div>
             <Link
-              href={`/${locale}/admin/courses`}
+              href={`/${locale}/portal/courses`}
               className="px-6 py-3.5 bg-gold-muted/5 hover:bg-gold-muted/10 text-stone border border-gold-muted/15 rounded-xl text-xs font-semibold text-center transition-colors font-ui"
             >
               {isRtl ? 'إلغاء' : 'Cancel'}

@@ -6,8 +6,8 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
       disallow: [
-        '/admin/',
-        '/*/admin/',
+        '/portal/',
+        '/*/portal/',
       ],
     },
     sitemap: 'https://islamtebyan.com/sitemap.xml',

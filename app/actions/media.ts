@@ -44,7 +44,7 @@ export async function uploadMedia(prevState: any, formData: FormData) {
     .from('media')
     .getPublicUrl(`uploads/${fileName}`);
 
-  revalidatePath(`/${locale}/admin/media`);
+  revalidatePath(`/${locale}/portal/media`);
   return { success: true, url: publicUrl };
 }
 
@@ -65,6 +65,6 @@ export async function deleteMedia(filePath: string, locale: string = 'en') {
     return { error: `Delete failed: ${error.message}` };
   }
 
-  revalidatePath(`/${locale}/admin/media`);
+  revalidatePath(`/${locale}/portal/media`);
   return { success: true };
 }

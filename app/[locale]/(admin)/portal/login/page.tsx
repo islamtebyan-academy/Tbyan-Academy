@@ -2,7 +2,7 @@
 
 import React, { useActionState, useState } from 'react';
 import { useLocale } from 'next-intl';
-import { Shield, Mail, Lock, Loader2, AlertCircle, Eye, EyeOff, Sparkles } from 'lucide-react';
+import { Mail, Lock, Loader2, AlertCircle, Eye, EyeOff, Sparkles } from 'lucide-react';
 import { login } from '@/app/actions/auth';
 
 export default function LoginPage() {
@@ -13,7 +13,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-[#FAF8F5] via-[#FAF6EC] to-[#F3EDE0] text-slate-800 flex flex-col items-center justify-center p-6 relative overflow-hidden font-ui">
+    <div className="min-h-screen bg-[#FAF7F0] text-slate-800 flex flex-col items-center justify-center p-6 relative overflow-hidden font-ui">
       {/* Global CSS style block to override default browser autofill background & text colors for light theme */}
       <style>{`
         input:-webkit-autofill,
@@ -26,42 +26,44 @@ export default function LoginPage() {
       `}</style>
 
       {/* Decorative luxury backgrounds (glowing gold points & geometric star watermark) */}
-      <div className="absolute top-1/4 left-1/4 w-[280px] h-[280px] bg-gold/5 rounded-full blur-[90px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[320px] h-[320px] bg-gold/5 rounded-full blur-[110px] pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 bottom-0 bg-[radial-gradient(circle_at_center,rgba(253,250,243,0.9),transparent_65%)] pointer-events-none" />
+      <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-[radial-gradient(circle,rgba(212,175,55,0.06),transparent_55%)] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] bg-[radial-gradient(circle,rgba(24,35,53,0.04),transparent_55%)] rounded-full blur-3xl pointer-events-none" />
       
       {/* Islamic geometric pattern backdrop */}
-      <div className="absolute inset-0 bg-[url('/images/pattern-8star.svg')] bg-repeat bg-[size:40px_40px] opacity-[0.015] pointer-events-none" />
+      <div className="absolute inset-0 bg-[url('/images/pattern-8star.svg')] bg-repeat bg-[size:40px_40px] opacity-[0.018] pointer-events-none" />
 
       <div className="max-w-md w-full relative z-10 space-y-6 animate-fade-in">
-        {/* Luxury Gold Academy Logo */}
-        <div className="text-center space-y-3">
-          <div className="relative inline-flex items-center justify-center mb-1">
-            {/* Concentric gold luxury rings */}
-            <div className="absolute inset-0 rounded-full border border-gold/25 animate-spin animate-duration-10000" />
-            <div className="absolute -inset-1 rounded-full border border-dashed border-gold/15" />
-            <div className="w-16 h-16 rounded-full bg-white border border-gold/30 flex items-center justify-center text-gold shadow-md relative z-10">
-              <Shield size={28} className="text-gold-hi animate-pulse" />
-            </div>
+        {/* Luxury Academy Logo & Big Title */}
+        <div className="text-center space-y-4">
+          <div className="relative inline-flex items-center justify-center">
+            {/* Soft decorative shadow/glow behind the logo */}
+            <div className="absolute inset-0 bg-gold/15 rounded-full blur-xl scale-75 animate-pulse" />
+            <img 
+              src="/logo-new.webp" 
+              alt="Islam Tebyan Academy Logo" 
+              className="h-20 md:h-24 w-auto object-contain relative z-10 filter drop-shadow-[0_6px_16px_rgba(139,115,85,0.12)] hover:scale-105 transition-all duration-500 select-none" 
+            />
           </div>
           
           <div className="space-y-1">
-            {/* Elegant Calligraphic-style Logo text */}
-            <h1 className="text-3xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-b from-[#182335] via-[#2f425f] to-gold-hi font-primary">
-              {isRtl ? 'التِّبْيَان' : 'TEBYAN'}
+            {/* Prominent main title (no redundant Tebyan text) */}
+            <h1 className="text-lg md:text-xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-b from-[#182335] via-[#24354f] to-gold-hi font-primary px-4 leading-normal select-none">
+              {isRtl ? 'أكاديمية إسلام تبيان للعلوم الشرعية والقرآن' : 'Islam Tebyan Academy'}
             </h1>
-            <p className="text-[10px] text-gold-hi font-bold uppercase tracking-[0.2em]">
-              {isRtl ? 'أكاديمية إسلام تبيان للعلوم الشرعية والقرآن' : 'Islam Tebyan Academy CMS'}
+            <p className="text-[9px] text-gold-hi font-bold uppercase tracking-[0.25em] select-none">
+              {isRtl ? 'بوابة الإشراف والمحتوى الدراسي' : 'Staff Management Gateway'}
             </p>
           </div>
         </div>
 
         {/* High-Contrast Light Editorial Card */}
-        <div className="bg-white border border-gold/25 rounded-[2rem] p-8 shadow-[0_20px_50px_rgba(139,115,85,0.06)] relative overflow-hidden">
+        <div className="bg-white/90 backdrop-blur-xl border border-gold/25 rounded-[2rem] p-8 shadow-[0_30px_70px_rgba(139,115,85,0.08)] relative overflow-hidden">
           {/* Top Gold Shimmer Border Accent */}
           <div className="absolute top-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-gold-muted/10 via-gold to-gold-muted/10 opacity-80" />
 
           {/* Heading context */}
-          <div className="text-center pb-6 border-b border-gold/15 mb-6">
+          <div className="text-center pb-5 border-b border-gold/15 mb-6">
             <h2 className="text-sm font-bold text-[#182335] uppercase tracking-wider flex items-center justify-center gap-1.5 font-primary">
               <Sparkles size={12} className="text-gold-hi animate-pulse" />
               <span>{isRtl ? 'تسجيل دخول المشرفين' : 'Authorized Access'}</span>

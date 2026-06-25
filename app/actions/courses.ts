@@ -260,7 +260,7 @@ export async function saveCourse(formData: FormData) {
     return { error: dbError.message };
   }
 
-  revalidatePath(`/${locale}/admin/courses`);
+  revalidatePath(`/${locale}/portal/courses`);
   revalidatePath(`/${locale}/programs`);
   revalidatePath(`/${locale}/programs/${slug}`);
 
@@ -322,7 +322,7 @@ export async function deleteCourse(courseId: string, locale: string = 'en') {
     }
   }
 
-  revalidatePath(`/${locale}/admin/courses`);
+  revalidatePath(`/${locale}/portal/courses`);
   revalidatePath(`/${locale}/programs`);
   if (course?.slug) {
     revalidatePath(`/${locale}/programs/${course.slug}`);

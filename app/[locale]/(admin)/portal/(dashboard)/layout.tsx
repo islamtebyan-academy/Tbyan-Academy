@@ -22,7 +22,7 @@ export default async function DashboardLayout({ children, params }: DashboardLay
   // 1. Verify authentication
   const { data: { user }, error: authError } = await supabase.auth.getUser();
   if (authError || !user) {
-    redirect(`/${locale}/admin/login`);
+    redirect(`/${locale}/portal/login`);
   }
 
   // 2. Fetch admin profile details
@@ -40,7 +40,7 @@ export default async function DashboardLayout({ children, params }: DashboardLay
   if (profileError || !profile || !profile.active) {
     // If profile is inactive or deleted, sign out and redirect
     await supabase.auth.signOut();
-    redirect(`/${locale}/admin/login?error=inactive`);
+    redirect(`/${locale}/portal/login?error=inactive`);
   }
 
   const isRtl = locale === 'ar';

@@ -32,32 +32,32 @@ export default function AdminSidebarNav({ locale, isRtl, isSuperAdmin }: AdminSi
   const menuItems: MenuItem[] = [
     {
       label: isRtl ? 'الرئيسية' : 'Overview',
-      href: `/${locale}/admin`,
+      href: `/${locale}/portal`,
       icon: LayoutDashboard,
     },
     {
       label: isRtl ? 'الطلاب والاشتراكات' : 'Students & Subscriptions',
-      href: `/${locale}/admin/students`,
+      href: `/${locale}/portal/students`,
       icon: Users,
     },
     {
       label: isRtl ? 'إدارة الكورسات' : 'Course Catalog',
-      href: `/${locale}/admin/courses`,
+      href: `/${locale}/portal/courses`,
       icon: BookOpen,
     },
     {
       label: isRtl ? 'إدارة المقالات والأبحاث' : 'Articles & Research',
-      href: `/${locale}/admin/articles`,
+      href: `/${locale}/portal/articles`,
       icon: Newspaper,
     },
     {
       label: isRtl ? 'إدارة المحتوى (CMS)' : 'Content Manager',
-      href: `/${locale}/admin/content`,
+      href: `/${locale}/portal/content`,
       icon: FileText,
     },
     {
       label: isRtl ? 'مكتبة الوسائط' : 'Media Library',
-      href: `/${locale}/admin/media`,
+      href: `/${locale}/portal/media`,
       icon: ImageIcon,
     },
   ];
@@ -65,7 +65,7 @@ export default function AdminSidebarNav({ locale, isRtl, isSuperAdmin }: AdminSi
   if (isSuperAdmin) {
     menuItems.push({
       label: isRtl ? 'إدارة المشرفين' : 'Administrators',
-      href: `/${locale}/admin/settings`,
+      href: `/${locale}/portal/settings`,
       icon: ShieldAlert,
     });
   }
@@ -75,7 +75,7 @@ export default function AdminSidebarNav({ locale, isRtl, isSuperAdmin }: AdminSi
       {menuItems.map((item) => {
         const Icon = item.icon;
         // Match exact or sub-routes
-        const isActive = pathname === item.href || (item.href !== `/${locale}/admin` && pathname.startsWith(item.href));
+        const isActive = pathname === item.href || (item.href !== `/${locale}/portal` && pathname.startsWith(item.href));
 
         return (
           <Link

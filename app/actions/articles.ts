@@ -266,7 +266,7 @@ export async function saveArticle(formData: FormData) {
   }
 
   // Revalidate cache
-  revalidatePath(`/${locale}/admin/articles`);
+  revalidatePath(`/${locale}/portal/articles`);
   revalidatePath(`/${locale}/blog`);
   revalidatePath(`/${locale}/blog/${slug}`);
 
@@ -326,7 +326,7 @@ export async function deleteArticle(articleId: string, locale: string = 'en') {
     }
   }
 
-  revalidatePath(`/${locale}/admin/articles`);
+  revalidatePath(`/${locale}/portal/articles`);
   revalidatePath(`/${locale}/blog`);
   if (article?.slug) {
     revalidatePath(`/${locale}/blog/${article.slug}`);

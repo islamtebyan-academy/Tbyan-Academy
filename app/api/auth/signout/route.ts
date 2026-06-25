@@ -12,7 +12,7 @@ export async function POST(request: Request) {
 
   // Determine redirect url (fallback to English locale)
   const url = new URL(request.url);
-  return NextResponse.redirect(new URL(`/en/admin/login`, url.origin), {
+  return NextResponse.redirect(new URL(`/en/portal/login`, url.origin), {
     status: 302,
   });
 }

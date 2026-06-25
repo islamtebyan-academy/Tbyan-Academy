@@ -60,7 +60,7 @@ export async function middleware(request: NextRequest) {
         const match = pathname.match(/^\/(ar|en|fr)/);
         const locale = match ? match[1] : 'en';
         const redirectUrl = request.nextUrl.clone();
-        redirectUrl.pathname = `/${locale}/admin/login`;
+        redirectUrl.pathname = `/${locale}/portal/login`;
         return NextResponse.redirect(redirectUrl);
       }
     }

@@ -32,7 +32,7 @@ export async function login(prevState: any, formData: FormData) {
       .eq('id', user.id);
   }
 
-  redirect(`/${locale}/admin`);
+  redirect(`/${locale}/portal`);
 }
 
 export async function updatePassword(prevState: any, formData: FormData) {

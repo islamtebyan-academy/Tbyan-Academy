@@ -179,7 +179,7 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
               <span>{isRtl ? 'تصفية' : 'Filter'}</span>
             </button>
             <Link
-              href={`/${locale}/admin/students`}
+              href={`/${locale}/portal/students`}
               className="px-3.5 py-2.5 bg-[#F2ECD8]/30 hover:bg-[#F2ECD8]/50 text-stone border border-gold-muted/20 hover:border-gold/30 rounded-lg text-xs font-semibold flex items-center justify-center transition-all font-ui"
             >
               {isRtl ? 'إعادة تعيين' : 'Reset'}
@@ -285,7 +285,7 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                       {/* Actions */}
                       <td className="py-4 px-6 text-end">
                         <Link
-                          href={`/${locale}/admin/students?query=${query}&program=${program}&status=${status}&plan=${plan}&id=${student.id}`}
+                          href={`/${locale}/portal/students?query=${query}&program=${program}&status=${status}&plan=${plan}&id=${student.id}`}
                           className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold bg-gold/5 hover:bg-gold text-gold hover:text-white border border-gold/20 hover:border-gold transition-all duration-300 shadow-sm"
                         >
                           <Edit3 size={12} />
@@ -310,7 +310,7 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
         <div className="fixed inset-0 bg-navy/60 backdrop-blur-sm z-50 flex items-center justify-end animate-fade-in">
           {/* Backdrop close link */}
           <Link 
-            href={`/${locale}/admin/students?query=${query}&program=${program}&status=${status}&plan=${plan}`}
+            href={`/${locale}/portal/students?query=${query}&program=${program}&status=${status}&plan=${plan}`}
             className="absolute inset-0 cursor-default"
           />
           
@@ -326,7 +326,7 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                 </p>
               </div>
               <Link
-                href={`/${locale}/admin/students?query=${query}&program=${program}&status=${status}&plan=${plan}`}
+                href={`/${locale}/portal/students?query=${query}&program=${program}&status=${status}&plan=${plan}`}
                 className="w-8 h-8 rounded-full bg-[#FDFAF3]/80 border border-gold-muted/15 hover:bg-[#F2ECD8]/50 flex items-center justify-center text-stone hover:text-midnight transition-colors"
               >
                 <X size={15} />
@@ -469,7 +469,7 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                   {isRtl ? 'حفظ التعديلات' : 'Save Changes'}
                 </button>
                 <Link
-                  href={`/${locale}/admin/students?query=${query}&program=${program}&status=${status}&plan=${plan}`}
+                  href={`/${locale}/portal/students?query=${query}&program=${program}&status=${status}&plan=${plan}`}
                   className="px-5 py-3.5 bg-[#F2ECD8]/40 hover:bg-[#F2ECD8]/60 text-stone border border-gold-muted/20 hover:border-gold-muted/35 rounded-lg text-sm font-semibold text-center transition-colors font-ui"
                 >
                   {isRtl ? 'إلغاء' : 'Cancel'}

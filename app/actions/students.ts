@@ -42,7 +42,7 @@ export async function updateStudentSubscription(formData: FormData) {
     return { error: error.message };
   }
 
-  revalidatePath(`/${locale}/admin/students`);
+  revalidatePath(`/${locale}/portal/students`);
   return { success: true };
 }
 
@@ -68,6 +68,6 @@ export async function deleteStudent(studentId: string, locale: string = 'en') {
     return { error: error.message };
   }
 
-  revalidatePath(`/${locale}/admin/students`);
+  revalidatePath(`/${locale}/portal/students`);
   return { success: true };
 }
