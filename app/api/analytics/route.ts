@@ -140,7 +140,15 @@ export async function GET() {
   const privateKey = process.env.GOOGLE_PRIVATE_KEY;
 
   if (!propertyId || !clientEmail || !privateKey) {
-    return NextResponse.json(MOCK_DATA);
+    return NextResponse.json({
+      ...MOCK_DATA,
+      diagnostics: {
+        hasPropertyId: !!propertyId,
+        hasClientEmail: !!clientEmail,
+        hasPrivateKey: !!privateKey,
+        error: 'Missing environment variables'
+      }
+    });
   }
 
   try {
@@ -327,6 +335,15 @@ export async function GET() {
 
   } catch (error) {
     console.error('Failed querying live Google Analytics Data API, using fallback mock data:', error);
-    return NextResponse.json(MOCK_DATA);
+    return NextResponse.json({
+      ...MOCK_DATA,
+      diagnostics: {
+        hasPropertyId: !!propertyId,
+        hasClientEmail: !!clientEmail,
+        hasPrivateKey: !!privateKey,
+        error: error instanceof Error ? error.message : String(error),
+        stack: error instanceof Error ? error.stack : undefined
+      }
+    });
   }
 }
