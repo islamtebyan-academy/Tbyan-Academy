@@ -105,7 +105,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
 
   return (
     <html lang={locale} dir={direction} className={fontClasses}>
-      <head>
+      <body className="bg-ivory text-ink min-h-screen flex flex-col justify-between selection:bg-gold/20 selection:text-gold-muted antialiased">
         {gaId && (
           <>
             <Script
@@ -122,8 +122,6 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
             </Script>
           </>
         )}
-      </head>
-      <body className="bg-ivory text-ink min-h-screen flex flex-col justify-between selection:bg-gold/20 selection:text-gold-muted antialiased">
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
