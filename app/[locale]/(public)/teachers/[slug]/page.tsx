@@ -1,7 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
-import { createClient } from '@/lib/supabase/server';
+import { createStaticClient } from '@/lib/supabase/server';
 import TeacherProfileClient from '@/components/sections/TeacherProfileClient';
 
 interface TeacherProfileProps {
@@ -35,7 +35,7 @@ export default async function TeacherDetailPage({ params }: TeacherProfileProps)
   const settings: Record<string, any> = {};
 
   try {
-    const supabase = await createClient();
+    const supabase = createStaticClient();
     const { data: dbSettings } = await supabase
       .from('settings')
       .select('*');

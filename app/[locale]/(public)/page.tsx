@@ -12,7 +12,7 @@ import HowItWorks from '@/components/sections/HowItWorks';
 import PricingTeaser from '@/components/sections/PricingTeaser';
 import LatestArticles from '@/components/sections/LatestArticles';
 import FinalCTA from '@/components/sections/FinalCTA';
-import { createClient } from '@/lib/supabase/server';
+import { createStaticClient } from '@/lib/supabase/server';
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -28,7 +28,7 @@ export default async function HomePage({ params }: HomePageProps) {
   const settings: Record<string, any> = {};
 
   try {
-    const supabase = await createClient();
+    const supabase = createStaticClient();
     const { data: dbSettings } = await supabase
       .from('settings')
       .select('*');

@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { setRequestLocale } from 'next-intl/server';
-import { createClient } from '@/lib/supabase/server';
+import { createStaticClient } from '@/lib/supabase/server';
 
 interface TeachersPageProps {
   params: Promise<{ locale: string }>;
@@ -106,7 +106,7 @@ export default async function TeachersPage({ params }: TeachersPageProps) {
   // Fetch settings from Supabase
   const settings: Record<string, any> = {};
   try {
-    const supabase = await createClient();
+    const supabase = createStaticClient();
     const { data: dbSettings } = await supabase
       .from('settings')
       .select('*');

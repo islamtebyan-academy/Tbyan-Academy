@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import WhatsAppFloating from '@/components/ui/WhatsAppFloating';
-import { createClient } from '@/lib/supabase/server';
+import { createStaticClient } from '@/lib/supabase/server';
 
 interface PublicLayoutProps {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ export default async function PublicLayout({ children, params }: PublicLayoutPro
   let footerVerse = undefined;
 
   try {
-    const supabase = await createClient();
+    const supabase = createStaticClient();
     const { data: setting } = await supabase
       .from('settings')
       .select('value')

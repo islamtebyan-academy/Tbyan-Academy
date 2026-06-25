@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
-import { createClient } from '@/lib/supabase/server';
+import { createStaticClient } from '@/lib/supabase/server';
 import { 
   BookOpen, Award, CheckCircle2, ChevronRight, ChevronLeft,
   ArrowRight, ArrowLeft, Users, Calendar, Clock, Star,
@@ -792,7 +792,7 @@ export async function generateStaticParams() {
   ];
 
   try {
-    const supabase = await createClient();
+    const supabase = createStaticClient();
     const { data: courses } = await supabase
       .from('courses')
       .select('slug');
@@ -870,7 +870,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
   setRequestLocale(locale);
 
   // 1. Fetch course from Supabase
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const { data: dbCourse } = await supabase
     .from('courses')
     .select('*')

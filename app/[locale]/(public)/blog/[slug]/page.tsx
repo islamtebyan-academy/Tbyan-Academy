@@ -7,7 +7,7 @@ import {
   Calendar, Clock, GraduationCap, ArrowLeft, ArrowRight, BookOpen, Sparkles, Bookmark
 } from 'lucide-react';
 import { locales } from '@/i18n';
-import { createClient } from '@/lib/supabase/server';
+import { createStaticClient } from '@/lib/supabase/server';
 import { Article, ARTICLES_DATA, BASE_ARTICLES } from '../data';
 
 interface PageProps {
@@ -66,7 +66,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   let excerpt = '';
 
   try {
-    const supabase = await createClient();
+    const supabase = createStaticClient();
     const { data: dbArticle } = await supabase
       .from('articles')
       .select('*')
@@ -157,7 +157,7 @@ export default async function ArticlePage({ params }: PageProps) {
   const labels = labelsMap[locale as keyof typeof labelsMap] || labelsMap.en;
   
   // 1. Fetch from Supabase first
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   let dbArticle = null;
   try {
     const { data } = await supabase

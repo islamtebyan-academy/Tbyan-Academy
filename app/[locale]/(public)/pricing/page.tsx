@@ -1,6 +1,6 @@
 import React from 'react';
 import { setRequestLocale } from 'next-intl/server';
-import { createClient } from '@/lib/supabase/server';
+import { createStaticClient } from '@/lib/supabase/server';
 import PricingClient from '@/components/sections/PricingClient';
 
 interface PricingPageProps {
@@ -17,7 +17,7 @@ export default async function PricingPage({ params }: PricingPageProps) {
   const settings: Record<string, any> = {};
 
   try {
-    const supabase = await createClient();
+    const supabase = createStaticClient();
     const { data: dbSettings } = await supabase
       .from('settings')
       .select('*');

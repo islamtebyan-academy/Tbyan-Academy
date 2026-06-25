@@ -1,7 +1,7 @@
 import React from 'react';
 import { setRequestLocale } from 'next-intl/server';
 import AboutClient from '@/components/sections/AboutClient';
-import { createClient } from '@/lib/supabase/server';
+import { createStaticClient } from '@/lib/supabase/server';
 
 interface AboutPageProps {
   params: Promise<{ locale: string }>;
@@ -17,7 +17,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
   const settings: Record<string, any> = {};
 
   try {
-    const supabase = await createClient();
+    const supabase = createStaticClient();
     const { data: dbSettings } = await supabase
       .from('settings')
       .select('*');
