@@ -19,6 +19,7 @@ import { createClient } from '@/lib/supabase/server';
 import { saveCourse } from '@/app/actions/courses';
 import CourseEditModal from '@/components/admin/CourseEditModal';
 import DeleteConfirmButton from '@/components/admin/DeleteConfirmButton';
+import { COURSES_DATABASE } from '@/app/[locale]/(public)/programs/data';
 
 interface CoursesPageProps {
   params: Promise<{ locale: string }>;
@@ -54,7 +55,49 @@ export default async function CoursesPage({ params, searchParams }: CoursesPageP
       .select('*')
       .eq('id', editId)
       .single();
-    selectedCourse = data;
+    
+    if (data) {
+      const staticCourseAr = COURSES_DATABASE.ar?.[data.slug];
+      const staticCourseEn = COURSES_DATABASE.en?.[data.slug];
+      const staticCourseFr = COURSES_DATABASE.fr?.[data.slug];
+
+      const dbWhatYouLearnAr = data.what_you_learn?.ar || [];
+      const dbWhatYouLearnEn = data.what_you_learn?.en || [];
+      const dbWhatYouLearnFr = data.what_you_learn?.fr || [];
+
+      const mergedWhatYouLearn = {
+        ar: dbWhatYouLearnAr.length > 0 ? dbWhatYouLearnAr : (staticCourseAr?.whatYouLearn || []),
+        en: dbWhatYouLearnEn.length > 0 ? dbWhatYouLearnEn : (staticCourseEn?.whatYouLearn || []),
+        fr: dbWhatYouLearnFr.length > 0 ? dbWhatYouLearnFr : (staticCourseFr?.whatYouLearn || [])
+      };
+
+      const dbOutcomesAr = data.outcomes?.ar || [];
+      const dbOutcomesEn = data.outcomes?.en || [];
+      const dbOutcomesFr = data.outcomes?.fr || [];
+
+      const mergedOutcomes = {
+        ar: dbOutcomesAr.length > 0 ? dbOutcomesAr : (staticCourseAr?.outcomes || []),
+        en: dbOutcomesEn.length > 0 ? dbOutcomesEn : (staticCourseEn?.outcomes || []),
+        fr: dbOutcomesFr.length > 0 ? dbOutcomesFr : (staticCourseFr?.outcomes || [])
+      };
+
+      const dbStudyPlanAr = data.study_plan?.ar || [];
+      const dbStudyPlanEn = data.study_plan?.en || [];
+      const dbStudyPlanFr = data.study_plan?.fr || [];
+
+      const mergedStudyPlan = {
+        ar: dbStudyPlanAr.length > 0 ? dbStudyPlanAr : (staticCourseAr?.studyPlan || []),
+        en: dbStudyPlanEn.length > 0 ? dbStudyPlanEn : (staticCourseEn?.studyPlan || []),
+        fr: dbStudyPlanFr.length > 0 ? dbStudyPlanFr : (staticCourseFr?.studyPlan || [])
+      };
+
+      selectedCourse = {
+        ...data,
+        what_you_learn: mergedWhatYouLearn,
+        outcomes: mergedOutcomes,
+        study_plan: mergedStudyPlan
+      };
+    }
   }
 
   const getLocalizedValue = (obj: any, key: string) => {
