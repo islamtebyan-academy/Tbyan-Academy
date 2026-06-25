@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 
+export const dynamic = 'force-dynamic';
+
 // Helper function to sign a JWT using Node's native crypto module (RS256)
 function signJwt(payload: object, privateKey: string, serviceAccountEmail: string) {
   const header = { alg: 'RS256', typ: 'JWT' };
