@@ -79,12 +79,30 @@ const MOCK_DATA = {
       month: { val: '38,420', growth: '+15.7%', path: 'M0 14 Q15 2, 30 18 T50 4', fill: 'M0 14 Q15 2, 30 18 T50 4 L 50 20 L 0 20 Z' }
     },
     points: [
-      { label: '00:00', value: 142, x: 60, y: 170 },
-      { label: '04:00', value: 384, x: 138, y: 145 },
-      { label: '08:00', value: 928, x: 216, y: 100 },
-      { label: '12:00', value: 1842, x: 294, y: 35 },
-      { label: '16:00', value: 1240, x: 372, y: 75 },
-      { label: '20:00', value: 680, x: 450, y: 115 }
+      { label: '00:00', value: 120, x: 60, y: 175 },
+      { label: '01:00', value: 80, x: 77, y: 178 },
+      { label: '02:00', value: 50, x: 94, y: 181 },
+      { label: '03:00', value: 45, x: 111, y: 181 },
+      { label: '04:00', value: 60, x: 128, y: 180 },
+      { label: '05:00', value: 90, x: 145, y: 177 },
+      { label: '06:00', value: 180, x: 162, y: 169 },
+      { label: '07:00', value: 320, x: 179, y: 157 },
+      { label: '08:00', value: 540, x: 196, y: 138 },
+      { label: '09:00', value: 780, x: 213, y: 117 },
+      { label: '10:00', value: 950, x: 230, y: 102 },
+      { label: '11:00', value: 1100, x: 247, y: 89 },
+      { label: '12:00', value: 1420, x: 263, y: 62 },
+      { label: '13:00', value: 1680, x: 280, y: 39 },
+      { label: '14:00', value: 1842, x: 297, y: 25 },
+      { label: '15:00', value: 1750, x: 314, y: 33 },
+      { label: '16:00', value: 1580, x: 331, y: 48 },
+      { label: '17:00', value: 1310, x: 348, y: 71 },
+      { label: '18:00', value: 1150, x: 365, y: 85 },
+      { label: '19:00', value: 980, x: 382, y: 100 },
+      { label: '20:00', value: 820, x: 399, y: 114 },
+      { label: '21:00', value: 640, x: 416, y: 129 },
+      { label: '22:00', value: 450, x: 433, y: 146 },
+      { label: '23:00', value: 280, x: 450, y: 161 }
     ],
     pathD: 'M 60 170 C 90 160, 110 155, 138 145 C 166 135, 190 115, 216 100 C 242 85, 270 50, 294 35 C 318 20, 350 60, 372 75 C 394 90, 420 105, 450 115',
     fillD: 'M 60 170 C 90 160, 110 155, 138 145 C 166 135, 190 115, 216 100 C 242 85, 270 50, 294 35 C 318 20, 350 60, 372 75 C 394 90, 420 105, 450 115 L 450 185 L 60 185 Z'
@@ -297,6 +315,9 @@ export async function GET() {
       countriesRes.ok ? countriesRes.json() : null
     ]);
 
+    const rawDailyRows = dailyData.rows || [];
+    const rawWeeklyRows = weeklyData.rows || [];
+
     // Parse Sources data
     const rawSources = sourcesData?.rows || [];
     const sources = rawSources.map((row: any) => {
@@ -322,13 +343,23 @@ export async function GET() {
       return { name, count };
     });
 
-    // Parse Daily data points
-    const rawDailyRows = dailyData.rows || [];
-    const dailyPoints = rawDailyRows.map((row: any, i: number) => {
+    // Parse Daily data points and pad all 24 hours
+    const dailyPointsMap: Record<string, number> = {};
+    for (let h = 0; h < 24; h++) {
+      const hourStr = h.toString().padStart(2, '0');
+      dailyPointsMap[hourStr] = 0;
+    }
+    rawDailyRows.forEach((row: any) => {
       const hour = row.dimensionValues?.[0]?.value || '';
       const value = parseInt(row.metricValues?.[0]?.value || '0', 10);
-      const label = `${hour}:00`;
-      const x = 60 + (i * (450 - 60)) / Math.max(1, rawDailyRows.length - 1);
+      const formattedHour = hour.padStart(2, '0');
+      dailyPointsMap[formattedHour] = value;
+    });
+
+    const dailyPoints = Object.keys(dailyPointsMap).sort().map((hourStr, i) => {
+      const value = dailyPointsMap[hourStr];
+      const label = `${hourStr}:00`;
+      const x = 60 + (i * (450 - 60)) / 23;
       return { label, value, x, y: 185 };
     });
     
@@ -340,14 +371,24 @@ export async function GET() {
     
     const dailyPaths = generateSvgPaths(dailyPoints);
 
-    // Parse Weekly data points
-    const rawWeeklyRows = weeklyData.rows || [];
-    const weeklyPoints = rawWeeklyRows.map((row: any, i: number) => {
+    // Parse Weekly data points and pad 7 days of the week
+    const weeklyPointsMap: Record<string, number> = {
+      'Monday': 0, 'Tuesday': 0, 'Wednesday': 0, 'Thursday': 0, 'Friday': 0, 'Saturday': 0, 'Sunday': 0
+    };
+    rawWeeklyRows.forEach((row: any) => {
       const rawDay = row.dimensionValues?.[0]?.value || '';
-      // Capitalize first letter
-      const label = rawDay.charAt(0).toUpperCase() + rawDay.slice(1).substring(0, 2);
       const value = parseInt(row.metricValues?.[0]?.value || '0', 10);
-      const x = 60 + (i * (450 - 60)) / Math.max(1, rawWeeklyRows.length - 1);
+      const capitalizedDay = rawDay.charAt(0).toUpperCase() + rawDay.slice(1).toLowerCase();
+      if (capitalizedDay in weeklyPointsMap) {
+        weeklyPointsMap[capitalizedDay] = value;
+      }
+    });
+
+    const daysOrder = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const weeklyPoints = daysOrder.map((day, i) => {
+      const value = weeklyPointsMap[day];
+      const label = day.substring(0, 3);
+      const x = 60 + (i * (450 - 60)) / 6;
       return { label, value, x, y: 185 };
     });
 

@@ -95,12 +95,30 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
         month: { val: '38,420', growth: '+15.7%', path: '', fill: '' }
       },
       points: [
-        { label: '00:00', value: 142, x: 60, y: 170 },
-        { label: '04:00', value: 384, x: 138, y: 145 },
-        { label: '08:00', value: 928, x: 216, y: 100 },
-        { label: '12:00', value: 1842, x: 294, y: 35 },
-        { label: '16:00', value: 1240, x: 372, y: 75 },
-        { label: '20:00', value: 680, x: 450, y: 115 }
+        { label: '00:00', value: 120, x: 60, y: 175 },
+        { label: '01:00', value: 80, x: 77, y: 178 },
+        { label: '02:00', value: 50, x: 94, y: 181 },
+        { label: '03:00', value: 45, x: 111, y: 181 },
+        { label: '04:00', value: 60, x: 128, y: 180 },
+        { label: '05:00', value: 90, x: 145, y: 177 },
+        { label: '06:00', value: 180, x: 162, y: 169 },
+        { label: '07:00', value: 320, x: 179, y: 157 },
+        { label: '08:00', value: 540, x: 196, y: 138 },
+        { label: '09:00', value: 780, x: 213, y: 117 },
+        { label: '10:00', value: 950, x: 230, y: 102 },
+        { label: '11:00', value: 1100, x: 247, y: 89 },
+        { label: '12:00', value: 1420, x: 263, y: 62 },
+        { label: '13:00', value: 1680, x: 280, y: 39 },
+        { label: '14:00', value: 1842, x: 297, y: 25 },
+        { label: '15:00', value: 1750, x: 314, y: 33 },
+        { label: '16:00', value: 1580, x: 331, y: 48 },
+        { label: '17:00', value: 1310, x: 348, y: 71 },
+        { label: '18:00', value: 1150, x: 365, y: 85 },
+        { label: '19:00', value: 980, x: 382, y: 100 },
+        { label: '20:00', value: 820, x: 399, y: 114 },
+        { label: '21:00', value: 640, x: 416, y: 129 },
+        { label: '22:00', value: 450, x: 433, y: 146 },
+        { label: '23:00', value: 280, x: 450, y: 161 }
       ],
       pathD: '',
       fillD: ''
@@ -302,12 +320,16 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
         ) : (
           <svg className="w-full h-full min-h-72 overflow-visible" viewBox="0 0 800 220" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <linearGradient id="splineGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" className="[stop-color:#B8841A] [stop-opacity:0.25]" />
-                <stop offset="100%" className="[stop-color:#B8841A] [stop-opacity:0.0]" />
+              <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#D4A843" />
+                <stop offset="100%" stopColor="#B8841A" stopOpacity="0.4" />
+              </linearGradient>
+              <linearGradient id="barHoverGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#FFD700" />
+                <stop offset="100%" stopColor="#D4A843" stopOpacity="0.8" />
               </linearGradient>
               <filter id="nodeGlow" x="-30%" y="-30%" width="160%" height="160%">
-                <feGaussianBlur stdDeviation="3.5" result="blur" />
+                <feGaussianBlur stdDeviation="4" result="blur" />
                 <feComposite in="SourceGraphic" in2="blur" operator="over" />
               </filter>
             </defs>
@@ -337,7 +359,7 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
                 stroke="#DDD0B3"
                 strokeWidth="0.4"
                 strokeDasharray="2 2"
-                opacity="0.15"
+                opacity="0.1"
               />
             ))}
 
@@ -349,62 +371,69 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
                 x2={displayPoints[hoveredIndex].x} 
                 y2="185" 
                 stroke="#D4A843" 
-                strokeWidth="1.5" 
+                strokeWidth="1" 
                 strokeDasharray="4 4" 
                 className="transition-all duration-300"
               />
             )}
             
-            {/* Gradient Spline Fill */}
-            <path d={fillPath} fill="url(#splineGradient)" className="transition-all duration-700" />
+            {/* Draw Interactive Bar Columns */}
+            {(() => {
+              const barWidth = activeTab === 'daily' ? 12 : activeTab === 'weekly' ? 32 : 36;
+              return displayPoints.map((pt, i) => {
+                const barHeight = Math.max(185 - pt.y, 2);
+                const barX = pt.x - barWidth / 2;
+                const barY = pt.y;
+                return (
+                  <g key={i}>
+                    {/* Golden Bar with top rounded corners */}
+                    <rect
+                      x={barX}
+                      y={barY}
+                      width={barWidth}
+                      height={barHeight}
+                      rx="3"
+                      fill={hoveredIndex === i ? 'url(#barHoverGradient)' : 'url(#barGradient)'}
+                      filter={hoveredIndex === i ? 'url(#nodeGlow)' : ''}
+                      className="transition-all duration-300 ease-out"
+                    />
+                    
+                    {/* Invisible full-height hover trigger rectangle */}
+                    <rect
+                      x={barX - 4}
+                      y={25}
+                      width={barWidth + 8}
+                      height={160}
+                      fill="transparent"
+                      className="cursor-pointer"
+                      onMouseEnter={() => setHoveredIndex(i)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                    />
+                  </g>
+                );
+              });
+            })()}
             
-            {/* Golden Spline Path line */}
-            <path d={curvePath} stroke="#B8841A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-700" />
-            
-            {/* Interactive Data Nodes */}
-            {displayPoints.map((pt, i) => (
-              <g key={i}>
-                {/* Invisible touch/hover expand circle */}
-                <circle
-                  cx={pt.x}
-                  cy={pt.y}
-                  r="18"
-                  fill="transparent"
-                  className="cursor-pointer"
-                  onMouseEnter={() => setHoveredIndex(i)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                />
-                
-                {/* Visual circle element */}
-                <circle 
-                  cx={pt.x} 
-                  cy={pt.y} 
-                  r={hoveredIndex === i ? 6.5 : 4.5} 
-                  fill={hoveredIndex === i ? '#D4A843' : '#B8841A'} 
-                  stroke="#FDFAF3" 
-                  strokeWidth={hoveredIndex === i ? 2 : 1.5} 
-                  filter={hoveredIndex === i ? 'url(#nodeGlow)' : ''} 
-                  className="transition-all duration-200 pointer-events-none"
-                />
-              </g>
-            ))}
-            
-            {/* Bottom X-axis Labels */}
-            {displayPoints.map((pt, i) => (
-              <text 
-                key={i}
-                x={pt.x} 
-                y="202" 
-                fill={hoveredIndex === i ? '#B8841A' : '#8C7A68'} 
-                fontSize="8.5" 
-                fontWeight={hoveredIndex === i ? 'bold' : 'normal'}
-                textAnchor="middle"
-                fontFamily="var(--font-ui)"
-                className="transition-colors duration-200 select-none pointer-events-none"
-              >
-                {pt.label}
-              </text>
-            ))}
+            {/* Bottom X-axis Labels - selectively skipped in daily mode to prevent text crowding */}
+            {displayPoints.map((pt, i) => {
+              const showLabel = activeTab !== 'daily' || i % 4 === 0 || i === displayPoints.length - 1;
+              if (!showLabel) return null;
+              return (
+                <text 
+                  key={i}
+                  x={pt.x} 
+                  y="202" 
+                  fill={hoveredIndex === i ? '#B8841A' : '#8C7A68'} 
+                  fontSize="8.5" 
+                  fontWeight={hoveredIndex === i ? 'bold' : 'normal'}
+                  textAnchor="middle"
+                  fontFamily="var(--font-ui)"
+                  className="transition-colors duration-200 select-none pointer-events-none"
+                >
+                  {pt.label}
+                </text>
+              );
+            })}
 
             {/* Interactive Tooltip details */}
             {hoveredIndex !== null && (
