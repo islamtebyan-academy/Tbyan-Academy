@@ -222,7 +222,7 @@ export default function CourseEditModal({ selectedCourse, isNew, locale, initial
             }`}
           >
             <Settings size={14} />
-            <span>{isRtl ? 'بيانات الكارت' : 'Card Settings'}</span>
+            <span>{isRtl ? 'بيانات الكورس' : 'Course Settings'}</span>
           </button>
           <button
             type="button"
@@ -234,7 +234,7 @@ export default function CourseEditModal({ selectedCourse, isNew, locale, initial
             }`}
           >
             <FileText size={14} />
-            <span>{isRtl ? 'محتوى الصفحة' : 'Page Content'}</span>
+            <span>{isRtl ? 'محتوى الكورس' : 'Course Content'}</span>
           </button>
         </div>
 
