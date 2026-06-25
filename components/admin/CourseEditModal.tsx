@@ -26,6 +26,16 @@ export default function CourseEditModal({ selectedCourse, isNew, locale, initial
   const [activeTab, setActiveTab] = useState<'general' | 'content'>(initialTab || 'general');
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const [previewUrl, setPreviewUrl] = React.useState<string | null>(selectedCourse?.image_url || null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+    }
+  };
+
 
   // Helper to convert DB arrays/JSON back to textarea line items
   const getWhatYouLearnString = (lang: string) => {
@@ -373,9 +383,9 @@ export default function CourseEditModal({ selectedCourse, isNew, locale, initial
                   {isRtl ? 'صورة الكورس أو البرنامج' : 'Course Thumbnail Image'}
                 </label>
                 <div className="flex items-center gap-4 bg-[#FDFAF3]/30 p-4 border border-gold/10 rounded-2xl">
-                  {selectedCourse?.image_url && (
+                  {previewUrl && (
                     <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-gold/20 shadow-inner bg-white">
-                      <img src={selectedCourse.image_url} alt="Thumbnail" className="w-full h-full object-cover" />
+                      <img src={previewUrl} alt="Thumbnail" className="w-full h-full object-cover" />
                     </div>
                   )}
                   <div className="flex-grow space-y-1">
@@ -384,6 +394,7 @@ export default function CourseEditModal({ selectedCourse, isNew, locale, initial
                       id="imageFile"
                       name="imageFile"
                       accept="image/*"
+                      onChange={handleImageChange}
                       title={isRtl ? 'صورة الكورس أو البرنامج' : 'Course Thumbnail Image'}
                       className="w-full text-xs text-stone/65 file:bg-gold/15 file:hover:bg-gold/20 file:border-none file:text-gold-hi file:px-3 file:py-1.5 file:rounded-lg file:mr-3 file:font-semibold file:cursor-pointer focus:outline-none font-ui"
                     />
@@ -393,6 +404,7 @@ export default function CourseEditModal({ selectedCourse, isNew, locale, initial
                   </div>
                 </div>
               </div>
+
 
               {/* External Links */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

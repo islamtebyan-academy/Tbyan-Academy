@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import sharp from 'sharp';
 import { createClient } from '@/lib/supabase/server';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 
 export async function saveArticle(formData: FormData) {
   const supabase = await createClient();
@@ -12,6 +13,23 @@ export async function saveArticle(formData: FormData) {
   if (!user) {
     return { error: 'Unauthorized.' };
   }
+
+  // Verify active admin profile
+  const { data: profile } = await supabase
+    .from('admin_profiles')
+    .select('active')
+    .eq('id', user.id)
+    .single();
+
+  if (!profile || !profile.active) {
+    return { error: 'Unauthorized.' };
+  }
+
+  // Create service role client for writes (bypassing RLS constraints safely)
+  const supabaseAdmin = createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
 
   const articleId = formData.get('articleId') as string;
   const slug = formData.get('slug') as string;
@@ -90,7 +108,7 @@ export async function saveArticle(formData: FormData) {
 
       const fileName = `${slug}-${Date.now()}.webp`;
       
-      const { data: uploadData, error: uploadError } = await supabase.storage
+      const { data: uploadData, error: uploadError } = await supabaseAdmin.storage
         .from('media')
         .upload(`articles/${fileName}`, webpBuffer, {
           contentType: 'image/webp',
@@ -103,7 +121,7 @@ export async function saveArticle(formData: FormData) {
       }
 
       // Get public URL
-      const { data: { publicUrl } } = supabase.storage
+      const { data: { publicUrl } } = supabaseAdmin.storage
         .from('media')
         .getPublicUrl(`articles/${fileName}`);
 
@@ -217,13 +235,13 @@ export async function saveArticle(formData: FormData) {
   let dbError = null;
 
   if (articleId) {
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('articles')
       .update(payload)
       .eq('id', articleId);
     dbError = error;
   } else {
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('articles')
       .insert([payload]);
     dbError = error;
@@ -249,13 +267,29 @@ export async function deleteArticle(articleId: string, locale: string = 'en') {
     return { error: 'Unauthorized.' };
   }
 
-  const { data: article } = await supabase
+  // Verify active admin profile
+  const { data: profile } = await supabase
+    .from('admin_profiles')
+    .select('active')
+    .eq('id', user.id)
+    .single();
+
+  if (!profile || !profile.active) {
+    return { error: 'Unauthorized.' };
+  }
+
+  const supabaseAdmin = createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+
+  const { data: article } = await supabaseAdmin
     .from('articles')
     .select('slug')
     .eq('id', articleId)
     .single();
 
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from('articles')
     .delete()
     .eq('id', articleId);

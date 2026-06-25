@@ -26,6 +26,16 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
   const [activeTab, setActiveTab] = useState<'general' | 'content'>(initialTab || 'general');
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const [previewUrl, setPreviewUrl] = React.useState<string | null>(selectedArticle?.image_url || null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+    }
+  };
+
 
   // Helper to convert DB content back to textarea strings
   const getSectionsString = (lang: string) => {
@@ -340,9 +350,9 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
                   {isRtl ? 'صورة غلاف المقال' : 'Cover Image / Illustration'}
                 </label>
                 <div className="flex items-center gap-4 bg-[#FDFAF3]/30 p-4 border border-gold/10 rounded-2xl">
-                  {selectedArticle?.image_url && (
+                  {previewUrl && (
                     <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-gold/20 shadow-inner bg-white">
-                      <img src={selectedArticle.image_url} alt="Cover" className="w-full h-full object-cover" />
+                      <img src={previewUrl} alt="Cover" className="w-full h-full object-cover" />
                     </div>
                   )}
                   <div className="flex-grow space-y-1">
@@ -351,6 +361,7 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
                       id="article-image-file"
                       name="imageFile"
                       accept="image/*"
+                      onChange={handleImageChange}
                       title={isRtl ? 'صورة غلاف المقال' : 'Cover Image / Illustration'}
                       className="w-full text-xs text-stone/65 file:bg-gold/15 file:hover:bg-gold/20 file:border-none file:text-gold-hi file:px-3 file:py-1.5 file:rounded-lg file:mr-3 file:font-semibold file:cursor-pointer focus:outline-none font-ui"
                     />
@@ -360,6 +371,7 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
                   </div>
                 </div>
               </div>
+
 
               {/* Trilingual CTA messages */}
               <div className="space-y-3">

@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import sharp from 'sharp';
 import { createClient } from '@/lib/supabase/server';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 
 export async function saveCourse(formData: FormData) {
   const supabase = await createClient();
@@ -12,6 +13,23 @@ export async function saveCourse(formData: FormData) {
   if (!user) {
     return { error: 'Unauthorized.' };
   }
+
+  // Verify active admin profile
+  const { data: profile } = await supabase
+    .from('admin_profiles')
+    .select('active')
+    .eq('id', user.id)
+    .single();
+
+  if (!profile || !profile.active) {
+    return { error: 'Unauthorized.' };
+  }
+
+  // Create service role client for writes (bypassing RLS constraints safely)
+  const supabaseAdmin = createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
 
   const courseId = formData.get('courseId') as string;
   const slug = formData.get('slug') as string;
@@ -91,7 +109,7 @@ export async function saveCourse(formData: FormData) {
 
       const fileName = `${slug}-${Date.now()}.webp`;
       
-      const { data: uploadData, error: uploadError } = await supabase.storage
+      const { data: uploadData, error: uploadError } = await supabaseAdmin.storage
         .from('media')
         .upload(`courses/${fileName}`, webpBuffer, {
           contentType: 'image/webp',
@@ -104,7 +122,7 @@ export async function saveCourse(formData: FormData) {
       }
 
       // Get public URL
-      const { data: { publicUrl } } = supabase.storage
+      const { data: { publicUrl } } = supabaseAdmin.storage
         .from('media')
         .getPublicUrl(`courses/${fileName}`);
 
@@ -211,14 +229,14 @@ export async function saveCourse(formData: FormData) {
 
   if (courseId) {
     // Update existing course
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('courses')
       .update(payload)
       .eq('id', courseId);
     dbError = error;
   } else {
     // Create new course
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('courses')
       .insert([payload]);
     dbError = error;
@@ -244,14 +262,30 @@ export async function deleteCourse(courseId: string, locale: string = 'en') {
     return { error: 'Unauthorized.' };
   }
 
+  // Verify active admin profile
+  const { data: profile } = await supabase
+    .from('admin_profiles')
+    .select('active')
+    .eq('id', user.id)
+    .single();
+
+  if (!profile || !profile.active) {
+    return { error: 'Unauthorized.' };
+  }
+
+  const supabaseAdmin = createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+
   // Get slug to revalidate path
-  const { data: course } = await supabase
+  const { data: course } = await supabaseAdmin
     .from('courses')
     .select('slug')
     .eq('id', courseId)
     .single();
 
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from('courses')
     .delete()
     .eq('id', courseId);
