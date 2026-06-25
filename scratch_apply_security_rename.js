@@ -41,7 +41,7 @@ const replacements = [
       { from: /\/admin\/articles/g, to: '/portal/articles' }
     ]
   },
-  // These will be processed after folder renaming (so we use 'portal' in paths)
+  // These will be processed after folder copying (so we use 'portal' in paths)
   {
     file: 'app/[locale]/(admin)/portal/(dashboard)/layout.tsx',
     replace: [
@@ -74,27 +74,68 @@ const replacements = [
   }
 ];
 
+function copyFolderRecursiveSync(src, dest) {
+  if (!fs.existsSync(dest)) {
+    fs.mkdirSync(dest, { recursive: true });
+  }
+
+  if (fs.lstatSync(src).isDirectory()) {
+    const files = fs.readdirSync(src);
+    files.forEach((file) => {
+      const curSource = path.join(src, file);
+      const curTarget = path.join(dest, file);
+      if (fs.lstatSync(curSource).isDirectory()) {
+        copyFolderRecursiveSync(curSource, curTarget);
+      } else {
+        fs.copyFileSync(curSource, curTarget);
+      }
+    });
+  }
+}
+
+function deleteFolderRecursiveSync(directoryPath) {
+  if (fs.existsSync(directoryPath)) {
+    fs.readdirSync(directoryPath).forEach((file) => {
+      const curPath = path.join(directoryPath, file);
+      if (fs.lstatSync(curPath).isDirectory()) {
+        deleteFolderRecursiveSync(curPath);
+      } else {
+        try {
+          fs.unlinkSync(curPath);
+        } catch (e) {
+          // ignore lock issues on single files
+        }
+      }
+    });
+    try {
+      fs.rmdirSync(directoryPath);
+    } catch (e) {
+      // ignore lock issues on directory
+    }
+  }
+}
+
 function run() {
-  console.log('--- STARTING SECURITY ROUTE RENAME (admin -> portal) ---');
+  console.log('--- STARTING SECURITY ROUTE MIGRATION (admin -> portal) ---');
 
   const oldDir = path.join(__dirname, 'app', '[locale]', '(admin)', 'admin');
   const newDir = path.join(__dirname, 'app', '[locale]', '(admin)', 'portal');
 
-  // 1. Rename directory
+  // 1. Copy directory
   if (fs.existsSync(oldDir)) {
     try {
-      console.log(`Renaming folder from ${oldDir} to ${newDir}...`);
-      fs.renameSync(oldDir, newDir);
-      console.log('✓ Directory renamed successfully.');
+      console.log(`Copying folder recursively from ${oldDir} to ${newDir}...`);
+      copyFolderRecursiveSync(oldDir, newDir);
+      console.log('✓ Directory copied successfully.');
     } catch (err) {
-      console.error('✗ ERROR: Failed to rename directory. Please make sure Next.js dev server is completely stopped!');
+      console.error('✗ ERROR: Failed to copy directory.');
       console.error(err.message);
       process.exit(1);
     }
   } else if (fs.existsSync(newDir)) {
     console.log('✓ Portal directory already exists. Continuing replacements...');
   } else {
-    console.error('✗ ERROR: Could not find administrative folders to rename.');
+    console.error('✗ ERROR: Could not find administrative folders to migrate.');
     process.exit(1);
   }
 
@@ -121,8 +162,20 @@ function run() {
     }
   });
 
-  console.log('\n--- SUCCESS! RENAME AND UPDATES COMPLETE ---');
-  console.log('You can now run "npm run dev" to start the server at: http://localhost:3000/ar/portal');
+  // 3. Attempt clean up of old folder
+  if (fs.existsSync(oldDir)) {
+    console.log('Cleaning up old admin folder...');
+    deleteFolderRecursiveSync(oldDir);
+    if (fs.existsSync(oldDir)) {
+      console.log('Notice: Some files in the old admin directory are locked by VS Code or your terminal. You can delete the old folder manually later, but the new "/portal" routes are active now.');
+    } else {
+      console.log('✓ Old admin folder cleaned up successfully.');
+    }
+  }
+
+  console.log('\n--- SUCCESS! ROUTE MIGRATION COMPLETE ---');
+  console.log('You can now start the server with: npm run dev');
+  console.log('The portal login is at: http://localhost:3000/ar/portal/login');
 }
 
 run();
