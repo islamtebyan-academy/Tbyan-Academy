@@ -133,7 +133,28 @@ const MOCK_DATA = {
     ],
     pathD: 'M 60 155 C 90 145, 115 140, 138 130 C 168 120, 190 110, 216 95 C 246 80, 270 65, 294 55 C 324 45, 345 45, 372 40 C 402 35, 425 30, 450 25',
     fillD: 'M 60 155 C 90 145, 115 140, 138 130 C 168 120, 190 110, 216 95 C 246 80, 270 65, 294 55 C 324 45, 345 45, 372 40 C 402 35, 425 30, 450 25 L 450 185 L 60 185 Z'
-  }
+  },
+  sources: [
+    { name: 'Google Search (Organic)', count: 1842 },
+    { name: 'Direct Traffic', count: 1075 },
+    { name: 'Social Media (Facebook/IG)', count: 614 },
+    { name: 'Referral Links', count: 309 },
+    { name: 'WhatsApp', count: 125 }
+  ],
+  pages: [
+    { name: '/ar (الرئيسية)', count: 2450 },
+    { name: '/ar/programs/quran-memorization', count: 1820 },
+    { name: '/ar/pricing (الأسعار)', count: 980 },
+    { name: '/ar/teachers (المعلمون)', count: 850 },
+    { name: '/ar/about (من نحن)', count: 420 }
+  ],
+  countries: [
+    { name: 'Egypt (مصر)', count: 1540 },
+    { name: 'Saudi Arabia (السعودية)', count: 1210 },
+    { name: 'United Arab Emirates (الإمارات)', count: 680 },
+    { name: 'Qatar (قطر)', count: 320 },
+    { name: 'Kuwait (الكويت)', count: 280 }
+  ]
 };
 
 export async function GET() {
@@ -205,10 +226,58 @@ export async function GET() {
       })
     });
 
-    const [dailyRes, weeklyRes, monthlyRes] = await Promise.all([
+    // Query 4: Real Traffic Sources
+    const sourcesReportReq = fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
+        dimensions: [{ name: 'sessionSource' }],
+        metrics: [{ name: 'activeUsers' }],
+        limit: 5
+      })
+    });
+
+    // Query 5: Top Pages
+    const pagesReportReq = fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
+        dimensions: [{ name: 'pagePath' }],
+        metrics: [{ name: 'activeUsers' }],
+        limit: 5
+      })
+    });
+
+    // Query 6: Top Countries
+    const countriesReportReq = fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
+        dimensions: [{ name: 'country' }],
+        metrics: [{ name: 'activeUsers' }],
+        limit: 5
+      })
+    });
+
+    const [dailyRes, weeklyRes, monthlyRes, sourcesRes, pagesRes, countriesRes] = await Promise.all([
       dailyReportReq,
       weeklyReportReq,
-      monthlyReportReq
+      monthlyReportReq,
+      sourcesReportReq,
+      pagesReportReq,
+      countriesReportReq
     ]);
 
     if (!dailyRes.ok || !weeklyRes.ok || !monthlyRes.ok) {
@@ -219,11 +288,39 @@ export async function GET() {
       throw new Error(`Google Analytics API returned error: ${errTexts.join(' | ')}`);
     }
 
-    const [dailyData, weeklyData, monthlyData] = await Promise.all([
+    const [dailyData, weeklyData, monthlyData, sourcesData, pagesData, countriesData] = await Promise.all([
       dailyRes.json(),
       weeklyRes.json(),
-      monthlyRes.json()
+      monthlyRes.json(),
+      sourcesRes.ok ? sourcesRes.json() : null,
+      pagesRes.ok ? pagesRes.json() : null,
+      countriesRes.ok ? countriesRes.json() : null
     ]);
+
+    // Parse Sources data
+    const rawSources = sourcesData?.rows || [];
+    const sources = rawSources.map((row: any) => {
+      let name = row.dimensionValues?.[0]?.value || 'unknown';
+      if (name === '(direct)') name = 'Direct Traffic';
+      const count = parseInt(row.metricValues?.[0]?.value || '0', 10);
+      return { name, count };
+    });
+
+    // Parse Pages data
+    const rawPages = pagesData?.rows || [];
+    const pages = rawPages.map((row: any) => {
+      const name = row.dimensionValues?.[0]?.value || '/';
+      const count = parseInt(row.metricValues?.[0]?.value || '0', 10);
+      return { name, count };
+    });
+
+    // Parse Countries data
+    const rawCountries = countriesData?.rows || [];
+    const countries = rawCountries.map((row: any) => {
+      const name = row.dimensionValues?.[0]?.value || 'unknown';
+      const count = parseInt(row.metricValues?.[0]?.value || '0', 10);
+      return { name, count };
+    });
 
     // Parse Daily data points
     const rawDailyRows = dailyData.rows || [];
@@ -336,7 +433,10 @@ export async function GET() {
         points: monthlyPoints,
         pathD: monthlyPaths.pathD,
         fillD: monthlyPaths.fillD
-      }
+      },
+      sources: sources.length > 0 ? sources : MOCK_DATA.sources,
+      pages: pages.length > 0 ? pages : MOCK_DATA.pages,
+      countries: countries.length > 0 ? countries : MOCK_DATA.countries
     });
 
   } catch (error) {

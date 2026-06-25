@@ -193,39 +193,9 @@ export default async function DashboardHomePage({ params }: DashboardHomeProps) 
       </div>
 
       {/* Main analytics panels */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
+      <div className="grid grid-cols-1 gap-8">
         {/* Interactive Google Analytics Chart */}
         <InteractiveAnalyticsChart isRtl={isRtl} />
-
-        {/* Channels/Origins stats */}
-        <div className="bg-gradient-to-br from-white to-[#FDFAF3]/40 border border-gold-muted/15 rounded-3xl p-6 text-start relative overflow-hidden pattern-overlay shadow-xl">
-          <h3 className="font-bold text-midnight text-sm font-primary mb-6">
-            {isRtl ? 'مصادر الزيارات الأساسية للمنصة' : 'Acquisition Channels'}
-          </h3>
-
-          <div className="space-y-5">
-            {[
-              { name: isRtl ? 'بحث جوجل (Organic)' : 'Google Search', percentage: 48, count: '1,844', color: 'from-gold-hi to-gold', wClass: 'w-[48%]' },
-              { name: isRtl ? 'زيارات مباشرة (Direct)' : 'Direct Visits', percentage: 28, count: '1,075', color: 'from-blue-400 to-indigo-600', wClass: 'w-[28%]' },
-              { name: isRtl ? 'وسائل التواصل (Social)' : 'Social Networks', percentage: 16, count: '614', color: 'from-emerald-400 to-emerald-600', wClass: 'w-[16%]' },
-              { name: isRtl ? 'إحالات خارجية (Referral)' : 'Referral Links', percentage: 8, count: '309', color: 'from-rose-400 to-rose-600', wClass: 'w-[8%]' },
-            ].map((channel, i) => (
-              <div key={i} className="space-y-2">
-                <div className="flex items-center justify-between text-xs font-semibold">
-                  <span className="text-stone/85 font-ui">{channel.name}</span>
-                  <div className="space-x-1.5 font-mono text-midnight">
-                    <span>{channel.count}</span>
-                    <span className="text-stone/50 text-[10px]">({channel.percentage}%)</span>
-                  </div>
-                </div>
-                <div className="w-full h-2 rounded-full bg-gold-muted/5 overflow-hidden border border-gold/5">
-                  <div className={`h-full rounded-full bg-gradient-to-r ${channel.color} ${channel.wClass}`} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* Recent Student Registrations Table */}

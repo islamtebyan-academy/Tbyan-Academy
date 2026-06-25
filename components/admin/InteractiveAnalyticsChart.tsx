@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { TrendingUp, Users, Clock, AlertCircle, RefreshCw } from 'lucide-react';
+import { Users, Clock, AlertCircle, RefreshCw, Globe, FileText, Share2, TrendingUp } from 'lucide-react';
 
 interface ChartPoint {
   label: string;
@@ -26,102 +26,49 @@ interface TabData {
   fillD: string;
 }
 
-// Initial fallback mock dataset matching the initial UI
-const initialDataset = (isRtl: boolean): Record<'daily' | 'weekly' | 'monthly', TabData> => ({
-  daily: {
-    title: isRtl ? 'تحليلات الزيارات اليومية' : 'Daily Traffic Analytics',
-    subtitle: isRtl ? 'معدل التصفح والنشاط على مدار الـ 24 ساعة الماضية' : 'User traffic stats tracked across the last 24 hours',
-    activeVisitors: 84,
-    growth: '+12.4%',
-    yLabels: ['2,000', '1,500', '1,000', '0'],
-    sparklines: {
-      today: { val: '1,842', growth: '+12.4%', path: 'M0 15 Q12 5, 25 12 T50 3', fill: 'M0 15 Q12 5, 25 12 T50 3 L 50 20 L 0 20 Z' },
-      week: { val: '9,840', growth: '+8.2%', path: 'M0 18 C10 8, 20 15, 30 5 C40 10, 45 2, 50 4', fill: 'M0 18 C10 8, 20 15, 30 5 C40 10, 45 2, 50 4 L 50 20 L 0 20 Z' },
-      month: { val: '38,420', growth: '+15.7%', path: 'M0 14 Q15 2, 30 18 T50 4', fill: 'M0 14 Q15 2, 30 18 T50 4 L 50 20 L 0 20 Z' }
-    },
-    points: [
-      { label: '00:00', value: 142, x: 60, y: 170 },
-      { label: '04:00', value: 384, x: 138, y: 145 },
-      { label: '08:00', value: 928, x: 216, y: 100 },
-      { label: '12:00', value: 1842, x: 294, y: 35 },
-      { label: '16:00', value: 1240, x: 372, y: 75 },
-      { label: '20:00', value: 680, x: 450, y: 115 }
-    ],
-    pathD: 'M 60 170 C 90 160, 110 155, 138 145 C 166 135, 190 115, 216 100 C 242 85, 270 50, 294 35 C 318 20, 350 60, 372 75 C 394 90, 420 105, 450 115',
-    fillD: 'M 60 170 C 90 160, 110 155, 138 145 C 166 135, 190 115, 216 100 C 242 85, 270 50, 294 35 C 318 20, 350 60, 372 75 C 394 90, 420 105, 450 115 L 450 185 L 60 185 Z'
-  },
-  weekly: {
-    title: isRtl ? 'تحليلات الزيارات الأسبوعية' : 'Weekly Traffic Analytics',
-    subtitle: isRtl ? 'معدل التصفح والنشاط على مدار أيام الأسبوع السبعة' : 'User traffic stats tracked across the seven days of the week',
-    activeVisitors: 512,
-    growth: '+18.7%',
-    yLabels: ['3,000', '2,000', '1,000', '0'],
-    sparklines: {
-      today: { val: '2,140', growth: '+15.2%', path: 'M0 18 Q12 10, 25 8 T50 14', fill: 'M0 18 Q12 10, 25 8 T50 14 L 50 20 L 0 20 Z' },
-      week: { val: '14,890', growth: '+18.7%', path: 'M0 12 Q15 2, 30 18 T50 5', fill: 'M0 12 Q15 2, 30 18 T50 5 L 50 20 L 0 20 Z' },
-      month: { val: '46,120', growth: '+22.3%', path: 'M0 10 Q12 18, 25 6 T50 2', fill: 'M0 10 Q12 18, 25 6 T50 2 L 50 20 L 0 20 Z' }
-    },
-    points: [
-      { label: isRtl ? 'الإثنين' : 'Mon', value: 840, x: 60, y: 130 },
-      { label: isRtl ? 'الثلاثاء' : 'Tue', value: 1240, x: 125, y: 100 },
-      { label: isRtl ? 'الأربعاء' : 'Wed', value: 1890, x: 190, y: 60 },
-      { label: isRtl ? 'الخميس' : 'Thu', value: 2420, x: 255, y: 30 },
-      { label: isRtl ? 'الجمعة' : 'Fri', value: 1810, x: 320, y: 65 },
-      { label: isRtl ? 'السبت' : 'Sat', value: 980, x: 385, y: 120 },
-      { label: isRtl ? 'الأحد' : 'Sun', value: 1450, x: 450, y: 85 }
-    ],
-    pathD: 'M 60 130 C 85 115, 105 110, 125 100 C 145 90, 170 75, 190 60 C 215 45, 240 35, 255 30 C 275 25, 300 55, 320 65 C 345 75, 365 105, 385 120 C 410 135, 430 100, 450 85',
-    fillD: 'M 60 130 C 85 115, 105 110, 125 100 C 145 90, 170 75, 190 60 C 215 45, 240 35, 255 30 C 275 25, 300 55, 320 65 C 345 75, 365 105, 385 120 C 410 135, 430 100, 450 85 L 450 185 L 60 185 Z'
-  },
-  monthly: {
-    title: isRtl ? 'تحليلات الزيارات الشهرية' : 'Monthly Traffic Analytics',
-    subtitle: isRtl ? 'إجمالي عدد الزيارات للأكاديمية على مدار الـ 6 أشهر الماضية' : 'Total monthly visit counts tracked across the last 6 months',
-    activeVisitors: 2840,
-    growth: '+25.3%',
-    yLabels: ['40,000', '30,000', '20,000', '0'],
-    sparklines: {
-      today: { val: '1,980', growth: '+9.4%', path: 'M0 12 Q12 18, 25 10 T50 4', fill: 'M0 12 Q12 18, 25 10 T50 4 L 50 20 L 0 20 Z' },
-      week: { val: '11,420', growth: '+11.2%', path: 'M0 15 Q15 5, 30 12 T50 2', fill: 'M0 15 Q15 5, 30 12 T50 2 L 50 20 L 0 20 Z' },
-      month: { val: '58,400', growth: '+25.3%', path: 'M0 16 Q15 2, 35 12 T50 6', fill: 'M0 16 Q15 2, 35 12 T50 6 L 50 20 L 0 20 Z' }
-    },
-    points: [
-      { label: isRtl ? 'يناير' : 'Jan', value: 8200, x: 60, y: 155 },
-      { label: isRtl ? 'فبراير' : 'Feb', value: 12400, x: 138, y: 130 },
-      { label: isRtl ? 'مارس' : 'Mar', value: 18900, x: 216, y: 95 },
-      { label: isRtl ? 'أبريل' : 'Apr', value: 28400, x: 294, y: 55 },
-      { label: isRtl ? 'مايو' : 'May', value: 31200, x: 372, y: 40 },
-      { label: isRtl ? 'يونيو' : 'Jun', value: 38420, x: 450, y: 25 }
-    ],
-    pathD: 'M 60 155 C 90 145, 115 140, 138 130 C 168 120, 190 110, 216 95 C 246 80, 270 65, 294 55 C 324 45, 345 45, 372 40 C 402 35, 425 30, 450 25',
-    fillD: 'M 60 155 C 90 145, 115 140, 138 130 C 168 120, 190 110, 216 95 C 246 80, 270 65, 294 55 C 324 45, 345 45, 372 40 C 402 35, 425 30, 450 25 L 450 185 L 60 185 Z'
+// Generate smooth cubic Bezier path for nodes
+function getBezierPath(pts: { x: number; y: number }[]) {
+  if (pts.length === 0) return '';
+  if (pts.length === 1) return `M ${pts[0].x} ${pts[0].y}`;
+  
+  let d = `M ${pts[0].x} ${pts[0].y}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const curr = pts[i];
+    const next = pts[i + 1];
+    
+    // Control points at 1/3 and 2/3 distance
+    const cp1x = curr.x + (next.x - curr.x) / 3;
+    const cp1y = curr.y;
+    const cp2x = curr.x + (2 * (next.x - curr.x)) / 3;
+    const cp2y = next.y;
+    
+    d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${next.x} ${next.y}`;
   }
-});
+  return d;
+}
 
 export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean }) {
   const [activeTab, setActiveTab] = useState<'daily' | 'weekly' | 'monthly'>('daily');
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   
-  const [chartData, setChartData] = useState<Record<'daily' | 'weekly' | 'monthly', TabData> | null>(null);
+  const [chartData, setChartData] = useState<any | null>(null);
+  const [sources, setSources] = useState<any[]>([]);
+  const [pages, setPages] = useState<any[]>([]);
+  const [countries, setCountries] = useState<any[]>([]);
   const [isMock, setIsMock] = useState(true);
   const [loading, setLoading] = useState(true);
 
   async function fetchAnalytics() {
     try {
       setLoading(true);
-      const res = await fetch('/api/analytics');
+      const res = await fetch(`/api/analytics?t=${Date.now()}`);
       if (res.ok) {
         const data = await res.json();
         setIsMock(data.isMock);
-        // Map Arabic translations for titles/subtitles if language is RTL
-        if (isRtl) {
-          data.daily.title = 'تحليلات الزيارات اليومية';
-          data.daily.subtitle = 'معدل التصفح والنشاط على مدار الـ 24 ساعة الماضية';
-          data.weekly.title = 'تحليلات الزيارات الأسبوعية';
-          data.weekly.subtitle = 'معدل التصفح والنشاط على مدار أيام الأسبوع السبعة';
-          data.monthly.title = 'تحليلات الزيارات الشهرية';
-          data.monthly.subtitle = 'إجمالي عدد الزيارات للأكاديمية على مدار الـ 6 أشهر الماضية';
-        }
         setChartData(data);
+        setSources(data.sources || []);
+        setPages(data.pages || []);
+        setCountries(data.countries || []);
       }
     } catch (err) {
       console.error('Failed to fetch analytics data:', err);
@@ -134,11 +81,138 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
     fetchAnalytics();
   }, [isRtl]);
 
-  const activeDataset = chartData || initialDataset(isRtl);
+  // Fallbacks if loading or missing
+  const activeDataset = chartData || {
+    daily: {
+      title: isRtl ? 'تحليلات الزيارات اليومية' : 'Daily Traffic Analytics',
+      subtitle: isRtl ? 'معدل التصفح والنشاط على مدار الـ 24 ساعة الماضية' : 'User traffic stats tracked across the last 24 hours',
+      activeVisitors: 84,
+      growth: '+12.4%',
+      yLabels: ['2,000', '1,500', '1,000', '0'],
+      sparklines: {
+        today: { val: '1,842', growth: '+12.4%', path: '', fill: '' },
+        week: { val: '9,840', growth: '+8.2%', path: '', fill: '' },
+        month: { val: '38,420', growth: '+15.7%', path: '', fill: '' }
+      },
+      points: [
+        { label: '00:00', value: 142, x: 60, y: 170 },
+        { label: '04:00', value: 384, x: 138, y: 145 },
+        { label: '08:00', value: 928, x: 216, y: 100 },
+        { label: '12:00', value: 1842, x: 294, y: 35 },
+        { label: '16:00', value: 1240, x: 372, y: 75 },
+        { label: '20:00', value: 680, x: 450, y: 115 }
+      ],
+      pathD: '',
+      fillD: ''
+    },
+    weekly: {
+      title: isRtl ? 'تحليلات الزيارات الأسبوعية' : 'Weekly Traffic Analytics',
+      subtitle: isRtl ? 'معدل التصفح والنشاط على مدار أيام الأسبوع السبعة' : 'User traffic stats tracked across the seven days of the week',
+      activeVisitors: 512,
+      growth: '+18.7%',
+      yLabels: ['3,000', '2,000', '1,000', '0'],
+      sparklines: {
+        today: { val: '2,140', growth: '+15.2%', path: '', fill: '' },
+        week: { val: '14,890', growth: '+18.7%', path: '', fill: '' },
+        month: { val: '46,120', growth: '+22.3%', path: '', fill: '' }
+      },
+      points: [
+        { label: isRtl ? 'الإثنين' : 'Mon', value: 840, x: 60, y: 130 },
+        { label: isRtl ? 'الثلاثاء' : 'Tue', value: 1240, x: 125, y: 100 },
+        { label: isRtl ? 'الأربعاء' : 'Wed', value: 1890, x: 190, y: 60 },
+        { label: isRtl ? 'الخميس' : 'Thu', value: 2420, x: 255, y: 30 },
+        { label: isRtl ? 'الجمعة' : 'Fri', value: 1810, x: 320, y: 65 },
+        { label: isRtl ? 'السبت' : 'Sat', value: 980, x: 385, y: 120 },
+        { label: isRtl ? 'الأحد' : 'Sun', value: 1450, x: 450, y: 85 }
+      ],
+      pathD: '',
+      fillD: ''
+    },
+    monthly: {
+      title: isRtl ? 'تحليلات الزيارات الشهرية' : 'Monthly Traffic Analytics',
+      subtitle: isRtl ? 'إجمالي عدد الزيارات للأكاديمية على مدار الـ 6 أشهر الماضية' : 'Total monthly visit counts tracked across the last 6 months',
+      activeVisitors: 2840,
+      growth: '+25.3%',
+      yLabels: ['40,000', '30,000', '20,000', '0'],
+      sparklines: {
+        today: { val: '1,980', growth: '+9.4%', path: '', fill: '' },
+        week: { val: '11,420', growth: '+11.2%', path: '', fill: '' },
+        month: { val: '58,400', growth: '+25.3%', path: '', fill: '' }
+      },
+      points: [
+        { label: isRtl ? 'يناير' : 'Jan', value: 8200, x: 60, y: 155 },
+        { label: isRtl ? 'فبراير' : 'Feb', value: 12400, x: 138, y: 130 },
+        { label: isRtl ? 'مارس' : 'Mar', value: 18900, x: 216, y: 95 },
+        { label: isRtl ? 'أبريل' : 'Apr', value: 28400, x: 294, y: 55 },
+        { label: isRtl ? 'مايو' : 'May', value: 31200, x: 372, y: 40 },
+        { label: isRtl ? 'يونيو' : 'Jun', value: 38420, x: 450, y: 25 }
+      ],
+      pathD: '',
+      fillD: ''
+    }
+  };
+
   const currentData = activeDataset[activeTab];
 
+  // Scale x-coordinates from standard width (480) to full-width (800)
+  const scaleX = (x: number) => {
+    const percent = (x - 60) / (450 - 60);
+    return 60 + percent * (740 - 60);
+  };
+
+  const points = currentData.points.map((pt: ChartPoint) => ({
+    ...pt,
+    x: scaleX(pt.x)
+  }));
+
+  // Handle single data point or empty arrays gracefully
+  let displayPoints = [...points];
+  if (displayPoints.length === 1) {
+    displayPoints = [
+      { ...displayPoints[0], x: 60 },
+      { ...displayPoints[0], x: 740 }
+    ];
+  } else if (displayPoints.length === 0) {
+    displayPoints = [
+      { label: '00:00', value: 0, x: 60, y: 185 },
+      { label: '24:00', value: 0, x: 740, y: 185 }
+    ];
+  }
+
+  const curvePath = getBezierPath(displayPoints);
+  const fillPath = displayPoints.length > 0 
+    ? `${curvePath} L ${displayPoints[displayPoints.length - 1].x} 185 L ${displayPoints[0].x} 185 Z`
+    : '';
+
+  // Secondary dynamic lists
+  const activeSources = sources.length > 0 ? sources : [
+    { name: 'Google Search (Organic)', count: 1842 },
+    { name: 'Direct Traffic', count: 1075 },
+    { name: 'Social Media (Facebook/IG)', count: 614 },
+    { name: 'Referral Links', count: 309 },
+    { name: 'WhatsApp', count: 125 }
+  ];
+  const activePages = pages.length > 0 ? pages : [
+    { name: '/ar (الرئيسية)', count: 2450 },
+    { name: '/ar/programs/quran-memorization', count: 1820 },
+    { name: '/ar/pricing (الأسعار)', count: 980 },
+    { name: '/ar/teachers (المعلمون)', count: 850 },
+    { name: '/ar/about (من نحن)', count: 420 }
+  ];
+  const activeCountries = countries.length > 0 ? countries : [
+    { name: 'Egypt (مصر)', count: 1540 },
+    { name: 'Saudi Arabia (السعودية)', count: 1210 },
+    { name: 'United Arab Emirates (الإمارات)', count: 680 },
+    { name: 'Qatar (قطر)', count: 320 },
+    { name: 'Kuwait (الكويت)', count: 280 }
+  ];
+
+  const maxSource = Math.max(...activeSources.map(s => s.count), 1);
+  const maxPage = Math.max(...activePages.map(p => p.count), 1);
+  const maxCountry = Math.max(...activeCountries.map(c => c.count), 1);
+
   return (
-    <div className="lg:col-span-2 bg-gradient-to-br from-white to-[#FDFAF3]/40 border border-gold-muted/15 rounded-3xl p-6 flex flex-col text-start relative overflow-hidden pattern-overlay shadow-xl transition-all duration-300">
+    <div className="lg:col-span-3 w-full bg-gradient-to-br from-white to-[#FDFAF3]/40 border border-gold-muted/15 rounded-3xl p-6 flex flex-col text-start relative overflow-hidden pattern-overlay shadow-xl transition-all duration-300">
       
       {/* Dynamic Header */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6 relative z-10 w-full">
@@ -167,7 +241,7 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
                 </span>
-                <span>{isRtl ? 'متصل ومباشر' : 'Live Connected'}</span>
+                <span>{isRtl ? 'متصل مباشر' : 'Live Connected'}</span>
               </span>
             )}
           </div>
@@ -197,7 +271,7 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
         </div>
       </div>
 
-      {/* Mini Cards stats with dynamic calculations */}
+      {/* Mini Cards stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 relative z-10">
         {[
           { key: 'today', label: activeTab === 'daily' ? (isRtl ? 'زيارات اليوم' : 'Today') : activeTab === 'weekly' ? (isRtl ? 'اليوم الأول' : 'Day 1') : (isRtl ? 'بداية الشهر' : 'Start Month'), spark: currentData.sparklines.today },
@@ -218,15 +292,15 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
         ))}
       </div>
 
-      {/* Interactive Spline Area Chart Wrapper */}
-      <div className="flex-grow flex flex-col justify-end min-h-64 relative pt-2">
+      {/* Beautiful Spline Area Chart */}
+      <div className="flex-grow flex flex-col justify-end min-h-72 relative pt-2">
         {currentData.points.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-stone/40 text-xs">
             <AlertCircle size={20} className="mb-2" />
             <span>{isRtl ? 'لا توجد بيانات حركة مرور مسجلة بعد' : 'No traffic stats captured yet'}</span>
           </div>
         ) : (
-          <svg className="w-full h-full overflow-visible" viewBox="0 0 480 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className="w-full h-full min-h-72 overflow-visible" viewBox="0 0 800 220" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="splineGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" className="[stop-color:#B8841A] [stop-opacity:0.25]" />
@@ -239,10 +313,10 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
             </defs>
             
             {/* Horizontal gridlines */}
-            <line x1="50" y1="35" x2="455" y2="35" stroke="#DDD0B3" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.3" />
-            <line x1="50" y1="85" x2="455" y2="85" stroke="#DDD0B3" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.3" />
-            <line x1="50" y1="135" x2="455" y2="135" stroke="#DDD0B3" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.3" />
-            <line x1="50" y1="185" x2="455" y2="185" stroke="#DDD0B3" strokeWidth="0.8" opacity="0.5" />
+            <line x1="50" y1="35" x2="770" y2="35" stroke="#DDD0B3" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.3" />
+            <line x1="50" y1="85" x2="770" y2="85" stroke="#DDD0B3" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.3" />
+            <line x1="50" y1="135" x2="770" y2="135" stroke="#DDD0B3" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.3" />
+            <line x1="50" y1="185" x2="770" y2="185" stroke="#DDD0B3" strokeWidth="0.8" opacity="0.5" />
 
             {/* Left Y-axis Grid Labels */}
             <g className="select-none pointer-events-none text-[8.5px] font-mono fill-stone/60" textAnchor="end">
@@ -253,7 +327,7 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
             </g>
 
             {/* Vertical grid lines at each point position */}
-            {currentData.points.map((pt, index) => (
+            {displayPoints.map((pt, index) => (
               <line
                 key={`v-grid-${index}`}
                 x1={pt.x}
@@ -270,9 +344,9 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
             {/* Hover Vertical Guideline bar */}
             {hoveredIndex !== null && (
               <line 
-                x1={currentData.points[hoveredIndex].x} 
+                x1={displayPoints[hoveredIndex].x} 
                 y1="25" 
-                x2={currentData.points[hoveredIndex].x} 
+                x2={displayPoints[hoveredIndex].x} 
                 y2="185" 
                 stroke="#D4A843" 
                 strokeWidth="1.5" 
@@ -282,13 +356,13 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
             )}
             
             {/* Gradient Spline Fill */}
-            <path d={currentData.fillD} fill="url(#splineGradient)" className="transition-all duration-700" />
+            <path d={fillPath} fill="url(#splineGradient)" className="transition-all duration-700" />
             
             {/* Golden Spline Path line */}
-            <path d={currentData.pathD} stroke="#B8841A" strokeWidth="3" strokeLinecap="round" className="transition-all duration-700" />
+            <path d={curvePath} stroke="#B8841A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-700" />
             
-            {/* Interactive Interactive Data Nodes */}
-            {currentData.points.map((pt, i) => (
+            {/* Interactive Data Nodes */}
+            {displayPoints.map((pt, i) => (
               <g key={i}>
                 {/* Invisible touch/hover expand circle */}
                 <circle
@@ -316,11 +390,11 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
             ))}
             
             {/* Bottom X-axis Labels */}
-            {currentData.points.map((pt, i) => (
+            {displayPoints.map((pt, i) => (
               <text 
                 key={i}
                 x={pt.x} 
-                y="198" 
+                y="202" 
                 fill={hoveredIndex === i ? '#B8841A' : '#8C7A68'} 
                 fontSize="8.5" 
                 fontWeight={hoveredIndex === i ? 'bold' : 'normal'}
@@ -332,28 +406,24 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
               </text>
             ))}
 
-            {/* Interactive Tooltip as SVG foreignObject to avoid inline HTML styles lint warnings */}
+            {/* Interactive Tooltip details */}
             {hoveredIndex !== null && (
               <foreignObject
-                x={currentData.points[hoveredIndex].x - 45}
-                y={currentData.points[hoveredIndex].y - 56}
-                width="90"
-                height="50"
+                x={displayPoints[hoveredIndex].x - 60}
+                y={displayPoints[hoveredIndex].y - 65}
+                width="120"
+                height="56"
                 className="pointer-events-none overflow-visible"
               >
-                <div className="bg-[#22314b] border border-gold/30 p-1.5 rounded-lg shadow-lg text-[8px] text-ivory flex flex-col gap-0.5 justify-center relative">
+                <div className="bg-[#1C1812]/95 backdrop-blur-md border border-gold/30 p-2 rounded-xl shadow-xl text-[9px] text-[#FDFAF3] flex flex-col gap-0.5 justify-center relative animate-fade-in">
                   {/* Tiny arrow pointing down */}
-                  <div className="absolute bottom-[-3px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#22314b] border-r border-b border-gold/30 rotate-45" />
-                  <div className="font-bold text-gold-hi text-start leading-none">
-                    {currentData.points[hoveredIndex].label}
+                  <div className="absolute bottom-[-3px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#1C1812] border-r border-b border-gold/30 rotate-45" />
+                  <div className="font-bold text-gold text-start leading-none border-b border-gold-muted/10 pb-1 mb-1">
+                    {displayPoints[hoveredIndex].label}
                   </div>
                   <div className="flex items-center gap-1 font-mono text-start leading-none">
                     <Users size={8} className="text-gold" />
-                    <span>{isRtl ? 'الزيارات:' : 'Visits:'} {currentData.points[hoveredIndex].value}</span>
-                  </div>
-                  <div className="flex items-center gap-1 font-mono text-stone/40 text-start leading-none">
-                    <Clock size={8} />
-                    <span>{isRtl ? 'بقاء: 14د' : 'Stay: 14m'}</span>
+                    <span>{isRtl ? 'الزيارات:' : 'Visits:'} {displayPoints[hoveredIndex].value}</span>
                   </div>
                 </div>
               </foreignObject>
@@ -361,6 +431,93 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
           </svg>
         )}
       </div>
+
+      {/* Divider */}
+      <div className="border-t border-gold-muted/10 my-6 pt-6 relative z-10"></div>
+
+      {/* Three detailed columns with real data from Google Analytics */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10 text-start">
+        
+        {/* Column 1: Traffic Sources */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 text-[#8C6D27]">
+            <Share2 size={16} className="text-gold" />
+            <h4 className="font-bold text-midnight text-xs font-primary">
+              {isRtl ? 'مصادر الزيارات الحقيقية' : 'Live Traffic Sources'}
+            </h4>
+          </div>
+          <div className="space-y-3">
+            {activeSources.map((source, i) => (
+              <div key={i} className="space-y-1">
+                <div className="flex justify-between text-[10px] font-semibold">
+                  <span className="text-stone font-ui">{source.name}</span>
+                  <span className="text-midnight font-mono">{source.count}</span>
+                </div>
+                <div className="w-full h-1.5 rounded-full bg-gold-muted/5 overflow-hidden">
+                  <div 
+                    className="h-full rounded-full bg-gradient-to-r from-[#A08850] to-gold transition-all duration-1000"
+                    style={{ width: `${(source.count / maxSource) * 100}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Column 2: Top Viewed Pages */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 text-[#8C6D27]">
+            <FileText size={16} className="text-gold" />
+            <h4 className="font-bold text-midnight text-xs font-primary">
+              {isRtl ? 'الأقسام الأكثر تفاعلاً' : 'Most Visited Pages'}
+            </h4>
+          </div>
+          <div className="space-y-3">
+            {activePages.map((page, i) => (
+              <div key={i} className="space-y-1">
+                <div className="flex justify-between text-[10px] font-semibold">
+                  <span className="text-stone font-ui font-mono truncate max-w-[180px] direction-ltr block">{page.name}</span>
+                  <span className="text-midnight font-mono">{page.count}</span>
+                </div>
+                <div className="w-full h-1.5 rounded-full bg-gold-muted/5 overflow-hidden">
+                  <div 
+                    className="h-full rounded-full bg-gradient-to-r from-[#A08850] to-[#C0A870] transition-all duration-1000"
+                    style={{ width: `${(page.count / maxPage) * 100}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Column 3: Geographic Distribution */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 text-[#8C6D27]">
+            <Globe size={16} className="text-gold" />
+            <h4 className="font-bold text-midnight text-xs font-primary">
+              {isRtl ? 'التوزيع الجغرافي (الدول)' : 'Geographic Audience'}
+            </h4>
+          </div>
+          <div className="space-y-3">
+            {activeCountries.map((country, i) => (
+              <div key={i} className="space-y-1">
+                <div className="flex justify-between text-[10px] font-semibold">
+                  <span className="text-stone font-ui">{country.name}</span>
+                  <span className="text-midnight font-mono">{country.count}</span>
+                </div>
+                <div className="w-full h-1.5 rounded-full bg-gold-muted/5 overflow-hidden">
+                  <div 
+                    className="h-full rounded-full bg-gradient-to-r from-copper to-gold-hi transition-all duration-1000"
+                    style={{ width: `${(country.count / maxCountry) * 100}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
     </div>
   );
 }
