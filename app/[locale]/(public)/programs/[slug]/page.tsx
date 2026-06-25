@@ -15,7 +15,8 @@ import {
   OutcomeItem,
   StudyPlanItem,
   COURSES_DATABASE,
-  CourseDetailProps
+  CourseDetailProps,
+  getStaticSlug
 } from '../data';
 
 export async function generateStaticParams() {
@@ -123,7 +124,8 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
     .single();
 
   // 2. Fetch static fallback course
-  const staticCourse = COURSES_DATABASE[locale]?.[slug] || COURSES_DATABASE.en?.[slug];
+  const staticSlug = getStaticSlug(slug);
+  const staticCourse = COURSES_DATABASE[locale]?.[staticSlug] || COURSES_DATABASE.en?.[staticSlug];
 
   let course: CourseDbItem | null = null;
 
@@ -276,10 +278,13 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
   ];
 
   const relatedCourses = (course.relatedSlugs || [])
-    .map(relSlug => ({
-      slug: relSlug,
-      data: COURSES_DATABASE[locale]?.[relSlug] || COURSES_DATABASE.en?.[relSlug]
-    }))
+    .map(relSlug => {
+      const staticRelSlug = getStaticSlug(relSlug);
+      return {
+        slug: relSlug,
+        data: COURSES_DATABASE[locale]?.[staticRelSlug] || COURSES_DATABASE.en?.[staticRelSlug]
+      };
+    })
     .filter(item => item.data !== undefined);
 
   return (

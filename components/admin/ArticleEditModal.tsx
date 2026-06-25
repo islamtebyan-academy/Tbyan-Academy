@@ -189,7 +189,7 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
   if (closedLocally) return null;
 
   return (
-    <div className={`fixed top-0 bottom-0 z-30 flex items-center justify-center p-5 bg-[#0d1624]/75 backdrop-blur-md animate-fade-in ${
+    <div className={`fixed top-0 bottom-0 z-30 flex items-center justify-center p-0 bg-[#0d1624]/75 backdrop-blur-md animate-fade-in ${
       isRtl 
         ? 'right-0 md:right-68 lg:right-76 left-0' 
         : 'left-0 md:left-68 lg:left-76 right-0'
@@ -201,7 +201,7 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
       />
 
       {/* Modal Panel taking full remaining screen space with padding */}
-      <div className="w-full h-full bg-gradient-to-b from-white to-[#FDFAF3] border border-gold-muted/20 rounded-[2rem] shadow-2xl relative flex flex-col text-start overflow-hidden animate-fade-up pattern-overlay">
+      <div className="w-full h-full bg-gradient-to-b from-white to-[#FDFAF3] rounded-none relative flex flex-col text-start overflow-hidden animate-fade-up pattern-overlay">
         {/* Top Accent Gold Bar */}
         <div className="absolute top-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-gold-muted/20 via-gold-hi to-gold-muted/20 opacity-80 z-20" />
 

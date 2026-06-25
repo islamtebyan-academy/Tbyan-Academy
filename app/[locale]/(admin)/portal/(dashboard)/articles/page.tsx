@@ -220,6 +220,7 @@ export default async function ArticlesPage({ params, searchParams }: ArticlesPag
       {/* Centered Dynamic Modal Dialog */}
       {(isNew || selectedArticle) && (
         <ArticleEditModal
+          key={selectedArticle?.id || 'new'}
           selectedArticle={selectedArticle}
           isNew={isNew}
           locale={locale}

@@ -19,7 +19,7 @@ import { createClient } from '@/lib/supabase/server';
 import { saveCourse } from '@/app/actions/courses';
 import CourseEditModal from '@/components/admin/CourseEditModal';
 import DeleteConfirmButton from '@/components/admin/DeleteConfirmButton';
-import { COURSES_DATABASE } from '@/app/[locale]/(public)/programs/data';
+import { COURSES_DATABASE, getStaticSlug } from '@/app/[locale]/(public)/programs/data';
 
 interface CoursesPageProps {
   params: Promise<{ locale: string }>;
@@ -57,9 +57,10 @@ export default async function CoursesPage({ params, searchParams }: CoursesPageP
       .single();
     
     if (data) {
-      const staticCourseAr = COURSES_DATABASE.ar?.[data.slug];
-      const staticCourseEn = COURSES_DATABASE.en?.[data.slug];
-      const staticCourseFr = COURSES_DATABASE.fr?.[data.slug];
+      const staticSlug = getStaticSlug(data.slug);
+      const staticCourseAr = COURSES_DATABASE.ar?.[staticSlug];
+      const staticCourseEn = COURSES_DATABASE.en?.[staticSlug];
+      const staticCourseFr = COURSES_DATABASE.fr?.[staticSlug];
 
       const dbWhatYouLearnAr = data.what_you_learn?.ar || [];
       const dbWhatYouLearnEn = data.what_you_learn?.en || [];
@@ -272,6 +273,7 @@ export default async function CoursesPage({ params, searchParams }: CoursesPageP
       {/* Centered Dynamic Modal Dialog */}
       {(isNew || selectedCourse) && (
         <CourseEditModal
+          key={selectedCourse?.id || 'new'}
           selectedCourse={selectedCourse}
           isNew={isNew}
           locale={locale}

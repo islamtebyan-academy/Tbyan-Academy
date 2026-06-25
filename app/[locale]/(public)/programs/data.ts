@@ -27,6 +27,28 @@ export interface CourseDbItem {
   studyPlan: StudyPlanItem[];
 }
 
+export const getStaticSlug = (slug: string): string => {
+  const mapping: Record<string, string> = {
+    // Arabic track mappings
+    'arabic-philology': 'arabic-grammar',
+    'arabic-metrics': 'arabic-literature',
+    'creative-writing': 'arabic-literature',
+
+    // Shariah track mappings
+    'hadith-sciences': 'principles-of-fiqh',
+    'seerah': 'islamic-creed',
+
+    // Kids/Youth track mappings
+    'qaida-nuraniyyah': 'quran-tajweed',
+    'juz-amma': 'quran-tajweed',
+    'kids-salah': 'islamic-fiqh',
+    'prophet-stories': 'quranic-sciences-tafsir',
+    'kids-adhkar': 'quran-tajweed',
+    'kids-ethics': 'islamic-creed',
+  };
+  return mapping[slug] || slug;
+};
+
 export const COURSES_DATABASE: Record<string, Record<string, CourseDbItem>> = {
   ar: {
     'quran-tajweed': {
