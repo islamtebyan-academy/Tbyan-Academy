@@ -17,7 +17,13 @@ const bookingSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    let body = await request.json();
+    const rawBody = await request.json();
+    
+    // Store original country and whatsapp before any body reassignments or Zod stripping
+    const submittedCountry = rawBody.country || null;
+    const submittedWhatsapp = rawBody.whatsapp || null;
+
+    let body = { ...rawBody };
     
     // Map homepage/contact direct form fields to the strict wizard bookingSchema
     if ('firstName' in body || 'whatsapp' in body) {
@@ -57,8 +63,8 @@ export async function POST(request: Request) {
         .insert([{
           full_name: validatedData.studentName,
           email: validatedData.studentEmail,
-          phone: body.whatsapp || null,
-          country: body.country || null,
+          phone: submittedWhatsapp,
+          country: submittedCountry,
           program: validatedData.program,
           frequency: validatedData.frequency,
           duration: validatedData.duration,
