@@ -126,6 +126,20 @@ export async function saveCourse(formData: FormData) {
         .from('media')
         .getPublicUrl(`courses/${fileName}`);
 
+      // If there is an existing image, delete it from storage to save space
+      if (imageUrl) {
+        const oldStoragePath = getStoragePathFromUrl(imageUrl, 'courses/');
+        if (oldStoragePath) {
+          try {
+            await supabaseAdmin.storage
+              .from('media')
+              .remove([oldStoragePath]);
+          } catch (deleteError) {
+            console.error('Failed to delete old image:', deleteError);
+          }
+        }
+      }
+
       imageUrl = publicUrl;
     } catch (sharpError: any) {
       return { error: `Image processing/upload failed: ${sharpError.message}` };
@@ -278,10 +292,10 @@ export async function deleteCourse(courseId: string, locale: string = 'en') {
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   );
 
-  // Get slug to revalidate path
+  // Get slug and image to clean up
   const { data: course } = await supabaseAdmin
     .from('courses')
-    .select('slug')
+    .select('slug, image_url')
     .eq('id', courseId)
     .single();
 
@@ -294,6 +308,20 @@ export async function deleteCourse(courseId: string, locale: string = 'en') {
     return { error: error.message };
   }
 
+  // Delete image from storage upon deleting the course to clean up space
+  if (course?.image_url) {
+    const imagePath = getStoragePathFromUrl(course.image_url, 'courses/');
+    if (imagePath) {
+      try {
+        await supabaseAdmin.storage
+          .from('media')
+          .remove([imagePath]);
+      } catch (deleteError) {
+        console.error('Failed to delete image on course deletion:', deleteError);
+      }
+    }
+  }
+
   revalidatePath(`/${locale}/admin/courses`);
   revalidatePath(`/${locale}/programs`);
   if (course?.slug) {
@@ -301,4 +329,18 @@ export async function deleteCourse(courseId: string, locale: string = 'en') {
   }
 
   return { success: true };
+}
+
+function getStoragePathFromUrl(url: string, prefix: string = 'courses/'): string | null {
+  if (!url) return null;
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (supabaseUrl && url.includes(supabaseUrl)) {
+    const part = `/storage/v1/object/public/media/${prefix}`;
+    const idx = url.indexOf(part);
+    if (idx !== -1) {
+      const fileName = url.substring(idx + part.length);
+      return `${prefix}${fileName}`;
+    }
+  }
+  return null;
 }
