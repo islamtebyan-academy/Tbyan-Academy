@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { Cormorant_Garamond, Lora, Plus_Jakarta_Sans, Amiri, Noto_Naskh_Arabic, Cairo } from 'next/font/google';
 import { locales } from '@/i18n';
+import Script from 'next/script';
 import '../globals.css';
 
 // Load English/French fonts
@@ -100,8 +101,28 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     ? `${amiri.variable} ${notoArabic.variable} ${cairo.variable}`
     : `${cormorantGaramond.variable} ${lora.variable} ${plusJakartaUi.variable}`;
 
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
     <html lang={locale} dir={direction} className={fontClasses}>
+      <head>
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaId}');
+              `}
+            </Script>
+          </>
+        )}
+      </head>
       <body className="bg-ivory text-ink min-h-screen flex flex-col justify-between selection:bg-gold/20 selection:text-gold-muted antialiased">
         <NextIntlClientProvider messages={messages}>
           {children}
