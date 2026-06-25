@@ -834,13 +834,14 @@ const getCourseIcon = (path: string) => {
 };
 
 const getTrackFromSlug = (slug: string): string => {
-  if (['quran-tajweed', '10-qiraat', 'shatibiyyah-durrah', 'mushaf-script', 'quranic-sciences-tafsir', 'waqf-ibtida'].includes(slug)) {
+  const s = slug.toLowerCase();
+  if (['quran-tajweed', '10-qiraat', 'shatibiyyah-durrah', 'mushaf-script', 'quranic-sciences-tafsir', 'waqf-ibtida'].includes(s) || s.includes('quran') || s.includes('tajweed') || s.includes('qiraat') || s.includes('recitation')) {
     return 'quran';
   }
-  if (['arabic-grammar', 'arabic-literature', 'alfiya-ibn-malik', 'arabic-philology', 'arabic-metrics', 'creative-writing'].includes(slug)) {
+  if (['arabic-grammar', 'arabic-literature', 'alfiya-ibn-malik', 'arabic-philology', 'arabic-metrics', 'creative-writing'].includes(s) || s.includes('arabic') || s.includes('grammar') || s.includes('nahw') || s.includes('linguistics')) {
     return 'arabic';
   }
-  if (['islamic-fiqh', 'islamic-creed', 'principles-of-fiqh', 'hadith-sciences', 'seerah', 'islamic-logic'].includes(slug)) {
+  if (['islamic-fiqh', 'islamic-creed', 'principles-of-fiqh', 'hadith-sciences', 'seerah', 'islamic-logic'].includes(s) || s.includes('islamic') || s.includes('fiqh') || s.includes('creed') || s.includes('hadith') || s.includes('shariah') || s.includes('aqidah') || s.includes('logic') || s.includes('seerah')) {
     return 'islamic';
   }
   return 'kids';

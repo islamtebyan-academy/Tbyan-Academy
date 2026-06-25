@@ -224,6 +224,7 @@ export default async function ArticlesPage({ params, searchParams }: ArticlesPag
           isNew={isNew}
           locale={locale}
           initialTab={tab as 'general' | 'content'}
+          existingCategories={Array.from(new Set(articles.map(a => a.category_key).filter(Boolean)))}
         />
       )}
     </div>

@@ -32,6 +32,66 @@ export default function CourseEditModal({ selectedCourse, isNew, locale, initial
   const [currentStep, setCurrentStep] = useState(0);
   const [closedLocally, setClosedLocally] = useState(false);
 
+  // Outcomes state initialization
+  const [outcomes, setOutcomes] = useState<{
+    ar: { title: string; desc: string };
+    en: { title: string; desc: string };
+    fr: { title: string; desc: string };
+  }[]>(() => {
+    const arOut = selectedCourse?.outcomes?.ar || [];
+    const enOut = selectedCourse?.outcomes?.en || [];
+    const frOut = selectedCourse?.outcomes?.fr || [];
+    const maxLen = Math.max(arOut.length, enOut.length, frOut.length);
+    
+    const initial: any[] = [];
+    for (let i = 0; i < maxLen; i++) {
+      initial.push({
+        ar: { title: arOut[i]?.title || '', desc: arOut[i]?.desc || '' },
+        en: { title: enOut[i]?.title || '', desc: enOut[i]?.desc || '' },
+        fr: { title: frOut[i]?.title || '', desc: frOut[i]?.desc || '' }
+      });
+    }
+    
+    if (initial.length === 0) {
+      initial.push({
+        ar: { title: '', desc: '' },
+        en: { title: '', desc: '' },
+        fr: { title: '', desc: '' }
+      });
+    }
+    return initial;
+  });
+
+  // Study plan state initialization
+  const [studyPlan, setStudyPlan] = useState<{
+    ar: { title: string; desc: string };
+    en: { title: string; desc: string };
+    fr: { title: string; desc: string };
+  }[]>(() => {
+    const arPlan = selectedCourse?.study_plan?.ar || [];
+    const enPlan = selectedCourse?.study_plan?.en || [];
+    const frPlan = selectedCourse?.study_plan?.fr || [];
+    const maxLen = Math.max(arPlan.length, enPlan.length, frPlan.length);
+    
+    const initial: any[] = [];
+    for (let i = 0; i < maxLen; i++) {
+      initial.push({
+        ar: { title: arPlan[i]?.title || '', desc: arPlan[i]?.desc || '' },
+        en: { title: enPlan[i]?.title || '', desc: enPlan[i]?.desc || '' },
+        fr: { title: frPlan[i]?.title || '', desc: frPlan[i]?.desc || '' }
+      });
+    }
+    
+    if (initial.length === 0) {
+      initial.push({
+        ar: { title: '', desc: '' },
+        en: { title: '', desc: '' },
+        fr: { title: '', desc: '' }
+      });
+    }
+    return initial;
+  });
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -545,82 +605,294 @@ export default function CourseEditModal({ selectedCourse, isNew, locale, initial
                 </div>
               </div>
 
-              {/* 2. Outcomes (Trilingual) */}
-              <div className="space-y-3">
-                <span className="block text-[10px] font-bold uppercase tracking-widest text-gold font-ui">
-                  {isRtl ? 'المخرجات التعليمية (العنوان | الوصف - سطر لكل مخرج)' : 'Learning Outcomes (Title | Description - One per line)'}
-                </span>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="space-y-1">
-                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">Arabic</span>
-                    <textarea
-                      name="outcomesAr"
-                      rows={5}
-                      placeholder="إتقان التجويد | إتقان كافة الأحكام العملية بالتلاوة\nحفظ وتثبيت | حفظ الأجزاء المقررة بالسند"
-                      defaultValue={getKeyValueString('outcomes', 'ar')}
-                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui placeholder:text-stone/30"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">English</span>
-                    <textarea
-                      name="outcomesEn"
-                      rows={5}
-                      placeholder="Tajweed Mastery | Master all recitation rules\nIjaza path | Prepare student for connected isnad"
-                      defaultValue={getKeyValueString('outcomes', 'en')}
-                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui placeholder:text-stone/30"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">French</span>
-                    <textarea
-                      name="outcomesFr"
-                      rows={5}
-                      placeholder="Maîtrise du Tajwid | Appliquer avec rigueur les règles\nPréparation à l'Ijaza | Se préparer à la transmission orale"
-                      defaultValue={getKeyValueString('outcomes', 'fr')}
-                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui placeholder:text-stone/30"
-                    />
-                  </div>
+              {/* Dynamic Outcomes Editor */}
+              <div className="space-y-6">
+                <div className="flex items-center justify-between border-b border-gold-muted/10 pb-3">
+                  <span className="block text-[10px] font-bold uppercase tracking-widest text-gold font-ui">
+                    {isRtl ? 'المخرجات التعليمية للكورس' : 'Learning Outcomes'}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOutcomes([...outcomes, {
+                        ar: { title: '', desc: '' },
+                        en: { title: '', desc: '' },
+                        fr: { title: '', desc: '' }
+                      }]);
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gold/10 hover:bg-gold text-gold hover:text-midnight border border-gold/20 hover:border-gold font-bold text-[10px] uppercase font-ui transition-all"
+                  >
+                    <span>+ {isRtl ? 'إضافة مخرج جديد' : 'Add Outcome'}</span>
+                  </button>
                 </div>
+
+                <div className="space-y-4">
+                  {outcomes.map((item, idx) => (
+                    <div key={idx} className="bg-white border border-gold-muted/20 p-5 rounded-2xl shadow-sm relative group">
+                      <div className="absolute top-4 right-4 rtl:right-auto rtl:left-4">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (outcomes.length === 1) return;
+                            const next = [...outcomes];
+                            next.splice(idx, 1);
+                            setOutcomes(next);
+                          }}
+                          disabled={outcomes.length === 1}
+                          className="w-7 h-7 rounded-lg bg-rose-50 border border-rose-100 hover:bg-rose-100 flex items-center justify-center text-rose-500 hover:text-rose-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                          title={isRtl ? 'حذف هذا المخرج' : 'Remove Outcome'}
+                        >
+                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </div>
+
+                      <h5 className="font-bold text-midnight text-xs font-primary mb-4 pb-2 border-b border-gold-muted/10">
+                        {isRtl ? `المخرج التعليمي رقم ${idx + 1}` : `Outcome #${idx + 1}`}
+                      </h5>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Arabic translation */}
+                        <div className="space-y-3 bg-[#FCFAF7] border border-gold-muted/10 p-3 rounded-xl">
+                          <span className="block text-[9px] font-bold text-gold font-ui uppercase">اللغة العربية</span>
+                          <div className="space-y-2">
+                            <input
+                              type="text"
+                              placeholder="عنوان المخرج"
+                              value={item.ar.title}
+                              onChange={(e) => {
+                                const next = [...outcomes];
+                                next[idx].ar.title = e.target.value;
+                                setOutcomes(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                            <textarea
+                              placeholder="الشرح التفصيلي"
+                              rows={3}
+                              value={item.ar.desc}
+                              onChange={(e) => {
+                                const next = [...outcomes];
+                                next[idx].ar.desc = e.target.value;
+                                setOutcomes(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                          </div>
+                        </div>
+
+                        {/* English translation */}
+                        <div className="space-y-3 bg-[#FCFAF7] border border-gold-muted/10 p-3 rounded-xl">
+                          <span className="block text-[9px] font-bold text-gold font-ui uppercase">English</span>
+                          <div className="space-y-2">
+                            <input
+                              type="text"
+                              placeholder="Outcome Title"
+                              value={item.en.title}
+                              onChange={(e) => {
+                                const next = [...outcomes];
+                                next[idx].en.title = e.target.value;
+                                setOutcomes(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                            <textarea
+                              placeholder="Description details"
+                              rows={3}
+                              value={item.en.desc}
+                              onChange={(e) => {
+                                const next = [...outcomes];
+                                next[idx].en.desc = e.target.value;
+                                setOutcomes(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                          </div>
+                        </div>
+
+                        {/* French translation */}
+                        <div className="space-y-3 bg-[#FCFAF7] border border-gold-muted/10 p-3 rounded-xl">
+                          <span className="block text-[9px] font-bold text-gold font-ui uppercase">Français</span>
+                          <div className="space-y-2">
+                            <input
+                              type="text"
+                              placeholder="Titre de l'objectif"
+                              value={item.fr.title}
+                              onChange={(e) => {
+                                const next = [...outcomes];
+                                next[idx].fr.title = e.target.value;
+                                setOutcomes(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                            <textarea
+                              placeholder="Détails de l'objectif"
+                              rows={3}
+                              value={item.fr.desc}
+                              onChange={(e) => {
+                                const next = [...outcomes];
+                                next[idx].fr.desc = e.target.value;
+                                setOutcomes(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <input type="hidden" name="outcomesAr" value={outcomes.map(o => `${o.ar.title || ''} | ${o.ar.desc || ''}`).join('\n')} />
+                <input type="hidden" name="outcomesEn" value={outcomes.map(o => `${o.en.title || ''} | ${o.en.desc || ''}`).join('\n')} />
+                <input type="hidden" name="outcomesFr" value={outcomes.map(o => `${o.fr.title || ''} | ${o.fr.desc || ''}`).join('\n')} />
               </div>
 
-              {/* 3. Study Plan Roadmap (Trilingual) */}
-              <div className="space-y-3">
-                <span className="block text-[10px] font-bold uppercase tracking-widest text-gold font-ui">
-                  {isRtl ? 'الخطة الزمنية / المنهج الدراسي (المرحلة | التفاصيل - سطر لكل مرحلة)' : 'Study Plan / Curriculum (Stage | Details - One per line)'}
-                </span>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="space-y-1">
-                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">Arabic</span>
-                    <textarea
-                      name="studyPlanAr"
-                      rows={5}
-                      placeholder="المرحلة الأولى | ضبط مخارج الحروف وحركاتها\nالمرحلة الثانية | أحكام المدود والتنوين المتنوعة"
-                      defaultValue={getKeyValueString('study_plan', 'ar')}
-                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui placeholder:text-stone/30"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">English</span>
-                    <textarea
-                      name="studyPlanEn"
-                      rows={5}
-                      placeholder="Stage 1 | Mastering letters pronunciation\nStage 2 | Study the advanced rules of elongation"
-                      defaultValue={getKeyValueString('study_plan', 'en')}
-                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui placeholder:text-stone/30"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">French</span>
-                    <textarea
-                      name="studyPlanFr"
-                      rows={5}
-                      placeholder="Étape 1 | Articulation et phonétique de base\nÉtape 2 | Les règles complexes des allongements"
-                      defaultValue={getKeyValueString('study_plan', 'fr')}
-                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui placeholder:text-stone/30"
-                    />
-                  </div>
+              {/* Dynamic Study Plan Editor */}
+              <div className="space-y-6">
+                <div className="flex items-center justify-between border-b border-gold-muted/10 pb-3">
+                  <span className="block text-[10px] font-bold uppercase tracking-widest text-gold font-ui">
+                    {isRtl ? 'المنهج الدراسي / الخطة الزمنية' : 'Study Plan Roadmap'}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStudyPlan([...studyPlan, {
+                        ar: { title: '', desc: '' },
+                        en: { title: '', desc: '' },
+                        fr: { title: '', desc: '' }
+                      }]);
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gold/10 hover:bg-gold text-gold hover:text-midnight border border-gold/20 hover:border-gold font-bold text-[10px] uppercase font-ui transition-all"
+                  >
+                    <span>+ {isRtl ? 'إضافة مرحلة جديدة' : 'Add Stage'}</span>
+                  </button>
                 </div>
+
+                <div className="space-y-4">
+                  {studyPlan.map((stage, idx) => (
+                    <div key={idx} className="bg-white border border-gold-muted/20 p-5 rounded-2xl shadow-sm relative group">
+                      <div className="absolute top-4 right-4 rtl:right-auto rtl:left-4">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (studyPlan.length === 1) return;
+                            const next = [...studyPlan];
+                            next.splice(idx, 1);
+                            setStudyPlan(next);
+                          }}
+                          disabled={studyPlan.length === 1}
+                          className="w-7 h-7 rounded-lg bg-rose-50 border border-rose-100 hover:bg-rose-100 flex items-center justify-center text-rose-500 hover:text-rose-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                          title={isRtl ? 'حذف هذه المرحلة' : 'Remove Stage'}
+                        >
+                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </div>
+
+                      <h5 className="font-bold text-midnight text-xs font-primary mb-4 pb-2 border-b border-gold-muted/10">
+                        {isRtl ? `المرحلة الدراسية رقم ${idx + 1}` : `Stage #${idx + 1}`}
+                      </h5>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Arabic translation */}
+                        <div className="space-y-3 bg-[#FCFAF7] border border-gold-muted/10 p-3 rounded-xl">
+                          <span className="block text-[9px] font-bold text-gold font-ui uppercase">اللغة العربية</span>
+                          <div className="space-y-2">
+                            <input
+                              type="text"
+                              placeholder="اسم المرحلة"
+                              value={stage.ar.title}
+                              onChange={(e) => {
+                                const next = [...studyPlan];
+                                next[idx].ar.title = e.target.value;
+                                setStudyPlan(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                            <textarea
+                              placeholder="تفاصيل المنهج"
+                              rows={3}
+                              value={stage.ar.desc}
+                              onChange={(e) => {
+                                const next = [...studyPlan];
+                                next[idx].ar.desc = e.target.value;
+                                setStudyPlan(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                          </div>
+                        </div>
+
+                        {/* English translation */}
+                        <div className="space-y-3 bg-[#FCFAF7] border border-gold-muted/10 p-3 rounded-xl">
+                          <span className="block text-[9px] font-bold text-gold font-ui uppercase">English</span>
+                          <div className="space-y-2">
+                            <input
+                              type="text"
+                              placeholder="Stage Title"
+                              value={stage.en.title}
+                              onChange={(e) => {
+                                const next = [...studyPlan];
+                                next[idx].en.title = e.target.value;
+                                setStudyPlan(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                            <textarea
+                              placeholder="Curriculum details"
+                              rows={3}
+                              value={stage.en.desc}
+                              onChange={(e) => {
+                                const next = [...studyPlan];
+                                next[idx].en.desc = e.target.value;
+                                setStudyPlan(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                          </div>
+                        </div>
+
+                        {/* French translation */}
+                        <div className="space-y-3 bg-[#FCFAF7] border border-gold-muted/10 p-3 rounded-xl">
+                          <span className="block text-[9px] font-bold text-gold font-ui uppercase">Français</span>
+                          <div className="space-y-2">
+                            <input
+                              type="text"
+                              placeholder="Titre de l'étape"
+                              value={stage.fr.title}
+                              onChange={(e) => {
+                                const next = [...studyPlan];
+                                next[idx].fr.title = e.target.value;
+                                setStudyPlan(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                            <textarea
+                              placeholder="Détails du programme"
+                              rows={3}
+                              value={stage.fr.desc}
+                              onChange={(e) => {
+                                const next = [...studyPlan];
+                                next[idx].fr.desc = e.target.value;
+                                setStudyPlan(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <input type="hidden" name="studyPlanAr" value={studyPlan.map(p => `${p.ar.title || ''} | ${p.ar.desc || ''}`).join('\n')} />
+                <input type="hidden" name="studyPlanEn" value={studyPlan.map(p => `${p.en.title || ''} | ${p.en.desc || ''}`).join('\n')} />
+                <input type="hidden" name="studyPlanFr" value={studyPlan.map(p => `${p.fr.title || ''} | ${p.fr.desc || ''}`).join('\n')} />
               </div>
 
             </div>

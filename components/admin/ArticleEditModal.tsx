@@ -19,9 +19,10 @@ interface ArticleEditModalProps {
   isNew: boolean;
   locale: string;
   initialTab?: 'general' | 'content';
+  existingCategories?: string[];
 }
 
-export default function ArticleEditModal({ selectedArticle, isNew, locale, initialTab }: ArticleEditModalProps) {
+export default function ArticleEditModal({ selectedArticle, isNew, locale, initialTab, existingCategories = [] }: ArticleEditModalProps) {
   const router = useRouter();
   const isRtl = locale === 'ar';
   const [activeTab, setActiveTab] = useState<'general' | 'content'>(initialTab || 'general');
@@ -31,6 +32,73 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
   const [imageSelected, setImageSelected] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [closedLocally, setClosedLocally] = useState(false);
+
+  const standardCategories = ['quran', 'arabic', 'islamic', 'kids'];
+  const mergedCategories = Array.from(new Set([...standardCategories, ...existingCategories]));
+
+  const categoryLabels: Record<string, { ar: string; en: string }> = {
+    quran: { ar: 'علوم القرآن الكريم والتجويد', en: 'Quran & Tajweed' },
+    arabic: { ar: 'اللسانيات واللغة العربية', en: 'Arabic Linguistics' },
+    islamic: { ar: 'العلوم الشرعية والدراسات الإسلامية', en: 'Islamic Studies & Shariah' },
+    kids: { ar: 'مسار النشء والشباب', en: 'Youth & Kids Path' },
+    fiqh: { ar: 'أصول الفقه التشريعي', en: 'Jurisprudence (Fiqh)' },
+    aqidah: { ar: 'العقيدة والتوحيد', en: 'Islamic Creed (Aqidah)' },
+    logic: { ar: 'المنطق والبحث العلمي', en: 'Islamic Logic & Scholasticism' },
+    literature: { ar: 'الأدب والبلاغة العربية', en: 'Rhetoric & Literature' },
+    history: { ar: 'التاريخ الإسلامي والسير', en: 'Islamic History' }
+  };
+
+  // Sections state initialization
+  const [sections, setSections] = useState<{
+    ar: { subtitle: string; body: string; quote: string };
+    en: { subtitle: string; body: string; quote: string };
+    fr: { subtitle: string; body: string; quote: string };
+  }[]>(() => {
+    const arSecs = selectedArticle?.content?.ar?.sections || [];
+    const enSecs = selectedArticle?.content?.en?.sections || [];
+    const frSecs = selectedArticle?.content?.fr?.sections || [];
+    const maxLen = Math.max(arSecs.length, enSecs.length, frSecs.length);
+    
+    const initial: any[] = [];
+    for (let i = 0; i < maxLen; i++) {
+      initial.push({
+        ar: { 
+          subtitle: arSecs[i]?.subtitle || '', 
+          body: arSecs[i]?.body || '', 
+          quote: arSecs[i]?.quote || '' 
+        },
+        en: { 
+          subtitle: enSecs[i]?.subtitle || '', 
+          body: enSecs[i]?.body || '', 
+          quote: enSecs[i]?.quote || '' 
+        },
+        fr: { 
+          subtitle: frSecs[i]?.subtitle || '', 
+          body: frSecs[i]?.body || '', 
+          quote: frSecs[i]?.quote || '' 
+        }
+      });
+    }
+    
+    if (initial.length === 0) {
+      initial.push({
+        ar: { subtitle: '', body: '', quote: '' },
+        en: { subtitle: '', body: '', quote: '' },
+        fr: { subtitle: '', body: '', quote: '' }
+      });
+    }
+    return initial;
+  });
+
+  // Category state initialization
+  const [categorySelect, setCategorySelect] = useState(() => {
+    const existing = selectedArticle?.category_key || 'quran';
+    return standardCategories.includes(existing) ? existing : 'custom';
+  });
+  const [customCategory, setCustomCategory] = useState(() => {
+    const existing = selectedArticle?.category_key || '';
+    return standardCategories.includes(existing) ? '' : existing;
+  });
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -220,17 +288,38 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-[10px] font-bold uppercase tracking-widest text-stone/60 font-ui">
-                    {isRtl ? 'التصنيف العلمي (Category Key) *' : 'Academic Category Key *'}
+                  <label htmlFor="category-select" className="block text-[10px] font-bold uppercase tracking-widest text-stone/60 font-ui">
+                    {isRtl ? 'التصنيف العلمي (Category) *' : 'Academic Category *'}
                   </label>
-                  <input
-                    type="text"
-                    name="categoryKey"
-                    required
-                    placeholder="e.g. quran, fiqh, arabic, logic"
-                    defaultValue={selectedArticle?.category_key || ''}
-                    className="w-full bg-white border border-gold-hi/25 text-midnight py-3 px-4 rounded-xl text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all font-ui placeholder:text-stone/30"
-                  />
+                  <select
+                    id="category-select"
+                    value={categorySelect}
+                    onChange={(e) => setCategorySelect(e.target.value)}
+                    className="w-full bg-white border border-gold-hi/25 text-midnight py-3.5 px-4 rounded-xl text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all font-ui cursor-pointer"
+                  >
+                    {mergedCategories.map(cat => {
+                      const label = categoryLabels[cat]
+                        ? (isRtl ? categoryLabels[cat].ar : categoryLabels[cat].en)
+                        : cat;
+                      return (
+                        <option key={cat} value={cat}>
+                          {label} ({cat})
+                        </option>
+                      );
+                    })}
+                    <option value="custom">{isRtl ? '+ إضافة تصنيف جديد...' : '+ Add Custom Category...'}</option>
+                  </select>
+                  {categorySelect === 'custom' && (
+                    <input
+                      type="text"
+                      required
+                      placeholder={isRtl ? 'اكتب اسم التصنيف بالإنجليزية (مثال: hadith)' : 'Enter custom category key (e.g. hadith)'}
+                      value={customCategory}
+                      onChange={(e) => setCustomCategory(e.target.value)}
+                      className="w-full bg-white border border-gold text-midnight mt-2 py-3 px-4 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-gold transition-all font-ui placeholder:text-stone/30"
+                    />
+                  )}
+                  <input type="hidden" name="categoryKey" value={categorySelect === 'custom' ? customCategory : categorySelect} />
                 </div>
 
                 <div className="space-y-2">
@@ -530,43 +619,182 @@ export default function ArticleEditModal({ selectedArticle, isNew, locale, initi
                 </div>
               </div>
 
-              {/* Trilingual Sections */}
-              <div className="space-y-3">
-                <span className="block text-[10px] font-bold uppercase tracking-widest text-gold font-ui">
-                  {isRtl ? 'فقرات المقال الرئيسية (العنوان الجانبي | المحتوى | اقتباس)' : 'Main Paragraph Sections (Subtitle | Body | Quote)'}
-                </span>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="space-y-1">
-                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">Arabic</span>
-                    <textarea
-                      name="sectionsAr"
-                      rows={8}
-                      placeholder="العنوان الأول | تفاصيل الفقرة الأولى | الاقتباس الأول"
-                      defaultValue={getSectionsString('ar')}
-                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">English</span>
-                    <textarea
-                      name="sectionsEn"
-                      rows={8}
-                      placeholder="Subtitle 1 | Body paragraph 1 | Quote 1"
-                      defaultValue={getSectionsString('en')}
-                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <span className="text-[9px] text-stone/50 font-bold uppercase font-ui">French</span>
-                    <textarea
-                      name="sectionsFr"
-                      rows={8}
-                      placeholder="Sous-titre 1 | Paragraphe 1 | Citation 1"
-                      defaultValue={getSectionsString('fr')}
-                      className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
-                    />
-                  </div>
+              {/* Dynamic Paragraph Block Editor */}
+              <div className="space-y-6">
+                <div className="flex items-center justify-between border-b border-gold-muted/10 pb-3">
+                  <span className="block text-[10px] font-bold uppercase tracking-widest text-gold font-ui">
+                    {isRtl ? 'فقرات المقال الرئيسية' : 'Main Paragraph Sections'}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSections([...sections, {
+                        ar: { subtitle: '', body: '', quote: '' },
+                        en: { subtitle: '', body: '', quote: '' },
+                        fr: { subtitle: '', body: '', quote: '' }
+                      }]);
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gold/10 hover:bg-gold text-gold hover:text-midnight border border-gold/20 hover:border-gold font-bold text-[10px] uppercase font-ui transition-all"
+                  >
+                    <span>+ {isRtl ? 'إضافة فقرة جديدة' : 'Add Section Block'}</span>
+                  </button>
                 </div>
+
+                <div className="space-y-4">
+                  {sections.map((sec, idx) => (
+                    <div key={idx} className="bg-white border border-gold-muted/20 p-5 rounded-2xl shadow-sm relative group">
+                      <div className="absolute top-4 right-4 rtl:right-auto rtl:left-4">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (sections.length === 1) return;
+                            const next = [...sections];
+                            next.splice(idx, 1);
+                            setSections(next);
+                          }}
+                          disabled={sections.length === 1}
+                          className="w-7 h-7 rounded-lg bg-rose-50 border border-rose-100 hover:bg-rose-100 flex items-center justify-center text-rose-500 hover:text-rose-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                          title={isRtl ? 'حذف هذه الفقرة' : 'Remove Section'}
+                        >
+                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </div>
+
+                      <h5 className="font-bold text-midnight text-xs font-primary mb-4 pb-2 border-b border-gold-muted/10">
+                        {isRtl ? `القسم / الفقرة رقم ${idx + 1}` : `Section #${idx + 1}`}
+                      </h5>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Arabic translation */}
+                        <div className="space-y-3 bg-[#FCFAF7] border border-gold-muted/10 p-3 rounded-xl">
+                          <span className="block text-[9px] font-bold text-gold font-ui uppercase">اللغة العربية</span>
+                          <div className="space-y-2">
+                            <input
+                              type="text"
+                              placeholder="العنوان الجانبي"
+                              value={sec.ar.subtitle}
+                              onChange={(e) => {
+                                const next = [...sections];
+                                next[idx].ar.subtitle = e.target.value;
+                                setSections(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                            <textarea
+                              placeholder="محتوى الفقرة"
+                              rows={3}
+                              value={sec.ar.body}
+                              onChange={(e) => {
+                                const next = [...sections];
+                                next[idx].ar.body = e.target.value;
+                                setSections(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                            <input
+                              type="text"
+                              placeholder="اقتباس كلامي (اختياري)"
+                              value={sec.ar.quote}
+                              onChange={(e) => {
+                                const next = [...sections];
+                                next[idx].ar.quote = e.target.value;
+                                setSections(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                          </div>
+                        </div>
+
+                        {/* English translation */}
+                        <div className="space-y-3 bg-[#FCFAF7] border border-gold-muted/10 p-3 rounded-xl">
+                          <span className="block text-[9px] font-bold text-gold font-ui uppercase">English</span>
+                          <div className="space-y-2">
+                            <input
+                              type="text"
+                              placeholder="Subtitle"
+                              value={sec.en.subtitle}
+                              onChange={(e) => {
+                                const next = [...sections];
+                                next[idx].en.subtitle = e.target.value;
+                                setSections(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                            <textarea
+                              placeholder="Body Paragraph text"
+                              rows={3}
+                              value={sec.en.body}
+                              onChange={(e) => {
+                                const next = [...sections];
+                                next[idx].en.body = e.target.value;
+                                setSections(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                            <input
+                              type="text"
+                              placeholder="Quote (optional)"
+                              value={sec.en.quote}
+                              onChange={(e) => {
+                                const next = [...sections];
+                                next[idx].en.quote = e.target.value;
+                                setSections(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                          </div>
+                        </div>
+
+                        {/* French translation */}
+                        <div className="space-y-3 bg-[#FCFAF7] border border-gold-muted/10 p-3 rounded-xl">
+                          <span className="block text-[9px] font-bold text-gold font-ui uppercase">Français</span>
+                          <div className="space-y-2">
+                            <input
+                              type="text"
+                              placeholder="Sous-titre"
+                              value={sec.fr.subtitle}
+                              onChange={(e) => {
+                                const next = [...sections];
+                                next[idx].fr.subtitle = e.target.value;
+                                setSections(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                            <textarea
+                              placeholder="Texte du paragraphe"
+                              rows={3}
+                              value={sec.fr.body}
+                              onChange={(e) => {
+                                const next = [...sections];
+                                next[idx].fr.body = e.target.value;
+                                setSections(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                            <input
+                              type="text"
+                              placeholder="Citation (optionnel)"
+                              value={sec.fr.quote}
+                              onChange={(e) => {
+                                const next = [...sections];
+                                next[idx].fr.quote = e.target.value;
+                                setSections(next);
+                              }}
+                              className="w-full bg-white border border-gold-hi/25 text-midnight py-2.5 px-3 rounded-lg text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold font-ui"
+                            />
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <input type="hidden" name="sectionsAr" value={sections.map(s => `${s.ar.subtitle || ''} | ${s.ar.body || ''} ${s.ar.quote ? `| ${s.ar.quote}` : ''}`).join('\n')} />
+                <input type="hidden" name="sectionsEn" value={sections.map(s => `${s.en.subtitle || ''} | ${s.en.body || ''} ${s.en.quote ? `| ${s.en.quote}` : ''}`).join('\n')} />
+                <input type="hidden" name="sectionsFr" value={sections.map(s => `${s.fr.subtitle || ''} | ${s.fr.body || ''} ${s.fr.quote ? `| ${s.fr.quote}` : ''}`).join('\n')} />
               </div>
 
               {/* Trilingual Conclusions */}
