@@ -48,6 +48,17 @@ export default async function DashboardLayout({ children, params }: DashboardLay
 
   return (
     <div className="min-h-screen bg-ivory text-ink flex flex-col md:flex-row relative font-ui antialiased">
+      {/* Hide scrollbar globally inside portal dashboard but keep scrolling active */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        html, body {
+          -ms-overflow-style: none !important;
+          scrollbar-width: none !important;
+        }
+        html::-webkit-scrollbar, body::-webkit-scrollbar {
+          display: none !important;
+        }
+      `}} />
+
       {/* Background radial highlights for high-end light glow contrast */}
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gold/3 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-navy/5 rounded-full blur-[150px] pointer-events-none" />
