@@ -444,23 +444,40 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
                 key={card.key} 
                 className={`p-2.5 sm:p-4 md:p-5 rounded-2xl bg-gradient-to-br ${card.gradient} border border-gold-muted/15 flex flex-col md:flex-row items-center md:items-center text-center md:text-start gap-2 sm:gap-3 hover:border-gold-muted hover:shadow-[0_10px_30px_rgba(139,115,85,0.04)] transition-all duration-300 group relative overflow-hidden`}
               >
-                <div className={`w-8 h-8 sm:w-11 sm:h-11 rounded-xl border ${card.iconColor} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300`}>
-                  <Icon size={14} className="stroke-[1.5] sm:hidden" />
-                  <Icon size={18} className="stroke-[1.5] hidden sm:block" />
-                </div>
-                <div className="flex-1 min-w-0 text-center md:text-start w-full">
-                  <span className="text-[7.5px] sm:text-[9.5px] text-stone/45 font-bold font-ui block uppercase tracking-wider leading-tight truncate">
-                    {card.label}
-                  </span>
-                  <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start sm:items-baseline gap-0.5 sm:gap-1.5 mt-0.5 sm:mt-1">
-                    <p className="text-sm sm:text-lg md:text-2xl font-bold text-midnight font-primary leading-tight tracking-tight">{card.value}</p>
-                    <span className={`text-[7.5px] sm:text-[9.5px] font-bold font-mono px-1 rounded bg-white/70 shadow-sm border border-gold-muted/5 ${
-                      card.growth === 'live' ? 'text-emerald-500' : card.growth.startsWith('+') ? 'text-emerald-500' : 'text-rose-500'
-                    }`}>
-                      {card.growth === 'live' ? 'Live' : card.growth}
-                    </span>
-                  </div>
-                </div>
+                {loading ? (
+                  <>
+                    {/* Icon Skeleton */}
+                    <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-xl bg-gold-muted/10 animate-pulse shrink-0" />
+                    {/* Content Skeleton */}
+                    <div className="flex-1 w-full space-y-1.5 mt-1 sm:mt-0 flex flex-col items-center md:items-start">
+                      <div className="w-12 sm:w-16 h-2 bg-stone/10 animate-pulse rounded" />
+                      <div className="flex items-baseline gap-1.5 w-full justify-center md:justify-start">
+                        <div className="w-16 sm:w-20 h-5 sm:h-7 bg-stone/15 animate-pulse rounded" />
+                        <div className="w-8 h-3.5 bg-stone/10 animate-pulse rounded" />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={`w-8 h-8 sm:w-11 sm:h-11 rounded-xl border ${card.iconColor} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300`}>
+                      <Icon size={14} className="stroke-[1.5] sm:hidden" />
+                      <Icon size={18} className="stroke-[1.5] hidden sm:block" />
+                    </div>
+                    <div className="flex-1 min-w-0 text-center md:text-start w-full">
+                      <span className="text-[7.5px] sm:text-[9.5px] text-stone/45 font-bold font-ui block uppercase tracking-wider leading-tight truncate">
+                        {card.label}
+                      </span>
+                      <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start sm:items-baseline gap-0.5 sm:gap-1.5 mt-0.5 sm:mt-1">
+                        <p className="text-sm sm:text-lg md:text-2xl font-bold text-midnight font-primary leading-tight tracking-tight">{card.value}</p>
+                        <span className={`text-[7.5px] sm:text-[9.5px] font-bold font-mono px-1 rounded bg-white/70 shadow-sm border border-gold-muted/5 ${
+                          card.growth === 'live' ? 'text-emerald-500' : card.growth.startsWith('+') ? 'text-emerald-500' : 'text-rose-500'
+                        }`}>
+                          {card.growth === 'live' ? 'Live' : card.growth}
+                        </span>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             );
           })}
@@ -661,6 +678,16 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
               })}
             </svg>
           )}
+
+          {/* Premium Glassmorphic Sync Overlay during loading */}
+          {loading && (
+            <div className="absolute inset-0 bg-[#FDFAF3]/30 backdrop-blur-[1px] flex items-center justify-center z-20 rounded-2xl transition-all duration-300">
+              <div className="flex flex-col items-center gap-2.5 p-5 rounded-2xl bg-white/85 border border-gold-muted/15 shadow-xl max-w-[240px] text-center">
+                <div className="h-6 w-6 rounded-full border-2 border-gold border-t-transparent animate-spin"></div>
+                <span className="text-[11px] font-bold text-midnight font-ui">{isRtl ? 'جاري مزامنة البيانات الحية...' : 'Synchronizing live stats...'}</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -690,46 +717,67 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
 
                 {/* Ranked Items Leaderboard */}
                 <div className="space-y-3">
-                  {section.items.map((item, i) => {
-                    const percentage = Math.round((item.count / section.total) * 100);
-                    const barWidth = (item.count / section.max) * 100;
-                    return (
-                      <div key={i} className="group p-2 rounded-xl hover:bg-white hover:shadow-[0_4px_20px_rgba(139,115,85,0.03)] border border-transparent hover:border-gold-muted/10 transition-all duration-300">
-                        <div className="flex items-center gap-3">
-                          {/* Rank Badge */}
-                          <div className={`w-6 h-6 rounded-lg ${i === 0 ? 'bg-gold/10' : 'bg-stone/5'} flex items-center justify-center shrink-0 border border-gold-muted/5`}>
-                            <span className={`text-[9px] font-bold font-mono ${i === 0 ? 'text-[#8C6D27]' : 'text-stone/40'}`}>
-                              {i + 1}
-                            </span>
+                  {loading ? (
+                    Array.from({ length: 5 }).map((_, i) => (
+                      <div key={i} className="p-2 rounded-xl border border-transparent space-y-2">
+                        <div className="flex items-center justify-between gap-3">
+                          <div className="flex items-center gap-2 w-full">
+                            {/* Rank Badge Skeleton */}
+                            <div className="w-5 h-5 rounded bg-stone/5 animate-pulse shrink-0" />
+                            {/* Name Skeleton */}
+                            <div className="w-2/3 h-3 bg-stone/10 animate-pulse rounded" />
                           </div>
-                          
-                          {/* Content */}
-                          <div className="flex-1 min-w-0">
-                            <div className={`flex items-center justify-between gap-2 mb-1.5 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
-                              <span className={`text-[11px] font-semibold font-ui truncate ${i === 0 ? 'text-midnight font-bold' : 'text-stone/75'}`}>
-                                {item.name}
+                          {/* Count Skeleton */}
+                          <div className="w-8 h-3 bg-stone/10 animate-pulse rounded shrink-0" />
+                        </div>
+                        {/* Progress Bar Skeleton */}
+                        <div className="w-full h-1 bg-[#F2ECD8]/30 rounded-full overflow-hidden relative">
+                          <div className="w-1/3 h-full bg-gold-muted/10 animate-pulse rounded-full" />
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    section.items.map((item, i) => {
+                      const percentage = Math.round((item.count / section.total) * 100);
+                      const barWidth = (item.count / section.max) * 100;
+                      return (
+                        <div key={i} className="group p-2 rounded-xl hover:bg-white hover:shadow-[0_4px_20px_rgba(139,115,85,0.03)] border border-transparent hover:border-gold-muted/10 transition-all duration-300">
+                          <div className="flex items-center gap-3">
+                            {/* Rank Badge */}
+                            <div className={`w-6 h-6 rounded-lg ${i === 0 ? 'bg-gold/10' : 'bg-stone/5'} flex items-center justify-center shrink-0 border border-gold-muted/5`}>
+                              <span className={`text-[9px] font-bold font-mono ${i === 0 ? 'text-[#8C6D27]' : 'text-stone/40'}`}>
+                                {i + 1}
                               </span>
-                              <div className={`flex items-center gap-1.5 shrink-0 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
-                                <span className="text-[11px] font-bold font-mono text-midnight">{fmt(item.count)}</span>
-                                <span className={`text-[8.5px] font-bold font-mono px-1.5 py-0.5 rounded-full ${section.accentBg} ${section.accentText} border border-gold-muted/5`}>
-                                  {percentage}%
-                                </span>
-                              </div>
                             </div>
                             
-                            {/* Progress Bar with RTL mirroring */}
-                            <div className={`w-full h-1.5 ${section.trackColor} rounded-full overflow-hidden relative shadow-inner`}>
-                              <div 
-                                className={`h-full rounded-full ${section.barColor} transition-all duration-1000 ease-out absolute ${
-                                  isRtl ? 'right-0' : 'left-0'
-                                } ${getWidthClass(barWidth)}`}
-                              />
+                            {/* Content */}
+                            <div className="flex-1 min-w-0">
+                              <div className={`flex items-center justify-between gap-2 mb-1.5 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
+                                <span className={`text-[11px] font-semibold font-ui truncate ${i === 0 ? 'text-midnight font-bold' : 'text-stone/75'}`}>
+                                  {item.name}
+                                </span>
+                                <div className={`flex items-center gap-1.5 shrink-0 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
+                                  <span className="text-[11px] font-bold font-mono text-midnight">{fmt(item.count)}</span>
+                                  <span className={`text-[8.5px] font-bold font-mono px-1.5 py-0.5 rounded-full ${section.accentBg} ${section.accentText} border border-gold-muted/5`}>
+                                    {percentage}%
+                                  </span>
+                                </div>
+                              </div>
+                              
+                              {/* Progress Bar with RTL mirroring */}
+                              <div className={`w-full h-1.5 ${section.trackColor} rounded-full overflow-hidden relative shadow-inner`}>
+                                <div 
+                                  className={`h-full rounded-full ${section.barColor} transition-all duration-1000 ease-out absolute ${
+                                    isRtl ? 'right-0' : 'left-0'
+                                  } ${getWidthClass(barWidth)}`}
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })
+                  )}
                 </div>
               </div>
             );

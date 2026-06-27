@@ -13,7 +13,7 @@ const cormorantGaramond = Cormorant_Garamond({
   weight: ['600', '700'],
   variable: '--font-cormorant-next',
   display: 'swap',
-  preload: false,
+  preload: true,
 });
 
 const lora = Lora({
@@ -21,7 +21,7 @@ const lora = Lora({
   weight: ['400', '700'],
   variable: '--font-lora-next',
   display: 'swap',
-  preload: false,
+  preload: true,
 });
 
 const plusJakartaUi = Plus_Jakarta_Sans({
@@ -29,7 +29,7 @@ const plusJakartaUi = Plus_Jakarta_Sans({
   weight: ['400', '500', '700'],
   variable: '--font-dm-sans-next',
   display: 'swap',
-  preload: false,
+  preload: true,
 });
 
 // Load Arabic fonts
@@ -38,7 +38,7 @@ const amiri = Amiri({
   weight: ['400', '700'],
   variable: '--font-amiri-next',
   display: 'swap',
-  preload: false,
+  preload: true,
 });
 
 const notoArabic = Noto_Naskh_Arabic({
@@ -46,7 +46,7 @@ const notoArabic = Noto_Naskh_Arabic({
   weight: ['400', '700'],
   variable: '--font-noto-arabic-next',
   display: 'swap',
-  preload: false,
+  preload: true,
 });
 
 const cairo = Cairo({
@@ -54,7 +54,7 @@ const cairo = Cairo({
   weight: ['400', '600', '700'],
   variable: '--font-cairo-next',
   display: 'swap',
-  preload: false,
+  preload: true,
 });
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
