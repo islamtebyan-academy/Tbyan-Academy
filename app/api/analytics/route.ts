@@ -259,7 +259,7 @@ export async function GET() {
       })
     });
 
-    // Query 5: Top Pages
+    // Query 5: Top Pages (fetch up to 25 to allow filtering out admin portal routes and still have 5)
     const pagesReportReq = fetch(url, {
       method: 'POST',
       headers: {
@@ -270,7 +270,7 @@ export async function GET() {
         dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
         dimensions: [{ name: 'pagePath' }],
         metrics: [{ name: 'activeUsers' }],
-        limit: 5
+        limit: 25
       })
     });
 
@@ -327,13 +327,16 @@ export async function GET() {
       return { name, count };
     });
 
-    // Parse Pages data
+    // Parse Pages data (filter out admin visits from portal & API routes, then slice to top 5)
     const rawPages = pagesData?.rows || [];
-    const pages = rawPages.map((row: any) => {
-      const name = row.dimensionValues?.[0]?.value || '/';
-      const count = parseInt(row.metricValues?.[0]?.value || '0', 10);
-      return { name, count };
-    });
+    const pages = rawPages
+      .map((row: any) => {
+        const name = row.dimensionValues?.[0]?.value || '/';
+        const count = parseInt(row.metricValues?.[0]?.value || '0', 10);
+        return { name, count };
+      })
+      .filter((p: any) => !p.name.includes('/portal') && !p.name.includes('/api'))
+      .slice(0, 5);
 
     // Parse Countries data
     const rawCountries = countriesData?.rows || [];
