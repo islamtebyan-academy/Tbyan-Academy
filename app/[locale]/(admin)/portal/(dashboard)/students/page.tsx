@@ -190,119 +190,217 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
 
       {/* Main Table Card */}
       <div className="bg-gradient-to-br from-white to-[#FDFAF3]/40 border border-gold-muted/15 rounded-xl overflow-hidden shadow-[0_12px_40px_rgba(139,115,85,0.08)] text-start relative pattern-overlay">
-        <div className="overflow-x-auto no-scrollbar">
-          {students && students.length > 0 ? (
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="border-b border-gold-muted/15 bg-gradient-to-r from-[#FDFAF3] to-white text-stone/85 text-[10px] uppercase font-bold tracking-wider font-ui">
-                  <th className="py-4 px-6 text-start">{isRtl ? 'اسم الطالب / معلوماته' : 'Student Name'}</th>
-                  <th className="py-4 px-4 text-start">{isRtl ? 'المسار الدراسي' : 'Program Track'}</th>
-                  <th className="py-4 px-4 text-start">{isRtl ? 'الدولة والوقت' : 'Origin / Timezone'}</th>
-                  <th className="py-4 px-4 text-start">{isRtl ? 'الباقة الاشتراكية' : 'Subscription Details'}</th>
-                  <th className="py-4 px-4 text-start">{isRtl ? 'الحالة الأكاديمية' : 'Status'}</th>
-                  <th className="py-4 px-6 text-end">{isRtl ? 'خيارات' : 'Action'}</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gold-muted/10 text-sm text-stone/90 font-ui">
-                {students.map((student) => {
-                  let planColor = 'text-stone bg-[#F2ECD8]/45 border-gold-muted/20';
-                  if (student.subscription_plan === 'starter') planColor = 'text-copper bg-copper/5 border-copper/30';
-                  if (student.subscription_plan === 'standard') planColor = 'text-white bg-navy border-navy';
-                  if (student.subscription_plan === 'intensive') planColor = 'text-gold bg-gold/5 border-gold/35 shadow-sm';
+        {students && students.length > 0 ? (
+          <>
+            {/* ═══ Desktop Table View ═══ */}
+            <div className="hidden md:block overflow-x-auto no-scrollbar">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr className="border-b border-gold-muted/15 bg-gradient-to-r from-[#FDFAF3] to-white text-stone/85 text-[10px] uppercase font-bold tracking-wider font-ui">
+                    <th className="py-4 px-6 text-start">{isRtl ? 'اسم الطالب / معلوماته' : 'Student Name'}</th>
+                    <th className="py-4 px-4 text-start">{isRtl ? 'المسار الدراسي' : 'Program Track'}</th>
+                    <th className="py-4 px-4 text-start">{isRtl ? 'الدولة والوقت' : 'Origin / Timezone'}</th>
+                    <th className="py-4 px-4 text-start">{isRtl ? 'الباقة الاشتراكية' : 'Subscription Details'}</th>
+                    <th className="py-4 px-4 text-start">{isRtl ? 'الحالة الأكاديمية' : 'Status'}</th>
+                    <th className="py-4 px-6 text-end">{isRtl ? 'خيارات' : 'Action'}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gold-muted/10 text-sm text-stone/90 font-ui">
+                  {students.map((student) => {
+                    let planColor = 'text-stone bg-[#F2ECD8]/45 border-gold-muted/20';
+                    if (student.subscription_plan === 'starter') planColor = 'text-copper bg-copper/5 border-copper/30';
+                    if (student.subscription_plan === 'standard') planColor = 'text-white bg-navy border-navy';
+                    if (student.subscription_plan === 'intensive') planColor = 'text-gold bg-gold/5 border-gold/35 shadow-sm';
 
-                  let subStatusColor = 'text-copper';
-                  if (student.subscription_status === 'active') subStatusColor = 'text-emerald-700 font-semibold';
-                  if (student.subscription_status === 'expired') subStatusColor = 'text-taupe';
+                    let subStatusColor = 'text-copper';
+                    if (student.subscription_status === 'active') subStatusColor = 'text-emerald-700 font-semibold';
+                    if (student.subscription_status === 'expired') subStatusColor = 'text-taupe';
 
-                  return (
-                    <tr key={student.id} className="hover:bg-[#FDFAF3]/60 border-b border-gold-muted/5 transition-colors">
-                      {/* Name & Contact */}
-                      <td className="py-4 px-6">
-                        <div className="font-bold text-midnight font-primary text-base">{student.full_name}</div>
-                        <div className="space-y-0.5 mt-1.5">
-                          <div className="flex items-center gap-1.5 text-xs text-stone/60 font-mono">
-                            <Mail size={12} className="text-gold" />
-                            <span>{student.email}</span>
+                    return (
+                      <tr key={student.id} className="hover:bg-[#FDFAF3]/60 border-b border-gold-muted/5 transition-colors">
+                        {/* Name & Contact */}
+                        <td className="py-4 px-6">
+                          <div className="font-bold text-midnight font-primary text-base">{student.full_name}</div>
+                          <div className="space-y-0.5 mt-1.5">
+                            <div className="flex items-center gap-1.5 text-xs text-stone/60 font-mono">
+                              <Mail size={12} className="text-gold" />
+                              <span>{student.email}</span>
+                            </div>
+                            {student.phone && (
+                              <div className="flex items-center gap-1.5 text-[11px] text-stone/50 font-mono">
+                                <Phone size={12} className="text-gold" />
+                                <span>{student.phone}</span>
+                              </div>
+                            )}
+                          </div>
+                        </td>
+
+                        {/* Course details */}
+                        <td className="py-4 px-4">
+                          <div className="font-bold text-xs text-midnight">
+                            {getProgramLabel(student.program)}
+                          </div>
+                          <div className="text-[10px] text-stone/70 mt-1 space-y-0.5">
+                            <div>{student.frequency} • {student.duration}</div>
+                            {student.gender_preference && (
+                              <div className="text-gold/80 capitalize">{isRtl ? 'المعلم المفضل:' : 'Teacher:'} {student.gender_preference}</div>
+                            )}
+                          </div>
+                        </td>
+
+                        {/* Origin & Timezone */}
+                        <td className="py-4 px-4 text-xs text-stone/80">
+                          <div className="flex items-center gap-1">
+                            <MapPin size={12} className="text-gold" />
+                            <span>{student.country || 'N/A'}</span>
+                          </div>
+                          <div className="text-[10px] text-stone/40 font-mono mt-1">
+                            {student.timezone || 'UTC'}
+                          </div>
+                        </td>
+
+                        {/* Manual Subscription details */}
+                        <td className="py-4 px-4">
+                          <div className="flex items-center gap-2">
+                            <span className={`inline-block text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded border ${planColor}`}>
+                              {student.subscription_plan === 'none' ? (isRtl ? 'لا يوجد باقة' : 'No Membership') : student.subscription_plan}
+                            </span>
+                            {student.subscription_plan !== 'none' && (
+                              <span className={`text-[10px] font-bold ${subStatusColor} uppercase`}>
+                                ({student.subscription_status})
+                              </span>
+                            )}
+                          </div>
+                          {student.subscription_plan !== 'none' && (
+                            <div className="text-[9px] text-stone/45 font-mono mt-1.5 space-y-0.5">
+                              <div>{isRtl ? 'يبدأ:' : 'Starts:'} {formatDate(student.subscription_starts_at)}</div>
+                              <div>{isRtl ? 'ينتهي:' : 'Ends:'} {formatDate(student.subscription_ends_at)}</div>
+                            </div>
+                          )}
+                        </td>
+
+                        {/* Status */}
+                        <td className="py-4 px-4">
+                          {getStatusBadge(student.status)}
+                        </td>
+
+                        {/* Actions */}
+                        <td className="py-4 px-6 text-end">
+                          <Link
+                            href={`/${locale}/portal/students?query=${query}&program=${program}&status=${status}&plan=${plan}&id=${student.id}`}
+                            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold bg-gold/5 hover:bg-gold text-gold hover:text-white border border-gold/20 hover:border-gold transition-all duration-300 shadow-sm"
+                          >
+                            <Edit3 size={12} />
+                            <span>{isRtl ? 'تعديل' : 'Edit'}</span>
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            {/* ═══ Mobile Card View ═══ */}
+            <div className="md:hidden space-y-4 p-4">
+              {students.map((student) => {
+                let planColor = 'text-stone bg-[#F2ECD8]/45 border-gold-muted/20';
+                if (student.subscription_plan === 'starter') planColor = 'text-copper bg-copper/5 border-copper/30';
+                if (student.subscription_plan === 'standard') planColor = 'text-white bg-navy border-navy';
+                if (student.subscription_plan === 'intensive') planColor = 'text-gold bg-gold/5 border-gold/35 shadow-sm';
+
+                let subStatusColor = 'text-copper';
+                if (student.subscription_status === 'active') subStatusColor = 'text-emerald-700 font-semibold';
+                if (student.subscription_status === 'expired') subStatusColor = 'text-taupe';
+
+                return (
+                  <div key={student.id} className="p-4 rounded-xl bg-white border border-gold-muted/15 shadow-sm space-y-4">
+                    {/* Header: Name and Status */}
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <div className="font-bold text-midnight font-primary text-base leading-snug">{student.full_name}</div>
+                        <div className="space-y-0.5 mt-1">
+                          <div className="flex items-center gap-1 text-[10.5px] text-stone/50 font-mono">
+                            <Mail size={11} className="text-gold shrink-0" />
+                            <span className="truncate">{student.email}</span>
                           </div>
                           {student.phone && (
-                            <div className="flex items-center gap-1.5 text-[11px] text-stone/50 font-mono">
-                              <Phone size={12} className="text-gold" />
+                            <div className="flex items-center gap-1 text-[10.5px] text-stone/40 font-mono">
+                              <Phone size={11} className="text-gold shrink-0" />
                               <span>{student.phone}</span>
                             </div>
                           )}
                         </div>
-                      </td>
+                      </div>
+                      <div className="shrink-0">
+                        {getStatusBadge(student.status)}
+                      </div>
+                    </div>
 
-                      {/* Course details */}
-                      <td className="py-4 px-4">
-                        <div className="font-bold text-xs text-midnight">
-                          {getProgramLabel(student.program)}
-                        </div>
-                        <div className="text-[10px] text-stone/70 mt-1 space-y-0.5">
-                          <div>{student.frequency} • {student.duration}</div>
-                          {student.gender_preference && (
-                            <div className="text-gold/80 capitalize">{isRtl ? 'المعلم المفضل:' : 'Teacher:'} {student.gender_preference}</div>
-                          )}
-                        </div>
-                      </td>
+                    {/* Details Grid */}
+                    <div className="grid grid-cols-2 gap-3 pt-3 border-t border-gold-muted/10">
+                      {/* Program Track */}
+                      <div className="space-y-1">
+                        <span className="text-[9px] uppercase font-bold tracking-wider text-stone/40 font-ui block">{isRtl ? 'المسار الدراسي' : 'Program Track'}</span>
+                        <div className="font-bold text-xs text-midnight leading-tight">{getProgramLabel(student.program)}</div>
+                        <div className="text-[10px] text-stone/60">{student.frequency} • {student.duration}</div>
+                      </div>
 
                       {/* Origin & Timezone */}
-                      <td className="py-4 px-4 text-xs text-stone/80">
-                        <div className="flex items-center gap-1">
-                          <MapPin size={12} className="text-gold" />
-                          <span>{student.country || 'N/A'}</span>
+                      <div className="space-y-1">
+                        <span className="text-[9px] uppercase font-bold tracking-wider text-stone/40 font-ui block">{isRtl ? 'الدولة والمنطقة' : 'Origin & Timezone'}</span>
+                        <div className="flex items-center gap-1 text-xs text-stone/70">
+                          <MapPin size={11} className="text-gold shrink-0" />
+                          <span className="font-medium">{student.country || 'N/A'}</span>
                         </div>
-                        <div className="text-[10px] text-stone/40 font-mono mt-1">
-                          {student.timezone || 'UTC'}
-                        </div>
-                      </td>
+                        <div className="text-[10px] text-stone/40 font-mono">{student.timezone || 'UTC'}</div>
+                      </div>
+                    </div>
 
-                      {/* Manual Subscription details */}
-                      <td className="py-4 px-4">
-                        <div className="flex items-center gap-2">
-                          <span className={`inline-block text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded border ${planColor}`}>
+                    {/* Subscription Details (Full width sub-section within the card) */}
+                    <div className="p-3 rounded-lg bg-[#FDFAF3]/50 border border-gold-muted/10 space-y-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-[9px] uppercase font-bold tracking-wider text-stone/45 font-ui">{isRtl ? 'تفاصيل الباقة' : 'Membership details'}</span>
+                        <div className="flex items-center gap-1.5">
+                          <span className={`inline-block text-[8px] uppercase font-extrabold tracking-wider px-2 py-0.5 rounded border ${planColor}`}>
                             {student.subscription_plan === 'none' ? (isRtl ? 'لا يوجد باقة' : 'No Membership') : student.subscription_plan}
                           </span>
                           {student.subscription_plan !== 'none' && (
-                            <span className={`text-[10px] font-bold ${subStatusColor} uppercase`}>
+                            <span className={`text-[9px] font-bold ${subStatusColor} uppercase`}>
                               ({student.subscription_status})
                             </span>
                           )}
                         </div>
-                        {student.subscription_plan !== 'none' && (
-                          <div className="text-[9px] text-stone/45 font-mono mt-1.5 space-y-0.5">
-                            <div>{isRtl ? 'يبدأ:' : 'Starts:'} {formatDate(student.subscription_starts_at)}</div>
-                            <div>{isRtl ? 'ينتهي:' : 'Ends:'} {formatDate(student.subscription_ends_at)}</div>
-                          </div>
-                        )}
-                      </td>
+                      </div>
 
-                      {/* Status */}
-                      <td className="py-4 px-4">
-                        {getStatusBadge(student.status)}
-                      </td>
+                      {student.subscription_plan !== 'none' && (
+                        <div className="grid grid-cols-2 gap-2 text-[9px] text-stone/50 font-mono pt-1.5 border-t border-gold-muted/5">
+                          <div><span className="font-ui text-stone/40">{isRtl ? 'البدء: ' : 'Starts: '}</span>{formatDate(student.subscription_starts_at)}</div>
+                          <div><span className="font-ui text-stone/40">{isRtl ? 'الانتهاء: ' : 'Ends: '}</span>{formatDate(student.subscription_ends_at)}</div>
+                        </div>
+                      )}
+                    </div>
 
-                      {/* Actions */}
-                      <td className="py-4 px-6 text-end">
-                        <Link
-                          href={`/${locale}/portal/students?query=${query}&program=${program}&status=${status}&plan=${plan}&id=${student.id}`}
-                          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold bg-gold/5 hover:bg-gold text-gold hover:text-white border border-gold/20 hover:border-gold transition-all duration-300 shadow-sm"
-                        >
-                          <Edit3 size={12} />
-                          <span>{isRtl ? 'تعديل' : 'Edit'}</span>
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          ) : (
-            <div className="text-center py-20 text-stone/50 text-xs font-semibold bg-[#FDFAF3]/40">
-              {isRtl ? 'لم يتم العثور على أي طلاب مطابقين لشروط البحث.' : 'No students matching the filter options were found.'}
+                    {/* Actions */}
+                    <div className="pt-2">
+                      <Link
+                        href={`/${locale}/portal/students?query=${query}&program=${program}&status=${status}&plan=${plan}&id=${student.id}`}
+                        className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-bold bg-gold/5 hover:bg-gold text-gold hover:text-white border border-gold/20 hover:border-gold transition-all duration-300 shadow-sm font-ui cursor-pointer"
+                      >
+                        <Edit3 size={12} />
+                        <span>{isRtl ? 'تعديل بيانات واشتراك الطالب' : 'Edit subscription'}</span>
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          )}
-        </div>
+          </>
+        ) : (
+          <div className="text-center py-20 text-stone/50 text-xs font-semibold bg-[#FDFAF3]/40">
+            {isRtl ? 'لم يتم العثور على أي طلاب مطابقين لشروط البحث.' : 'No students matching the filter options were found.'}
+          </div>
+        )}
       </div>
 
       {/* Selected Student Editing Drawer / Modal */}

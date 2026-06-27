@@ -366,7 +366,7 @@ export async function GET() {
     // Normalize Y heights for daily
     const dailyMax = Math.max(...dailyPoints.map((p: any) => p.value), 10);
     dailyPoints.forEach((p: any) => {
-      p.y = 185 - (p.value / dailyMax) * 160;
+      p.y = 185 - (p.value / dailyMax) * 170;
     });
     
     const dailyPaths = generateSvgPaths(dailyPoints);
@@ -394,7 +394,7 @@ export async function GET() {
 
     const weeklyMax = Math.max(...weeklyPoints.map((p: any) => p.value), 10);
     weeklyPoints.forEach((p: any) => {
-      p.y = 185 - (p.value / weeklyMax) * 160;
+      p.y = 185 - (p.value / weeklyMax) * 170;
     });
 
     const weeklyPaths = generateSvgPaths(weeklyPoints);
@@ -416,7 +416,7 @@ export async function GET() {
 
     const monthlyMax = Math.max(...monthlyPoints.map((p: any) => p.value), 10);
     monthlyPoints.forEach((p: any) => {
-      p.y = 185 - (p.value / monthlyMax) * 160;
+      p.y = 185 - (p.value / monthlyMax) * 170;
     });
 
     const monthlyPaths = generateSvgPaths(monthlyPoints);

@@ -58,9 +58,9 @@ export default async function CoursesPage({ params, searchParams }: CoursesPageP
     
     if (data) {
       const staticSlug = getStaticSlug(data.slug);
-      const staticCourseAr = COURSES_DATABASE.ar?.[staticSlug];
+      const staticCourseAr = COURSES_DATABASE.ar?.[staticSlug] || COURSES_DATABASE.en?.[staticSlug];
       const staticCourseEn = COURSES_DATABASE.en?.[staticSlug];
-      const staticCourseFr = COURSES_DATABASE.fr?.[staticSlug];
+      const staticCourseFr = COURSES_DATABASE.fr?.[staticSlug] || COURSES_DATABASE.en?.[staticSlug];
 
       const dbWhatYouLearnAr = data.what_you_learn?.ar || [];
       const dbWhatYouLearnEn = data.what_you_learn?.en || [];
