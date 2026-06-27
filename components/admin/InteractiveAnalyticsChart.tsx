@@ -286,9 +286,7 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
       icon: Eye,
       gradient: 'from-[#FAF6EC] via-white to-[#FDFBF7]',
       accentColor: 'text-[#B8841A]',
-      iconColor: 'bg-amber-500/10 text-amber-600 border-amber-500/20',
-      sparkPath: 'M0 15 Q12 5, 25 12 T50 4',
-      sparkStroke: '#D4A843'
+      iconColor: 'bg-amber-500/10 text-amber-600 border-amber-500/20'
     },
     {
       key: 'week',
@@ -298,9 +296,7 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
       icon: BarChart3,
       gradient: 'from-white via-[#F7F9FC] to-[#F0F4FA]/30',
       accentColor: 'text-blue-600',
-      iconColor: 'bg-blue-500/10 text-blue-600 border-blue-500/20',
-      sparkPath: 'M0 18 C10 8, 20 15, 30 5 C40 10, 45 2, 50 4',
-      sparkStroke: '#3B82F6'
+      iconColor: 'bg-blue-500/10 text-blue-600 border-blue-500/20'
     },
     {
       key: 'month',
@@ -310,9 +306,7 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
       icon: TrendingUp,
       gradient: 'from-white via-[#F6FCF8] to-[#EEFAF1]/30',
       accentColor: 'text-emerald-600',
-      iconColor: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20',
-      sparkPath: 'M0 14 Q15 2, 30 18 T50 4',
-      sparkStroke: '#10B981'
+      iconColor: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20'
     }
   ];
 
@@ -441,7 +435,7 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
           </div>
         </div>
 
-        {/* ═══ STAT CARDS WITH MINI TRENDS ═══ */}
+        {/* ═══ STAT CARDS ═══ */}
         <div className="grid grid-cols-3 gap-2.5 sm:gap-4 lg:gap-6 mb-5 sm:mb-6">
           {statCards.map((card) => {
             const Icon = card.icon;
@@ -450,13 +444,6 @@ export default function InteractiveAnalyticsChart({ isRtl }: { isRtl: boolean })
                 key={card.key} 
                 className={`p-2.5 sm:p-4 md:p-5 rounded-2xl bg-gradient-to-br ${card.gradient} border border-gold-muted/15 flex flex-col md:flex-row items-center md:items-center text-center md:text-start gap-2 sm:gap-3 hover:border-gold-muted hover:shadow-[0_10px_30px_rgba(139,115,85,0.04)] transition-all duration-300 group relative overflow-hidden`}
               >
-                {/* Micro trend graphic watermark in background */}
-                <div className="absolute bottom-1 right-2 w-12 h-6 opacity-20 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none hidden md:block">
-                  <svg viewBox="0 0 50 20" className="w-full h-full">
-                    <path d={card.sparkPath} fill="none" stroke={card.sparkStroke} strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
-                </div>
-
                 <div className={`w-8 h-8 sm:w-11 sm:h-11 rounded-xl border ${card.iconColor} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300`}>
                   <Icon size={14} className="stroke-[1.5] sm:hidden" />
                   <Icon size={18} className="stroke-[1.5] hidden sm:block" />
