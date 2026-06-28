@@ -13,6 +13,7 @@ import {
 import { createClient } from '@/lib/supabase/server';
 import ArticleEditModal from '@/components/admin/ArticleEditModal';
 import DeleteConfirmButton from '@/components/admin/DeleteConfirmButton';
+import PortalButton from '@/components/admin/PortalButton';
 
 interface ArticlesPageProps {
   params: Promise<{ locale: string }>;
@@ -81,13 +82,13 @@ export default async function ArticlesPage({ params, searchParams }: ArticlesPag
           </p>
         </div>
 
-        <Link
+        <PortalButton
           href={`/${locale}/portal/articles?new=true`}
           className="btn-gold py-3.5 px-6 rounded-full text-xs uppercase tracking-wider font-bold inline-flex items-center gap-2.5 shadow-lg shadow-gold/10 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 font-ui cursor-pointer"
+          icon={<Plus size={15} />}
         >
-          <Plus size={15} />
           <span>{isRtl ? 'كتابة مقال جديد' : 'Write New Article'}</span>
-        </Link>
+        </PortalButton>
       </div>
 
       {/* Articles Grid */}
@@ -174,23 +175,23 @@ export default async function ArticlesPage({ params, searchParams }: ArticlesPag
 
               {/* Card Footer Actions */}
               <div className="p-4 border-t border-gold/10 flex items-center justify-between gap-3 relative z-10">
-                <Link
+                <PortalButton
                   href={`/${locale}/portal/articles?id=${article.id}&tab=general`}
                   title={isRtl ? 'تعديل المقال' : 'Edit Article'}
                   className="flex-1 inline-flex items-center justify-center gap-1 py-2 px-2.5 rounded-lg text-[10px] font-bold bg-gold/5 hover:bg-gold text-gold hover:text-midnight border border-gold/20 hover:border-gold transition-all duration-300 shadow-sm font-ui"
+                  icon={<Edit3 size={11} />}
                 >
-                  <Edit3 size={11} />
                   <span>{isRtl ? 'تعديل المقال' : 'Edit Article'}</span>
-                </Link>
+                </PortalButton>
 
-                <Link
+                <PortalButton
                   href={`/${locale}/portal/articles?id=${article.id}&tab=content`}
                   title={isRtl ? 'تعديل المحتوى والفقرات' : 'Edit Article Body Content'}
                   className="flex-1 inline-flex items-center justify-center gap-1 py-2 px-2.5 rounded-lg text-[10px] font-bold bg-navy/5 hover:bg-navy text-navy hover:text-white border border-navy/20 hover:border-navy transition-all duration-300 shadow-sm font-ui"
+                  icon={<FileText size={11} />}
                 >
-                  <FileText size={11} />
                   <span>{isRtl ? 'محتوى المقال' : 'Content'}</span>
-                </Link>
+                </PortalButton>
                 
                 {/* Delete article form */}
                 <form action={async () => {

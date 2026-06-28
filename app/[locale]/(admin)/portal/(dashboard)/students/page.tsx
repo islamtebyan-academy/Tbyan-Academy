@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { updateStudentSubscription } from '@/app/actions/students';
+import PortalButton from '@/components/admin/PortalButton';
 
 interface StudentsPageProps {
   params: Promise<{ locale: string }>;
@@ -286,13 +287,13 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
 
                         {/* Actions */}
                         <td className="py-4 px-6 text-end">
-                          <Link
+                          <PortalButton
                             href={`/${locale}/portal/students?query=${query}&program=${program}&status=${status}&plan=${plan}&id=${student.id}`}
-                            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold bg-gold/5 hover:bg-gold text-gold hover:text-white border border-gold/20 hover:border-gold transition-all duration-300 shadow-sm"
+                            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold bg-gold/5 hover:bg-gold text-gold hover:text-midnight border border-gold/20 hover:border-gold transition-all duration-300 shadow-sm font-ui"
+                            icon={<Edit3 size={12} />}
                           >
-                            <Edit3 size={12} />
                             <span>{isRtl ? 'تعديل' : 'Edit'}</span>
-                          </Link>
+                          </PortalButton>
                         </td>
                       </tr>
                     );
@@ -383,13 +384,13 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
 
                     {/* Actions */}
                     <div className="pt-2">
-                      <Link
+                      <PortalButton
                         href={`/${locale}/portal/students?query=${query}&program=${program}&status=${status}&plan=${plan}&id=${student.id}`}
-                        className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-bold bg-gold/5 hover:bg-gold text-gold hover:text-white border border-gold/20 hover:border-gold transition-all duration-300 shadow-sm font-ui cursor-pointer"
+                        className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-bold bg-gold/5 hover:bg-gold text-gold hover:text-midnight border border-gold/20 hover:border-gold transition-all duration-300 shadow-sm font-ui cursor-pointer"
+                        icon={<Edit3 size={12} />}
                       >
-                        <Edit3 size={12} />
                         <span>{isRtl ? 'تعديل بيانات واشتراك الطالب' : 'Edit subscription'}</span>
-                      </Link>
+                      </PortalButton>
                     </div>
                   </div>
                 );
