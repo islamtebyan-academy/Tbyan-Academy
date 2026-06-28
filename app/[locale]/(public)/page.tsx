@@ -6,13 +6,15 @@ import ProgramsShowcase from '@/components/sections/ProgramsShowcase';
 import AboutTeaser from '@/components/sections/AboutTeaser';
 import Methodology from '@/components/sections/Methodology';
 import FeaturedCourses from '@/components/sections/FeaturedCourses';
-import TeachersSpotlight from '@/components/sections/TeachersSpotlight';
-import Testimonials from '@/components/sections/Testimonials';
-import HowItWorks from '@/components/sections/HowItWorks';
-import PricingTeaser from '@/components/sections/PricingTeaser';
-import LatestArticles from '@/components/sections/LatestArticles';
-import FinalCTA from '@/components/sections/FinalCTA';
+import dynamic from 'next/dynamic';
 import { createStaticClient } from '@/lib/supabase/server';
+
+const TeachersSpotlight = dynamic(() => import('@/components/sections/TeachersSpotlight'));
+const Testimonials = dynamic(() => import('@/components/sections/Testimonials'));
+const HowItWorks = dynamic(() => import('@/components/sections/HowItWorks'));
+const PricingTeaser = dynamic(() => import('@/components/sections/PricingTeaser'));
+const LatestArticles = dynamic(() => import('@/components/sections/LatestArticles'));
+const FinalCTA = dynamic(() => import('@/components/sections/FinalCTA'));
 
 export const revalidate = 600;
 

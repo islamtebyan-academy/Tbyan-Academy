@@ -26,7 +26,7 @@ export default function ParallaxBackground({ src, className = '' }: ParallaxBack
         fill
         priority
         sizes="100vw"
-        quality={80}
+        quality={75}
         className="object-cover object-center"
       />
     </motion.div>
