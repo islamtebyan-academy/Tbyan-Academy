@@ -13,7 +13,7 @@ const cormorantGaramond = Cormorant_Garamond({
   weight: ['600', '700'],
   variable: '--font-cormorant-next',
   display: 'swap',
-  preload: true,
+  preload: false,
 });
 
 const lora = Lora({
@@ -29,7 +29,7 @@ const plusJakartaUi = Plus_Jakarta_Sans({
   weight: ['400', '500', '700'],
   variable: '--font-dm-sans-next',
   display: 'swap',
-  preload: true,
+  preload: false,
 });
 
 // Load Arabic fonts
@@ -38,7 +38,7 @@ const amiri = Amiri({
   weight: ['400', '700'],
   variable: '--font-amiri-next',
   display: 'swap',
-  preload: true,
+  preload: false,
 });
 
 const notoArabic = Noto_Naskh_Arabic({
@@ -54,7 +54,7 @@ const cairo = Cairo({
   weight: ['400', '600', '700'],
   variable: '--font-cairo-next',
   display: 'swap',
-  preload: true,
+  preload: false,
 });
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
