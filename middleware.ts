@@ -20,48 +20,56 @@ export async function middleware(request: NextRequest) {
     // 1. Run next-intl middleware first to handle localization redirects
     let response = intlMiddleware(request);
 
-    // Verify Supabase env vars are present before initializing
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-      throw new Error(`Missing Supabase environment variables. URL: ${!!process.env.NEXT_PUBLIC_SUPABASE_URL}, Key: ${!!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`);
-    }
-
-    // 2. Setup Supabase client to inspect authentication state
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-      {
-        cookies: {
-          getAll() {
-            return request.cookies.getAll();
-          },
-          setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-            response = NextResponse.next({
-              request,
-            });
-            cookiesToSet.forEach(({ name, value, options }) =>
-              response.cookies.set(name, value, options)
-            );
-          },
-        },
-      }
-    );
-
-    // This refreshes the session if expired
-    const { data: { user } } = await supabase.auth.getUser();
-
-    // 3. Route Protection logic for Admin Dashboard
+    // Check if this is a route that requires Supabase session verification/refresh
+    // We protect/refresh both '/admin' and '/portal' paths.
+    const isPortalRoute = /^\/(?:ar|en|fr)?\/?portal(?:\/|$)/.test(pathname);
     const isAdminRoute = /^\/(?:ar|en|fr)?\/?admin(?:\/|$)/.test(pathname);
-    const isLoginRoute = /^\/(?:ar|en|fr)?\/?admin\/login(?:\/|$)/.test(pathname);
     const isApiRoute = pathname.startsWith('/api/');
 
-    if (isAdminRoute && !isLoginRoute && !isApiRoute) {
-      if (!user) {
-        const match = pathname.match(/^\/(ar|en|fr)/);
-        const locale = match ? match[1] : 'en';
-        const redirectUrl = request.nextUrl.clone();
-        redirectUrl.pathname = `/${locale}/portal/login`;
-        return NextResponse.redirect(redirectUrl);
+    // ONLY initialize Supabase and refresh session for portal, admin, and api routes!
+    if (isPortalRoute || isAdminRoute || isApiRoute) {
+      // Verify Supabase env vars are present before initializing
+      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+        throw new Error(`Missing Supabase environment variables.`);
+      }
+
+      // Setup Supabase client to inspect authentication state
+      const supabase = createServerClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+        {
+          cookies: {
+            getAll() {
+              return request.cookies.getAll();
+            },
+            setAll(cookiesToSet) {
+              cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+              response = NextResponse.next({
+                request,
+              });
+              cookiesToSet.forEach(({ name, value, options }) =>
+                response.cookies.set(name, value, options)
+              );
+            },
+          },
+        }
+      );
+
+      // This refreshes the session if expired
+      const { data: { user } } = await supabase.auth.getUser();
+
+      const isLoginRoute = 
+        /^\/(?:ar|en|fr)?\/?admin\/login(?:\/|$)/.test(pathname) || 
+        /^\/(?:ar|en|fr)?\/?portal\/login(?:\/|$)/.test(pathname);
+
+      if ((isAdminRoute || isPortalRoute) && !isLoginRoute && !isApiRoute) {
+        if (!user) {
+          const match = pathname.match(/^\/(ar|en|fr)/);
+          const locale = match ? match[1] : 'en';
+          const redirectUrl = request.nextUrl.clone();
+          redirectUrl.pathname = `/${locale}/portal/login`;
+          return NextResponse.redirect(redirectUrl);
+        }
       }
     }
 
