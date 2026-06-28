@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { setRequestLocale } from 'next-intl/server';
 import { createStaticClient } from '@/lib/supabase/server';
 
+export const revalidate = 600;
+
 interface TeachersPageProps {
   params: Promise<{ locale: string }>;
 }

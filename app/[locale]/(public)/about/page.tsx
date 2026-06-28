@@ -3,6 +3,8 @@ import { setRequestLocale } from 'next-intl/server';
 import AboutClient from '@/components/sections/AboutClient';
 import { createStaticClient } from '@/lib/supabase/server';
 
+export const revalidate = 600;
+
 interface AboutPageProps {
   params: Promise<{ locale: string }>;
 }

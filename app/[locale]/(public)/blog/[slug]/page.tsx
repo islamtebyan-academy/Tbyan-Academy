@@ -10,6 +10,8 @@ import { locales } from '@/i18n';
 import { createStaticClient } from '@/lib/supabase/server';
 import { Article, ARTICLES_DATA, BASE_ARTICLES } from '../data';
 
+export const revalidate = 600;
+
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
 }

@@ -14,6 +14,8 @@ import LatestArticles from '@/components/sections/LatestArticles';
 import FinalCTA from '@/components/sections/FinalCTA';
 import { createStaticClient } from '@/lib/supabase/server';
 
+export const revalidate = 600;
+
 interface HomePageProps {
   params: Promise<{ locale: string }>;
 }

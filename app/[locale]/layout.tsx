@@ -21,7 +21,7 @@ const lora = Lora({
   weight: ['400', '700'],
   variable: '--font-lora-next',
   display: 'swap',
-  preload: true,
+  preload: false,
 });
 
 const plusJakartaUi = Plus_Jakarta_Sans({
@@ -46,7 +46,7 @@ const notoArabic = Noto_Naskh_Arabic({
   weight: ['400', '700'],
   variable: '--font-noto-arabic-next',
   display: 'swap',
-  preload: true,
+  preload: false,
 });
 
 const cairo = Cairo({

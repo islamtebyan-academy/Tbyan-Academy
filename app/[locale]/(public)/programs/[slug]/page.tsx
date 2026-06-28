@@ -19,6 +19,8 @@ import {
   getStaticSlug
 } from '../data';
 
+export const revalidate = 600;
+
 export async function generateStaticParams() {
   const staticSlugs = [
     'quran-tajweed',
