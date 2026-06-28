@@ -130,8 +130,8 @@ export default function PricingTeaser({
       cycle: 'par cycle',
       durationUnit: 'min',
       perSessionUnit: 'séance privée',
-      billingCycleLabel: 'Billing Cycle',
-      durationLabel: 'Durée du cours',
+      billingCycleLabel: 'Périodicité',
+      durationLabel: 'Durée de la leçon',
       monthlyLabel: 'Facturation Mensuelle',
       quarterlyLabel: 'Facturation Trimestrielle (-10%)',
     }
@@ -144,12 +144,12 @@ export default function PricingTeaser({
       id: 'starter' as const,
       name: pricingPlan1Name || t('starterName'),
       desc: pricingPlan1Desc || t('starterDesc'),
-      frequency: isRtl ? 'حصة واحدة أسبوعياً' : '1 session per week',
+      frequency: isRtl ? 'حصة واحدة أسبوعياً' : (locale === 'fr' ? '1 séance par semaine' : '1 session per week'),
       features: [
-        pricingPlan1Feat1 || (isRtl ? 'حصة تفاعلية' : 'Interactive lesson'),
-        pricingPlan1Feat2 || (isRtl ? 'تقييم شامل لمهارات النطق والتلاوة' : 'Evaluation of recitation skills'),
-        pricingPlan1Feat3 || (isRtl ? 'تقرير تحديد مستوى وخطة مقترحة' : 'Level report & proposed study plan'),
-        pricingPlan1Feat4 || (isRtl ? 'دعم فني وتنسيق كامل للأوقات' : 'Full coordinator support'),
+        pricingPlan1Feat1 || (isRtl ? 'حصة تفاعلية' : (locale === 'fr' ? 'Leçon interactive' : 'Interactive lesson')),
+        pricingPlan1Feat2 || (isRtl ? 'تقييم شامل لمهارات النطق والتلاوة' : (locale === 'fr' ? 'Évaluation complète de la récitation' : 'Evaluation of recitation skills')),
+        pricingPlan1Feat3 || (isRtl ? 'تقرير تحديد مستوى وخطة مقترحة' : (locale === 'fr' ? 'Rapport de niveau et plan d\'étude' : 'Level report & proposed study plan')),
+        pricingPlan1Feat4 || (isRtl ? 'دعم فني وتنسيق كامل للأوقات' : (locale === 'fr' ? 'Support technique et coordination' : 'Full coordinator support')),
       ].filter(Boolean),
       featured: false,
     },
@@ -157,12 +157,12 @@ export default function PricingTeaser({
       id: 'optimal' as const,
       name: pricingPlan2Name || t('optimalName'),
       desc: pricingPlan2Desc || t('optimalDesc'),
-      frequency: isRtl ? 'حصتان أسبوعياً' : '2 sessions per week',
+      frequency: isRtl ? 'حصتان أسبوعياً' : (locale === 'fr' ? '2 séances par semaine' : '2 sessions per week'),
       features: [
-        pricingPlan2Feat1 || (isRtl ? 'دروس خاصة فردية (1:1) بالكامل' : 'Strictly 1-on-1 private lessons'),
-        pricingPlan2Feat2 || (isRtl ? 'نخبة من شيوخ وعلماء الأزهر الشريف' : 'Al-Azhar University certified scholars'),
-        pricingPlan2Feat3 || (isRtl ? 'متابعة وتقارير دورية للتقدم' : 'Regular progress reports and logs'),
-        pricingPlan2Feat4 || (isRtl ? 'إمكانية تجميد أو تعديل المواعيد' : 'Flexible booking and adjustments'),
+        pricingPlan2Feat1 || (isRtl ? 'دروس خاصة فردية (1:1) بالكامل' : (locale === 'fr' ? 'Cours particuliers 100% individuels (1:1)' : 'Strictly 1-on-1 private lessons')),
+        pricingPlan2Feat2 || (isRtl ? 'نخبة من شيوخ وعلماء الأزهر الشريف' : (locale === 'fr' ? 'Enseignants diplômés de l\'Université d\'Al-Azhar' : 'Al-Azhar University certified scholars')),
+        pricingPlan2Feat3 || (isRtl ? 'متابعة وتقارير دورية للتقدم' : (locale === 'fr' ? 'Rapports et suivis réguliers des progrès' : 'Regular progress reports and logs')),
+        pricingPlan2Feat4 || (isRtl ? 'إمكانية تجميد أو تعديل المواعيد' : (locale === 'fr' ? 'Possibilité de suspendre ou modifier les cours' : 'Flexible booking and adjustments')),
       ].filter(Boolean),
       featured: true,
     },
@@ -170,12 +170,12 @@ export default function PricingTeaser({
       id: 'intensive' as const,
       name: pricingPlan3Name || t('intensiveName'),
       desc: pricingPlan3Desc || t('intensiveDesc'),
-      frequency: isRtl ? '3 حصص أسبوعياً' : '3 sessions per week',
+      frequency: isRtl ? '3 حصص أسبوعياً' : (locale === 'fr' ? '3 séances par semaine' : '3 sessions per week'),
       features: [
-        pricingPlan3Feat1 || (isRtl ? 'إعداد شامل لنيل الإجازة بالسند المتصل للنبي ﷺ' : 'Rigorous preparation for connected Isnad'),
-        pricingPlan3Feat2 || (isRtl ? 'متابعة وتسميع يومي مكثف' : 'Intensive daily recitation monitoring'),
-        pricingPlan3Feat3 || (isRtl ? 'اختبارات نظرية وعلمية دورية' : 'Periodic theoretical & practical exams'),
-        pricingPlan3Feat4 || (isRtl ? 'أولوية قصوى لتنسيق المواعيد' : 'Highest priority scheduling coordination'),
+        pricingPlan3Feat1 || (isRtl ? 'إعداد شامل لنيل الإجازة بالسند المتصل للنبي ﷺ' : (locale === 'fr' ? 'Préparation complète à l\'obtention de l\'Ijazah avec Isnad' : 'Rigorous preparation for connected Isnad')),
+        pricingPlan3Feat2 || (isRtl ? 'متابعة وتسميع يومي مكثف' : (locale === 'fr' ? 'Suivi et récitation quotidienne intensive' : 'Intensive daily recitation monitoring')),
+        pricingPlan3Feat3 || (isRtl ? 'اختبارات نظرية وعلمية دورية' : (locale === 'fr' ? 'Examens théoriques et pratiques réguliers' : 'Periodic theoretical & practical exams')),
+        pricingPlan3Feat4 || (isRtl ? 'أولوية قصوى لتنسيق المواعيد' : (locale === 'fr' ? 'Priorité absolue pour la coordination des horaires' : 'Highest priority scheduling coordination')),
       ].filter(Boolean),
       featured: false,
     },
@@ -339,7 +339,7 @@ export default function PricingTeaser({
 
                 {pkg.featured && (
                   <div className="absolute top-0 right-0 bg-gold text-[#122038] text-[9px] uppercase tracking-widest font-extrabold py-1.5 px-4 rounded-bl-xl z-20">
-                    {isRtl ? 'موصى به' : 'Recommended'}
+                    {isRtl ? 'موصى به' : (locale === 'fr' ? 'Recommandé' : 'Recommended')}
                   </div>
                 )}
 
@@ -385,10 +385,10 @@ export default function PricingTeaser({
                     {/* Session Description */}
                     <div className={`text-xs mb-6 pb-6 border-b border-gold-muted/10 ${pkg.featured ? 'text-parchment/75' : 'text-stone'} ${isRtl ? 'font-noto' : 'font-lora'}`}>
                       <p className="font-bold mb-1">
-                        {pkg.frequency} • {classDuration === '30' ? (isRtl ? '30 دقيقة' : '30 mins') : classDuration === '45' ? (isRtl ? '45 دقيقة' : '45 mins') : (isRtl ? '60 دقيقة' : '60 mins')}
+                        {pkg.frequency} • {classDuration === '30' ? (isRtl ? '30 دقيقة' : (locale === 'fr' ? '30 min' : '30 mins')) : classDuration === '45' ? (isRtl ? '45 دقيقة' : (locale === 'fr' ? '45 min' : '45 mins')) : (isRtl ? '60 دقيقة' : (locale === 'fr' ? '60 min' : '60 mins'))}
                       </p>
                       <p className="opacity-80">
-                        ({pricing.perSession} / {isRtl ? 'الحصة الفردية' : 'private class'})
+                        ({pricing.perSession} / {isRtl ? 'الحصة الفردية' : (locale === 'fr' ? 'séance privée' : 'private class')})
                       </p>
                     </div>
 

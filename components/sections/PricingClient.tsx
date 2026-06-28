@@ -64,6 +64,11 @@ export default function PricingClient({ settings, locale }: PricingClientProps) 
     return settings[key]?.[locale] || settings[key]?.['ar'] || settings[key]?.['en'];
   };
 
+  const getSettingText = (key: string, fallback: string) => {
+    const val = settings[key]?.[locale];
+    return val && val.trim() !== '' ? val : fallback;
+  };
+
   const prices = {
     '30': {
       starter: { monthly: 10, quarterly: 27 },
@@ -372,40 +377,40 @@ export default function PricingClient({ settings, locale }: PricingClientProps) 
   const packages = [
     {
       id: 'starter' as const,
-      name: getSetting('pricing_plan1_name') || activeContent.packages[0].name,
-      desc: getSetting('pricing_plan1_desc') || activeContent.packages[0].desc,
-      frequency: isRtl ? 'حصة واحدة أسبوعياً' : '1 session per week',
+      name: getSettingText('pricing_plan1_name', activeContent.packages[0].name),
+      desc: getSettingText('pricing_plan1_desc', activeContent.packages[0].desc),
+      frequency: activeContent.packages[0].frequency,
       features: [
-        getSetting('pricing_plan1_feat1') || activeContent.packages[0].features[0],
-        getSetting('pricing_plan1_feat2') || activeContent.packages[0].features[1],
-        getSetting('pricing_plan1_feat3') || activeContent.packages[0].features[2],
-        getSetting('pricing_plan1_feat4') || activeContent.packages[0].features[3],
+        getSettingText('pricing_plan1_feat1', activeContent.packages[0].features[0]),
+        getSettingText('pricing_plan1_feat2', activeContent.packages[0].features[1]),
+        getSettingText('pricing_plan1_feat3', activeContent.packages[0].features[2]),
+        getSettingText('pricing_plan1_feat4', activeContent.packages[0].features[3]),
       ].filter(Boolean),
       featured: false,
     },
     {
       id: 'optimal' as const,
-      name: getSetting('pricing_plan2_name') || activeContent.packages[1].name,
-      desc: getSetting('pricing_plan2_desc') || activeContent.packages[1].desc,
-      frequency: isRtl ? 'حصتان أسبوعياً' : '2 sessions per week',
+      name: getSettingText('pricing_plan2_name', activeContent.packages[1].name),
+      desc: getSettingText('pricing_plan2_desc', activeContent.packages[1].desc),
+      frequency: activeContent.packages[1].frequency,
       features: [
-        getSetting('pricing_plan2_feat1') || activeContent.packages[1].features[0],
-        getSetting('pricing_plan2_feat2') || activeContent.packages[1].features[1],
-        getSetting('pricing_plan2_feat3') || activeContent.packages[1].features[2],
-        getSetting('pricing_plan2_feat4') || activeContent.packages[1].features[3],
+        getSettingText('pricing_plan2_feat1', activeContent.packages[1].features[0]),
+        getSettingText('pricing_plan2_feat2', activeContent.packages[1].features[1]),
+        getSettingText('pricing_plan2_feat3', activeContent.packages[1].features[2]),
+        getSettingText('pricing_plan2_feat4', activeContent.packages[1].features[3]),
       ].filter(Boolean),
       featured: true,
     },
     {
       id: 'intensive' as const,
-      name: getSetting('pricing_plan3_name') || activeContent.packages[2].name,
-      desc: getSetting('pricing_plan3_desc') || activeContent.packages[2].desc,
-      frequency: isRtl ? '3 حصص أسبوعياً' : '3 sessions per week',
+      name: getSettingText('pricing_plan3_name', activeContent.packages[2].name),
+      desc: getSettingText('pricing_plan3_desc', activeContent.packages[2].desc),
+      frequency: activeContent.packages[2].frequency,
       features: [
-        getSetting('pricing_plan3_feat1') || activeContent.packages[2].features[0],
-        getSetting('pricing_plan3_feat2') || activeContent.packages[2].features[1],
-        getSetting('pricing_plan3_feat3') || activeContent.packages[2].features[2],
-        getSetting('pricing_plan3_feat4') || activeContent.packages[2].features[3],
+        getSettingText('pricing_plan3_feat1', activeContent.packages[2].features[0]),
+        getSettingText('pricing_plan3_feat2', activeContent.packages[2].features[1]),
+        getSettingText('pricing_plan3_feat3', activeContent.packages[2].features[2]),
+        getSettingText('pricing_plan3_feat4', activeContent.packages[2].features[3]),
       ].filter(Boolean),
       featured: false,
     },
@@ -471,7 +476,7 @@ export default function PricingClient({ settings, locale }: PricingClientProps) 
             className={`inline-block text-xs uppercase tracking-[0.25em] text-gold-champagne font-bold mb-4 ${isRtl ? 'font-cairo' : 'font-dm'}`}
             variants={fadeInUp}
           >
-            {getSetting('pricing_teaser_title') || activeContent.hero.tag}
+            {getSettingText('pricing_teaser_title', activeContent.hero.tag)}
           </motion.span>
           <motion.h1 
             className={`text-hero text-parchment leading-tight max-w-4xl mx-auto mb-6 ${isRtl ? 'font-amiri font-bold' : 'font-cormorant font-bold'}`}
@@ -483,7 +488,7 @@ export default function PricingClient({ settings, locale }: PricingClientProps) 
             className={`text-sm md:text-base text-parchment/80 leading-relaxed max-w-2xl mx-auto ${isRtl ? 'font-noto' : 'font-lora'}`}
             variants={fadeInUp}
           >
-            {getSetting('pricing_teaser_subtitle') || activeContent.hero.subtitle}
+            {getSettingText('pricing_teaser_subtitle', activeContent.hero.subtitle)}
           </motion.p>
         </motion.div>
 
@@ -599,7 +604,7 @@ export default function PricingClient({ settings, locale }: PricingClientProps) 
 
                   {pkg.featured && (
                     <div className="absolute top-0 right-0 bg-gold text-[#122038] text-[9px] uppercase tracking-widest font-extrabold py-1.5 px-4 rounded-bl-xl z-20">
-                      {isRtl ? 'موصى به' : 'Recommended'}
+                      {isRtl ? 'موصى به' : (locale === 'fr' ? 'Recommandé' : 'Recommended')}
                     </div>
                   )}
 
@@ -640,10 +645,10 @@ export default function PricingClient({ settings, locale }: PricingClientProps) 
                       {/* Subtitle details */}
                       <div className={`text-xs mb-6 pb-6 border-b border-gold-muted/10 ${pkg.featured ? 'text-parchment/75' : 'text-stone'} ${isRtl ? 'font-noto' : 'font-lora'}`}>
                         <p className="font-bold mb-1">
-                          {pkg.frequency} • {classDuration === '30' ? (isRtl ? '30 دقيقة' : '30 mins') : classDuration === '45' ? (isRtl ? '45 دقيقة' : '45 mins') : (isRtl ? '60 دقيقة' : '60 mins')}
+                          {pkg.frequency} • {classDuration === '30' ? (isRtl ? '30 دقيقة' : (locale === 'fr' ? '30 min' : '30 mins')) : classDuration === '45' ? (isRtl ? '45 دقيقة' : (locale === 'fr' ? '45 min' : '45 mins')) : (isRtl ? '60 دقيقة' : (locale === 'fr' ? '60 min' : '60 mins'))}
                         </p>
                         <p className="opacity-80">
-                          ({pricing.perSession}/{isRtl ? 'الحصة' : 'class'})
+                          ({pricing.perSession}/{isRtl ? 'الحصة' : (locale === 'fr' ? 'séance' : 'class')})
                         </p>
                       </div>
 
@@ -674,7 +679,7 @@ export default function PricingClient({ settings, locale }: PricingClientProps) 
                             : 'border border-gold text-gold hover:bg-navy-brand hover:text-parchment hover:border-navy-brand shadow-sm'
                           } ${isRtl ? 'font-cairo' : 'font-dm'}`}
                       >
-                        {isRtl ? 'احجز حصة تقييم مجانية' : 'Book Free Trial'}
+                        {isRtl ? 'احجز حصة تقييم مجانية' : (locale === 'fr' ? 'Essai Gratuit' : 'Book Free Trial')}
                       </Link>
                     </motion.div>
                   </div>
@@ -733,19 +738,19 @@ export default function PricingClient({ settings, locale }: PricingClientProps) 
               className={`inline-block text-xs uppercase tracking-[0.2em] text-gold font-bold mb-3 ${isRtl ? 'font-cairo' : 'font-dm'}`}
               variants={fadeInUp}
             >
-              {isRtl ? 'حماية حقوق الطالب' : 'GUARANTEED RIGHTS'}
+              {isRtl ? 'حماية حقوق الطالب' : (locale === 'fr' ? 'DROITS GARANTIS' : 'GUARANTEED RIGHTS')}
             </motion.span>
             <motion.h2 
               className={`text-title text-midnight font-bold mb-4 ${isRtl ? 'font-amiri' : 'font-cormorant'}`}
               variants={fadeInUp}
             >
-              {refundTitle || activeContent.policies.title}
+              {getSettingText('pricing_teaser_trial_refund_policy_title', activeContent.policies.title)}
             </motion.h2>
             <motion.p 
               className={`text-sm text-stone max-w-xl mx-auto mb-16 leading-relaxed ${isRtl ? 'font-noto' : 'font-lora'}`}
               variants={fadeInUp}
             >
-              {refundDesc || activeContent.policies.subtitle}
+              {getSettingText('pricing_teaser_trial_refund_policy_desc', activeContent.policies.subtitle)}
             </motion.p>
           </motion.div>
 

@@ -9,6 +9,7 @@ import {
   Menu, X, Globe, ChevronDown, Home, Users, Mail, FileText,
   BookOpen, Award, GraduationCap, CreditCard
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Header() {
   const t = useTranslations('Navigation');
@@ -512,23 +513,47 @@ export default function Header() {
         </div>
 
         {/* Mobile Language dropdown fallback */}
-        {langDropdownOpen && (
-          <div className="md:hidden absolute top-16 right-6 bg-white border border-gold-muted/20 rounded-md shadow-xl py-1 w-36 z-50">
-            {['en', 'fr', 'ar'].map((lang) => (
-              <button
-                key={lang}
-                onClick={() => switchLocale(lang)}
-                className="w-full text-left px-4 py-2 text-xs text-navy-brand/70 hover:bg-[#FDFAF3] hover:text-gold transition-colors duration-150 cursor-pointer"
-              >
-                {getLanguageLabel(lang)}
-              </button>
-            ))}
-          </div>
-        )}
+        <AnimatePresence>
+          {langDropdownOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className={`md:hidden absolute top-16 bg-[#FDFAF3]/98 backdrop-blur-md border border-gold-muted/20 rounded-xl shadow-[0_12px_40px_rgba(6,13,22,0.12)] py-2 w-36 z-50 overflow-hidden ${
+                isRtl ? 'left-6 origin-top-left' : 'right-6 origin-top-right'
+              }`}
+            >
+              {/* Gold Highlight Line */}
+              <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-gold-champagne to-transparent" />
+              {['en', 'fr', 'ar'].map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => switchLocale(lang)}
+                  className={`w-full px-4 py-2.5 text-xs hover:bg-gold-champagne/10 hover:text-gold transition-colors duration-150 cursor-pointer ${
+                    locale === lang ? 'text-gold font-semibold bg-gold-champagne/[0.05]' : 'text-navy-brand/75'
+                  } ${isRtl ? 'text-right' : 'text-left'} ${lang === 'ar' ? 'font-cairo' : 'font-dm'}`}
+                >
+                  {getLanguageLabel(lang)}
+                </button>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Mobile Drawer Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden w-full border-t border-gold-muted/10 pt-4 animate-fade-in">
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ 
+                duration: 0.35,
+                ease: [0.16, 1, 0.3, 1]
+              }}
+              className="md:hidden w-full border-t border-gold-muted/10 pt-4 overflow-hidden"
+            >
             <nav className={`flex flex-col gap-4 ${isRtl ? 'font-cairo text-right' : 'font-dm text-left'}`}>
               {/* Home Link */}
               <Link
@@ -711,8 +736,9 @@ export default function Header() {
                 </div>
               </div>
             </nav>
-          </div>
+          </motion.div>
         )}
+      </AnimatePresence>
       </div>
     </header>
   );
