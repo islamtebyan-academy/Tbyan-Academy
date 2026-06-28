@@ -355,7 +355,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
                 </h1>
 
                 {/* Subtitle / Tagline */}
-                <p className={`text-stone/90 text-sm md:text-base max-w-xl font-normal leading-relaxed ${
+                <p className={`text-stone-300 text-sm md:text-base max-w-xl font-normal leading-relaxed ${
                   isRtl ? 'font-noto' : 'font-lora italic'
                 }`}>
                   {course.tagline}
@@ -365,7 +365,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 max-w-2xl">
                   
                   <div className="p-4 border border-white/[0.06] bg-white/[0.02] rounded-2xl space-y-1 group hover:border-gold-hi/25 hover:bg-white/[0.04] transition-all duration-300">
-                    <span className="block text-[8px] uppercase tracking-wider text-stone/50 font-bold font-dm">
+                    <span className="block text-[8px] uppercase tracking-wider text-stone-400 font-bold font-dm">
                       {labels.duration}
                     </span>
                     <span className={`block text-xs text-gold-champagne font-extrabold ${isRtl ? 'font-cairo' : 'font-dm'}`}>
@@ -374,7 +374,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
                   </div>
 
                   <div className="p-4 border border-white/[0.06] bg-white/[0.02] rounded-2xl space-y-1 group hover:border-gold-hi/25 hover:bg-white/[0.04] transition-all duration-300">
-                    <span className="block text-[8px] uppercase tracking-wider text-stone/50 font-bold font-dm">
+                    <span className="block text-[8px] uppercase tracking-wider text-stone-400 font-bold font-dm">
                       {labels.level}
                     </span>
                     <span className={`block text-xs text-white font-extrabold ${isRtl ? 'font-cairo' : 'font-dm'}`}>
@@ -383,7 +383,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
                   </div>
 
                   <div className="p-4 border border-white/[0.06] bg-white/[0.02] rounded-2xl space-y-1 group hover:border-gold-hi/25 hover:bg-white/[0.04] transition-all duration-300">
-                    <span className="block text-[8px] uppercase tracking-wider text-stone/50 font-bold font-dm">
+                    <span className="block text-[8px] uppercase tracking-wider text-stone-400 font-bold font-dm">
                       {labels.syllabus}
                     </span>
                     <span className={`block text-xs text-white font-extrabold truncate ${isRtl ? 'font-cairo' : 'font-dm'}`}>
@@ -392,10 +392,10 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
                   </div>
 
                   <div className="p-4 border border-white/[0.06] bg-white/[0.02] rounded-2xl space-y-1 group hover:border-gold-hi/25 hover:bg-white/[0.04] transition-all duration-300">
-                    <span className="block text-[8px] uppercase tracking-wider text-stone/50 font-bold font-dm">
+                    <span className="block text-[8px] uppercase tracking-wider text-stone-400 font-bold font-dm">
                       {labels.delivery}
                     </span>
-                    <span className={`block text-xs text-gold-hi font-extrabold ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                    <span className={`block text-xs text-gold-champagne font-extrabold ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                       {labels.deliveryVal}
                     </span>
                   </div>
