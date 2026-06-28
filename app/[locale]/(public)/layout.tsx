@@ -4,6 +4,8 @@ import Footer from '@/components/layout/Footer';
 import WhatsAppFloating from '@/components/ui/WhatsAppFloating';
 import { createStaticClient } from '@/lib/supabase/server';
 
+export const revalidate = 600;
+
 interface PublicLayoutProps {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
