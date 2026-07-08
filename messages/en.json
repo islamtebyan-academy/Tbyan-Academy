@@ -129,7 +129,11 @@
     "successDesc": "Your booking request has been successfully recorded. An academic coordinator will email you within 12 hours with your Zoom link, schedule, and scholar details.",
     "validationName": "Full name is required to process the booking",
     "validationEmail": "Please provide a valid email address for coordination",
-    "validationGoals": "Please share a brief description of your educational goals"
+    "validationGoals": "Please share a brief description of your educational goals",
+    "whatsapp": "WhatsApp Number",
+    "countryLabel": "Country",
+    "validationWhatsapp": "WhatsApp number is required",
+    "validationCountry": "Country is required"
   },
   "Footer": {
     "verse": "\"And We have sent down to you the Book as a clarification for all things, and as guidance, mercy, and glad tidings for the Muslims.\" — Quran 16:89",

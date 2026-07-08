@@ -129,7 +129,11 @@
     "successDesc": "Votre demande a bien été enregistrée. Un coordinateur vous contactera par e-mail sous 12 heures avec votre lien Zoom et les détails de l'enseignant.",
     "validationName": "Le nom est requis pour traiter votre demande",
     "validationEmail": "Veuillez fournir une adresse e-mail de contact valide",
-    "validationGoals": "Veuillez décrire brièvement vos objectifs pédagogiques"
+    "validationGoals": "Veuillez décrire brièvement vos objectifs pédagogiques",
+    "whatsapp": "Numéro WhatsApp",
+    "countryLabel": "Pays",
+    "validationWhatsapp": "Le numéro WhatsApp est requis",
+    "validationCountry": "Le pays est requis"
   },
   "Footer": {
     "verse": "\"Et Nous avons fait descendre sur toi le Livre, comme un exposé explicite de toute chose, ainsi qu'un guide, une grâce et une bonne nouvelle pour les Musulmans.\" — Coran 16:89",

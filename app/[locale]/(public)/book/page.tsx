@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ArrowLeft, ArrowRight, Loader2, Sparkles } from 'lucide-react';
+import { detectCountry, DEFAULT_COUNTRY } from '@/lib/countries';
 
 const formSchema = z.object({
   program: z.enum(['quran', 'arabic', 'islamic']),
@@ -18,6 +19,8 @@ const formSchema = z.object({
   studentEmail: z.string().email('Please enter a valid email address'),
   studentAge: z.enum(['child', 'teen', 'adult']),
   studentGoals: z.string().min(10, 'Please write a brief summary (min 10 characters)'),
+  whatsapp: z.string().min(5, 'WhatsApp number is required'),
+  country: z.string().min(1, 'Country is required'),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -30,6 +33,8 @@ export default function BookPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  
+  const [country, setCountry] = useState(DEFAULT_COUNTRY);
 
   // Form initialization
   const {
@@ -51,8 +56,17 @@ export default function BookPage() {
       studentEmail: '',
       studentAge: 'adult',
       studentGoals: '',
+      whatsapp: '',
+      country: '',
     },
   });
+
+  useEffect(() => {
+    const detected = detectCountry();
+    setCountry(detected);
+    setValue('country', detected.name);
+    setValue('whatsapp', detected.dial + ' ');
+  }, [setValue]);
 
   const selectedProgram = watch('program');
   const selectedFrequency = watch('frequency');
@@ -66,7 +80,7 @@ export default function BookPage() {
     if (currentStep === 1) fieldsToValidate = ['program'];
     if (currentStep === 2) fieldsToValidate = ['frequency', 'duration'];
     if (currentStep === 3) fieldsToValidate = ['timezone', 'genderPreference'];
-    if (currentStep === 4) fieldsToValidate = ['studentName', 'studentEmail', 'studentAge', 'studentGoals'];
+    if (currentStep === 4) fieldsToValidate = ['studentName', 'studentEmail', 'studentAge', 'studentGoals', 'whatsapp', 'country'];
 
     const isValid = await trigger(fieldsToValidate);
     if (isValid) {
@@ -425,6 +439,44 @@ export default function BookPage() {
                       </div>
                     </div>
 
+                    {/* Row: Country & WhatsApp */}
+                    <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
+                      {/* Country display */}
+                      <div className="sm:col-span-2 text-start">
+                        <label className={`block text-[10px] font-bold uppercase tracking-widest text-stone mb-2.5 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                          {t('countryLabel')}
+                        </label>
+                        <div className={`flex items-center gap-2 bg-ivory/40 border border-gold-muted/20 py-3.5 px-4 rounded-xl text-sm ${isRtl ? 'font-noto' : 'font-dm'}`}>
+                          <span className="text-lg leading-none">{country.flag}</span>
+                          <span className="text-sm text-midnight/80 font-medium truncate">{country.name}</span>
+                        </div>
+                        <input type="hidden" {...register('country')} />
+                      </div>
+
+                      {/* WhatsApp with flag/dial prefix overlay */}
+                      <div className="sm:col-span-3 text-start">
+                        <label htmlFor="whatsapp" className={`block text-[10px] font-bold uppercase tracking-widest text-stone mb-2.5 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                          {t('whatsapp')}
+                        </label>
+                        <div className="relative">
+                          <div className={`absolute top-1/2 -translate-y-1/2 flex items-center gap-1 text-[12px] text-stone/50 font-semibold pointer-events-none ${isRtl ? 'right-3' : 'left-3'} ${isRtl ? 'font-cairo' : 'font-dm'}`}>
+                            <span className="text-sm">{country.flag}</span>
+                            <span>{country.dial}</span>
+                          </div>
+                          <input
+                            type="tel"
+                            id="whatsapp"
+                            placeholder="5XXXXXXXX"
+                            {...register('whatsapp')}
+                            className={`w-full bg-ivory/40 border border-gold-muted/20 text-midnight p-3.5 rounded-xl text-sm focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/10 transition-all duration-200 placeholder:text-stone/30 ${isRtl ? 'pr-20' : 'pl-20'}`}
+                          />
+                        </div>
+                        {errors.whatsapp && (
+                          <p className="text-red-500 text-xs mt-1.5 font-semibold">{t('validationWhatsapp')}</p>
+                        )}
+                      </div>
+                    </div>
+
                     <div>
                       <label className={`block text-[10px] font-bold uppercase tracking-widest text-stone mb-3.5 ${isRtl ? 'font-cairo' : 'font-dm'}`}>
                         {t('studentAge')}
@@ -506,9 +558,17 @@ export default function BookPage() {
                         <span className="text-stone">{t('studentName')}</span>
                         <span className="font-bold text-midnight">{watch('studentName')}</span>
                       </div>
-                      <div className="flex justify-between">
+                      <div className="flex justify-between border-b border-gold-muted/10 pb-3">
                         <span className="text-stone">{t('studentEmail')}</span>
                         <span className="font-bold text-midnight">{watch('studentEmail')}</span>
+                      </div>
+                      <div className="flex justify-between border-b border-gold-muted/10 pb-3">
+                        <span className="text-stone">{t('whatsapp')}</span>
+                        <span className="font-bold text-midnight">{watch('whatsapp')}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-stone">{t('countryLabel')}</span>
+                        <span className="font-bold text-midnight">{watch('country')}</span>
                       </div>
                     </div>
 

@@ -13,6 +13,8 @@ const bookingSchema = z.object({
   studentEmail: z.string().email(),
   studentAge: z.enum(['child', 'teen', 'adult']),
   studentGoals: z.string().min(10),
+  whatsapp: z.string().optional().nullable(),
+  country: z.string().optional().nullable(),
 });
 
 export async function POST(request: Request) {
@@ -26,7 +28,7 @@ export async function POST(request: Request) {
     let body = { ...rawBody };
     
     // Map homepage/contact direct form fields to the strict wizard bookingSchema
-    if ('firstName' in body || 'whatsapp' in body) {
+    if ('firstName' in body) {
       const ageNum = parseInt(body.age) || 20;
       let studentAge: 'child' | 'teen' | 'adult' = 'adult';
       if (ageNum < 13) studentAge = 'child';
