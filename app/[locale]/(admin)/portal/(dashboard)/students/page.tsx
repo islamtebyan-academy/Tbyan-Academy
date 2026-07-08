@@ -345,13 +345,13 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                         <td className="py-4 px-6">
                           <div className="font-bold text-midnight font-primary text-base">{student.full_name}</div>
                           <div className="space-y-0.5 mt-1.5">
-                            <div className="flex items-center gap-1.5 text-xs text-stone/60 font-mono">
-                              <Mail size={12} className="text-gold" />
+                            <div className="flex items-center gap-1.5 text-xs text-stone/85 font-semibold font-mono">
+                              <Mail size={12} className="text-gold shrink-0" />
                               <span>{student.email}</span>
                             </div>
                             {student.phone && (
-                              <div className="flex items-center gap-1.5 text-[11px] text-stone/50 font-mono">
-                                <Phone size={12} className="text-gold" />
+                              <div className="flex items-center gap-1.5 text-[11px] text-stone/75 font-semibold font-mono">
+                                <Phone size={12} className="text-gold shrink-0" />
                                 <span>{student.phone}</span>
                               </div>
                             )}
@@ -363,21 +363,21 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                           <div className="font-bold text-xs text-midnight">
                             {getProgramLabel(student.program)}
                           </div>
-                          <div className="text-[10px] text-stone/70 mt-1 space-y-0.5">
+                          <div className="text-[10px] text-stone/85 font-semibold mt-1 space-y-0.5">
                             <div>{student.frequency} • {student.duration}</div>
                             {student.gender_preference && (
-                              <div className="text-gold/80 capitalize">{isRtl ? 'المعلم المفضل:' : 'Teacher:'} {student.gender_preference}</div>
+                              <div className="text-[#8c6b42] capitalize">{isRtl ? 'المعلم المفضل:' : 'Teacher:'} {student.gender_preference}</div>
                             )}
                           </div>
                         </td>
 
                         {/* Origin & Timezone */}
-                        <td className="py-4 px-4 text-xs text-stone/80">
+                        <td className="py-4 px-4 text-xs text-stone/90">
                           <div className="flex items-center gap-1">
-                            <MapPin size={12} className="text-gold" />
+                            <MapPin size={12} className="text-gold shrink-0" />
                             <span>{student.country || 'N/A'}</span>
                           </div>
-                          <div className="text-[10px] text-stone/40 font-mono mt-1">
+                          <div className="text-[10px] text-stone/65 font-bold font-mono mt-1">
                             {student.timezone || 'UTC'}
                           </div>
                         </td>
@@ -395,7 +395,7 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                             )}
                           </div>
                           {student.subscription_plan !== 'none' && (
-                            <div className="text-[9px] text-stone/45 font-mono mt-1.5 space-y-0.5">
+                            <div className="text-[9px] text-stone/65 font-bold font-mono mt-1.5 space-y-0.5">
                               <div>{isRtl ? 'يبدأ:' : 'Starts:'} {formatDate(student.subscription_starts_at)}</div>
                               <div>{isRtl ? 'ينتهي:' : 'Ends:'} {formatDate(student.subscription_ends_at)}</div>
                             </div>
@@ -411,7 +411,7 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                         <td className="py-4 px-6 text-end">
                           <PortalButton
                             href={`/${locale}/portal/students?query=${query}&program=${program}&status=${status}&plan=${plan}&id=${student.id}`}
-                            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold bg-gold/5 hover:bg-gold text-gold hover:text-midnight border border-gold/20 hover:border-gold transition-all duration-300 shadow-sm font-ui"
+                            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#F4EFEB] text-[#8c6b42] hover:text-midnight shadow-[2px_2px_4px_#d1c9c4,-2px_-2px_4px_#ffffff] hover:shadow-[inset_1.5px_1.5px_3px_#d1c9c4,inset_-1.5px_-1.5px_3px_#ffffff] transition-all duration-200 font-ui"
                             icon={<Edit3 size={12} />}
                           >
                             <span>{isRtl ? 'تعديل' : 'Edit'}</span>
@@ -443,12 +443,12 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                       <div className="min-w-0">
                         <div className="font-bold text-midnight font-primary text-base leading-snug">{student.full_name}</div>
                         <div className="space-y-0.5 mt-1">
-                          <div className="flex items-center gap-1 text-[10.5px] text-stone/50 font-mono">
+                          <div className="flex items-center gap-1 text-[10.5px] text-stone/85 font-semibold font-mono">
                             <Mail size={11} className="text-gold shrink-0" />
                             <span className="truncate">{student.email}</span>
                           </div>
                           {student.phone && (
-                            <div className="flex items-center gap-1 text-[10.5px] text-stone/40 font-mono">
+                            <div className="flex items-center gap-1 text-[10.5px] text-stone/75 font-semibold font-mono">
                               <Phone size={11} className="text-gold shrink-0" />
                               <span>{student.phone}</span>
                             </div>
@@ -464,26 +464,26 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                     <div className="grid grid-cols-2 gap-3 pt-3 border-t border-gold-muted/10">
                       {/* Program Track */}
                       <div className="space-y-1">
-                        <span className="text-[9px] uppercase font-bold tracking-wider text-stone/40 font-ui block">{isRtl ? 'المسار الدراسي' : 'Program Track'}</span>
+                        <span className="text-[9px] uppercase font-bold tracking-wider text-stone/80 font-ui block">{isRtl ? 'المسار الدراسي' : 'Program Track'}</span>
                         <div className="font-bold text-xs text-midnight leading-tight">{getProgramLabel(student.program)}</div>
-                        <div className="text-[10px] text-stone/60">{student.frequency} • {student.duration}</div>
+                        <div className="text-[10px] text-stone/90 font-semibold">{student.frequency} • {student.duration}</div>
                       </div>
 
                       {/* Origin & Timezone */}
                       <div className="space-y-1">
-                        <span className="text-[9px] uppercase font-bold tracking-wider text-stone/40 font-ui block">{isRtl ? 'الدولة والمنطقة' : 'Origin & Timezone'}</span>
-                        <div className="flex items-center gap-1 text-xs text-stone/70">
+                        <span className="text-[9px] uppercase font-bold tracking-wider text-stone/80 font-ui block">{isRtl ? 'الدولة والمنطقة' : 'Origin & Timezone'}</span>
+                        <div className="flex items-center gap-1 text-xs text-stone/90 font-medium">
                           <MapPin size={11} className="text-gold shrink-0" />
-                          <span className="font-medium">{student.country || 'N/A'}</span>
+                          <span className="font-bold">{student.country || 'N/A'}</span>
                         </div>
-                        <div className="text-[10px] text-stone/40 font-mono">{student.timezone || 'UTC'}</div>
+                        <div className="text-[10px] text-stone/65 font-bold font-mono">{student.timezone || 'UTC'}</div>
                       </div>
                     </div>
 
                     {/* Subscription Details (Full width sub-section within the card) */}
                     <div className="p-3 rounded-lg bg-[#F4EFEB] shadow-[inset_2px_2px_5px_#d1c9c4,inset_-2px_-2px_5px_#ffffff] border border-white/40 space-y-2">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-[9px] uppercase font-bold tracking-wider text-stone/45 font-ui">{isRtl ? 'تفاصيل الباقة' : 'Membership details'}</span>
+                        <span className="text-[9px] uppercase font-bold tracking-wider text-stone/80 font-ui">{isRtl ? 'تفاصيل الباقة' : 'Membership details'}</span>
                         <div className="flex items-center gap-1.5">
                           <span className={`inline-block text-[8px] uppercase font-extrabold tracking-wider px-2 py-0.5 rounded border ${planColor}`}>
                             {student.subscription_plan === 'none' ? (isRtl ? 'لا يوجد باقة' : 'No Membership') : student.subscription_plan}
@@ -497,9 +497,9 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                       </div>
 
                       {student.subscription_plan !== 'none' && (
-                        <div className="grid grid-cols-2 gap-2 text-[9px] text-stone/50 font-mono pt-1.5 border-t border-gold-muted/5">
-                          <div><span className="font-ui text-stone/40">{isRtl ? 'البدء: ' : 'Starts: '}</span>{formatDate(student.subscription_starts_at)}</div>
-                          <div><span className="font-ui text-stone/40">{isRtl ? 'الانتهاء: ' : 'Ends: '}</span>{formatDate(student.subscription_ends_at)}</div>
+                        <div className="grid grid-cols-2 gap-2 text-[9px] text-stone/75 font-bold font-mono pt-1.5 border-t border-gold-muted/5">
+                          <div><span className="font-ui text-stone/60">{isRtl ? 'البدء: ' : 'Starts: '}</span>{formatDate(student.subscription_starts_at)}</div>
+                          <div><span className="font-ui text-stone/60">{isRtl ? 'الانتهاء: ' : 'Ends: '}</span>{formatDate(student.subscription_ends_at)}</div>
                         </div>
                       )}
                     </div>
@@ -508,8 +508,8 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                     <div className="pt-2">
                       <PortalButton
                         href={`/${locale}/portal/students?query=${query}&program=${program}&status=${status}&plan=${plan}&id=${student.id}`}
-                        className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-bold bg-[#F4EFEB] text-gold hover:text-midnight shadow-[2px_2px_4px_#d1c9c4,-2px_-2px_4px_#ffffff] hover:shadow-[inset_1px_1px_2px_#d1c9c4,inset_-1px_-1px_2px_#ffffff] transition-all duration-300 font-ui cursor-pointer"
-                        icon={<Edit3 size={12} />}
+                        className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-bold bg-[#F4EFEB] text-midnight hover:text-[#7a5e3d] shadow-[2px_2px_4px_#d1c9c4,-2px_-2px_4px_#ffffff] hover:shadow-[inset_1px_1px_2px_#d1c9c4,inset_-1px_-1px_2px_#ffffff] transition-all duration-300 font-ui cursor-pointer"
+                        icon={<Edit3 size={12} className="text-[#8c6b42]" />}
                       >
                         <span>{isRtl ? 'تعديل بيانات واشتراك الطالب' : 'Edit subscription'}</span>
                       </PortalButton>
@@ -563,13 +563,13 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                 <div className="bg-[#F4EFEB] shadow-[inset_4px_4px_8px_#d1c9c4,inset_-4px_-4px_8px_#ffffff] md:shadow-[inset_6px_6px_12px_#d1c9c4,inset_-6px_-6px_12px_#ffffff] rounded-xl md:rounded-2xl p-4 md:p-6 space-y-3 md:space-y-4 text-start">
                   <div className="flex items-center justify-between gap-2">
                     <div>
-                      <span className="text-[8px] md:text-[9px] text-stone/65 uppercase font-bold tracking-wider font-ui">{isRtl ? 'الاسم الكامل للطالب' : 'Student Name'}</span>
+                      <span className="text-[8px] md:text-[9px] text-stone/85 uppercase font-bold tracking-wider font-ui">{isRtl ? 'الاسم الكامل للطالب' : 'Student Name'}</span>
                       <p className="text-sm md:text-base font-bold text-midnight font-primary mt-0.5">{selectedStudent.full_name}</p>
                     </div>
                     <div className="flex items-center gap-1.5 shrink-0">
                       <a 
                         href={`mailto:${selectedStudent.email}?subject=${encodeURIComponent(isRtl ? 'أكاديمية إسلام تبيان - متابعة دراسية' : 'Islam Tebyan Academy - Academic Follow-up')}`}
-                        className="p-1.5 rounded-lg bg-[#F4EFEB] text-gold hover:text-midnight shadow-[2px_2px_4px_#d1c9c4,-2px_-2px_4px_#ffffff] hover:shadow-[inset_1px_1px_2px_#d1c9c4,inset_-1px_-1px_2px_#ffffff] transition-all flex items-center justify-center shrink-0"
+                        className="p-1.5 rounded-lg bg-[#F4EFEB] text-[#8c6b42] hover:text-midnight shadow-[2px_2px_4px_#d1c9c4,-2px_-2px_4px_#ffffff] hover:shadow-[inset_1px_1px_2px_#d1c9c4,inset_-1px_-1px_2px_#ffffff] transition-all flex items-center justify-center shrink-0"
                         title={isRtl ? 'إرسال بريد إلكتروني' : 'Send Email'}
                       >
                         <Mail size={11} />
@@ -591,27 +591,27 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                   <div className="grid grid-cols-2 gap-3 pt-2.5 border-t border-gold-muted/10">
                     {/* Program Track */}
                     <div>
-                      <span className="text-[8px] md:text-[9px] text-stone/65 uppercase font-bold tracking-wider font-ui">{isRtl ? 'البرنامج الدراسي' : 'Program Track'}</span>
+                      <span className="text-[8px] md:text-[9px] text-stone/85 uppercase font-bold tracking-wider font-ui">{isRtl ? 'البرنامج الدراسي' : 'Program Track'}</span>
                       <p className="text-[11px] md:text-xs text-midnight font-bold mt-0.5 leading-tight">{getProgramLabel(selectedStudent.program)} ({selectedStudent.frequency})</p>
                     </div>
 
                     {/* Origin / Timezone */}
                     <div>
-                      <span className="text-[8px] md:text-[9px] text-stone/65 uppercase font-bold tracking-wider font-ui">{isRtl ? 'الدولة والمنطقة' : 'Origin & Timezone'}</span>
-                      <p className="text-[11px] md:text-xs text-stone mt-0.5 leading-tight truncate" title={`${selectedStudent.country || 'N/A'} • ${selectedStudent.timezone || 'UTC'}`}>{selectedStudent.country || 'N/A'} • {selectedStudent.timezone || 'UTC'}</p>
+                      <span className="text-[8px] md:text-[9px] text-stone/85 uppercase font-bold tracking-wider font-ui">{isRtl ? 'الدولة والمنطقة' : 'Origin & Timezone'}</span>
+                      <p className="text-[11px] md:text-xs text-midnight font-semibold mt-0.5 leading-tight truncate" title={`${selectedStudent.country || 'N/A'} • ${selectedStudent.timezone || 'UTC'}`}>{selectedStudent.country || 'N/A'} • {selectedStudent.timezone || 'UTC'}</p>
                     </div>
 
                     {/* Email Display */}
                     <div className="col-span-2">
-                      <span className="text-[8px] md:text-[9px] text-stone/65 uppercase font-bold tracking-wider font-ui">{isRtl ? 'البريد الإلكتروني' : 'Email Address'}</span>
-                      <p className="text-[11px] md:text-xs text-stone font-mono mt-0.5 truncate" title={selectedStudent.email}>{selectedStudent.email}</p>
+                      <span className="text-[8px] md:text-[9px] text-stone/85 uppercase font-bold tracking-wider font-ui">{isRtl ? 'البريد الإلكتروني' : 'Email Address'}</span>
+                      <p className="text-[11px] md:text-xs text-midnight font-mono font-semibold mt-0.5 truncate" title={selectedStudent.email}>{selectedStudent.email}</p>
                     </div>
                   </div>
 
                   {selectedStudent.goals && (
                     <div className="pt-2 border-t border-gold-muted/10">
-                      <span className="text-[8px] md:text-[9px] text-stone/65 uppercase font-bold tracking-wider font-ui">{isRtl ? 'الأهداف والخلفية' : 'Background & Goals'}</span>
-                      <p className="text-[10px] md:text-[11px] text-stone/85 mt-1 max-h-12 md:max-h-24 overflow-y-auto whitespace-pre-wrap font-ui description-justify-start pr-1 no-scrollbar">
+                      <span className="text-[8px] md:text-[9px] text-stone/85 uppercase font-bold tracking-wider font-ui">{isRtl ? 'الأهداف والخلفية' : 'Background & Goals'}</span>
+                      <p className="text-[10px] md:text-[11px] text-midnight/80 font-medium mt-1 max-h-12 md:max-h-24 overflow-y-auto whitespace-pre-wrap font-ui description-justify-start pr-1 no-scrollbar">
                         {selectedStudent.goals}
                       </p>
                     </div>
@@ -649,7 +649,7 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                 <div className="space-y-4 md:space-y-5">
                   {/* 1. Academic Status */}
                   <div className="space-y-1 md:space-y-2">
-                    <label htmlFor="student-status-select" className="block text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-stone/75 font-ui">
+                    <label htmlFor="student-status-select" className="block text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-stone/90 font-ui">
                       {isRtl ? 'حالة الطالب الأكاديمية' : 'Academic Status'}
                     </label>
                     <select
@@ -669,7 +669,7 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                   {/* 2. Manual Sub Plan */}
                   <div className="grid grid-cols-2 gap-3 md:gap-4">
                     <div className="space-y-1 md:space-y-2">
-                      <label htmlFor="subscription-plan-select" className="block text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-stone/75 font-ui">
+                      <label htmlFor="subscription-plan-select" className="block text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-stone/90 font-ui">
                         {isRtl ? 'باقة الاشتراك' : 'Subscription Tier'}
                       </label>
                       <select
@@ -687,7 +687,7 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                     </div>
 
                     <div className="space-y-1 md:space-y-2">
-                      <label htmlFor="subscription-status-select" className="block text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-stone/75 font-ui">
+                      <label htmlFor="subscription-status-select" className="block text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-stone/90 font-ui">
                         {isRtl ? 'حالة الاشتراك' : 'Subscription Status'}
                       </label>
                       <select
@@ -708,7 +708,7 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                   {/* 3. Subscription Start & End Dates */}
                   <div className="grid grid-cols-2 gap-3 md:gap-4">
                     <div className="space-y-1 md:space-y-2">
-                      <label htmlFor="starts-at-input" className="block text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-stone/75 font-ui">
+                      <label htmlFor="starts-at-input" className="block text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-stone/90 font-ui">
                         {isRtl ? 'تاريخ البدء' : 'Start Date'}
                       </label>
                       <input
@@ -723,7 +723,7 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
                     </div>
 
                     <div className="space-y-1 md:space-y-2">
-                      <label htmlFor="ends-at-input" className="block text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-stone/75 font-ui">
+                      <label htmlFor="ends-at-input" className="block text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-stone/90 font-ui">
                         {isRtl ? 'تاريخ الانتهاء' : 'Expiry Date'}
                       </label>
                       <input
