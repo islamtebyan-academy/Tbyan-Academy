@@ -72,7 +72,7 @@ export default function Hero({
 
             {/* Main Title */}
             <h1
-              className={`group text-hero text-parchment mb-6 cursor-default animate-fade-up opacity-0 [animation-delay:150ms] ${isRtl ? 'font-amiri font-bold leading-[1.45]' : 'font-cormorant font-bold leading-[1.08]'
+              className={`group text-hero text-parchment mb-6 cursor-default md:animate-fade-up md:opacity-0 md:[animation-delay:150ms] ${isRtl ? 'font-amiri font-bold leading-[1.45]' : 'font-cormorant font-bold leading-[1.08]'
                 }`}
             >
               {headlineOverride ? (
@@ -94,7 +94,7 @@ export default function Hero({
 
             {/* Description */}
             <p
-              className={`text-sm md:text-base text-parchment/80 font-normal leading-relaxed mb-10 max-w-2xl cursor-default description-justify-start transition-colors duration-300 hover:text-ivory animate-fade-up opacity-0 [animation-delay:300ms] ${isRtl ? 'font-noto' : 'font-lora'
+              className={`text-sm md:text-base text-parchment/80 font-normal leading-relaxed mb-10 max-w-2xl cursor-default description-justify-start transition-colors duration-300 hover:text-ivory md:animate-fade-up md:opacity-0 md:[animation-delay:300ms] ${isRtl ? 'font-noto' : 'font-lora'
                 }`}
             >
               {descriptionOverride || t('description')}
@@ -102,7 +102,7 @@ export default function Hero({
 
             {/* Actions buttons */}
             <div
-              className={`flex flex-col sm:flex-row gap-4 items-center sm:items-start w-full sm:w-auto animate-fade-up opacity-0 [animation-delay:450ms] ${isRtl ? 'font-cairo' : 'font-dm'
+              className={`flex flex-col sm:flex-row gap-4 items-center sm:items-start w-full sm:w-auto md:animate-fade-up md:opacity-0 md:[animation-delay:450ms] ${isRtl ? 'font-cairo' : 'font-dm'
                 }`}
             >
               <Link
